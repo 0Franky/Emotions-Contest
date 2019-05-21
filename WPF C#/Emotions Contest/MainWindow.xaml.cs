@@ -85,5 +85,10 @@ namespace Emotions_Contest
                 "\nNotes: " + txt_Notes.Text
                 );
         }
+
+        private void Txt_Notes_PreviewMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            txt_Notes.Text = "";
+        }
     }
 }

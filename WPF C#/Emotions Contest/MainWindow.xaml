@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Emotions_Contest"
         mc:Ignorable="d"
-        Title="MainWindow" Height="835.359" Width="771.398">
+        Title="Emotions Contest" Height="835.359" Width="771.398" WindowStartupLocation="CenterScreen">
     <Grid>
         <Label Content="In witch activuty have you mainly been involved since the last notification?" HorizontalAlignment="Center" Margin="0,20,0,0" VerticalAlignment="Top" FontSize="20" FontWeight="Bold"/>
         <ComboBox x:Name="lbl_Activity" HorizontalAlignment="Center" Margin="0,62,0,0" VerticalAlignment="Top" Width="317" IsEditable="True"/>
@@ -100,8 +100,18 @@
 
 
         <Label Content="Notes (Optinal)" HorizontalAlignment="Left" Margin="25,668,0,0" VerticalAlignment="Top" FontWeight="Bold" FontSize="14"/>
-        <Label Content="Export to csv..." HorizontalAlignment="Right" Margin="0,0,5,5" VerticalAlignment="Bottom" FontWeight="Bold" FontSize="14" Foreground="#FF008BFF"/>
-        <TextBox x:Name="txt_Notes" Margin="10,702,10,53" TextWrapping="Wrap" Text="Did you experience anything that might have affected your emotion during the last session?" Foreground="#FF919191" HorizontalContentAlignment="Center"/>
-        <Button Content="Done" HorizontalAlignment="Center" Margin="0,770,0,0" VerticalAlignment="Top" Width="75" FontSize="14" FontWeight="Bold" Click="Button_Click"/>
+        <Label Content="Export to csv..." HorizontalAlignment="Right" Margin="0,0,5,5" VerticalAlignment="Bottom" FontWeight="Bold" FontSize="14" Foreground="#FF008BFF">
+            <Label.Style>
+                <Style TargetType="{x:Type Label}">
+                    <Style.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter Property="Background" Value="#FF98D1FF"/>
+                        </Trigger>
+                    </Style.Triggers>
+                </Style>
+            </Label.Style>
+        </Label>
+        <TextBox x:Name="txt_Notes" Margin="10,702,10,53" TextWrapping="Wrap" Text="Did you experience anything that might have affected your emotion during the last session?" Foreground="#FF919191" HorizontalContentAlignment="Center" PreviewMouseLeftButtonDown="Txt_Notes_PreviewMouseLeftButtonDown"/>
+        <Button Content="Done" HorizontalAlignment="Center" Margin="0,0,0,15" VerticalAlignment="Bottom" Width="75" FontSize="14" FontWeight="Bold" Click="Button_Click"/>
     </Grid>
 </Window>
