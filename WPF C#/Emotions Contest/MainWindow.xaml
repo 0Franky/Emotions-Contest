@@ -5,10 +5,10 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Emotions_Contest"
         mc:Ignorable="d"
-        Title="MainWindow" Height="824.873" Width="771.398">
+        Title="MainWindow" Height="835.359" Width="771.398">
     <Grid>
         <Label Content="In witch activuty have you mainly been involved since the last notification?" HorizontalAlignment="Center" Margin="0,20,0,0" VerticalAlignment="Top" FontSize="20" FontWeight="Bold"/>
-        <ComboBox HorizontalAlignment="Center" Margin="0,62,0,0" VerticalAlignment="Top" Width="317"/>
+        <ComboBox x:Name="lbl_Activity" HorizontalAlignment="Center" Margin="0,62,0,0" VerticalAlignment="Top" Width="317" IsEditable="True"/>
         <Label Content="How do you feel right now?" HorizontalAlignment="Center" Margin="0,113,0,0" VerticalAlignment="Top" FontSize="18" FontWeight="Bold"/>
         <Grid Height="227" Margin="25,152,25,0" VerticalAlignment="Top" Background="#FFC7C7C7">
             <Grid.RowDefinitions>
@@ -34,15 +34,15 @@
                     <ColumnDefinition/>
                     <ColumnDefinition/>
                 </Grid.ColumnDefinitions>
-                <RadioButton Content="1" HorizontalAlignment="Center" Margin="5,8,0,8" VerticalAlignment="Center" FontWeight="Bold"/>
-                <RadioButton Content="2" HorizontalAlignment="Center" Margin="5,8,0,8" VerticalAlignment="Center" Grid.Column="1" FontWeight="Bold"/>
-                <RadioButton Content="3" HorizontalAlignment="Center" Margin="5,8,0,8" VerticalAlignment="Center" Grid.Column="2" FontWeight="Bold"/>
-                <RadioButton Content="4" HorizontalAlignment="Center" Margin="5,8,0,8" VerticalAlignment="Center" Grid.Column="3" FontWeight="Bold"/>
-                <RadioButton Content="5" HorizontalAlignment="Center" Margin="5,8,0,8" VerticalAlignment="Center" Grid.Column="4" FontWeight="Bold"/>
-                <RadioButton Content="6" HorizontalAlignment="Center" Margin="5,8,0,8" VerticalAlignment="Center" Grid.Column="5" FontWeight="Bold"/>
-                <RadioButton Content="7" HorizontalAlignment="Center" Margin="5,8,0,8" VerticalAlignment="Center" Grid.Column="6" FontWeight="Bold"/>
-                <RadioButton Content="8" HorizontalAlignment="Center" Margin="5,8,0,8" VerticalAlignment="Center" Grid.Column="7" FontWeight="Bold"/>
-                <RadioButton Content="9" HorizontalAlignment="Center" Margin="5,8,0,8" VerticalAlignment="Center" Grid.Column="8" FontWeight="Bold"/>
+                <RadioButton x:Name="cb_Pleasantness_1" Content="1" HorizontalAlignment="Center" Margin="5,8,0,8" VerticalAlignment="Center" FontWeight="Bold" Checked="Cb_Pleasantness_Checking"/>
+                <RadioButton x:Name="cb_Pleasantness_2" Content="2" HorizontalAlignment="Center" Margin="5,8,0,8" VerticalAlignment="Center" Grid.Column="1" FontWeight="Bold" Checked="Cb_Pleasantness_Checking"/>
+                <RadioButton x:Name="cb_Pleasantness_3" Content="3" HorizontalAlignment="Center" Margin="5,8,0,8" VerticalAlignment="Center" Grid.Column="2" FontWeight="Bold" Checked="Cb_Pleasantness_Checking"/>
+                <RadioButton x:Name="cb_Pleasantness_4" Content="4" HorizontalAlignment="Center" Margin="5,8,0,8" VerticalAlignment="Center" Grid.Column="3" FontWeight="Bold" Checked="Cb_Pleasantness_Checking"/>
+                <RadioButton x:Name="cb_Pleasantness_5" Content="5" HorizontalAlignment="Center" Margin="5,8,0,8" VerticalAlignment="Center" Grid.Column="4" FontWeight="Bold" Checked="Cb_Pleasantness_Checking"/>
+                <RadioButton x:Name="cb_Pleasantness_6" Content="6" HorizontalAlignment="Center" Margin="5,8,0,8" VerticalAlignment="Center" Grid.Column="5" FontWeight="Bold" Checked="Cb_Pleasantness_Checking"/>
+                <RadioButton x:Name="cb_Pleasantness_7" Content="7" HorizontalAlignment="Center" Margin="5,8,0,8" VerticalAlignment="Center" Grid.Column="6" FontWeight="Bold" Checked="Cb_Pleasantness_Checking"/>
+                <RadioButton x:Name="cb_Pleasantness_8" Content="8" HorizontalAlignment="Center" Margin="5,8,0,8" VerticalAlignment="Center" Grid.Column="7" FontWeight="Bold" Checked="Cb_Pleasantness_Checking"/>
+                <RadioButton x:Name="cb_Pleasantness_9" Content="9" HorizontalAlignment="Center" Margin="5,8,0,8" VerticalAlignment="Center" Grid.Column="8" FontWeight="Bold" Checked="Cb_Pleasantness_Checking"/>
             </Grid>
             <Label Content="Very unpleasant" HorizontalAlignment="Left" Margin="10,30,0,0" Grid.Row="1" VerticalAlignment="Top" FontWeight="Bold"/>
             <Label Content="Neutral" HorizontalAlignment="Center" Margin="50,30,40,0" Grid.Row="1" VerticalAlignment="Top" FontWeight="Bold" Grid.Column="2"/>
@@ -78,15 +78,15 @@
                     <ColumnDefinition/>
                     <ColumnDefinition/>
                 </Grid.ColumnDefinitions>
-                <RadioButton Content="1" HorizontalAlignment="Center" Margin="5,8,0,8" VerticalAlignment="Center" FontWeight="Bold"/>
-                <RadioButton Content="2" HorizontalAlignment="Center" Margin="5,8,0,8" VerticalAlignment="Center" Grid.Column="1" FontWeight="Bold"/>
-                <RadioButton Content="3" HorizontalAlignment="Center" Margin="5,8,0,8" VerticalAlignment="Center" Grid.Column="2" FontWeight="Bold"/>
-                <RadioButton Content="4" HorizontalAlignment="Center" Margin="5,8,0,8" VerticalAlignment="Center" Grid.Column="3" FontWeight="Bold"/>
-                <RadioButton Content="5" HorizontalAlignment="Center" Margin="5,8,0,8" VerticalAlignment="Center" Grid.Column="4" FontWeight="Bold"/>
-                <RadioButton Content="6" HorizontalAlignment="Center" Margin="5,8,0,8" VerticalAlignment="Center" Grid.Column="5" FontWeight="Bold"/>
-                <RadioButton Content="7" HorizontalAlignment="Center" Margin="5,8,0,8" VerticalAlignment="Center" Grid.Column="6" FontWeight="Bold"/>
-                <RadioButton Content="8" HorizontalAlignment="Center" Margin="5,8,0,8" VerticalAlignment="Center" Grid.Column="7" FontWeight="Bold"/>
-                <RadioButton Content="9" HorizontalAlignment="Center" Margin="5,8,0,8" VerticalAlignment="Center" Grid.Column="8" FontWeight="Bold"/>
+                <RadioButton x:Name="cb_Excitement_1" Content="1" HorizontalAlignment="Center" Margin="5,8,0,8" VerticalAlignment="Center" FontWeight="Bold" Checked="Cb_Excitement_Checking"/>
+                <RadioButton x:Name="cb_Excitement_2" Content="2" HorizontalAlignment="Center" Margin="5,8,0,8" VerticalAlignment="Center" Grid.Column="1" FontWeight="Bold" Checked="Cb_Excitement_Checking"/>
+                <RadioButton x:Name="cb_Excitement_3" Content="3" HorizontalAlignment="Center" Margin="5,8,0,8" VerticalAlignment="Center" Grid.Column="2" FontWeight="Bold" Checked="Cb_Excitement_Checking"/>
+                <RadioButton x:Name="cb_Excitement_4" Content="4" HorizontalAlignment="Center" Margin="5,8,0,8" VerticalAlignment="Center" Grid.Column="3" FontWeight="Bold" Checked="Cb_Excitement_Checking"/>
+                <RadioButton x:Name="cb_Excitement_5" Content="5" HorizontalAlignment="Center" Margin="5,8,0,8" VerticalAlignment="Center" Grid.Column="4" FontWeight="Bold" Checked="Cb_Excitement_Checking"/>
+                <RadioButton x:Name="cb_Excitement_6" Content="6" HorizontalAlignment="Center" Margin="5,8,0,8" VerticalAlignment="Center" Grid.Column="5" FontWeight="Bold" Checked="Cb_Excitement_Checking"/>
+                <RadioButton x:Name="cb_Excitement_7" Content="7" HorizontalAlignment="Center" Margin="5,8,0,8" VerticalAlignment="Center" Grid.Column="6" FontWeight="Bold" Checked="Cb_Excitement_Checking"/>
+                <RadioButton x:Name="cb_Excitement_8" Content="8" HorizontalAlignment="Center" Margin="5,8,0,8" VerticalAlignment="Center" Grid.Column="7" FontWeight="Bold" Checked="Cb_Excitement_Checking"/>
+                <RadioButton x:Name="cb_Excitement_9" Content="9" HorizontalAlignment="Center" Margin="5,8,0,8" VerticalAlignment="Center" Grid.Column="8" FontWeight="Bold" Checked="Cb_Excitement_Checking"/>
             </Grid>
             <Label Content="Very calm" HorizontalAlignment="Left" Margin="10,30,0,0" Grid.Row="1" VerticalAlignment="Top" FontWeight="Bold"/>
             <Label Content="Neutral" HorizontalAlignment="Center" Margin="50,30,40,0" Grid.Row="1" VerticalAlignment="Top" FontWeight="Bold" Grid.Column="2"/>
@@ -101,6 +101,7 @@
 
         <Label Content="Notes (Optinal)" HorizontalAlignment="Left" Margin="25,668,0,0" VerticalAlignment="Top" FontWeight="Bold" FontSize="14"/>
         <Label Content="Export to csv..." HorizontalAlignment="Right" Margin="0,0,5,5" VerticalAlignment="Bottom" FontWeight="Bold" FontSize="14" Foreground="#FF008BFF"/>
-        <TextBox Margin="10,702,10,34" TextWrapping="Wrap" Text="Did you experience anything that might have affected your emotion during the last session?" Foreground="#FF919191" HorizontalContentAlignment="Center"/>
+        <TextBox x:Name="txt_Notes" Margin="10,702,10,53" TextWrapping="Wrap" Text="Did you experience anything that might have affected your emotion during the last session?" Foreground="#FF919191" HorizontalContentAlignment="Center"/>
+        <Button Content="Done" HorizontalAlignment="Center" Margin="0,770,0,0" VerticalAlignment="Top" Width="75" FontSize="14" FontWeight="Bold" Click="Button_Click"/>
     </Grid>
 </Window>
