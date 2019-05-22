@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Emotions_Contest"
         mc:Ignorable="d"
-        Title="Emotions Contest" Height="835.359" Width="771.398" WindowStartupLocation="CenterScreen">
+        Title="Emotions Contest" Height="835.359" Width="771.398" WindowStartupLocation="CenterScreen" Closing="Window_Closing" Loaded="Window_Loaded">
     <Grid>
         <Label Content="In witch activuty have you mainly been involved since the last notification?" HorizontalAlignment="Center" Margin="0,20,0,0" VerticalAlignment="Top" FontSize="20" FontWeight="Bold"/>
         <ComboBox x:Name="lbl_Activity" HorizontalAlignment="Center" Margin="0,62,0,0" VerticalAlignment="Top" Width="317" IsEditable="True"/>

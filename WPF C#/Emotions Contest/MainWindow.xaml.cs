@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Emotions_Contest.Classes;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -27,6 +28,17 @@ namespace Emotions_Contest
         {
             InitializeComponent();
         }
+
+        private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            SingletonClasses.setMainForm(null);
+        }
+
+        private void Window_Loaded(object sender, RoutedEventArgs e)
+        {
+            SingletonClasses.setMainForm(this);
+        }
+
 
 
 
