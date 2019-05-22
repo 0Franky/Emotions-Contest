@@ -9,6 +9,7 @@ namespace Emotions_Contest.Classes
     static class SingletonClasses
     {
         private static MainWindow mainWindow = null;
+        private static PopupRequester popupRequester = null;
 
         public static void setMainForm(MainWindow window)
         {
@@ -18,6 +19,16 @@ namespace Emotions_Contest.Classes
         public static MainWindow getMainForm()
         {
             return mainWindow;
+        }
+
+        public static void setPopupRequester(PopupRequester window)
+        {
+            popupRequester = window;
+        }
+
+        public static PopupRequester getPopupRequester()
+        {
+            return popupRequester;
         }
     }
 }

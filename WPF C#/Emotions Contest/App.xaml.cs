@@ -39,7 +39,7 @@ namespace Emotions_Contest
 
         private void invokePopup()
         {
-            if (SingletonClasses.getMainForm() == null)
+            if (SingletonClasses.getMainForm() == null && SingletonClasses.getPopupRequester() == null)
             {
                 PopupRequester popupRequest = new PopupRequester(exitApp, postpones);
                 popupRequest.Show();

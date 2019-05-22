@@ -12,11 +12,11 @@ namespace Emotions_Contest
     static class CSV_Manager
     {
         private static string CSV_file_name = "";
+        private static string PATH_FOLDER = Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location) + "\\CSV";
         private static string PATH_CSV = "";
         private static DateTime lastDate;
-
         static DispatcherTimer CLOCK_TIME;
-        const int DEFAULT_TIMER_TICK = 60;
+        const int DEFAULT_TIMER_TICK = 1;
 
 
 
@@ -46,7 +46,7 @@ namespace Emotions_Contest
             return PATH_CSV;
         }
 
-        private static void checkDate()
+        public static void checkDate()
         {
             if (DateTime.Now.Year != lastDate.Year || DateTime.Now.Month != lastDate.Month || DateTime.Now.Day != lastDate.Day)
             {
@@ -61,12 +61,17 @@ namespace Emotions_Contest
         {
             CSV_file_name = lastDate.Year + "-" + DateTime.Now.Month + "-" + DateTime.Now.Day+ ".csv";
 
-            PATH_CSV = Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location) + "\\" + getActualCSV_Name();
-
-            if (!File.Exists(PATH_CSV))
+            if (!Directory.Exists(PATH_FOLDER))
             {
-                File.AppendAllText(PATH_CSV, "");
+                Directory.CreateDirectory(PATH_FOLDER);
             }
+
+            PATH_CSV = PATH_FOLDER + "\\" + getActualCSV_Name();
+
+            //if (!File.Exists(PATH_CSV))
+            //{
+            //    File.AppendAllText(PATH_CSV, "");
+            //}
         }
     }
 }

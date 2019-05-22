@@ -111,7 +111,30 @@
                 </Style>
             </Label.Style>
         </Label>
-        <TextBox x:Name="txt_Notes" Margin="10,702,10,53" TextWrapping="Wrap" Text="Did you experience anything that might have affected your emotion during the last session?" Foreground="#FF919191" HorizontalContentAlignment="Center" PreviewMouseLeftButtonDown="Txt_Notes_PreviewMouseLeftButtonDown"/>
+        <TextBox x:Name="txt_Notes" Margin="10,702,10,53" TextWrapping="Wrap" Foreground="#FF919191" HorizontalContentAlignment="Center" VerticalContentAlignment="Center">
+            <TextBox.Style>
+                <Style TargetType="TextBox" xmlns:sys="clr-namespace:System;assembly=mscorlib">
+                    <Style.Resources>
+                        <VisualBrush x:Key="CueBannerBrush" AlignmentX="Center" AlignmentY="Center" Stretch="None">
+                            <VisualBrush.Visual>
+                                <Label Content="Did you experience anything that might have affected your emotion during the last session?" Foreground="LightGray" FontStyle="Italic" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" />
+                            </VisualBrush.Visual>
+                        </VisualBrush>
+                    </Style.Resources>
+                    <Style.Triggers>
+                        <Trigger Property="Text" Value="{x:Static sys:String.Empty}">
+                            <Setter Property="Background" Value="{StaticResource CueBannerBrush}" />
+                        </Trigger>
+                        <Trigger Property="Text" Value="{x:Null}">
+                            <Setter Property="Background" Value="{StaticResource CueBannerBrush}" />
+                        </Trigger>
+                        <Trigger Property="IsKeyboardFocused" Value="True">
+                            <Setter Property="Background" Value="White" />
+                        </Trigger>
+                    </Style.Triggers>
+                </Style>
+            </TextBox.Style>
+        </TextBox>
         <Button Content="Done" HorizontalAlignment="Center" Margin="0,0,0,15" VerticalAlignment="Bottom" Width="75" FontSize="14" FontWeight="Bold" Click="Button_Click"/>
     </Grid>
 </Window>

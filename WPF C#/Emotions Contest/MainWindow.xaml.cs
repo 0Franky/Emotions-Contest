@@ -24,9 +24,24 @@ namespace Emotions_Contest
         private string pleasantness = "";
         private string excitement = "";
 
+        private DateTime startDate, endDate;
+
+        private static List<string> activitiesList = new List<string>();
+
+
         public MainWindow()
         {
             InitializeComponent();
+
+            loadActivities();
+        }
+
+        private void loadActivities()
+        {
+            foreach(String activity in activitiesList)
+            {
+                lbl_Activity.Items.Add(activity);
+            }
         }
 
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
@@ -37,6 +52,7 @@ namespace Emotions_Contest
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
             SingletonClasses.setMainForm(this);
+            startDate = DateTime.Now;
         }
 
 
@@ -67,11 +83,21 @@ namespace Emotions_Contest
             return status;
         }
 
-        private void getResults()
+        private void writeResults()
         {
             if (checkCorrectionParam())
             {
-                CSV_Writer.write(ConversionParamToArrays.convert(lbl_Activity.Text, pleasantness, excitement, txt_Notes.Text));
+                addActivityToList();
+                endDate = DateTime.Now;
+                CSV_Writer.write(ConversionParamToArrays.convert(startDate, lbl_Activity.Text, pleasantness, excitement, txt_Notes.Text, endDate));
+            }
+        }
+
+        private void addActivityToList()
+        {
+            if (!activitiesList.Contains(lbl_Activity.Text))
+            {
+                activitiesList.Add(lbl_Activity.Text);
             }
         }
 
@@ -96,11 +122,9 @@ namespace Emotions_Contest
                 "\nExcitement: " + excitement +
                 "\nNotes: " + txt_Notes.Text
                 );
-        }
 
-        private void Txt_Notes_PreviewMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
-        {
-            txt_Notes.Text = "";
+            writeResults();
+            MessageBox.Show("Write Done");
         }
     }
 }
