@@ -71,7 +71,7 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Classes\CSV\Converter\ConversionParamToArrays.cs" />
+    <Compile Include="Classes\CSV\Converter\ConversionParam.cs" />
     <Compile Include="Classes\CSV\CSV_Manager.cs" />
     <Compile Include="Classes\CSV\CSV_Writer.cs" />
     <Compile Include="Classes\SingletonClasses.cs" />
