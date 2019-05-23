@@ -94,7 +94,7 @@ namespace Emotions_Contest
             {
                 addActivityToList();
                 endDate = DateTime.Now;
-                CSV_Writer.write(ConversionParamToArrays.convert(startDate, lbl_Activity.Text, pleasantness, excitement, txt_Notes.Text, endDate));
+                CSV_Writer.write(ConversionParam.convertToArray(startDate, lbl_Activity.Text, pleasantness, excitement, txt_Notes.Text, endDate));
                 closeMe();
             }
         }
@@ -131,6 +131,8 @@ namespace Emotions_Contest
                 );
 
             writeResults();
+
+            App.restartTimerPopupRequestor();
         }
     }
 }

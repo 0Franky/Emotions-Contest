@@ -15,7 +15,7 @@ namespace Emotions_Contest
     /// </summary>
     public partial class App : Application
     {
-        DispatcherTimer CLOCK_TIME;
+        static DispatcherTimer CLOCK_TIME;
         const int DEFAULT_TIMER_TICK = 60;
         private static int postponesTime = -1;
         
@@ -65,6 +65,13 @@ namespace Emotions_Contest
         private void exitApp()
         {
             Current.Shutdown();
+        }
+
+        public static void restartTimerPopupRequestor()
+        {
+                CLOCK_TIME.Stop();
+                CLOCK_TIME.Interval = TimeSpan.FromMinutes(DEFAULT_TIMER_TICK);
+                CLOCK_TIME.Start();
         }
 
         private void postpones()
