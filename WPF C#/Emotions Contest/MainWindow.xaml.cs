@@ -36,6 +36,11 @@ namespace Emotions_Contest
             loadActivities();
         }
 
+        private void closeMe()
+        {
+            this.Close();
+        }
+
         private void loadActivities()
         {
             foreach(String activity in activitiesList)
@@ -90,6 +95,7 @@ namespace Emotions_Contest
                 addActivityToList();
                 endDate = DateTime.Now;
                 CSV_Writer.write(ConversionParamToArrays.convert(startDate, lbl_Activity.Text, pleasantness, excitement, txt_Notes.Text, endDate));
+                closeMe();
             }
         }
 
@@ -98,6 +104,7 @@ namespace Emotions_Contest
             if (!activitiesList.Contains(lbl_Activity.Text))
             {
                 activitiesList.Add(lbl_Activity.Text);
+                //lbl_Activity.Items.Add(lbl_Activity.Text); // da decommentare in caso di necessità
             }
         }
 
@@ -124,7 +131,6 @@ namespace Emotions_Contest
                 );
 
             writeResults();
-            MessageBox.Show("Write Done");
         }
     }
 }
