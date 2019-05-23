@@ -88,13 +88,23 @@ namespace Emotions_Contest
             return status;
         }
 
-        private void writeResults()
+        private void writeResultsInDefaultDir()
         {
             if (checkCorrectionParam())
             {
                 addActivityToList();
                 endDate = DateTime.Now;
                 CSV_Writer.write(ConversionParam.convertToArray(startDate, lbl_Activity.Text, pleasantness, excitement, txt_Notes.Text, endDate));
+                closeMe();
+            }
+        }
+
+        private void writeResultsInSpecificDir(string PATH_FILE)
+        {
+            if (checkCorrectionParam())
+            {
+                endDate = DateTime.Now;
+                CSV_Writer.write(ConversionParam.convertToArray(startDate, lbl_Activity.Text, pleasantness, excitement, txt_Notes.Text, endDate), PATH_FILE);
                 closeMe();
             }
         }
@@ -130,9 +140,21 @@ namespace Emotions_Contest
                 "\nNotes: " + txt_Notes.Text
                 );
 
-            writeResults();
+            writeResultsInDefaultDir();
 
             App.restartTimerPopupRequestor();
+        }
+
+        private void exportCSV()
+        {
+            using (var dialog = new System.Windows.Forms.FolderBrowserDialog())
+            {
+                if (dialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+                {
+                    writeResultsInSpecificDir(dialog.SelectedPath);
+                }
+            }
+
         }
     }
 }

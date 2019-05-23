@@ -23,5 +23,19 @@ namespace Emotions_Contest
                 writer.NextRecord();
             }
         }
+
+        public static void write(List<String> items, string PATH_FILE)
+        {
+            CSV_Manager.checkDate();
+            using (var sw = new StreamWriter(@PATH_FILE, true))
+            {
+                var writer = new CsvWriter(sw);
+                foreach (string record in items)
+                {
+                    writer.WriteField(record);
+                }
+                writer.NextRecord();
+            }
+        }
     }
 }
