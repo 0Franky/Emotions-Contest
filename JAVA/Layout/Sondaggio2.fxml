@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="813.0" prefWidth="672.0" xmlns="http://javafx.com/javafx/8.0.201" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <Label alignment="CENTER" layoutX="316.0" layoutY="24.0" text="In witch activity have you mainly been involved since the last notification?" textAlignment="CENTER" />
+      <ComboBox editable="true" layoutX="171.0" layoutY="57.0" prefHeight="25.0" prefWidth="323.0" AnchorPane.leftAnchor="171.0" AnchorPane.rightAnchor="171.0" AnchorPane.topAnchor="57.0" />
+      <Label alignment="CENTER" layoutX="316.0" layoutY="104.0" text="Label" textAlignment="CENTER" AnchorPane.topAnchor="104.0" />
+      <AnchorPane layoutX="22.0" layoutY="128.0" prefHeight="251.0" prefWidth="629.0" style="-fx-background-color: gray;" AnchorPane.leftAnchor="24.0" AnchorPane.rightAnchor="24.0">
+         <children>
+            <GridPane prefHeight="213.0" prefWidth="624.0" AnchorPane.bottomAnchor="38.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+              <columnConstraints>
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+              </columnConstraints>
+              <rowConstraints>
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+              </rowConstraints>
+               <children>
+                  <ImageView fitHeight="179.0" fitWidth="125.0" pickOnBounds="true" preserveRatio="true" />
+               </children>
+            </GridPane>
+         </children></AnchorPane>
+      <Label alignment="CENTER" layoutX="320.0" layoutY="671.0" text="Label" textAlignment="CENTER" AnchorPane.topAnchor="671.0" />
+      <Button layoutX="308.0" layoutY="770.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="57.0" text="Done" AnchorPane.bottomAnchor="11.0" />
+      <TextArea layoutX="19.0" layoutY="689.0" prefHeight="71.0" prefWidth="629.0" AnchorPane.bottomAnchor="53.0" AnchorPane.leftAnchor="24.0" AnchorPane.rightAnchor="24.0" AnchorPane.topAnchor="689.0" />
+      <Button layoutX="553.0" layoutY="770.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="95.0" text="Button" textAlignment="CENTER" AnchorPane.bottomAnchor="11.0" AnchorPane.rightAnchor="24.0" />
+   </children>
+</AnchorPane>

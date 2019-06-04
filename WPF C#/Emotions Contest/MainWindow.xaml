@@ -7,7 +7,7 @@
         mc:Ignorable="d"
         Title="Emotions Contest" Height="835.359" Width="771.398" WindowStartupLocation="CenterScreen" Closing="Window_Closing" Loaded="Window_Loaded">
     <Grid>
-        <Label Content="In witch activuty have you mainly been involved since the last notification?" HorizontalAlignment="Center" Margin="0,20,0,0" VerticalAlignment="Top" FontSize="20" FontWeight="Bold"/>
+        <Label Content="In witch activity have you mainly been involved since the last notification?" HorizontalAlignment="Center" Margin="0,20,0,0" VerticalAlignment="Top" FontSize="20" FontWeight="Bold"/>
         <ComboBox x:Name="lbl_Activity" HorizontalAlignment="Center" Margin="0,62,0,0" VerticalAlignment="Top" Width="317" IsEditable="True"/>
         <Label Content="How do you feel right now?" HorizontalAlignment="Center" Margin="0,113,0,0" VerticalAlignment="Top" FontSize="18" FontWeight="Bold"/>
         <Grid Height="227" Margin="25,152,25,0" VerticalAlignment="Top" Background="#FFC7C7C7">
