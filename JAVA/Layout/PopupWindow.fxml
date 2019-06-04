@@ -1,0 +1,209 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.RadioButton?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="813.0" prefWidth="924.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <Label alignment="CENTER" layoutX="24.0" layoutY="24.0" text="In witch activity have you mainly been involved since the last notification?" textAlignment="CENTER" AnchorPane.leftAnchor="24.0" AnchorPane.rightAnchor="24.0">
+         <font>
+            <Font name="System Bold" size="18.0" />
+         </font></Label>
+      <ComboBox editable="true" layoutX="272.0" layoutY="57.0" prefHeight="25.0" prefWidth="381.0" AnchorPane.leftAnchor="272.0" AnchorPane.rightAnchor="272.0" AnchorPane.topAnchor="57.0" />
+      <Label alignment="CENTER" layoutX="24.0" layoutY="110.0" text="How do you feel right now?" textAlignment="CENTER" AnchorPane.leftAnchor="24.0" AnchorPane.rightAnchor="24.0" AnchorPane.topAnchor="110.0">
+         <font>
+            <Font name="System Bold" size="18.0" />
+         </font></Label>
+      <AnchorPane layoutX="24.0" layoutY="142.0" prefHeight="242.0" prefWidth="877.0" style="-fx-background-color: gray;" AnchorPane.leftAnchor="24.0" AnchorPane.rightAnchor="24.0">
+         <children>
+            <GridPane prefHeight="175.0" prefWidth="867.0" AnchorPane.bottomAnchor="62.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="5.0">
+               <columnConstraints>
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+               </columnConstraints>
+               <rowConstraints>
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+               </rowConstraints>
+               <children>
+                  <ImageView fitHeight="179.0" fitWidth="125.0" pickOnBounds="true" preserveRatio="true" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+                     <image>
+                        <Image url="@../Assets/Pleasantness/V1.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fitHeight="179.0" fitWidth="125.0" layoutX="10.0" layoutY="37.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+                     <image>
+                        <Image url="@../Assets/Pleasantness/V2.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fitHeight="179.0" fitWidth="125.0" layoutX="10.0" layoutY="37.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+                     <image>
+                        <Image url="@../Assets/Pleasantness/V3.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fitHeight="179.0" fitWidth="125.0" layoutX="10.0" layoutY="37.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+                     <image>
+                        <Image url="@../Assets/Pleasantness/V4.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fitHeight="179.0" fitWidth="125.0" layoutX="10.0" layoutY="37.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="4" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+                     <image>
+                        <Image url="@../Assets/Pleasantness/V5.png" />
+                     </image>
+                  </ImageView>
+               </children>
+            </GridPane>
+            <GridPane layoutY="180.0" prefHeight="32.0" prefWidth="624.0" AnchorPane.bottomAnchor="30.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+               <columnConstraints>
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+               </columnConstraints>
+               <rowConstraints>
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+               </rowConstraints>
+               <children>
+                  <RadioButton mnemonicParsing="false" text="1" GridPane.halignment="CENTER" />
+                  <RadioButton mnemonicParsing="false" text="2" GridPane.columnIndex="1" GridPane.halignment="CENTER" />
+                  <RadioButton mnemonicParsing="false" text="3" GridPane.columnIndex="2" GridPane.halignment="CENTER" />
+                  <RadioButton mnemonicParsing="false" text="4" GridPane.columnIndex="3" GridPane.halignment="CENTER" />
+                  <RadioButton mnemonicParsing="false" text="5" GridPane.columnIndex="4" GridPane.halignment="CENTER" />
+                  <RadioButton mnemonicParsing="false" text="6" GridPane.columnIndex="5" GridPane.halignment="CENTER" />
+                  <RadioButton mnemonicParsing="false" text="7" GridPane.columnIndex="6" GridPane.halignment="CENTER" />
+                  <RadioButton mnemonicParsing="false" text="8" GridPane.columnIndex="7" GridPane.halignment="CENTER" />
+                  <RadioButton mnemonicParsing="false" text="9" GridPane.columnIndex="8" GridPane.halignment="CENTER" />
+               </children>
+            </GridPane>
+            <Label layoutX="14.0" layoutY="212.0" text="Very unpleasant" AnchorPane.leftAnchor="24.0">
+               <font>
+                  <Font name="System Bold" size="14.0" />
+               </font>
+            </Label>
+            <Label alignment="CENTER" layoutX="140.0" layoutY="212.0" prefHeight="20.0" prefWidth="618.0" text="Neutral" textAlignment="CENTER" AnchorPane.leftAnchor="140.0" AnchorPane.rightAnchor="140.0">
+               <font>
+                  <Font name="System Bold" size="14.0" />
+               </font>
+            </Label>
+            <Label layoutX="770.0" layoutY="212.0" text="Very pleasant" AnchorPane.rightAnchor="24.0">
+               <font>
+                  <Font name="System Bold" size="14.0" />
+               </font>
+            </Label>
+         </children>
+      </AnchorPane>
+      <AnchorPane layoutX="23.0" layoutY="395.0" prefHeight="242.0" prefWidth="877.0" style="-fx-background-color: gray;" AnchorPane.leftAnchor="24.0" AnchorPane.rightAnchor="24.0">
+         <children>
+            <GridPane prefHeight="175.0" prefWidth="867.0" AnchorPane.bottomAnchor="62.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="5.0">
+               <columnConstraints>
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+               </columnConstraints>
+               <rowConstraints>
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+               </rowConstraints>
+               <children>
+                  <ImageView fitHeight="179.0" fitWidth="125.0" pickOnBounds="true" preserveRatio="true" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+                     <image>
+                        <Image url="@../Assets/Excitement/A1.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fitHeight="179.0" fitWidth="125.0" layoutX="10.0" layoutY="37.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+                     <image>
+                        <Image url="@../Assets/Excitement/A2.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fitHeight="179.0" fitWidth="125.0" layoutX="10.0" layoutY="37.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+                     <image>
+                        <Image url="@../Assets/Excitement/A3.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fitHeight="179.0" fitWidth="125.0" layoutX="10.0" layoutY="37.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+                     <image>
+                        <Image url="@../Assets/Excitement/A4.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fitHeight="179.0" fitWidth="125.0" layoutX="10.0" layoutY="37.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="4" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+                     <image>
+                        <Image url="@../Assets/Excitement/A5.png" />
+                     </image>
+                  </ImageView>
+               </children>
+            </GridPane>
+            <GridPane layoutY="180.0" prefHeight="32.0" prefWidth="624.0" AnchorPane.bottomAnchor="30.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+               <columnConstraints>
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+               </columnConstraints>
+               <rowConstraints>
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+               </rowConstraints>
+               <children>
+                  <RadioButton mnemonicParsing="false" text="1" GridPane.halignment="CENTER" />
+                  <RadioButton mnemonicParsing="false" text="2" GridPane.columnIndex="1" GridPane.halignment="CENTER" />
+                  <RadioButton mnemonicParsing="false" text="3" GridPane.columnIndex="2" GridPane.halignment="CENTER" />
+                  <RadioButton mnemonicParsing="false" text="4" GridPane.columnIndex="3" GridPane.halignment="CENTER" />
+                  <RadioButton mnemonicParsing="false" text="5" GridPane.columnIndex="4" GridPane.halignment="CENTER" />
+                  <RadioButton mnemonicParsing="false" text="6" GridPane.columnIndex="5" GridPane.halignment="CENTER" />
+                  <RadioButton mnemonicParsing="false" text="7" GridPane.columnIndex="6" GridPane.halignment="CENTER" />
+                  <RadioButton mnemonicParsing="false" text="8" GridPane.columnIndex="7" GridPane.halignment="CENTER" />
+                  <RadioButton mnemonicParsing="false" text="9" GridPane.columnIndex="8" GridPane.halignment="CENTER" />
+               </children>
+            </GridPane>
+            <Label layoutX="14.0" layoutY="212.0" text="Very calm" AnchorPane.leftAnchor="24.0">
+               <font>
+                  <Font name="System Bold" size="14.0" />
+               </font>
+            </Label>
+            <Label alignment="CENTER" layoutX="140.0" layoutY="212.0" prefHeight="20.0" prefWidth="618.0" text="Neutral" textAlignment="CENTER" AnchorPane.leftAnchor="140.0" AnchorPane.rightAnchor="140.0">
+               <font>
+                  <Font name="System Bold" size="14.0" />
+               </font>
+            </Label>
+            <Label layoutX="770.0" layoutY="212.0" text="Very excited" AnchorPane.rightAnchor="24.0">
+               <font>
+                  <Font name="System Bold" size="14.0" />
+               </font>
+            </Label>
+         </children>
+      </AnchorPane>
+      <Label alignment="CENTER" layoutX="24.0" layoutY="662.0" text="Notes (Optinal)" textAlignment="CENTER" AnchorPane.leftAnchor="24.0" AnchorPane.topAnchor="662.0">
+         <font>
+            <Font name="System Bold" size="18.0" />
+         </font></Label>
+      <TextArea layoutX="19.0" layoutY="689.0" prefHeight="71.0" prefWidth="629.0" promptText="Did you experience anything that might have affected your emotion during the last session?" AnchorPane.bottomAnchor="53.0" AnchorPane.leftAnchor="24.0" AnchorPane.rightAnchor="24.0" AnchorPane.topAnchor="689.0" />
+      <HBox alignment="CENTER" layoutX="141.0" layoutY="733.0" prefHeight="32.0" prefWidth="200.0" AnchorPane.bottomAnchor="14.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+         <children>
+            <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" prefHeight="32.0" prefWidth="57.0" text="Done" textAlignment="CENTER" />
+         </children>
+      </HBox>
+   </children>
+</AnchorPane>
