@@ -57,7 +57,7 @@ public class AppFX extends Application {
         try {
             // Load root layout from fxml file.
             FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(JavaFXTrayIconSample.class.getResource("/layout/PopupWindow.fxml"));
+            loader.setLocation(AppFX.class.getResource("/layout/PopupWindow.fxml"));
             rootLayout = (AnchorPane) loader.load();
             
             // Show the scene containing the root layout.
@@ -69,26 +69,6 @@ public class AppFX extends Application {
         }
         //return stage;
     }
-
-    /**
-     * For this dummy app, the (JavaFX scenegraph) content, just says "hello, world".
-     * A real app, might load an FXML or something like that.
-     *
-     * @return the main window application content.
-     */
-    /*
-    private Node createContent() {
-        Label hello = new Label("Aprimi");
-        hello.setStyle("-fx-font-size: 40px; -fx-text-fill: forestgreen;");
-        Label instructions = new Label("(click to hide)");
-        instructions.setStyle("-fx-font-size: 12px; -fx-text-fill: orange;");
-
-        VBox content = new VBox(10, hello, instructions);
-        content.setAlignment(Pos.CENTER);
-
-        return content;
-    }
-    */
 
     /**
      * Sets up a system tray icon for the application.
@@ -113,7 +93,8 @@ public class AppFX extends Application {
             java.awt.TrayIcon trayIcon = new java.awt.TrayIcon(image);
 
             // if the user double-clicks on the tray icon, show the main app stage.
-            trayIcon.addActionListener(event -> Platform.runLater(this::showStage));
+		// Apri Notifica //
+            //trayIcon.addActionListener(event -> Platform.runLater(this::showStage));
 
             // if the user selects the default menu item (which includes the app name), 
             // show the main app stage.
