@@ -41,27 +41,27 @@
                <children>
                   <ImageView fitHeight="179.0" fitWidth="125.0" pickOnBounds="true" preserveRatio="true" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
                      <image>
-                        <Image url="@../Assets/Pleasantness/V1.png" />
+                        <Image url="@../../Assets/Pleasantness/V1.png" />
                      </image>
                   </ImageView>
                   <ImageView fitHeight="179.0" fitWidth="125.0" layoutX="10.0" layoutY="37.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
                      <image>
-                        <Image url="@../Assets/Pleasantness/V2.png" />
+                        <Image url="@../../Assets/Pleasantness/V2.png" />
                      </image>
                   </ImageView>
                   <ImageView fitHeight="179.0" fitWidth="125.0" layoutX="10.0" layoutY="37.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
                      <image>
-                        <Image url="@../Assets/Pleasantness/V3.png" />
+                        <Image url="@../../Assets/Pleasantness/V3.png" />
                      </image>
                   </ImageView>
                   <ImageView fitHeight="179.0" fitWidth="125.0" layoutX="10.0" layoutY="37.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
                      <image>
-                        <Image url="@../Assets/Pleasantness/V4.png" />
+                        <Image url="@../../Assets/Pleasantness/V4.png" />
                      </image>
                   </ImageView>
                   <ImageView fitHeight="179.0" fitWidth="125.0" layoutX="10.0" layoutY="37.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="4" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
                      <image>
-                        <Image url="@../Assets/Pleasantness/V5.png" />
+                        <Image url="@../../Assets/Pleasantness/V5.png" />
                      </image>
                   </ImageView>
                </children>
@@ -126,27 +126,27 @@
                <children>
                   <ImageView fitHeight="179.0" fitWidth="125.0" pickOnBounds="true" preserveRatio="true" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
                      <image>
-                        <Image url="@../Assets/Excitement/A1.png" />
+                        <Image url="@../../Assets/Excitement/A1.png" />
                      </image>
                   </ImageView>
                   <ImageView fitHeight="179.0" fitWidth="125.0" layoutX="10.0" layoutY="37.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
                      <image>
-                        <Image url="@../Assets/Excitement/A2.png" />
+                        <Image url="@../../Assets/Excitement/A2.png" />
                      </image>
                   </ImageView>
                   <ImageView fitHeight="179.0" fitWidth="125.0" layoutX="10.0" layoutY="37.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
                      <image>
-                        <Image url="@../Assets/Excitement/A3.png" />
+                        <Image url="@../../Assets/Excitement/A3.png" />
                      </image>
                   </ImageView>
                   <ImageView fitHeight="179.0" fitWidth="125.0" layoutX="10.0" layoutY="37.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
                      <image>
-                        <Image url="@../Assets/Excitement/A4.png" />
+                        <Image url="@../../Assets/Excitement/A4.png" />
                      </image>
                   </ImageView>
                   <ImageView fitHeight="179.0" fitWidth="125.0" layoutX="10.0" layoutY="37.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="4" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
                      <image>
-                        <Image url="@../Assets/Excitement/A5.png" />
+                        <Image url="@../../Assets/Excitement/A5.png" />
                      </image>
                   </ImageView>
                </children>
