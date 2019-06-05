@@ -1,5 +1,7 @@
 import java.io.IOException;
 import java.net.URL;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Timer;
 
 import javax.imageio.ImageIO;
@@ -31,7 +33,7 @@ public class AppFX extends Application {
 	private Timer notificationTimer = new Timer();
 
 	// format used to display the current time in a tray icon notification.
-	// private DateFormat timeFormat = SimpleDateFormat.getTimeInstance();
+	private DateFormat timeFormat = SimpleDateFormat.getTimeInstance();
 
 	// sets up the javafx application.
 	// a tray icon is setup for the icon, but the main stage remains invisible until
@@ -50,6 +52,7 @@ public class AppFX extends Application {
 		javax.swing.SwingUtilities.invokeLater(this::addAppToTray);
 
 		initRootLayout();
+
 	}
 
 	/**
@@ -59,17 +62,41 @@ public class AppFX extends Application {
 		try {
 			// Load root layout from fxml file.
 			FXMLLoader loader = new FXMLLoader();
-			loader.setLocation(AppFX.class.getResource("/layout/PopupWindow.fxml"));
+			loader.setLocation(AppFX.class.getResource("/layout/Notification.fxml"));
 			rootLayout = (AnchorPane) loader.load();
 
 			// Show the scene containing the root layout.
 			Scene scene = new Scene(rootLayout);
+
+			stage.setTitle("Notification");
+			stage.setResizable(false);
+			// stage.initStyle(StageStyle.UNDECORATED);
+			stage.setAlwaysOnTop(true);
 			stage.setScene(scene);
 			stage.show();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		// return stage;
+	}
+
+	public void NewStage() {
+		try {
+			Stage subStage = new Stage();
+			// Load root layout from fxml file.
+			FXMLLoader loader = new FXMLLoader();
+			loader.setLocation(AppFX.class.getResource("/layout/PopupWindow.fxml"));
+			rootLayout = (AnchorPane) loader.load();
+
+			// Show the scene containing the root layout.
+			Scene scene = new Scene(rootLayout);
+			subStage.setTitle("PopupWindow");
+			stage.setResizable(false);
+			subStage.setScene(scene);
+			stage.hide();
+			subStage.show();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 
 	/**
@@ -93,7 +120,6 @@ public class AppFX extends Application {
 			java.awt.TrayIcon trayIcon = new java.awt.TrayIcon(image);
 
 			// if the user double-clicks on the tray icon, show the main app stage.
-			// Apri Notifica //
 			// trayIcon.addActionListener(event -> Platform.runLater(this::showStage));
 
 			// if the user selects the default menu item (which includes the app name),
@@ -101,7 +127,7 @@ public class AppFX extends Application {
 			java.awt.MenuItem openItem1 = new java.awt.MenuItem("Show retrospective");
 			java.awt.MenuItem openItem2 = new java.awt.MenuItem("Show " + Title.APPLICATION_NAME);
 			java.awt.MenuItem openItem3 = new java.awt.MenuItem("Export to csv");
-			openItem2.addActionListener(event -> Platform.runLater(this::showStage));
+			openItem2.addActionListener(event -> Platform.runLater(this::NewStage));
 
 			// the convention for tray icons seems to be to set the default icon for opening
 			// the application stage in a bold font.
@@ -144,12 +170,10 @@ public class AppFX extends Application {
 	 * Shows the application stage and ensures that it is brought ot the front of
 	 * all stages.
 	 */
-	private void showStage() {
-		if (stage != null) {
-			stage.show();
-			stage.toFront();
-		}
-	}
+	/*
+	 * private void showStage() { if (stage != null) { stage.show();
+	 * stage.toFront(); } }
+	 */
 
 	public static void main(String[] args) throws IOException, java.awt.AWTException {
 		// Just launches the JavaFX application.
