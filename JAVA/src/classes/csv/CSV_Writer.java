@@ -1,6 +1,6 @@
 /**
- * 
- */
+* 
+*/
 package classes.csv;
 
 import java.io.FileWriter;
@@ -18,15 +18,15 @@ class CSV_Writer implements ICSV_Writer {
 
 	}
 
-	private static CSV_Writer singleton = null;
+	// private static CSV_Writer singleton = null;
 
 	public static CSV_Writer getInstance() {
+		// if (singleton == null) {
+		// singleton = new CSV_Writer();
+		// }
+		// return singleton;
 
-		if (singleton == null) {
-			singleton = new CSV_Writer();
-		}
-
-		return singleton;
+		return new CSV_Writer();
 	}
 
 	/**
@@ -38,7 +38,7 @@ class CSV_Writer implements ICSV_Writer {
 	 */
 	private synchronized void writeCSV(List<String> data) throws IOException {
 
-		FileWriter csvWriter = new FileWriter("new.csv", true);
+		FileWriter csvWriter = new FileWriter(CSV_Manager.getPATH_CSV(), true);
 
 		for (String rowData : data) {
 

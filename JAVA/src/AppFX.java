@@ -1,7 +1,5 @@
 import java.io.IOException;
 import java.net.URL;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.Timer;
 
 import javax.imageio.ImageIO;
@@ -33,7 +31,7 @@ public class AppFX extends Application {
 	private Timer notificationTimer = new Timer();
 
 	// format used to display the current time in a tray icon notification.
-	private DateFormat timeFormat = SimpleDateFormat.getTimeInstance();
+	// private DateFormat timeFormat = SimpleDateFormat.getTimeInstance();
 
 	// sets up the javafx application.
 	// a tray icon is setup for the icon, but the main stage remains invisible until
