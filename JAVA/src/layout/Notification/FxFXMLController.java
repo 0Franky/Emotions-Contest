@@ -45,10 +45,10 @@ public class FxFXMLController implements Initializable {
 
 	@FXML
 	private void postponeAction(ActionEvent event) throws IOException, NumberFormatException, InterruptedException {
-		System.out.println("You clicked postponeButton");
+		// System.out.println("You clicked postponeButton");
 		String Time = labelSlider.getText();
 		Time = Time.substring(0, Time.length() - 1);
-		System.out.println("Minuti da passare al Timer: " + Time);
+		// System.out.println("Minuti da passare al Timer: " + Time);
 		Notification.getIstance().hide();
 		// Impostare il Timer //
 		AppTimer.getIstance().setTimer(Integer.parseInt(Time));
@@ -59,7 +59,7 @@ public class FxFXMLController implements Initializable {
 		int sliderValue = (int) mySlider.getValue();
 		labelSlider.setStyle("-fx-font-weight: bold;");
 		labelSlider.setText(sliderValue + "'");
-		System.out.println("sliderValue " + sliderValue);
+		// System.out.println("sliderValue " + sliderValue);
 	}
 
 	@FXML
@@ -70,7 +70,7 @@ public class FxFXMLController implements Initializable {
 
 	@FXML
 	private void dismissAction(ActionEvent event) throws IOException {
-		System.out.println("You clicked dismissButton");
+		// System.out.println("You clicked dismissButton");
 		Notification.getIstance().hide();
 	}
 
