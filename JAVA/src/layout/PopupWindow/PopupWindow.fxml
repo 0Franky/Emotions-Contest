@@ -21,7 +21,11 @@
          <font>
             <Font name="System Bold" size="18.0" />
          </font></Label>
-      <ComboBox id="lbl_Activity" editable="true" layoutX="272.0" layoutY="57.0" prefHeight="25.0" prefWidth="381.0" AnchorPane.leftAnchor="272.0" AnchorPane.rightAnchor="272.0" AnchorPane.topAnchor="57.0" />
+      <ComboBox fx:id="lbl_Activity" editable="true" layoutX="272.0" layoutY="57.0" prefHeight="25.0" prefWidth="381.0" AnchorPane.leftAnchor="272.0" AnchorPane.rightAnchor="272.0" AnchorPane.topAnchor="57.0" >
+      	 <items>
+             
+         </items>
+      </ComboBox>
       <Label alignment="CENTER" layoutX="24.0" layoutY="110.0" text="How do you feel right now?" textAlignment="CENTER" AnchorPane.leftAnchor="24.0" AnchorPane.rightAnchor="24.0" AnchorPane.topAnchor="110.0">
          <font>
             <Font name="System Bold" size="18.0" />
@@ -171,18 +175,18 @@
                   <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                </rowConstraints>
                <children>
-                  <RadioButton mnemonicParsing="false" text="1" GridPane.halignment="CENTER">
+                  <RadioButton mnemonicParsing="false" onAction="#cb_Excitement_Checking" text="1" GridPane.halignment="CENTER">
                      <toggleGroup>
                         <ToggleGroup fx:id="ExcitementGroup" />
                      </toggleGroup></RadioButton>
-                  <RadioButton mnemonicParsing="false" text="2" toggleGroup="$ExcitementGroup" GridPane.columnIndex="1" GridPane.halignment="CENTER" />
-                  <RadioButton mnemonicParsing="false" text="3" toggleGroup="$ExcitementGroup" GridPane.columnIndex="2" GridPane.halignment="CENTER" />
-                  <RadioButton mnemonicParsing="false" text="4" toggleGroup="$ExcitementGroup" GridPane.columnIndex="3" GridPane.halignment="CENTER" />
-                  <RadioButton mnemonicParsing="false" text="5" toggleGroup="$ExcitementGroup" GridPane.columnIndex="4" GridPane.halignment="CENTER" />
-                  <RadioButton mnemonicParsing="false" text="6" toggleGroup="$ExcitementGroup" GridPane.columnIndex="5" GridPane.halignment="CENTER" />
-                  <RadioButton mnemonicParsing="false" text="7" toggleGroup="$ExcitementGroup" GridPane.columnIndex="6" GridPane.halignment="CENTER" />
-                  <RadioButton mnemonicParsing="false" text="8" toggleGroup="$ExcitementGroup" GridPane.columnIndex="7" GridPane.halignment="CENTER" />
-                  <RadioButton mnemonicParsing="false" text="9" toggleGroup="$ExcitementGroup" GridPane.columnIndex="8" GridPane.halignment="CENTER" />
+                  <RadioButton mnemonicParsing="false" onAction="#cb_Excitement_Checking" text="2" toggleGroup="$ExcitementGroup" GridPane.columnIndex="1" GridPane.halignment="CENTER" />
+                  <RadioButton mnemonicParsing="false" onAction="#cb_Excitement_Checking" text="3" toggleGroup="$ExcitementGroup" GridPane.columnIndex="2" GridPane.halignment="CENTER" />
+                  <RadioButton mnemonicParsing="false" onAction="#cb_Excitement_Checking" text="4" toggleGroup="$ExcitementGroup" GridPane.columnIndex="3" GridPane.halignment="CENTER" />
+                  <RadioButton mnemonicParsing="false" onAction="#cb_Excitement_Checking" text="5" toggleGroup="$ExcitementGroup" GridPane.columnIndex="4" GridPane.halignment="CENTER" />
+                  <RadioButton mnemonicParsing="false" onAction="#cb_Excitement_Checking" text="6" toggleGroup="$ExcitementGroup" GridPane.columnIndex="5" GridPane.halignment="CENTER" />
+                  <RadioButton mnemonicParsing="false" onAction="#cb_Excitement_Checking" text="7" toggleGroup="$ExcitementGroup" GridPane.columnIndex="6" GridPane.halignment="CENTER" />
+                  <RadioButton mnemonicParsing="false" onAction="#cb_Excitement_Checking" text="8" toggleGroup="$ExcitementGroup" GridPane.columnIndex="7" GridPane.halignment="CENTER" />
+                  <RadioButton mnemonicParsing="false" onAction="#cb_Excitement_Checking" text="9" toggleGroup="$ExcitementGroup" GridPane.columnIndex="8" GridPane.halignment="CENTER" />
                </children>
             </GridPane>
             <Label layoutX="14.0" layoutY="212.0" text="Very calm" AnchorPane.leftAnchor="24.0">
@@ -206,10 +210,10 @@
          <font>
             <Font name="System Bold" size="18.0" />
          </font></Label>
-      <TextArea id="txt_Notes" layoutX="19.0" layoutY="689.0" prefHeight="71.0" prefWidth="629.0" promptText="Did you experience anything that might have affected your emotion during the last session?" AnchorPane.bottomAnchor="53.0" AnchorPane.leftAnchor="24.0" AnchorPane.rightAnchor="24.0" AnchorPane.topAnchor="689.0" />
+      <TextArea fx:id="txt_Notes" layoutX="19.0" layoutY="689.0" prefHeight="71.0" prefWidth="629.0" promptText="Did you experience anything that might have affected your emotion during the last session?" AnchorPane.bottomAnchor="53.0" AnchorPane.leftAnchor="24.0" AnchorPane.rightAnchor="24.0" AnchorPane.topAnchor="689.0" />
       <HBox alignment="CENTER" layoutX="141.0" layoutY="733.0" prefHeight="32.0" prefWidth="200.0" AnchorPane.bottomAnchor="14.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
          <children>
-            <Button id="btn_Done" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#btn_Done_OnAction" prefHeight="32.0" prefWidth="57.0" text="Done" textAlignment="CENTER" />
+            <Button fx:id="btn_Done" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#btn_Done_OnAction" prefHeight="32.0" prefWidth="57.0" text="Done" textAlignment="CENTER" />
          </children>
       </HBox>
    </children>

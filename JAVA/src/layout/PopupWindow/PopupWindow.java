@@ -80,13 +80,13 @@ public class PopupWindow {
 
 	/*
 	 * public static void main(String[] args) { // TODO Auto-generated method stub
-	 * 
-	 * }
+	 * try { PopupWindow.getIstance().show(); } catch (IOException e) { // TODO
+	 * Auto-generated catch block e.printStackTrace(); } }
 	 */
 
 	///////////////////////
 
-	private void writeResultsInDir() throws IOException {
+	protected void writeResultsInDir() throws IOException {
 		if (checkCorrectionParam()) {
 			CSV_WriterBuilder.getInstance(CSV_WriterBuilder.typeCSV_Writer.built_in).write(activityToList());
 			PopupWindow.getIstance().hide();
@@ -104,6 +104,7 @@ public class PopupWindow {
 		data.add(Long.toString(unixTime));
 		data.add("");
 		data.add("");
+		data.add("");
 		data.add("POPUP_OPENED");
 		data.add("");
 		return data;
@@ -114,6 +115,7 @@ public class PopupWindow {
 
 		List<String> data = new ArrayList<String>();
 		data.add(Long.toString(unixTime));
+		data.add(popupWindowController.getActivity());
 		data.add(pleasantness);
 		data.add(excitement);
 		data.add("POPUP_CLOSED");
