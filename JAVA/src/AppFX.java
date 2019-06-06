@@ -42,7 +42,6 @@ public class AppFX extends Application {
 		// instructs the javafx system not to exit implicitly when the last application
 		// window is shut.
 		Platform.setImplicitExit(false);
-
 		// sets up the tray icon (using awt code run on the swing thread).
 		javax.swing.SwingUtilities.invokeLater(this::addAppToTray);
 
