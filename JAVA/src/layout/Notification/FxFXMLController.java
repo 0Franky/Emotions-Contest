@@ -1,5 +1,6 @@
 package layout.Notification;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -37,13 +38,13 @@ public class FxFXMLController implements Initializable {
 	}
 
 	@FXML
-	private void postponeAction(ActionEvent event) {
+	private void postponeAction(ActionEvent event) throws IOException {
 		System.out.println("You clicked postponeButton");
 		Notification.getIstance().hide(); // Avvia Timer
 	}
 
 	@FXML
-	private void dismissAction(ActionEvent event) {
+	private void dismissAction(ActionEvent event) throws IOException {
 		System.out.println("You clicked dismissButton");
 		Notification.getIstance().hide();
 	}

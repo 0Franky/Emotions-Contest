@@ -1,5 +1,5 @@
+import java.io.File;
 import java.io.IOException;
-import java.net.URL;
 import java.util.Timer;
 
 import javax.imageio.ImageIO;
@@ -17,7 +17,10 @@ public class AppFX extends Application {
 	// icon.
 	// you could also use multiple icons to allow for clean display of tray icons on
 	// hi-dpi devices.
-	private static final String iconImageLoc = "http://icons.iconarchive.com/icons/scafer31000/bubble-circle-3/16/GameCenter-icon.png";
+	// altri possibili link da cui recuperare l'immagine
+	// "http://www.icons101.com/icon_png/size_512/id_78555/Game_Center.png";
+	// "http://icons.iconarchive.com/icons/scafer31000/bubble-circle-3/16/GameCenter-icon.png";
+	private static final String iconImageLoc = "Assets/Icon_mini.png";
 
 	// application stage is stored so that it can be shown and hidden based on
 	// system tray icon operations.
@@ -45,7 +48,7 @@ public class AppFX extends Application {
 		// sets up the tray icon (using awt code run on the swing thread).
 		javax.swing.SwingUtilities.invokeLater(this::addAppToTray);
 
-		Notification.getIstance().start(stage);
+		Notification.getIstance();
 		PopupWindow.getIstance();
 	}
 
@@ -65,7 +68,7 @@ public class AppFX extends Application {
 
 			// set up a system tray icon.
 			java.awt.SystemTray tray = java.awt.SystemTray.getSystemTray();
-			URL imageLoc = new URL(iconImageLoc);
+			File imageLoc = new File(iconImageLoc);
 			java.awt.Image image = ImageIO.read(imageLoc);
 			java.awt.TrayIcon trayIcon = new java.awt.TrayIcon(image);
 
@@ -77,7 +80,14 @@ public class AppFX extends Application {
 			java.awt.MenuItem openItem1 = new java.awt.MenuItem("Show retrospective");
 			java.awt.MenuItem openItem2 = new java.awt.MenuItem("Show " + Title.APPLICATION_NAME);
 			java.awt.MenuItem openItem3 = new java.awt.MenuItem("Export to csv");
-			openItem2.addActionListener(event -> Platform.runLater(this::showSubStage));
+			openItem2.addActionListener(event -> Platform.runLater(() -> {
+				try {
+					showSubStage();
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}));
 
 			// the convention for tray icons seems to be to set the default icon for opening
 			// the application stage in a bold font.
@@ -119,8 +129,10 @@ public class AppFX extends Application {
 	/**
 	 * Shows the application stage and ensures that it is brought ot the front of
 	 * all stages.
+	 * 
+	 * @throws IOException
 	 */
-	private void showSubStage() {
+	private void showSubStage() throws IOException {
 		if (PopupWindow.getIstance() != null) {
 			if (Notification.getIstance() != null) {
 				Notification.getIstance().hide();
