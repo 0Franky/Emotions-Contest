@@ -53,5 +53,4 @@ public class FxFXMLController implements Initializable {
 		// TODO Auto-generated method stub
 
 	}
-
 }
