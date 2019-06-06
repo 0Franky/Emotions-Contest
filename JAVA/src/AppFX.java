@@ -51,6 +51,7 @@ public class AppFX extends Application {
 
 		Notification.getIstance();
 		PopupWindow.getIstance();
+
 	}
 
 	/**
