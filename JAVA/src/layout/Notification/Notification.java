@@ -1,3 +1,5 @@
+package layout.Notification;
+
 import java.io.IOException;
 
 import javafx.fxml.FXMLLoader;
@@ -35,7 +37,7 @@ public class Notification {
 		try {
 
 			// Load root layout from fxml file. FXMLLoader loader = new FXMLLoader();
-			Parent rootLayout = FXMLLoader.load(getClass().getResource("/layout/Notification.fxml"));
+			Parent rootLayout = FXMLLoader.load(getClass().getResource("Notification.fxml"));
 
 			// Show the scene containing the root layout.
 			Scene scene = new Scene(rootLayout);

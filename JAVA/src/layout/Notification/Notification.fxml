@@ -22,6 +22,6 @@
             <Font name="System Bold" size="19.0" />
          </font>
       </Label>
-      <Button fx:id="dismissButton" alignment="CENTER" contentDisplay="CENTER" layoutX="284.0" layoutY="24.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="145.0" text="Dismiss" textAlignment="CENTER" />
+      <Button fx:id="dismissButton" alignment="CENTER" contentDisplay="CENTER" layoutX="284.0" layoutY="24.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="145.0" text="Dismiss" textAlignment="CENTER"  onAction="#dismissAction"/>
    </children>
 </AnchorPane>
