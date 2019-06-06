@@ -9,6 +9,7 @@ import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.stage.Stage;
 import layout.Notification.Notification;
+import layout.PopupWindow.PopupWindow;
 
 // Java 8 code
 public class AppFX extends Application {
@@ -137,8 +138,8 @@ public class AppFX extends Application {
 			if (Notification.getIstance() != null) {
 				Notification.getIstance().hide();
 			}
-			PopupWindow.getIstance().getSubStage().show();
-			PopupWindow.getIstance().getSubStage().toFront();
+			PopupWindow.getIstance().show();
+			PopupWindow.getIstance().toFront();
 		}
 	}
 
