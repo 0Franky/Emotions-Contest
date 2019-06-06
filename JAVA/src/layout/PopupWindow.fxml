@@ -5,6 +5,7 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.RadioButton?>
 <?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.ToggleGroup?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -82,15 +83,18 @@
                   <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                </rowConstraints>
                <children>
-                  <RadioButton mnemonicParsing="false" text="1" GridPane.halignment="CENTER" />
-                  <RadioButton mnemonicParsing="false" text="2" GridPane.columnIndex="1" GridPane.halignment="CENTER" />
-                  <RadioButton mnemonicParsing="false" text="3" GridPane.columnIndex="2" GridPane.halignment="CENTER" />
-                  <RadioButton mnemonicParsing="false" text="4" GridPane.columnIndex="3" GridPane.halignment="CENTER" />
-                  <RadioButton mnemonicParsing="false" text="5" GridPane.columnIndex="4" GridPane.halignment="CENTER" />
-                  <RadioButton mnemonicParsing="false" text="6" GridPane.columnIndex="5" GridPane.halignment="CENTER" />
-                  <RadioButton mnemonicParsing="false" text="7" GridPane.columnIndex="6" GridPane.halignment="CENTER" />
-                  <RadioButton mnemonicParsing="false" text="8" GridPane.columnIndex="7" GridPane.halignment="CENTER" />
-                  <RadioButton mnemonicParsing="false" text="9" GridPane.columnIndex="8" GridPane.halignment="CENTER" />
+                  <RadioButton mnemonicParsing="false" text="1" GridPane.halignment="CENTER">
+                     <toggleGroup>
+                        <ToggleGroup fx:id="PleasantnessGroup" />
+                     </toggleGroup></RadioButton>
+                  <RadioButton mnemonicParsing="false" text="2" toggleGroup="$PleasantnessGroup" GridPane.columnIndex="1" GridPane.halignment="CENTER" />
+                  <RadioButton mnemonicParsing="false" text="3" toggleGroup="$PleasantnessGroup" GridPane.columnIndex="2" GridPane.halignment="CENTER" />
+                  <RadioButton mnemonicParsing="false" text="4" toggleGroup="$PleasantnessGroup" GridPane.columnIndex="3" GridPane.halignment="CENTER" />
+                  <RadioButton mnemonicParsing="false" text="5" toggleGroup="$PleasantnessGroup" GridPane.columnIndex="4" GridPane.halignment="CENTER" />
+                  <RadioButton mnemonicParsing="false" text="6" toggleGroup="$PleasantnessGroup" GridPane.columnIndex="5" GridPane.halignment="CENTER" />
+                  <RadioButton mnemonicParsing="false" text="7" toggleGroup="$PleasantnessGroup" GridPane.columnIndex="6" GridPane.halignment="CENTER" />
+                  <RadioButton mnemonicParsing="false" text="8" toggleGroup="$PleasantnessGroup" GridPane.columnIndex="7" GridPane.halignment="CENTER" />
+                  <RadioButton mnemonicParsing="false" text="9" toggleGroup="$PleasantnessGroup" GridPane.columnIndex="8" GridPane.halignment="CENTER" />
                </children>
             </GridPane>
             <Label layoutX="14.0" layoutY="212.0" text="Very unpleasant" AnchorPane.leftAnchor="24.0">
@@ -167,15 +171,18 @@
                   <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                </rowConstraints>
                <children>
-                  <RadioButton mnemonicParsing="false" text="1" GridPane.halignment="CENTER" />
-                  <RadioButton mnemonicParsing="false" text="2" GridPane.columnIndex="1" GridPane.halignment="CENTER" />
-                  <RadioButton mnemonicParsing="false" text="3" GridPane.columnIndex="2" GridPane.halignment="CENTER" />
-                  <RadioButton mnemonicParsing="false" text="4" GridPane.columnIndex="3" GridPane.halignment="CENTER" />
-                  <RadioButton mnemonicParsing="false" text="5" GridPane.columnIndex="4" GridPane.halignment="CENTER" />
-                  <RadioButton mnemonicParsing="false" text="6" GridPane.columnIndex="5" GridPane.halignment="CENTER" />
-                  <RadioButton mnemonicParsing="false" text="7" GridPane.columnIndex="6" GridPane.halignment="CENTER" />
-                  <RadioButton mnemonicParsing="false" text="8" GridPane.columnIndex="7" GridPane.halignment="CENTER" />
-                  <RadioButton mnemonicParsing="false" text="9" GridPane.columnIndex="8" GridPane.halignment="CENTER" />
+                  <RadioButton mnemonicParsing="false" text="1" GridPane.halignment="CENTER">
+                     <toggleGroup>
+                        <ToggleGroup fx:id="ExcitementGroup" />
+                     </toggleGroup></RadioButton>
+                  <RadioButton mnemonicParsing="false" text="2" toggleGroup="$ExcitementGroup" GridPane.columnIndex="1" GridPane.halignment="CENTER" />
+                  <RadioButton mnemonicParsing="false" text="3" toggleGroup="$ExcitementGroup" GridPane.columnIndex="2" GridPane.halignment="CENTER" />
+                  <RadioButton mnemonicParsing="false" text="4" toggleGroup="$ExcitementGroup" GridPane.columnIndex="3" GridPane.halignment="CENTER" />
+                  <RadioButton mnemonicParsing="false" text="5" toggleGroup="$ExcitementGroup" GridPane.columnIndex="4" GridPane.halignment="CENTER" />
+                  <RadioButton mnemonicParsing="false" text="6" toggleGroup="$ExcitementGroup" GridPane.columnIndex="5" GridPane.halignment="CENTER" />
+                  <RadioButton mnemonicParsing="false" text="7" toggleGroup="$ExcitementGroup" GridPane.columnIndex="6" GridPane.halignment="CENTER" />
+                  <RadioButton mnemonicParsing="false" text="8" toggleGroup="$ExcitementGroup" GridPane.columnIndex="7" GridPane.halignment="CENTER" />
+                  <RadioButton mnemonicParsing="false" text="9" toggleGroup="$ExcitementGroup" GridPane.columnIndex="8" GridPane.halignment="CENTER" />
                </children>
             </GridPane>
             <Label layoutX="14.0" layoutY="212.0" text="Very calm" AnchorPane.leftAnchor="24.0">
