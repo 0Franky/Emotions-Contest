@@ -7,9 +7,9 @@
 			<attribute name="org.eclipse.jst.component.dependency" value="/WEB-INF/lib"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="lib" path="D:/Users/Francesco/gitProjects/Emotions-Contest/JAVA/lib/google-api-services-drive-v3-rev154-1.25.0.jar"/>
-	<classpathentry kind="lib" path="D:/Users/Francesco/gitProjects/Emotions-Contest/JAVA/lib/google-api-services-sheets-v4-rev567-1.25.0.jar"/>
-	<classpathentry kind="lib" path="D:/Users/Francesco/gitProjects/Emotions-Contest/JAVA/lib/google-oauth-client-java6-1.25.0.jar"/>
-	<classpathentry kind="lib" path="D:/Users/Francesco/gitProjects/Emotions-Contest/JAVA/lib/google-oauth-client-jetty-1.25.0.jar"/>
+	<classpathentry kind="lib" path="lib/google-api-services-drive-v3-rev154-1.25.0.jar"/>
+	<classpathentry kind="lib" path="lib/google-api-services-sheets-v4-rev567-1.25.0.jar"/>
+	<classpathentry kind="lib" path="lib/google-oauth-client-java6-1.25.0.jar"/>
+	<classpathentry kind="lib" path="lib/google-oauth-client-jetty-1.25.0.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

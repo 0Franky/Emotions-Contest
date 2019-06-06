@@ -35,7 +35,7 @@ public class AppFX extends Application {
 	// interacts with the tray icon.
 
 	@Override
-	public void start(final Stage stage) {
+	public void start(final Stage stage) throws Exception {
 		// stores a reference to the stage.
 		// this.stage = stage;
 
@@ -46,7 +46,7 @@ public class AppFX extends Application {
 		// sets up the tray icon (using awt code run on the swing thread).
 		javax.swing.SwingUtilities.invokeLater(this::addAppToTray);
 
-		Notification.getIstance();
+		Notification.getIstance().start(stage);
 		PopupWindow.getIstance();
 
 	}

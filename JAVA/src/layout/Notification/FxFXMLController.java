@@ -45,7 +45,7 @@ public class FxFXMLController implements Initializable {
 	@FXML
 	private void dismissAction(ActionEvent event) {
 		System.out.println("You clicked dismissButton");
-		Notification.getIstance().hide(); // Avvia Timer
+		Notification.getIstance().hide();
 	}
 
 	@Override
