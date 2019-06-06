@@ -1,7 +1,5 @@
 import java.io.IOException;
 import java.net.URL;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.Timer;
 
 import javax.imageio.ImageIO;
@@ -9,15 +7,10 @@ import javax.imageio.ImageIO;
 import Title.Title;
 import javafx.application.Application;
 import javafx.application.Platform;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Scene;
-import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
 // Java 8 code
 public class AppFX extends Application {
-
-	private AnchorPane rootLayout;
 
 	// one icon location is shared between the application tray icon and task bar
 	// icon.
@@ -27,22 +20,23 @@ public class AppFX extends Application {
 
 	// application stage is stored so that it can be shown and hidden based on
 	// system tray icon operations.
-	private Stage stage;
+	public Stage stage;
 
 	// a timer allowing the tray icon to provide a periodic notification event.
 	private Timer notificationTimer = new Timer();
 
 	// format used to display the current time in a tray icon notification.
-	private DateFormat timeFormat = SimpleDateFormat.getTimeInstance();
+	// private DateFormat timeFormat = SimpleDateFormat.getTimeInstance();
 
 	// sets up the javafx application.
 	// a tray icon is setup for the icon, but the main stage remains invisible until
 	// the user
 	// interacts with the tray icon.
+
 	@Override
 	public void start(final Stage stage) {
 		// stores a reference to the stage.
-		this.stage = stage;
+		// this.stage = stage;
 
 		// instructs the javafx system not to exit implicitly when the last application
 		// window is shut.
@@ -51,52 +45,9 @@ public class AppFX extends Application {
 		// sets up the tray icon (using awt code run on the swing thread).
 		javax.swing.SwingUtilities.invokeLater(this::addAppToTray);
 
-		initRootLayout();
+		Notification.getIstance();
+		PopupWindow.getIstance();
 
-	}
-
-	/**
-	 * Initializes the root layout.
-	 */
-	public void initRootLayout() {
-		try {
-			// Load root layout from fxml file.
-			FXMLLoader loader = new FXMLLoader();
-			loader.setLocation(AppFX.class.getResource("/layout/Notification.fxml"));
-			rootLayout = (AnchorPane) loader.load();
-
-			// Show the scene containing the root layout.
-			Scene scene = new Scene(rootLayout);
-
-			stage.setTitle("Notification");
-			stage.setResizable(false);
-			// stage.initStyle(StageStyle.UNDECORATED);
-			stage.setAlwaysOnTop(true);
-			stage.setScene(scene);
-			stage.show();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-	}
-
-	public void NewStage() {
-		try {
-			Stage subStage = new Stage();
-			// Load root layout from fxml file.
-			FXMLLoader loader = new FXMLLoader();
-			loader.setLocation(AppFX.class.getResource("/layout/PopupWindow.fxml"));
-			rootLayout = (AnchorPane) loader.load();
-
-			// Show the scene containing the root layout.
-			Scene scene = new Scene(rootLayout);
-			subStage.setTitle("PopupWindow");
-			stage.setResizable(false);
-			subStage.setScene(scene);
-			stage.hide();
-			subStage.show();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
 	}
 
 	/**
@@ -127,7 +78,7 @@ public class AppFX extends Application {
 			java.awt.MenuItem openItem1 = new java.awt.MenuItem("Show retrospective");
 			java.awt.MenuItem openItem2 = new java.awt.MenuItem("Show " + Title.APPLICATION_NAME);
 			java.awt.MenuItem openItem3 = new java.awt.MenuItem("Export to csv");
-			openItem2.addActionListener(event -> Platform.runLater(this::NewStage));
+			openItem2.addActionListener(event -> Platform.runLater(this::showSubStage));
 
 			// the convention for tray icons seems to be to set the default icon for opening
 			// the application stage in a bold font.
@@ -170,10 +121,15 @@ public class AppFX extends Application {
 	 * Shows the application stage and ensures that it is brought ot the front of
 	 * all stages.
 	 */
-	/*
-	 * private void showStage() { if (stage != null) { stage.show();
-	 * stage.toFront(); } }
-	 */
+	private void showSubStage() {
+		if (PopupWindow.getIstance() != null) {
+			if (Notification.getIstance() != null) {
+				Notification.getIstance().getStage().hide();
+			}
+			PopupWindow.getIstance().getSubStage().show();
+			PopupWindow.getIstance().getSubStage().toFront();
+		}
+	}
 
 	public static void main(String[] args) throws IOException, java.awt.AWTException {
 		// Just launches the JavaFX application.
