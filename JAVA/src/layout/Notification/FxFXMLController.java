@@ -1,3 +1,5 @@
+package layout.Notification;
+
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -5,15 +7,16 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
+import javafx.scene.control.Slider;
 
 public class FxFXMLController implements Initializable {
 
 	// The reference of outputText will be injected by the FXML loader
 
-	// @FXML
-	// private TextArea outputText;
+	// Add a public no-args constructor
+	// public FxFXMLController() {
+	// }
 
-	// location and resources will be automatically injected by the FXML loader
 	@FXML
 	private URL location;
 
@@ -26,29 +29,23 @@ public class FxFXMLController implements Initializable {
 	@FXML
 	Button postponeButton;
 
-	// Add a public no-args constructor
-	public FxFXMLController() {
-	}
+	@FXML
+	Slider mySlider;
 
 	@FXML
 	private void initialize() {
 	}
 
 	@FXML
+	private void postponeAction(ActionEvent event) {
+		System.out.println("You clicked postponeButton");
+		Notification.getIstance().hide(); // Avvia Timer
+	}
+
+	@FXML
 	private void dismissAction(ActionEvent event) {
-		System.out.println("You clicked button: ");
-		// Notification.getIstance().getStage().hide();
-		// Avvia Timer
-	}
-
-	@FXML
-	private void postponeAction() {
-		// Avvia Timer Leggendo lo Slider
-	}
-
-	@FXML
-	private void handleOnButtonAction(ActionEvent event) {
-		System.out.println("You clicked button: " + ((Button) event.getSource()).getId());
+		System.out.println("You clicked dismissButton");
+		Notification.getIstance().hide(); // Avvia Timer
 	}
 
 	@Override
