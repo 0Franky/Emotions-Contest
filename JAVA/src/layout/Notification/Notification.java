@@ -51,4 +51,12 @@ public class Notification {
 			// nothing
 		}
 	}
+
+	public void toFront() {
+		try {
+			this_stage.toFront();
+		} catch (Exception ex) {
+			// nothing
+		}
+	}
 }

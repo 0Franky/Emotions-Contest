@@ -4,13 +4,13 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+import classes.AppTimer;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.Slider;
-import layout.AppTimer;
 import layout.PopupWindow.PopupWindow;
 
 public class FxFXMLController implements Initializable {
@@ -50,8 +50,9 @@ public class FxFXMLController implements Initializable {
 		Time = Time.substring(0, Time.length() - 1);
 		// System.out.println("Minuti da passare al Timer: " + Time);
 		Notification.getIstance().hide();
-		// Impostare il Timer //
-		AppTimer.getIstance().setTimer(Integer.parseInt(Time));
+		// Imposto il Timer //
+		AppTimer.getIstance().startTimer(Integer.parseInt(Time));
+		// System.out.println("Fine Thread");
 	}
 
 	@FXML

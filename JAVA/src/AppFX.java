@@ -139,6 +139,10 @@ public class AppFX extends Application {
 			if (Notification.getIstance() != null) {
 				Notification.getIstance().hide();
 			}
+			if (classes.AppTimer.getIstance() != null) {
+				classes.AppTimer.getIstance().invertFlag();
+				System.out.println("Thread Interrotto");
+			}
 			PopupWindow.getIstance().show();
 			PopupWindow.getIstance().toFront();
 		}
