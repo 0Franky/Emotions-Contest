@@ -10,6 +10,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
@@ -21,6 +22,8 @@ public class PopupWindow {
 
 	protected String pleasantness = "";
 	protected String excitement = "";
+
+	private double X, Y;
 
 	PopupWindowController popupWindowController = null;
 
@@ -79,6 +82,16 @@ public class PopupWindow {
 		} catch (Exception ex) {
 			// nothing
 		}
+	}
+
+	protected void mousePressed(MouseEvent event) {
+		X = this_stage.getX() - event.getScreenX();
+		Y = this_stage.getY() - event.getScreenY();
+	}
+
+	protected void onWindowDragged(MouseEvent event) {
+		this_stage.setX(event.getScreenX() + X);
+		this_stage.setY(event.getScreenY() + Y);
 	}
 
 	/*
