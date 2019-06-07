@@ -20,7 +20,10 @@
          	<Label fx:id="labelSlider" prefHeight="26.0" prefWidth="31.0" text="1'">
                <cursor>
                   <Cursor fx:constant="NW_RESIZE" />
-               </cursor></Label>
+               </cursor>
+               <font>
+                  <Font name="System Bold" size="15.0" />
+               </font></Label>
             <Separator opacity="0.0" orientation="VERTICAL" prefHeight="32.0" prefWidth="0.0" />
             <Slider fx:id="mySlider" blockIncrement="1" majorTickUnit="59.0" max="120.0" min="1" minorTickCount="1" onMouseReleased="#onSliderChanged" prefHeight="26.0" prefWidth="217.0" showTickLabels="true" showTickMarks="true" />
             <Separator opacity="0.0" orientation="VERTICAL" prefHeight="32.0" prefWidth="12.0" />

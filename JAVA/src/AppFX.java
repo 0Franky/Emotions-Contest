@@ -140,7 +140,7 @@ public class AppFX extends Application {
 				Notification.getIstance().hide();
 			}
 			if (classes.AppTimer.getIstance() != null) {
-				classes.AppTimer.getIstance().invertFlag();
+				classes.AppTimer.getIstance().stopTimer();
 				System.out.println("Timer Interrotto");
 			}
 			PopupWindow.getIstance().show();

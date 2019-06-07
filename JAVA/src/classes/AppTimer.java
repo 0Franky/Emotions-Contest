@@ -1,6 +1,7 @@
 package classes;
 
 import java.io.IOException;
+import java.util.Timer;
 
 import javafx.application.Platform;
 import layout.Notification.Notification;
@@ -9,6 +10,7 @@ public class AppTimer extends Thread {
 
 	private static AppTimer istance = null; // riferimento all' istanza
 	private boolean runFlag = true;
+	private Timer T = new Timer();
 
 	private AppTimer() {// costruttore
 		start();
@@ -27,11 +29,16 @@ public class AppTimer extends Thread {
 		return istance;
 	}
 
+	public void stopTimer() {
+		T.cancel();
+		System.err.println("Timer Cancellato");
+	}
+
 	public void startTimer(int min) throws InterruptedException {
-		// System.err.println("Inizio startTimer per = " + min);
+		System.err.println("Inizio startTimer per = " + min);
 		// TimeUnit.MINUTES.sleep(min);
 		int sec = 60;
-		new java.util.Timer().schedule(new java.util.TimerTask() {
+		T.schedule(new java.util.TimerTask() {
 			@Override
 			public void run() {
 				Platform.runLater(() -> {

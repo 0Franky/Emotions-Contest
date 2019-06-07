@@ -70,8 +70,8 @@ public class Notification {
 		Rectangle2D screenBounds = Screen.getPrimary().getVisualBounds();
 		// FULL HD // 1920x1080
 		if (screenBounds.getWidth() > 1990 && screenBounds.getHeight() > 1000) {
-			stage.setX((screenBounds.getWidth() - 520));
-			stage.setY((screenBounds.getHeight() - 1000));
+			stage.setX((screenBounds.getWidth() - 1000));
+			stage.setY((screenBounds.getHeight() - 520));
 		} else {
 			stage.setX((screenBounds.getWidth() - width) / 2);
 			stage.setY((screenBounds.getHeight() - height) / 2);
