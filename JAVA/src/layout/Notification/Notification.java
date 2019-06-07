@@ -18,29 +18,33 @@ public class Notification {
 		Stage stage = new Stage();
 		Scene scene = new Scene(rootLayout);
 		stage.setScene(scene);
-		stage.show();
+		// stage.show();
 
 		this_stage = stage;
+		this_stage.show();
 	}
 
-	private static Stage this_stage = null;
+	private static Stage this_stage = new Stage();
 	private static Notification istance = null; // riferimento all' istanza
 
 	public static Notification getIstance() throws IOException {
+		System.out.println("Sono in getIstance");
 		if (istance == null)
 			synchronized (Notification.class) {
 				if (istance == null) {
+					System.out.println("creo la Notifica");
 					istance = new Notification();
 				}
 			}
+		System.out.println("return istance");
 		return istance;
 	}
 
 	public void hide() {
 		try {
-			this_stage.hide();
+			this_stage.close();
 		} catch (Exception ex) {
-			// nothing
+			System.err.println("not Hide");
 		}
 	}
 
@@ -48,7 +52,8 @@ public class Notification {
 		try {
 			this_stage.show();
 		} catch (Exception ex) {
-			// nothing
+			System.err.println("not Show");
+			ex.printStackTrace();
 		}
 	}
 
@@ -56,7 +61,7 @@ public class Notification {
 		try {
 			this_stage.toFront();
 		} catch (Exception ex) {
-			// nothing
+			System.err.println("not Front");
 		}
 	}
 }

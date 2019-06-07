@@ -14,7 +14,7 @@ import javafx.stage.Stage;
 
 public class PopupWindow {
 
-	private static Stage this_stage = null;
+	private static Stage this_stage = new Stage();
 	private static PopupWindow istance = null; // riferimento all' istanza
 
 	protected String pleasantness = "";
