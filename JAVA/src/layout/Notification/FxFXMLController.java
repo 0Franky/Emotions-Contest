@@ -5,6 +5,7 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 import classes.AppTimer;
+import javafx.beans.binding.Bindings;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -45,10 +46,10 @@ public class FxFXMLController implements Initializable {
 
 	@FXML
 	private void postponeAction(ActionEvent event) throws IOException, NumberFormatException, InterruptedException {
-		// System.out.println("You clicked postponeButton");
+		System.out.println("You clicked postponeButton");
 		String Time = labelSlider.getText();
-		Time = Time.substring(0, Time.length() - 1);
-		// System.out.println("Minuti da passare al Timer: " + Time);
+		// Time = Time.substring(0, Time.length() - 1);
+		System.out.println("Minuti da passare al Timer: " + Time);
 		Notification.getIstance().hide();
 		// Imposto il Timer //
 		AppTimer.getIstance().startTimer(Integer.parseInt(Time));
@@ -57,10 +58,13 @@ public class FxFXMLController implements Initializable {
 
 	@FXML
 	public void onSliderChanged() {
-		int sliderValue = (int) mySlider.getValue();
-		labelSlider.setStyle("-fx-font-weight: bold;");
-		labelSlider.setText(sliderValue + "'");
-		// System.out.println("sliderValue " + sliderValue);
+		labelSlider.textProperty().bind(Bindings.format("%.0f", mySlider.valueProperty()));
+		/*
+		 * int sliderValue = (int) mySlider.getValue();
+		 * labelSlider.setStyle("-fx-font-weight: bold;");
+		 * labelSlider.setText(sliderValue + "'"); // System.out.println("sliderValue "
+		 * + sliderValue);
+		 */
 	}
 
 	@FXML
