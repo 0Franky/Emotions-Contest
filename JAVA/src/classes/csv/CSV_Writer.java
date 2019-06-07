@@ -12,7 +12,7 @@ import java.util.List;
  * @author Francesco
  *
  */
-class CSV_Writer implements ICSV_Writer {
+class CSV_Writer extends Thread implements ICSV_Writer {
 
 	private CSV_Writer() {
 
@@ -27,6 +27,10 @@ class CSV_Writer implements ICSV_Writer {
 		// return singleton;
 
 		return new CSV_Writer();
+	}
+
+	public void run() {
+
 	}
 
 	/**
@@ -58,16 +62,26 @@ class CSV_Writer implements ICSV_Writer {
 		csvWriter.close();
 	}
 
-	public void write(List<String> data) throws IOException {
+	public void run(List<String> data) throws IOException {
 		if (!data.isEmpty()) {
 			writeCSV(data);
 		}
 	}
 
-	public void write(String data) throws IOException {
+	public void run(String data) throws IOException {
 		if (!data.isEmpty()) {
 			writeCSV(Arrays.asList(data));
 		}
+	}
+
+	@Override
+	public void write(List<String> data) throws IOException {
+		run(data);
+	}
+
+	@Override
+	public void write(String data) throws IOException {
+		run(data);
 	}
 
 }
