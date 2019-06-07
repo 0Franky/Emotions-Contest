@@ -12,6 +12,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 
 public class PopupWindow {
 
@@ -39,6 +40,7 @@ public class PopupWindow {
 		Stage stage = new Stage();
 		Scene scene = new Scene(rootLayout);
 		stage.setScene(scene);
+		stage.initStyle(StageStyle.UNDECORATED);
 		// stage.show();
 
 		this_stage = stage;
