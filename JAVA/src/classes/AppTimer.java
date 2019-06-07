@@ -28,27 +28,27 @@ public class AppTimer extends Thread {
 	}
 
 	public void startTimer(int min) throws InterruptedException {
-		System.err.println("Inizio startTimer per = " + min);
+		// System.err.println("Inizio startTimer per = " + min);
 		// TimeUnit.MINUTES.sleep(min);
-		int sec = 10;
+		int sec = 60;
 		new java.util.Timer().schedule(new java.util.TimerTask() {
 			@Override
 			public void run() {
 				Platform.runLater(() -> {
 					try {
 						if (runFlag) {
-							System.err.println("Apro Notifica");
+							// System.err.println("Apro Notifica");
 							Notification.getIstance().show();
 							Notification.getIstance().toFront();
 						} else
 							System.err.println("Azione Timer Disattivata");
 					} catch (IOException e) {
-						System.err.println("Eccezione = Non apro Notifica");
+						// System.err.println("Eccezione = Non apro Notifica");
 						// e.printStackTrace();
 					}
 				});
 			}
 		}, min * sec * 1000);
-		System.err.println("Fine metodo startTimer ");
+		// System.err.println("Fine metodo startTimer ");
 	}
 }
