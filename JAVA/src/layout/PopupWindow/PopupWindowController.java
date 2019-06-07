@@ -1,6 +1,7 @@
 package layout.PopupWindow;
 
 import java.io.IOException;
+import java.lang.reflect.InvocationTargetException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -24,7 +25,8 @@ public class PopupWindowController implements Initializable {
 	protected TextArea txt_Notes;
 
 	@FXML
-	private void btn_Done_OnAction(ActionEvent event) throws IOException {
+	private void btn_Done_OnAction(ActionEvent event)
+			throws IOException, InvocationTargetException, InterruptedException {
 		// System.out.println("You clicked postponeButton");
 		PopupWindow.getIstance().writeResultsInDir();
 	}

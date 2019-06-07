@@ -1,6 +1,7 @@
 package layout.PopupWindow;
 
 import java.io.IOException;
+import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -86,14 +87,14 @@ public class PopupWindow {
 
 	///////////////////////
 
-	protected void writeResultsInDir() throws IOException {
+	protected void writeResultsInDir() throws InvocationTargetException, InterruptedException, IOException {
 		if (checkCorrectionParam()) {
 			CSV_WriterBuilder.getInstance(CSV_WriterBuilder.typeCSV_Writer.built_in).write(activityToList());
 			PopupWindow.getIstance().hide();
 		}
 	}
 
-	private void writeOpenWindowInDir() throws IOException {
+	private void writeOpenWindowInDir() throws InvocationTargetException, InterruptedException {
 		CSV_WriterBuilder.getInstance(CSV_WriterBuilder.typeCSV_Writer.built_in).write(activityOpenWindowToList());
 	}
 

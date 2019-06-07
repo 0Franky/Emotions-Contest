@@ -152,6 +152,11 @@ public class AppFX extends Application {
 		// Just launches the JavaFX application.
 		// Due to way the application is coded, the application will remain running
 		// until the user selects the Exit menu option from the tray icon.
-		launch(args);
+		try {
+			launch(args);
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+
 	}
 }
