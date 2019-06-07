@@ -28,15 +28,12 @@ public class Notification {
 	private static Notification istance = null; // riferimento all' istanza
 
 	public static Notification getIstance() throws IOException {
-		System.out.println("Sono in getIstance");
 		if (istance == null)
 			synchronized (Notification.class) {
 				if (istance == null) {
-					System.out.println("creo la Notifica");
 					istance = new Notification();
 				}
 			}
-		System.out.println("return istance");
 		return istance;
 	}
 
@@ -45,6 +42,7 @@ public class Notification {
 			this_stage.close();
 		} catch (Exception ex) {
 			System.err.println("not Hide");
+			ex.printStackTrace();
 		}
 	}
 
@@ -62,6 +60,7 @@ public class Notification {
 			this_stage.toFront();
 		} catch (Exception ex) {
 			System.err.println("not Front");
+			ex.printStackTrace();
 		}
 	}
 }
