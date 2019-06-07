@@ -44,6 +44,7 @@ public class PopupWindow {
 		Scene scene = new Scene(rootLayout);
 		stage.setScene(scene);
 		stage.initStyle(StageStyle.UNDECORATED);
+		stage.setAlwaysOnTop(true);
 		// stage.show();
 
 		this_stage = stage;
