@@ -1,8 +1,6 @@
 package classes.csv;
 
 import java.io.File;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 
 public class CSV_Manager {
 
@@ -18,13 +16,14 @@ public class CSV_Manager {
 
 	private static void init() {
 		checkFolder();
+		__started = true;
 		CSV_file_name = "savelog.csv";
 		PATH_CSV = PATH_FOLDER + "\\" + getActualCSV_Name();
 	}
 
 	private static void checkFolder() {
-		if (Files.notExists(Paths.get(PATH_FOLDER))) {
-			(new File("../potentially/long/pathname/without/all/dirs")).mkdirs();
+		if (new File(PATH_FOLDER).exists() == false) {
+			(new File(PATH_FOLDER)).mkdirs();
 		}
 	}
 
