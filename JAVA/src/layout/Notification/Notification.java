@@ -2,6 +2,8 @@ package layout.Notification;
 
 import java.io.IOException;
 
+import javafx.application.Platform;
+import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Scene;
@@ -11,9 +13,13 @@ import javafx.scene.layout.AnchorPane;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
+import javafx.stage.WindowEvent;
 
 public class Notification {
+
 	private double X, Y;
+
+	private boolean canClose = false;
 
 	private Notification() throws IOException {
 		// TODO Auto-generated method stub
@@ -26,6 +32,20 @@ public class Notification {
 		Scene scene = new Scene(rootLayout);
 		stage.setScene(scene);
 		stage.initStyle(StageStyle.TRANSPARENT);
+		stage.setTitle("Request survey");
+
+		Platform.setImplicitExit(false);
+		stage.setOnCloseRequest(new EventHandler<WindowEvent>() {
+			@Override
+			public void handle(WindowEvent event) {
+				if (!canClose) {
+					event.consume();
+				} else {
+					cleanInstance();
+				}
+			}
+		});
+
 		stage.setAlwaysOnTop(true);
 		stage.getIcons().add(new Image(getClass().getResourceAsStream("../../Assets/Icon.png")));
 		centerStage(stage, stage.getWidth(), stage.getHeight());
@@ -34,20 +54,21 @@ public class Notification {
 	}
 
 	private static Stage this_stage = new Stage();
-	private static Notification istance = null; // riferimento all' istanza
+	private static Notification instance = null; // riferimento all' istanza
 
 	public static Notification getIstance() throws IOException {
-		if (istance == null)
+		if (instance == null)
 			synchronized (Notification.class) {
-				if (istance == null) {
-					istance = new Notification();
+				if (instance == null) {
+					instance = new Notification();
 				}
 			}
-		return istance;
+		return instance;
 	}
 
 	public void close() {
 		try {
+			canClose = true;
 			this_stage.close();
 		} catch (Exception ex) {
 			System.err.println("not Hide");
@@ -93,6 +114,10 @@ public class Notification {
 			stage.setX((screenBounds.getWidth() - width) / 2);
 			stage.setY((screenBounds.getHeight() - height) / 2);
 		}
+	}
+
+	protected void cleanInstance() {
+		instance = null;
 	}
 
 }
