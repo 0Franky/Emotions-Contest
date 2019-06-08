@@ -20,21 +20,9 @@ public class Notification {
 		FXMLLoader loader = new FXMLLoader();
 		loader.setLocation(Notification.class.getResource("Notification.fxml"));
 		AnchorPane rootLayout = (AnchorPane) loader.load();
+		rootLayout.setStyle("-fx-border-color: gray; -fx-border-width: 1px 1px 1px 1px");
 		Stage stage = new Stage();
-		/*
-		 * // grab your root here rootLayout.setOnMousePressed(new
-		 * EventHandler<MouseEvent>() {
-		 * 
-		 * @Override public void handle(MouseEvent event) { xOffset = event.getSceneX();
-		 * yOffset = event.getSceneY(); } });
-		 * 
-		 * // move around here rootLayout.setOnMouseDragged(new
-		 * EventHandler<MouseEvent>() {
-		 * 
-		 * @Override public void handle(MouseEvent event) {
-		 * stage.setX(event.getScreenX() - xOffset); stage.setY(event.getScreenY() -
-		 * yOffset); } });
-		 */
+
 		Scene scene = new Scene(rootLayout);
 		stage.setScene(scene);
 		stage.initStyle(StageStyle.TRANSPARENT);
