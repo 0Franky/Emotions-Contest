@@ -9,6 +9,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Hyperlink;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextArea;
 
 public class CreditWindowController {
 
@@ -29,6 +30,9 @@ public class CreditWindowController {
 
 	@FXML
 	Label lbl_VersionBuild;
+
+	@FXML
+	TextArea InfoTextArea;
 
 	@FXML
 	private void gotoPage() {
@@ -67,7 +71,7 @@ public class CreditWindowController {
 	private void pressedOk(ActionEvent event) throws IOException {
 		// System.out.println("You clicked ok");
 		// Chiudi Finestra //
-		// CreditWindow.getIstance().hide();
+		CreditWindow.getIstance().close();
 	}
 
 }

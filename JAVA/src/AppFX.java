@@ -181,7 +181,7 @@ public class AppFX extends Application {
 	 * @throws IOException
 	 */
 	private void showCreditWindow() throws IOException {
-		CreditWindow.getIstance();
+		CreditWindow.getIstance().show();
 	}
 
 	public static void main(String[] args) throws IOException, java.awt.AWTException {
