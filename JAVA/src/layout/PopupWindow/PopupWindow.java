@@ -5,14 +5,19 @@ import java.util.ArrayList;
 import java.util.List;
 
 import classes.csv.CSV_WriterBuilder;
+import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 
 public class PopupWindow {
+	private double xOffset = 0;
+	private double yOffset = 0;
 
 	private static Stage this_stage = new Stage();
 	private static PopupWindow istance = null; // riferimento all' istanza
@@ -37,6 +42,26 @@ public class PopupWindow {
 
 		Stage stage = new Stage();
 		Scene scene = new Scene(rootLayout);
+		stage.initStyle(StageStyle.TRANSPARENT);
+
+		// grab your root here
+		rootLayout.setOnMousePressed(new EventHandler<MouseEvent>() {
+			@Override
+			public void handle(MouseEvent event) {
+				xOffset = event.getSceneX();
+				yOffset = event.getSceneY();
+			}
+		});
+
+		// move around here
+		rootLayout.setOnMouseDragged(new EventHandler<MouseEvent>() {
+			@Override
+			public void handle(MouseEvent event) {
+				stage.setX(event.getScreenX() - xOffset);
+				stage.setY(event.getScreenY() - yOffset);
+			}
+		});
+
 		stage.setScene(scene);
 		// stage.show();
 
