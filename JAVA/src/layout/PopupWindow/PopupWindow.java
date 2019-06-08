@@ -68,6 +68,8 @@ public class PopupWindow {
 			public void handle(WindowEvent event) {
 				if (!canClose) {
 					event.consume();
+				} else {
+					cleanInstance();
 				}
 			}
 		});
@@ -114,7 +116,7 @@ public class PopupWindow {
 		}
 	}
 
-	protected void mousePressed(MouseEvent event) {
+	private protected void mousePressed(MouseEvent event) {
 		X = this_stage.getX() - event.getScreenX();
 		Y = this_stage.getY() - event.getScreenY();
 	}
@@ -197,5 +199,9 @@ public class PopupWindow {
 		alert.initStyle(StageStyle.UTILITY);
 		alert.setHeaderText(null);
 		alert.showAndWait();
+	}
+
+	protected void cleanInstance() {
+		instance = null;
 	}
 }
