@@ -12,6 +12,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.Slider;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import layout.PopupWindow.PopupWindow;
 
@@ -81,6 +82,16 @@ public class FxFXMLController implements Initializable {
 	private void dismissAction(ActionEvent event) throws IOException {
 		// System.out.println("You clicked dismissButton");
 		Notification.getIstance().hide();
+	}
+
+	@FXML
+	public void mousePressed(MouseEvent event) throws IOException {
+		Notification.getIstance().mousePressed(event);
+	}
+
+	@FXML
+	protected void onWindowDragged(MouseEvent event) throws IOException {
+		Notification.getIstance().onWindowDragged(event);
 	}
 
 	@Override

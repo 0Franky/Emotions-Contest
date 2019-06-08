@@ -2,7 +2,6 @@ package layout.Notification;
 
 import java.io.IOException;
 
-import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Scene;
@@ -15,6 +14,7 @@ import javafx.stage.StageStyle;
 public class Notification {
 	private double xOffset = 0;
 	private double yOffset = 0;
+	private double X, Y;
 
 	private Notification() throws IOException {
 		// TODO Auto-generated method stub
@@ -22,25 +22,20 @@ public class Notification {
 		loader.setLocation(Notification.class.getResource("Notification.fxml"));
 		AnchorPane rootLayout = (AnchorPane) loader.load();
 		Stage stage = new Stage();
-
-		// grab your root here
-		rootLayout.setOnMousePressed(new EventHandler<MouseEvent>() {
-			@Override
-			public void handle(MouseEvent event) {
-				xOffset = event.getSceneX();
-				yOffset = event.getSceneY();
-			}
-		});
-
-		// move around here
-		rootLayout.setOnMouseDragged(new EventHandler<MouseEvent>() {
-			@Override
-			public void handle(MouseEvent event) {
-				stage.setX(event.getScreenX() - xOffset);
-				stage.setY(event.getScreenY() - yOffset);
-			}
-		});
-
+		/*
+		 * // grab your root here rootLayout.setOnMousePressed(new
+		 * EventHandler<MouseEvent>() {
+		 * 
+		 * @Override public void handle(MouseEvent event) { xOffset = event.getSceneX();
+		 * yOffset = event.getSceneY(); } });
+		 * 
+		 * // move around here rootLayout.setOnMouseDragged(new
+		 * EventHandler<MouseEvent>() {
+		 * 
+		 * @Override public void handle(MouseEvent event) {
+		 * stage.setX(event.getScreenX() - xOffset); stage.setY(event.getScreenY() -
+		 * yOffset); } });
+		 */
 		Scene scene = new Scene(rootLayout);
 		stage.setScene(scene);
 		stage.initStyle(StageStyle.TRANSPARENT);
@@ -88,6 +83,16 @@ public class Notification {
 			System.err.println("not Front");
 			ex.printStackTrace();
 		}
+	}
+
+	protected void mousePressed(MouseEvent event) {
+		X = this_stage.getX() - event.getScreenX();
+		Y = this_stage.getY() - event.getScreenY();
+	}
+
+	protected void onWindowDragged(MouseEvent event) {
+		this_stage.setX(event.getScreenX() + X);
+		this_stage.setY(event.getScreenY() + Y);
 	}
 
 	private void centerStage(Stage stage, double width, double height) {

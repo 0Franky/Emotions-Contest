@@ -10,7 +10,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="AnchorPaneNotification" depthTest="DISABLE" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="120.0" prefWidth="320.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="layout.Notification.FxFXMLController">
+<AnchorPane fx:id="AnchorPaneNotification" onMouseDragged="#onWindowDragged" onMousePressed="#mousePressed" depthTest="DISABLE" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="120.0" prefWidth="320.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="layout.Notification.FxFXMLController">
    <children>
    <Label alignment="CENTER" layoutX="14.0" layoutY="33.0" onMouseClicked="#openPopUp" prefHeight="26.0" prefWidth="198.0" text="Click here to open pop-up!" textAlignment="CENTER" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="108.0" AnchorPane.topAnchor="33.0">
          <font>
