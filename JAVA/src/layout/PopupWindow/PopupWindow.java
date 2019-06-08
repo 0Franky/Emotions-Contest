@@ -13,6 +13,7 @@ import javafx.scene.control.Alert.AlertType;
 import javafx.scene.image.Image;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
@@ -38,7 +39,8 @@ public class PopupWindow {
 		FXMLLoader loader = new FXMLLoader();
 		loader.setLocation(PopupWindow.class.getResource("PopupWindow.fxml"));
 		AnchorPane rootLayout = (AnchorPane) loader.load();
-		rootLayout.setStyle("-fx-border-color: gray; -fx-border-width: 1px 1px 1px 1px");
+		rootLayout.setStyle(
+				".root { -fx-background-color: transparent; -fx-background-radius: 6; }; -fx-background-color: rgba(242, 242, 242, 1); -fx-border-width: 1px 1px 1px 1px; -fx-background-radius: 6;");
 
 		popupWindowController = loader.getController();
 
@@ -47,8 +49,10 @@ public class PopupWindow {
 		this_stage = stage;
 
 		Scene scene = new Scene(rootLayout);
+		scene.setFill(Color.TRANSPARENT);
 		stage.setScene(scene);
-		stage.initStyle(StageStyle.UNDECORATED);
+		// stage.initStyle(StageStyle.UNDECORATED);
+		stage.initStyle(StageStyle.TRANSPARENT);
 		stage.setAlwaysOnTop(true);
 		stage.getIcons().add(new Image(getClass().getResourceAsStream("../../Assets/Icon.png")));
 		show();
@@ -169,7 +173,10 @@ public class PopupWindow {
 
 	private void MessageBox(String text) {
 		Alert alert = new Alert(AlertType.WARNING);
+		alert.initOwner(this_stage);
 		alert.setContentText(text);
+		alert.initStyle(StageStyle.UTILITY);
+		alert.setHeaderText(null);
 		alert.showAndWait();
 	}
 }
