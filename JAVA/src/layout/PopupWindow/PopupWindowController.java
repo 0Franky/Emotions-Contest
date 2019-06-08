@@ -1,6 +1,7 @@
 package layout.PopupWindow;
 
 import java.io.IOException;
+import java.lang.reflect.InvocationTargetException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -11,6 +12,8 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextArea;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.AnchorPane;
 
 public class PopupWindowController implements Initializable {
 
@@ -24,7 +27,11 @@ public class PopupWindowController implements Initializable {
 	protected TextArea txt_Notes;
 
 	@FXML
-	private void btn_Done_OnAction(ActionEvent event) throws IOException {
+	protected AnchorPane pnl_window;
+
+	@FXML
+	private void btn_Done_OnAction(ActionEvent event)
+			throws IOException, InvocationTargetException, InterruptedException {
 		// System.out.println("You clicked postponeButton");
 		PopupWindow.getIstance().writeResultsInDir();
 	}
@@ -50,6 +57,16 @@ public class PopupWindowController implements Initializable {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+	}
+
+	@FXML
+	public void mousePressed(MouseEvent event) throws IOException {
+		PopupWindow.getIstance().mousePressed(event);
+	}
+
+	@FXML
+	protected void onWindowDragged(MouseEvent event) throws IOException {
+		PopupWindow.getIstance().onWindowDragged(event);
 	}
 
 	@Override

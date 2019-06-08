@@ -1,6 +1,7 @@
 package layout.PopupWindow;
 
 import java.io.IOException;
+import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -9,8 +10,10 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 
 public class PopupWindow {
 
@@ -19,6 +22,8 @@ public class PopupWindow {
 
 	protected String pleasantness = "";
 	protected String excitement = "";
+
+	private double X, Y;
 
 	PopupWindowController popupWindowController = null;
 
@@ -38,6 +43,8 @@ public class PopupWindow {
 		Stage stage = new Stage();
 		Scene scene = new Scene(rootLayout);
 		stage.setScene(scene);
+		stage.initStyle(StageStyle.UNDECORATED);
+		stage.setAlwaysOnTop(true);
 		// stage.show();
 
 		this_stage = stage;
@@ -78,6 +85,16 @@ public class PopupWindow {
 		}
 	}
 
+	protected void mousePressed(MouseEvent event) {
+		X = this_stage.getX() - event.getScreenX();
+		Y = this_stage.getY() - event.getScreenY();
+	}
+
+	protected void onWindowDragged(MouseEvent event) {
+		this_stage.setX(event.getScreenX() + X);
+		this_stage.setY(event.getScreenY() + Y);
+	}
+
 	/*
 	 * public static void main(String[] args) { // TODO Auto-generated method stub
 	 * try { PopupWindow.getIstance().show(); } catch (IOException e) { // TODO
@@ -86,14 +103,14 @@ public class PopupWindow {
 
 	///////////////////////
 
-	protected void writeResultsInDir() throws IOException {
+	protected void writeResultsInDir() throws InvocationTargetException, InterruptedException, IOException {
 		if (checkCorrectionParam()) {
 			CSV_WriterBuilder.getInstance(CSV_WriterBuilder.typeCSV_Writer.built_in).write(activityToList());
 			PopupWindow.getIstance().hide();
 		}
 	}
 
-	private void writeOpenWindowInDir() throws IOException {
+	private void writeOpenWindowInDir() throws InvocationTargetException, InterruptedException {
 		CSV_WriterBuilder.getInstance(CSV_WriterBuilder.typeCSV_Writer.built_in).write(activityOpenWindowToList());
 	}
 

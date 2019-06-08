@@ -15,13 +15,13 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="813.0" prefWidth="924.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="layout.PopupWindow.PopupWindowController">
+<AnchorPane fx:id="pnl_window" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseDragged="#onWindowDragged" onMousePressed="#mousePressed" prefHeight="813.0" prefWidth="924.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="layout.PopupWindow.PopupWindowController">
    <children>
       <Label alignment="CENTER" layoutX="24.0" layoutY="24.0" text="In witch activity have you mainly been involved since the last notification?" textAlignment="CENTER" AnchorPane.leftAnchor="24.0" AnchorPane.rightAnchor="24.0">
          <font>
             <Font name="System Bold" size="18.0" />
          </font></Label>
-      <ComboBox fx:id="lbl_Activity" editable="true" layoutX="272.0" layoutY="57.0" prefHeight="25.0" prefWidth="381.0" AnchorPane.leftAnchor="272.0" AnchorPane.rightAnchor="272.0" AnchorPane.topAnchor="57.0" >
+      <ComboBox fx:id="lbl_Activity" editable="true" layoutX="272.0" layoutY="57.0" prefHeight="25.0" prefWidth="381.0" AnchorPane.leftAnchor="272.0" AnchorPane.rightAnchor="272.0" AnchorPane.topAnchor="57.0">
       	 <items>
              
          </items>
