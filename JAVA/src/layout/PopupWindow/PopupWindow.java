@@ -56,12 +56,9 @@ public class PopupWindow {
 		Scene scene = new Scene(rootLayout);
 		scene.setFill(Color.TRANSPARENT);
 		stage.setScene(scene);
-<<<<<<< HEAD
 		// stage.initStyle(StageStyle.UNDECORATED);
 		stage.initStyle(StageStyle.TRANSPARENT);
 		stage.setTitle("Popup survey");
-=======
-		stage.initStyle(StageStyle.UNDECORATED);
 
 		Platform.setImplicitExit(false);
 		stage.setOnCloseRequest(new EventHandler<WindowEvent>() {
@@ -75,7 +72,6 @@ public class PopupWindow {
 			}
 		});
 
->>>>>>> c76602bab363a5adee35c65cc8945172d3d31c61
 		stage.setAlwaysOnTop(true);
 		stage.getIcons().add(new Image(getClass().getResourceAsStream("../../Assets/Icon.png")));
 
