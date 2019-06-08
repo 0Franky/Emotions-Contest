@@ -59,6 +59,7 @@ public class FxFXMLController implements Initializable {
 		// Imposto il Timer //
 		AppTimer.getIstance().startTimer(Integer.parseInt(Time));
 		// System.out.println("Fine Thread");
+		Notification.getIstance().cleanInstance(); // <<-->> CANCEL THE INSTANCE <<-->>
 	}
 
 	@FXML
@@ -76,12 +77,14 @@ public class FxFXMLController implements Initializable {
 	public void openPopUp() throws IOException {
 		Notification.getIstance().hide();
 		PopupWindow.getIstance().show();
+		Notification.getIstance().cleanInstance(); // <<-->> CANCEL THE INSTANCE <<-->>
 	}
 
 	@FXML
 	private void dismissAction(ActionEvent event) throws IOException {
 		// System.out.println("You clicked dismissButton");
 		Notification.getIstance().hide();
+		Notification.getIstance().cleanInstance(); // <<-->> CANCEL THE INSTANCE <<-->>
 	}
 
 	@FXML

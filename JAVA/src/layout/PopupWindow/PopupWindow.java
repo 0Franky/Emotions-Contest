@@ -18,7 +18,7 @@ import javafx.stage.StageStyle;
 public class PopupWindow {
 
 	private static Stage this_stage = new Stage();
-	private static PopupWindow istance = null; // riferimento all' istanza
+	private static PopupWindow instance = null; // riferimento all' istanza
 
 	protected String pleasantness = "";
 	protected String excitement = "";
@@ -51,13 +51,13 @@ public class PopupWindow {
 	}
 
 	public static PopupWindow getIstance() throws IOException {
-		if (istance == null)
+		if (instance == null)
 			synchronized (PopupWindow.class) {
-				if (istance == null) {
-					istance = new PopupWindow();
+				if (instance == null) {
+					instance = new PopupWindow();
 				}
 			}
-		return istance;
+		return instance;
 	}
 
 	public void hide() {
@@ -107,6 +107,7 @@ public class PopupWindow {
 		if (checkCorrectionParam()) {
 			CSV_WriterBuilder.getInstance(CSV_WriterBuilder.typeCSV_Writer.built_in).write(activityToList());
 			PopupWindow.getIstance().hide();
+			instance = null;
 		}
 	}
 
@@ -163,7 +164,11 @@ public class PopupWindow {
 
 	private void MessageBox(String text) {
 		Alert alert = new Alert(AlertType.WARNING);
+		alert.setTitle("Information Missed!");
+		alert.setHeaderText(null);
 		alert.setContentText(text);
+		alert.initStyle(StageStyle.UTILITY);
+		alert.initOwner(this_stage);
 		alert.showAndWait();
 	}
 }

@@ -12,8 +12,6 @@ import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
 public class Notification {
-	private double xOffset = 0;
-	private double yOffset = 0;
 	private double X, Y;
 
 	private Notification() throws IOException {
@@ -46,16 +44,16 @@ public class Notification {
 	}
 
 	private static Stage this_stage = new Stage();
-	private static Notification istance = null; // riferimento all' istanza
+	private static Notification instance = null; // riferimento all' istanza
 
 	public static Notification getIstance() throws IOException {
-		if (istance == null)
+		if (instance == null)
 			synchronized (Notification.class) {
-				if (istance == null) {
-					istance = new Notification();
+				if (instance == null) {
+					instance = new Notification();
 				}
 			}
-		return istance;
+		return instance;
 	}
 
 	public void hide() {
@@ -105,6 +103,10 @@ public class Notification {
 			stage.setX((screenBounds.getWidth() - width) / 2);
 			stage.setY((screenBounds.getHeight() - height) / 2);
 		}
+	}
+
+	protected void cleanInstance() {
+		instance = null;
 	}
 
 }
