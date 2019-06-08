@@ -9,7 +9,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Hyperlink;
 import javafx.scene.control.Label;
-import javafx.scene.control.TextArea;
+import javafx.scene.text.Text;
 
 public class CreditWindowController {
 
@@ -32,7 +32,7 @@ public class CreditWindowController {
 	Label lbl_VersionBuild;
 
 	@FXML
-	TextArea InfoTextArea;
+	Text txt_AppDescription;
 
 	@FXML
 	private void gotoPage() {
