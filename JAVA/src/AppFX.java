@@ -8,7 +8,11 @@ import classes.AppTimer;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
+import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
+import layout.BubbleChart.BubbleChartWindow;
 import layout.Credits.CreditWindow;
 import layout.Notification.Notification;
 import layout.PopupWindow.PopupWindow;
@@ -114,6 +118,19 @@ public class AppFX extends Application {
 				}
 			}));
 
+			btn_ExportCSV.addActionListener(event -> Platform.runLater(() -> {
+				saveCSV();
+			}));
+
+			btn_Restrospective.addActionListener(event -> Platform.runLater(() -> {
+				try {
+					BubbleChartWindow.getIstance();
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}));
+
 			// the convention for tray icons seems to be to set the default icon for opening
 			// the application stage in a bold font.
 			java.awt.Font defaultFont = java.awt.Font.decode(null);
@@ -194,5 +211,23 @@ public class AppFX extends Application {
 			// TODO: handle exception
 		}
 
+	}
+
+	private void saveCSV() {
+		FileChooser fileChooser = new FileChooser();
+		fileChooser.setTitle("Save file");
+		File outFile = fileChooser.showSaveDialog(this_stage);
+
+		if (outFile == null) {
+			Alert alert = new Alert(AlertType.ERROR);
+			alert.setTitle("No folder selected");
+			alert.setHeaderText(null);
+			alert.setContentText("Aborting operation!");
+			alert.initStyle(StageStyle.UTILITY);
+			alert.initOwner(this_stage);
+			alert.showAndWait();
+		} else {
+			// exportDatabaseToCSV();
+		}
 	}
 }

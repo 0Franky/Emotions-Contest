@@ -2,29 +2,51 @@ package layout.BubbleChart;
 
 import java.io.IOException;
 
-import javafx.application.Application;
+import javafx.application.Platform;
+import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.chart.BubbleChart;
 import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.XYChart;
+import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
+import javafx.stage.WindowEvent;
 
-public class BubbleChartWindow extends Application {
+public class BubbleChartWindow {
+
+	private static Stage this_stage = new Stage();
+	private static BubbleChartWindow instance = null; // riferimento all' istanza
+
+	// private BubbleChartWindowController bubbleChartWindowController = null;
 
 	private BubbleChart<Number, Number> chart = null;
 
-	@Override
-	public void start(Stage stage) throws IOException {
+	private BubbleChartWindow() throws IOException {
 
 		FXMLLoader loader = new FXMLLoader();
 		loader.setLocation(BubbleChartWindow.class.getResource("BubbleChartWindow.fxml"));
 		AnchorPane rootLayout = (AnchorPane) loader.load();
 
+		// bubbleChartWindowController = loader.getController();
+
+		Stage stage = new Stage();
 		Scene scene = new Scene(rootLayout);
 		stage.setScene(scene);
-		stage.show();
+		stage.setTitle("Retrospection");
+
+		Platform.setImplicitExit(false);
+		stage.setOnCloseRequest(new EventHandler<WindowEvent>() {
+			@Override
+			public void handle(WindowEvent event) {
+				cleanInstance();
+			}
+		});
+
+		stage.setAlwaysOnTop(true);
+		stage.getIcons().add(new Image(getClass().getResourceAsStream("../../Assets/Icon.png")));
+		this_stage = stage;
 
 		chart = (BubbleChart) scene.lookup("#chart");
 
@@ -47,7 +69,40 @@ public class BubbleChartWindow extends Application {
 		yAxis.setLabel("Excited");
 		chart.setTitle("Feeling during the day");
 
+		stage.show();
+
 		// demoAddBubble();
+	}
+
+	public static BubbleChartWindow getIstance() throws IOException {
+		if (instance == null)
+			synchronized (BubbleChartWindow.class) {
+				if (instance == null) {
+					instance = new BubbleChartWindow();
+				} else {
+					instance.show();
+					instance.toFront();
+				}
+			}
+		return instance;
+	}
+
+	public void show() {
+		try {
+			this_stage.show();
+		} catch (Exception ex) {
+			System.err.println("not Show");
+			ex.printStackTrace();
+		}
+	}
+
+	public void toFront() {
+		try {
+			this_stage.toFront();
+		} catch (Exception ex) {
+			System.err.println("not Front");
+			ex.printStackTrace();
+		}
 	}
 
 	public void addBubble(Number xValue, Number yValue, Number weight) {
@@ -56,6 +111,20 @@ public class BubbleChartWindow extends Application {
 		bubble.getData().add(new XYChart.Data(xValue, yValue, weight));
 
 		chart.getData().add(bubble);
+	}
+
+	public void close() {
+		try {
+			cleanInstance();
+			this_stage.close();
+		} catch (Exception ex) {
+			System.err.println("not Hide");
+			ex.printStackTrace();
+		}
+	}
+
+	protected void cleanInstance() {
+		instance = null;
 	}
 
 	/*

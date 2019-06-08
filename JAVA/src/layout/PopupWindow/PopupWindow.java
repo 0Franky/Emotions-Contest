@@ -130,13 +130,15 @@ public class PopupWindow {
 
 	protected void writeResultsInDir() throws InvocationTargetException, InterruptedException, IOException {
 		if (checkCorrectionParam()) {
-			CSV_WriterBuilder.getInstance(CSV_WriterBuilder.typeCSV_Writer.built_in).write(activityToList());
+			// insertResultInDatabase();
+			CSV_WriterBuilder.getInstance(CSV_WriterBuilder.typeCSV_Writer.google_sheet).write(activityToList());
 			PopupWindow.getIstance().close();
 		}
 	}
 
 	private void writeOpenWindowInDir() throws InvocationTargetException, InterruptedException {
-		CSV_WriterBuilder.getInstance(CSV_WriterBuilder.typeCSV_Writer.built_in).write(activityOpenWindowToList());
+		// insertOpemWindowInDatabase();
+		CSV_WriterBuilder.getInstance(CSV_WriterBuilder.typeCSV_Writer.google_sheet).write(activityOpenWindowToList());
 	}
 
 	private List<String> activityOpenWindowToList() {
