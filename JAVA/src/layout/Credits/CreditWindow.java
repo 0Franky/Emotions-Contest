@@ -3,14 +3,20 @@ package layout.Credits;
 import java.io.IOException;
 
 import Title.Title;
+import javafx.application.Platform;
+import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
+import javafx.stage.WindowEvent;
 
 public class CreditWindow {
+
+	private static Stage this_stage = new Stage();
+	private static CreditWindow instance = null; // riferimento all' istanza
 
 	private CreditWindowController creditWindowController = null;
 
@@ -29,6 +35,16 @@ public class CreditWindow {
 		stage.setScene(scene);
 		// stage.initStyle(StageStyle.TRANSPARENT);
 		stage.resizableProperty().setValue(Boolean.FALSE);
+		stage.setTitle("Credit & Inforation");
+
+		Platform.setImplicitExit(false);
+		stage.setOnCloseRequest(new EventHandler<WindowEvent>() {
+			@Override
+			public void handle(WindowEvent event) {
+				cleanInstance();
+			}
+		});
+
 		stage.setAlwaysOnTop(true);
 		stage.getIcons().add(new Image(getClass().getResourceAsStream("../../Assets/Icon.png")));
 		this_stage = stage;
@@ -39,24 +55,22 @@ public class CreditWindow {
 		this_stage.show();
 	}
 
-	private static Stage this_stage = new Stage();
-	private static CreditWindow istance = null; // riferimento all' istanza
-
 	public static CreditWindow getIstance() throws IOException {
-		if (istance == null)
+		if (instance == null)
 			synchronized (CreditWindow.class) {
-				if (istance == null) {
-					istance = new CreditWindow();
+				if (instance == null) {
+					instance = new CreditWindow();
 				} else {
-					istance.show();
-					istance.toFront();
+					instance.show();
+					instance.toFront();
 				}
 			}
-		return istance;
+		return instance;
 	}
 
 	public void close() {
 		try {
+			cleanInstance();
 			this_stage.close();
 		} catch (Exception ex) {
 			System.err.println("not Hide");
@@ -80,6 +94,10 @@ public class CreditWindow {
 			System.err.println("not Front");
 			ex.printStackTrace();
 		}
+	}
+
+	protected void cleanInstance() {
+		instance = null;
 	}
 
 	protected void mousePressed(MouseEvent event) {

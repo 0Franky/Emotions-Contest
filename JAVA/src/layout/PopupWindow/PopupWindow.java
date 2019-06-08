@@ -22,8 +22,8 @@ import javafx.stage.WindowEvent;
 
 public class PopupWindow {
 
-	private static Stage this_stage = null;
-	private static PopupWindow istance = null; // riferimento all' istanza
+	private static Stage this_stage = new Stage();
+	private static PopupWindow instance = null; // riferimento all' istanza
 
 	protected String pleasantness = "";
 	protected String excitement = "";
@@ -56,9 +56,26 @@ public class PopupWindow {
 		Scene scene = new Scene(rootLayout);
 		scene.setFill(Color.TRANSPARENT);
 		stage.setScene(scene);
+<<<<<<< HEAD
 		// stage.initStyle(StageStyle.UNDECORATED);
 		stage.initStyle(StageStyle.TRANSPARENT);
 		stage.setTitle("Popup survey");
+=======
+		stage.initStyle(StageStyle.UNDECORATED);
+
+		Platform.setImplicitExit(false);
+		stage.setOnCloseRequest(new EventHandler<WindowEvent>() {
+			@Override
+			public void handle(WindowEvent event) {
+				if (!canClose) {
+					event.consume();
+				} else {
+					cleanInstance();
+				}
+			}
+		});
+
+>>>>>>> c76602bab363a5adee35c65cc8945172d3d31c61
 		stage.setAlwaysOnTop(true);
 		stage.getIcons().add(new Image(getClass().getResourceAsStream("../../Assets/Icon.png")));
 
@@ -80,13 +97,13 @@ public class PopupWindow {
 	}
 
 	public static PopupWindow getIstance() throws IOException {
-		if (istance == null)
+		if (instance == null)
 			synchronized (PopupWindow.class) {
-				if (istance == null) {
-					istance = new PopupWindow();
+				if (instance == null) {
+					instance = new PopupWindow();
 				}
 			}
-		return istance;
+		return instance;
 	}
 
 	public void close() {
@@ -194,10 +211,11 @@ public class PopupWindow {
 
 	private void MessageBox(String text) {
 		Alert alert = new Alert(AlertType.WARNING);
-		alert.initOwner(this_stage);
+		alert.setTitle("Information Missed!");
+		alert.setHeaderText(null);
 		alert.setContentText(text);
 		alert.initStyle(StageStyle.UTILITY);
-		alert.setHeaderText(null);
+		alert.initOwner(this_stage);
 		alert.showAndWait();
 	}
 

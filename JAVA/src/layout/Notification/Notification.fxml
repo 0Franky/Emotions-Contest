@@ -12,7 +12,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="AnchorPaneNotification" depthTest="DISABLE" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseDragged="#onWindowDragged" onMousePressed="#mousePressed" prefHeight="120.0" prefWidth="320.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="layout.Notification.NotificationController">
+<AnchorPane fx:id="AnchorPaneNotification" onMouseDragged="#onWindowDragged" onMousePressed="#mousePressed" depthTest="DISABLE" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="120.0" prefWidth="320.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="layout.Notification.NotificationController">
    <children>
       <ImageView fitHeight="345.0" fitWidth="346.0" layoutX="-12.0" layoutY="-110.0" opacity="0.2" pickOnBounds="true" preserveRatio="true">
          <image>
