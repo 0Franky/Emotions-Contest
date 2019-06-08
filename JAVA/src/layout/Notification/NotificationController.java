@@ -16,7 +16,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import layout.PopupWindow.PopupWindow;
 
-public class FxFXMLController implements Initializable {
+public class NotificationController implements Initializable {
 
 	// The reference of outputText will be injected by the FXML loader
 
