@@ -5,36 +5,40 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Separator?>
 <?import javafx.scene.control.Slider?>
+<?import javafx.scene.effect.Reflection?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane depthTest="DISABLE" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="142.0" prefWidth="460.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="layout.Notification.FxFXMLController">
+<AnchorPane fx:id="AnchorPaneNotification" depthTest="DISABLE" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="120.0" prefWidth="320.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="layout.Notification.FxFXMLController">
    <children>
-   <Label alignment="CENTER" layoutX="8.0" layoutY="45.0" onMouseClicked="#openPopUp" prefHeight="27.0" prefWidth="238.0" text="Click here to open pop-up!" textAlignment="CENTER" AnchorPane.leftAnchor="8.0" AnchorPane.rightAnchor="214.0" AnchorPane.topAnchor="45.0">
+   <Label alignment="CENTER" layoutX="14.0" layoutY="33.0" onMouseClicked="#openPopUp" prefHeight="26.0" prefWidth="198.0" text="Click here to open pop-up!" textAlignment="CENTER" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="108.0" AnchorPane.topAnchor="33.0">
          <font>
-            <Font name="System Bold" size="18.0" />
+            <Font name="System Bold" size="15.0" />
          </font></Label>
-      <HBox alignment="CENTER" layoutX="141.0" layoutY="733.0" prefHeight="32.0" prefWidth="200.0" AnchorPane.bottomAnchor="14.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+      <HBox alignment="CENTER" layoutX="-37.0" layoutY="68.0" prefHeight="51.0" prefWidth="394.0" AnchorPane.bottomAnchor="7.0" AnchorPane.leftAnchor="-37.0" AnchorPane.rightAnchor="-37.0">
          <children>
-         	<Label fx:id="labelSlider" prefHeight="26.0" prefWidth="31.0" text="1'">
+         	<Label fx:id="labelSlider" prefHeight="26.0" prefWidth="31.0" text="1">
                <cursor>
                   <Cursor fx:constant="NW_RESIZE" />
                </cursor>
                <font>
                   <Font name="System Bold" size="15.0" />
-               </font></Label>
-            <Separator opacity="0.0" orientation="VERTICAL" prefHeight="32.0" prefWidth="0.0" />
-            <Slider fx:id="mySlider" blockIncrement="1" majorTickUnit="59.0" max="120.0" min="1" minorTickCount="1" onMouseReleased="#onSliderChanged" prefHeight="26.0" prefWidth="217.0" showTickLabels="true" showTickMarks="true" />
+               </font>
+               <effect>
+                  <Reflection />
+               </effect></Label>
+            <Separator opacity="0.0" orientation="VERTICAL" prefHeight="45.0" prefWidth="8.0" />
+            <Slider fx:id="mySlider" blockIncrement="1" majorTickUnit="59.0" max="120.0" min="1" minorTickCount="1" onMouseReleased="#onSliderChanged" prefHeight="45.0" prefWidth="155.0" showTickLabels="true" showTickMarks="true" />
             <Separator opacity="0.0" orientation="VERTICAL" prefHeight="32.0" prefWidth="12.0" />
-            <Button fx:id="postponeButton" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#postponeAction" prefHeight="32.0" prefWidth="160.0" text="Postpone" textAlignment="CENTER" />
+            <Button fx:id="postponeButton" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#postponeAction" prefHeight="45.0" prefWidth="88.0" text="Postpone" textAlignment="CENTER" />
          </children>
       </HBox>
-      <Label alignment="CENTER" layoutX="8.0" layoutY="14.0" onMouseClicked="#openPopUp" prefHeight="24.0" prefWidth="205.0" text="How are you feeling ?" textAlignment="CENTER">
+      <Label alignment="CENTER" layoutX="3.0" layoutY="10.0" onMouseClicked="#openPopUp" prefHeight="26.0" prefWidth="183.0" text="How are you feeling ?" textAlignment="CENTER">
          <font>
-            <Font name="System Bold" size="19.0" />
+            <Font name="System Bold" size="15.0" />
          </font>
       </Label>
-      <Button id="dismissButton" alignment="CENTER" contentDisplay="CENTER" layoutX="283.0" layoutY="29.0" mnemonicParsing="false" onAction="#dismissAction" prefHeight="32.0" prefWidth="160.0" text="Dismiss" textAlignment="CENTER" />
+      <Button id="dismissButton" alignment="CENTER" contentDisplay="CENTER" layoutX="219.0" layoutY="10.0" mnemonicParsing="false" onAction="#dismissAction" prefHeight="45.0" prefWidth="87.0" text="Dismiss" textAlignment="CENTER" />
    </children>
 </AnchorPane>
