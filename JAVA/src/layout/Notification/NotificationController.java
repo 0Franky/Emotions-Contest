@@ -16,7 +16,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import layout.PopupWindow.PopupWindow;
 
-public class FxFXMLController implements Initializable {
+public class NotificationController implements Initializable {
 
 	// The reference of outputText will be injected by the FXML loader
 
@@ -55,7 +55,7 @@ public class FxFXMLController implements Initializable {
 		String Time = labelSlider.getText();
 		// Time = Time.substring(0, Time.length() - 1);
 		System.out.println("Minuti da passare al Timer: " + Time);
-		Notification.getIstance().hide();
+		Notification.getIstance().close();
 		// Imposto il Timer //
 		AppTimer.getIstance().startTimer(Integer.parseInt(Time));
 		// System.out.println("Fine Thread");
@@ -74,14 +74,14 @@ public class FxFXMLController implements Initializable {
 
 	@FXML
 	public void openPopUp() throws IOException {
-		Notification.getIstance().hide();
-		PopupWindow.getIstance().show();
+		Notification.getIstance().close();
+		PopupWindow.getIstance();
 	}
 
 	@FXML
 	private void dismissAction(ActionEvent event) throws IOException {
 		// System.out.println("You clicked dismissButton");
-		Notification.getIstance().hide();
+		Notification.getIstance().close();
 	}
 
 	@FXML

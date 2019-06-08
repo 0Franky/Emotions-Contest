@@ -10,6 +10,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
+import javafx.scene.image.Image;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
@@ -17,7 +18,7 @@ import javafx.stage.StageStyle;
 
 public class PopupWindow {
 
-	private static Stage this_stage = new Stage();
+	private static Stage this_stage = null;
 	private static PopupWindow istance = null; // riferimento all' istanza
 
 	protected String pleasantness = "";
@@ -37,15 +38,20 @@ public class PopupWindow {
 		FXMLLoader loader = new FXMLLoader();
 		loader.setLocation(PopupWindow.class.getResource("PopupWindow.fxml"));
 		AnchorPane rootLayout = (AnchorPane) loader.load();
+		rootLayout.setStyle("-fx-border-color: gray; -fx-border-width: 1px 1px 1px 1px");
 
 		popupWindowController = loader.getController();
 
 		Stage stage = new Stage();
+
+		this_stage = stage;
+
 		Scene scene = new Scene(rootLayout);
 		stage.setScene(scene);
 		stage.initStyle(StageStyle.UNDECORATED);
 		stage.setAlwaysOnTop(true);
-		// stage.show();
+		stage.getIcons().add(new Image(getClass().getResourceAsStream("../../Assets/Icon.png")));
+		show();
 
 		this_stage = stage;
 	}
@@ -60,15 +66,15 @@ public class PopupWindow {
 		return istance;
 	}
 
-	public void hide() {
+	public void close() {
 		try {
-			this_stage.hide();
+			this_stage.close();
 		} catch (Exception ex) {
 			// nothing
 		}
 	}
 
-	public void show() {
+	private void show() {
 		try {
 			this_stage.show();
 			writeOpenWindowInDir();
@@ -106,7 +112,7 @@ public class PopupWindow {
 	protected void writeResultsInDir() throws InvocationTargetException, InterruptedException, IOException {
 		if (checkCorrectionParam()) {
 			CSV_WriterBuilder.getInstance(CSV_WriterBuilder.typeCSV_Writer.built_in).write(activityToList());
-			PopupWindow.getIstance().hide();
+			PopupWindow.getIstance().close();
 		}
 	}
 

@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Hyperlink?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.paint.LinearGradient?>
+<?import javafx.scene.paint.Stop?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane depthTest="DISABLE" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="488.0" prefWidth="519.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="layout.Credits.CreditWindowController">
+   <children>
+      <ImageView fitHeight="611.0" fitWidth="583.0" layoutX="2.0" layoutY="-17.0" nodeOrientation="RIGHT_TO_LEFT" opacity="0.14" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../Assets/Icon.png" />
+         </image>
+      </ImageView>
+      <TextArea blendMode="MULTIPLY" editable="false" layoutX="77.0" layoutY="235.0" mouseTransparent="true" prefHeight="191.0" prefWidth="368.0" text="This program is free software; &#10;you can redistribute it and/or modify it.&#10;It was developed developed to gather information &#10;for the development of an IA ....&#10;&#10;This program is distributed in the&#10; hope that it will be useful, &#10;but WITHOUT ANY WARRANTY; &#10;We hope the notification will not be to stressfull&#10;&#10;You should have received a manual to use&#10;this software, if not go to the official GitHub page.">
+         <font>
+            <Font name="System Italic" size="15.0" />
+         </font>
+      </TextArea>
+      <Label fx:id="lbl_TitleApp" alignment="CENTER" layoutX="167.0" layoutY="37.0" prefHeight="45.0" prefWidth="189.0" text="TITLE" textAlignment="CENTER">
+         <font>
+            <Font name="System Bold" size="30.0" />
+         </font>
+         <textFill>
+            <LinearGradient endX="1.0" endY="1.0" startX="1.0" startY="0.2087378640776699">
+               <stops>
+                  <Stop color="RED" />
+                  <Stop color="#680000" offset="1.0" />
+               </stops>
+            </LinearGradient>
+         </textFill>
+      </Label>
+      <Button fx:id="buttonOk" alignment="CENTER" blendMode="MULTIPLY" contentDisplay="CENTER" layoutX="205.0" layoutY="440.0" mnemonicParsing="false" onAction="#pressedOk" prefHeight="34.0" prefWidth="112.0" text="Ok" textAlignment="CENTER" />
+      <Hyperlink fx:id="GitHubLink" layoutX="170.0" layoutY="184.0" onAction="#gotoPage" prefHeight="29.0" prefWidth="307.0" text="https://github.com/0Franky/Emotions-Contest">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Hyperlink>
+      <Hyperlink fx:id="GitHubChrism1c" layoutX="170.0" layoutY="127.0" onAction="#gotoChrism1c" prefHeight="29.0" prefWidth="189.0" text="https://github.com/Chrism1c">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Hyperlink>
+      <Hyperlink fx:id="GitHub0Franky" layoutX="170.0" layoutY="152.0" onAction="#goto0Franky" prefHeight="29.0" prefWidth="189.0" text="https://github.com/0Franky">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Hyperlink>
+      <Label fx:id="lbl_VersionBuild" alignment="CENTER" layoutX="426.0" layoutY="4.0" prefHeight="21.0" text="Build : vX.X" textAlignment="RIGHT" AnchorPane.rightAnchor="7.0">
+         <font>
+            <Font name="System Bold Italic" size="15.0" />
+         </font>
+      </Label>
+      <Label alignment="CENTER" layoutX="43.0" layoutY="131.0" prefHeight="21.0" prefWidth="75.0" text="Authors : " textAlignment="CENTER">
+         <font>
+            <Font name="System Bold" size="15.0" />
+         </font>
+      </Label>
+      <Label alignment="CENTER" layoutX="43.0" layoutY="188.0" prefHeight="21.0" prefWidth="101.0" text="GitHub Page :" textAlignment="CENTER">
+         <font>
+            <Font name="System Bold" size="15.0" />
+         </font>
+      </Label>
+      <ImageView fitHeight="91.0" fitWidth="101.0" layoutX="35.0" layoutY="25.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../Assets/Icon.png" />
+         </image>
+      </ImageView>
+
+   </children>
+</AnchorPane>
