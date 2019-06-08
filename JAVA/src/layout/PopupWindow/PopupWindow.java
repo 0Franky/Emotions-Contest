@@ -37,6 +37,7 @@ public class PopupWindow {
 		FXMLLoader loader = new FXMLLoader();
 		loader.setLocation(PopupWindow.class.getResource("PopupWindow.fxml"));
 		AnchorPane rootLayout = (AnchorPane) loader.load();
+		rootLayout.setStyle("-fx-border-color: gray; -fx-border-width: 1px 1px 1px 1px");
 
 		popupWindowController = loader.getController();
 
