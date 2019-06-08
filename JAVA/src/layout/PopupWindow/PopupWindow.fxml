@@ -19,7 +19,7 @@
    <children>
       <ImageView fitHeight="1057.0" fitWidth="1076.0" layoutX="-60.0" layoutY="-110.0" nodeOrientation="RIGHT_TO_LEFT" opacity="0.15" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@../../../Assets/Icon.png" />
+            <Image url="@../../Assets/Icon.png" />
          </image>
       </ImageView>
       <Label alignment="CENTER" layoutX="24.0" layoutY="14.0" text="In witch activity have you mainly been involved since the last notification?" textAlignment="CENTER" AnchorPane.leftAnchor="24.0" AnchorPane.rightAnchor="24.0">
