@@ -129,7 +129,7 @@ public class PopupWindow {
 		}
 	}
 
-	private protected void mousePressed(MouseEvent event) {
+	protected void mousePressed(MouseEvent event) {
 		X = this_stage.getX() - event.getScreenX();
 		Y = this_stage.getY() - event.getScreenY();
 	}
