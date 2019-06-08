@@ -13,7 +13,7 @@
 
 <AnchorPane fx:id="AnchorPaneNotification" depthTest="DISABLE" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseDragged="#onWindowDragged" onMousePressed="#mousePressed" prefHeight="488.0" prefWidth="519.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="layout.Notification.FxFXMLController">
    <children>
-      <ImageView fx:id="Wall" fitHeight="611.0" fitWidth="583.0" layoutX="2.0" layoutY="-17.0" nodeOrientation="RIGHT_TO_LEFT" opacity="0.14" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="Wall" fitHeight="634.0" fitWidth="631.0" layoutX="-23.0" layoutY="-33.0" nodeOrientation="RIGHT_TO_LEFT" opacity="0.14" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../../../Assets/Icon.png" />
          </image>

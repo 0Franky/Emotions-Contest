@@ -17,6 +17,11 @@
 
 <AnchorPane fx:id="pnl_window" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseDragged="#onWindowDragged" onMousePressed="#mousePressed" prefHeight="813.0" prefWidth="924.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="layout.PopupWindow.PopupWindowController">
    <children>
+      <ImageView fitHeight="1187.0" fitWidth="1255.0" layoutX="-98.0" layoutY="-179.0" nodeOrientation="RIGHT_TO_LEFT" opacity="0.15" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../../Assets/Icon.png" />
+         </image>
+      </ImageView>
       <Label alignment="CENTER" layoutX="24.0" layoutY="24.0" text="In witch activity have you mainly been involved since the last notification?" textAlignment="CENTER" AnchorPane.leftAnchor="24.0" AnchorPane.rightAnchor="24.0">
          <font>
             <Font name="System Bold" size="18.0" />
@@ -30,7 +35,7 @@
          <font>
             <Font name="System Bold" size="18.0" />
          </font></Label>
-      <AnchorPane layoutX="24.0" layoutY="142.0" prefHeight="242.0" prefWidth="877.0" style="-fx-background-color: gray;" AnchorPane.leftAnchor="24.0" AnchorPane.rightAnchor="24.0">
+      <AnchorPane layoutX="24.0" layoutY="142.0" prefHeight="242.0" prefWidth="877.0" style="-fx-background-color: lightgray;" AnchorPane.leftAnchor="24.0" AnchorPane.rightAnchor="24.0">
          <children>
             <GridPane prefHeight="175.0" prefWidth="867.0" AnchorPane.bottomAnchor="62.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="5.0">
                <columnConstraints>
@@ -118,7 +123,7 @@
             </Label>
          </children>
       </AnchorPane>
-      <AnchorPane layoutX="23.0" layoutY="395.0" prefHeight="242.0" prefWidth="877.0" style="-fx-background-color: gray;" AnchorPane.leftAnchor="24.0" AnchorPane.rightAnchor="24.0">
+      <AnchorPane layoutX="23.0" layoutY="395.0" prefHeight="242.0" prefWidth="877.0" style="-fx-background-color: lightgray;" AnchorPane.leftAnchor="24.0" AnchorPane.rightAnchor="24.0">
          <children>
             <GridPane prefHeight="175.0" prefWidth="867.0" AnchorPane.bottomAnchor="62.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="5.0">
                <columnConstraints>
@@ -211,7 +216,7 @@
             <Font name="System Bold" size="18.0" />
          </font></Label>
       <TextArea fx:id="txt_Notes" layoutX="19.0" layoutY="689.0" prefHeight="71.0" prefWidth="629.0" promptText="Did you experience anything that might have affected your emotion during the last session?" AnchorPane.bottomAnchor="53.0" AnchorPane.leftAnchor="24.0" AnchorPane.rightAnchor="24.0" AnchorPane.topAnchor="689.0" />
-      <HBox alignment="CENTER" layoutX="141.0" layoutY="733.0" prefHeight="32.0" prefWidth="200.0" AnchorPane.bottomAnchor="14.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+      <HBox alignment="CENTER" layoutX="430.0" layoutY="767.0" prefHeight="32.0" prefWidth="65.0" AnchorPane.bottomAnchor="14.0" AnchorPane.leftAnchor="430.0" AnchorPane.rightAnchor="429.0">
          <children>
             <Button fx:id="btn_Done" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#btn_Done_OnAction" prefHeight="32.0" prefWidth="57.0" text="Done" textAlignment="CENTER" />
          </children>
