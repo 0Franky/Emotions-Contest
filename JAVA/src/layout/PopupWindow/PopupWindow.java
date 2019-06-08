@@ -6,6 +6,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import classes.csv.CSV_WriterBuilder;
+import javafx.application.Platform;
+import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
@@ -16,6 +18,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
+import javafx.stage.WindowEvent;
 
 public class PopupWindow {
 
@@ -24,6 +27,8 @@ public class PopupWindow {
 
 	protected String pleasantness = "";
 	protected String excitement = "";
+
+	private boolean canClose = false;
 
 	private double X, Y;
 
@@ -53,8 +58,20 @@ public class PopupWindow {
 		stage.setScene(scene);
 		// stage.initStyle(StageStyle.UNDECORATED);
 		stage.initStyle(StageStyle.TRANSPARENT);
+		stage.setTitle("Popup survey");
 		stage.setAlwaysOnTop(true);
 		stage.getIcons().add(new Image(getClass().getResourceAsStream("../../Assets/Icon.png")));
+
+		Platform.setImplicitExit(false);
+		stage.setOnCloseRequest(new EventHandler<WindowEvent>() {
+			@Override
+			public void handle(WindowEvent event) {
+				if (!canClose) {
+					event.consume();
+				}
+			}
+		});
+
 		show();
 
 		this_stage = stage;
@@ -72,6 +89,7 @@ public class PopupWindow {
 
 	public void close() {
 		try {
+			canClose = true;
 			this_stage.close();
 		} catch (Exception ex) {
 			// nothing
@@ -81,6 +99,7 @@ public class PopupWindow {
 	private void show() {
 		try {
 			this_stage.show();
+			this_stage.toFront();
 			writeOpenWindowInDir();
 		} catch (Exception ex) {
 			// nothing
