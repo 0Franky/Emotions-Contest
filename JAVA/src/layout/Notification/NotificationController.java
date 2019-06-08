@@ -59,6 +59,7 @@ public class NotificationController implements Initializable {
 		// Imposto il Timer //
 		AppTimer.getIstance().startTimer(Integer.parseInt(Time));
 		// System.out.println("Fine Thread");
+		Notification.getIstance().cleanInstance(); // <<-->> CANCEL THE INSTANCE <<-->>
 	}
 
 	@FXML
