@@ -87,6 +87,8 @@ public class PopupWindow {
 			}
 		});
 
+		loadActivityItems();
+
 		show();
 
 		this_stage = stage;
@@ -127,6 +129,12 @@ public class PopupWindow {
 		} catch (Exception ex) {
 			// nothing
 		}
+	}
+
+	private void loadActivityItems() {
+		popupWindowController.lbl_Activity.getItems().removeAll(popupWindowController.lbl_Activity.getItems());
+		popupWindowController.lbl_Activity.getItems().addAll("Coding", "Bugfixing", "Testing", "Design", "Meeting",
+				"Email", "Helping", "Networking", "Learning", "Administrative tasks", "Documentation");
 	}
 
 	protected void mousePressed(MouseEvent event) {
