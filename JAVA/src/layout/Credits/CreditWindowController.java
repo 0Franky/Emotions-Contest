@@ -67,7 +67,7 @@ public class CreditWindowController {
 	private void pressedOk(ActionEvent event) throws IOException {
 		// System.out.println("You clicked ok");
 		// Chiudi Finestra //
-		// CreditWindow.getIstance().hide();
+		CreditWindow.getIstance().close();
 	}
 
 }
