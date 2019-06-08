@@ -2,6 +2,8 @@ package layout.Notification;
 
 import java.io.IOException;
 
+import javafx.application.Platform;
+import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Scene;
@@ -11,9 +13,13 @@ import javafx.scene.layout.AnchorPane;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
+import javafx.stage.WindowEvent;
 
 public class Notification {
+
 	private double X, Y;
+
+	private boolean canClose = false;
 
 	private Notification() throws IOException {
 		// TODO Auto-generated method stub
@@ -26,6 +32,20 @@ public class Notification {
 		Scene scene = new Scene(rootLayout);
 		stage.setScene(scene);
 		stage.initStyle(StageStyle.TRANSPARENT);
+		stage.setTitle("Request survey");
+
+		Platform.setImplicitExit(false);
+		stage.setOnCloseRequest(new EventHandler<WindowEvent>() {
+			@Override
+			public void handle(WindowEvent event) {
+				if (!canClose) {
+					event.consume();
+				} else {
+					cleanInstance();
+				}
+			}
+		});
+
 		stage.setAlwaysOnTop(true);
 		stage.getIcons().add(new Image(getClass().getResourceAsStream("../../Assets/Icon.png")));
 		centerStage(stage, stage.getWidth(), stage.getHeight());
@@ -48,7 +68,7 @@ public class Notification {
 
 	public void close() {
 		try {
-			cleanInstance();
+			canClose = true;
 			this_stage.close();
 		} catch (Exception ex) {
 			System.err.println("not Hide");

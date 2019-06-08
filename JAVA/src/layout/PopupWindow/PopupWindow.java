@@ -6,6 +6,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import classes.csv.CSV_WriterBuilder;
+import javafx.application.Platform;
+import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
@@ -15,6 +17,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
+import javafx.stage.WindowEvent;
 
 public class PopupWindow {
 
@@ -23,6 +26,8 @@ public class PopupWindow {
 
 	protected String pleasantness = "";
 	protected String excitement = "";
+
+	private boolean canClose = false;
 
 	private double X, Y;
 
@@ -49,6 +54,19 @@ public class PopupWindow {
 		Scene scene = new Scene(rootLayout);
 		stage.setScene(scene);
 		stage.initStyle(StageStyle.UNDECORATED);
+
+		Platform.setImplicitExit(false);
+		stage.setOnCloseRequest(new EventHandler<WindowEvent>() {
+			@Override
+			public void handle(WindowEvent event) {
+				if (!canClose) {
+					event.consume();
+				} else {
+					cleanInstance();
+				}
+			}
+		});
+
 		stage.setAlwaysOnTop(true);
 		stage.getIcons().add(new Image(getClass().getResourceAsStream("../../Assets/Icon.png")));
 		show();
@@ -68,7 +86,7 @@ public class PopupWindow {
 
 	public void close() {
 		try {
-			cleanInstance();
+			canClose = true;
 			this_stage.close();
 		} catch (Exception ex) {
 			// nothing
