@@ -5,6 +5,7 @@ import java.io.IOException;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Screen;
@@ -12,8 +13,6 @@ import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
 public class Notification {
-	private double xOffset = 0;
-	private double yOffset = 0;
 	private double X, Y;
 
 	private Notification() throws IOException {
@@ -40,6 +39,7 @@ public class Notification {
 		stage.setScene(scene);
 		stage.initStyle(StageStyle.TRANSPARENT);
 		stage.setAlwaysOnTop(true);
+		stage.getIcons().add(new Image(getClass().getResourceAsStream("../../Assets/Icon.png")));
 		centerStage(stage, stage.getWidth(), stage.getHeight());
 		this_stage = stage;
 		this_stage.show();
@@ -58,7 +58,7 @@ public class Notification {
 		return istance;
 	}
 
-	public void hide() {
+	public void close() {
 		try {
 			this_stage.close();
 		} catch (Exception ex) {

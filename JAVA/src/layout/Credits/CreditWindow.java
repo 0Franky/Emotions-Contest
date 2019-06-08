@@ -2,14 +2,18 @@ package layout.Credits;
 
 import java.io.IOException;
 
+import Title.Title;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
-import javafx.stage.StageStyle;
 
 public class CreditWindow {
+
+	private CreditWindowController creditWindowController = null;
+
 	private double X, Y;
 
 	private CreditWindow() throws IOException {
@@ -17,13 +21,21 @@ public class CreditWindow {
 		FXMLLoader loader = new FXMLLoader();
 		loader.setLocation(CreditWindow.class.getResource("CreditWindow.fxml"));
 		AnchorPane rootLayout = (AnchorPane) loader.load();
-		Stage stage = new Stage();
 
+		creditWindowController = loader.getController();
+
+		Stage stage = new Stage();
 		Scene scene = new Scene(rootLayout);
 		stage.setScene(scene);
-		stage.initStyle(StageStyle.TRANSPARENT);
+		// stage.initStyle(StageStyle.TRANSPARENT);
+		stage.resizableProperty().setValue(Boolean.FALSE);
 		stage.setAlwaysOnTop(true);
+		stage.getIcons().add(new Image(getClass().getResourceAsStream("../../Assets/Icon.png")));
 		this_stage = stage;
+
+		creditWindowController.lbl_TitleApp.setText(Title.APPLICATION_NAME);
+		creditWindowController.lbl_VersionBuild.setText("Build : v" + Title.APPLICATION_VERSION);
+
 		this_stage.show();
 	}
 
@@ -35,12 +47,15 @@ public class CreditWindow {
 			synchronized (CreditWindow.class) {
 				if (istance == null) {
 					istance = new CreditWindow();
+				} else {
+					istance.show();
+					istance.toFront();
 				}
 			}
 		return istance;
 	}
 
-	public void hide() {
+	public void close() {
 		try {
 			this_stage.close();
 		} catch (Exception ex) {

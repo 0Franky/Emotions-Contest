@@ -8,6 +8,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Hyperlink;
+import javafx.scene.control.Label;
 
 public class CreditWindowController {
 
@@ -22,6 +23,12 @@ public class CreditWindowController {
 
 	@FXML
 	private Button buttonOk;
+
+	@FXML
+	Label lbl_TitleApp;
+
+	@FXML
+	Label lbl_VersionBuild;
 
 	@FXML
 	private void gotoPage() {
