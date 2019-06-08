@@ -6,12 +6,19 @@
 <?import javafx.scene.control.Separator?>
 <?import javafx.scene.control.Slider?>
 <?import javafx.scene.effect.Reflection?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.text.Font?>
 
 <AnchorPane fx:id="AnchorPaneNotification" onMouseDragged="#onWindowDragged" onMousePressed="#mousePressed" depthTest="DISABLE" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="120.0" prefWidth="320.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="layout.Notification.NotificationController">
    <children>
+      <ImageView fitHeight="345.0" fitWidth="346.0" layoutX="-12.0" layoutY="-110.0" opacity="0.2" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../Assets/Icon.png" />
+         </image>
+      </ImageView>
    <Label alignment="CENTER" layoutX="14.0" layoutY="33.0" onMouseClicked="#openPopUp" prefHeight="26.0" prefWidth="198.0" text="Click here to open pop-up!" textAlignment="CENTER" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="108.0" AnchorPane.topAnchor="33.0">
          <font>
             <Font name="System Bold" size="15.0" />
@@ -26,10 +33,13 @@
                   <Font name="System Bold" size="15.0" />
                </font>
                <effect>
-                  <Reflection />
+                  <Reflection bottomOpacity="0.35" fraction="1.0" topOffset="-10.0" topOpacity="0.05" />
                </effect></Label>
             <Separator opacity="0.0" orientation="VERTICAL" prefHeight="45.0" prefWidth="8.0" />
-            <Slider fx:id="mySlider" blockIncrement="1" majorTickUnit="59.0" max="120.0" min="1" minorTickCount="1" onMouseReleased="#onSliderChanged" prefHeight="45.0" prefWidth="155.0" showTickLabels="true" showTickMarks="true" />
+            <Slider fx:id="mySlider" blockIncrement="1" majorTickUnit="59.0" max="120.0" min="1" minorTickCount="1" onMouseReleased="#onSliderChanged" prefHeight="45.0" prefWidth="155.0" showTickLabels="true" showTickMarks="true">
+               <effect>
+                  <Reflection fraction="0.0" topOffset="-10.0" topOpacity="0.0" />
+               </effect></Slider>
             <Separator opacity="0.0" orientation="VERTICAL" prefHeight="32.0" prefWidth="12.0" />
             <Button fx:id="postponeButton" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#postponeAction" prefHeight="45.0" prefWidth="88.0" text="Postpone" textAlignment="CENTER" />
          </children>

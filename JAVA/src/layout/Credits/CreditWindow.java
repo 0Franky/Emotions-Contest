@@ -1,54 +1,62 @@
-package layout.Notification;
+package layout.Credits;
 
 import java.io.IOException;
 
+import Title.Title;
 import javafx.fxml.FXMLLoader;
-import javafx.geometry.Rectangle2D;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
-import javafx.stage.Screen;
 import javafx.stage.Stage;
-import javafx.stage.StageStyle;
 
-public class Notification {
+public class CreditWindow {
+
+	private CreditWindowController creditWindowController = null;
+
 	private double X, Y;
 
-	private Notification() throws IOException {
+	private CreditWindow() throws IOException {
 		// TODO Auto-generated method stub
 		FXMLLoader loader = new FXMLLoader();
-		loader.setLocation(Notification.class.getResource("Notification.fxml"));
+		loader.setLocation(CreditWindow.class.getResource("CreditWindow.fxml"));
 		AnchorPane rootLayout = (AnchorPane) loader.load();
-		rootLayout.setStyle("-fx-border-color: gray; -fx-border-width: 1px 1px 1px 1px");
-		Stage stage = new Stage();
 
+		creditWindowController = loader.getController();
+
+		Stage stage = new Stage();
 		Scene scene = new Scene(rootLayout);
 		stage.setScene(scene);
-		stage.initStyle(StageStyle.TRANSPARENT);
+		// stage.initStyle(StageStyle.TRANSPARENT);
+		stage.resizableProperty().setValue(Boolean.FALSE);
 		stage.setAlwaysOnTop(true);
 		stage.getIcons().add(new Image(getClass().getResourceAsStream("../../Assets/Icon.png")));
-		centerStage(stage, stage.getWidth(), stage.getHeight());
 		this_stage = stage;
+
+		creditWindowController.lbl_TitleApp.setText(Title.APPLICATION_NAME);
+		creditWindowController.lbl_VersionBuild.setText("Build : v" + Title.APPLICATION_VERSION);
+
 		this_stage.show();
 	}
 
 	private static Stage this_stage = new Stage();
-	private static Notification instance = null; // riferimento all' istanza
+	private static CreditWindow istance = null; // riferimento all' istanza
 
-	public static Notification getIstance() throws IOException {
-		if (instance == null)
-			synchronized (Notification.class) {
-				if (instance == null) {
-					instance = new Notification();
+	public static CreditWindow getIstance() throws IOException {
+		if (istance == null)
+			synchronized (CreditWindow.class) {
+				if (istance == null) {
+					istance = new CreditWindow();
+				} else {
+					istance.show();
+					istance.toFront();
 				}
 			}
-		return instance;
+		return istance;
 	}
 
 	public void close() {
 		try {
-			cleanInstance();
 			this_stage.close();
 		} catch (Exception ex) {
 			System.err.println("not Hide");
@@ -83,21 +91,4 @@ public class Notification {
 		this_stage.setX(event.getScreenX() + X);
 		this_stage.setY(event.getScreenY() + Y);
 	}
-
-	private void centerStage(Stage stage, double width, double height) {
-		Rectangle2D screenBounds = Screen.getPrimary().getVisualBounds();
-		// FULL HD // 1920x1080
-		if (screenBounds.getWidth() > 1900 && screenBounds.getHeight() > 1000) {
-			stage.setX((screenBounds.getWidth() - 510));
-			stage.setY((screenBounds.getHeight() - 1000));
-		} else {
-			stage.setX((screenBounds.getWidth() - width) / 2);
-			stage.setY((screenBounds.getHeight() - height) / 2);
-		}
-	}
-
-	protected void cleanInstance() {
-		instance = null;
-	}
-
 }
