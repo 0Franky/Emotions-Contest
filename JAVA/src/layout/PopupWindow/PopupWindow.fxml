@@ -26,7 +26,7 @@
          <font>
             <Font name="System Bold" size="22.0" />
          </font></Label>
-      <ComboBox fx:id="lbl_Activity" editable="true" layoutX="272.0" layoutY="57.0" prefHeight="25.0" prefWidth="381.0" AnchorPane.leftAnchor="272.0" AnchorPane.rightAnchor="272.0" AnchorPane.topAnchor="57.0">
+      <ComboBox fx:id="lbl_Activity" layoutX="272.0" layoutY="57.0" prefHeight="25.0" prefWidth="381.0" AnchorPane.leftAnchor="272.0" AnchorPane.rightAnchor="272.0" AnchorPane.topAnchor="57.0">
       	 <items>
              
          </items>
@@ -35,7 +35,7 @@
          <font>
             <Font name="System Bold" size="22.0" />
          </font></Label>
-      <AnchorPane layoutX="24.0" layoutY="142.0" prefHeight="242.0" prefWidth="877.0" style="-fx-background-color: lightgray;" AnchorPane.leftAnchor="24.0" AnchorPane.rightAnchor="24.0">
+      <AnchorPane layoutX="24.0" layoutY="142.0" prefHeight="242.0" prefWidth="877.0" style="-fx-background-color: rgba(122, 122, 122, 0.6); -fx-background-radius: 6;" AnchorPane.leftAnchor="24.0" AnchorPane.rightAnchor="24.0">
          <children>
             <GridPane prefHeight="175.0" prefWidth="867.0" AnchorPane.bottomAnchor="62.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="5.0">
                <columnConstraints>
@@ -150,7 +150,7 @@
             </Label>
          </children>
       </AnchorPane>
-      <AnchorPane layoutX="23.0" layoutY="395.0" prefHeight="242.0" prefWidth="877.0" style="-fx-background-color: lightgray;" AnchorPane.leftAnchor="24.0" AnchorPane.rightAnchor="24.0">
+      <AnchorPane layoutX="23.0" layoutY="395.0" prefHeight="242.0" prefWidth="877.0" style="-fx-background-color: rgba(122, 122, 122, 0.6); -fx-background-radius: 6;" AnchorPane.leftAnchor="24.0" AnchorPane.rightAnchor="24.0">
          <children>
             <GridPane prefHeight="175.0" prefWidth="867.0" AnchorPane.bottomAnchor="62.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="5.0">
                <columnConstraints>

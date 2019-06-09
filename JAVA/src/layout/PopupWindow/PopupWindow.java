@@ -15,6 +15,7 @@ import javafx.scene.control.Alert.AlertType;
 import javafx.scene.image.Image;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import javafx.stage.WindowEvent;
@@ -43,7 +44,8 @@ public class PopupWindow {
 		FXMLLoader loader = new FXMLLoader();
 		loader.setLocation(PopupWindow.class.getResource("PopupWindow.fxml"));
 		AnchorPane rootLayout = (AnchorPane) loader.load();
-		rootLayout.setStyle("-fx-border-color: gray; -fx-border-width: 1px 1px 1px 1px");
+		rootLayout.setStyle(
+				".root { -fx-background-color: transparent; -fx-background-radius: 6; }; -fx-background-color: rgba(242, 242, 242, 1); -fx-border-width: 1px 1px 1px 1px; -fx-background-radius: 6;");
 
 		popupWindowController = loader.getController();
 
@@ -52,8 +54,11 @@ public class PopupWindow {
 		this_stage = stage;
 
 		Scene scene = new Scene(rootLayout);
+		scene.setFill(Color.TRANSPARENT);
 		stage.setScene(scene);
-		stage.initStyle(StageStyle.UNDECORATED);
+		// stage.initStyle(StageStyle.UNDECORATED);
+		stage.initStyle(StageStyle.TRANSPARENT);
+		stage.setTitle("Popup survey");
 
 		Platform.setImplicitExit(false);
 		stage.setOnCloseRequest(new EventHandler<WindowEvent>() {
@@ -69,6 +74,21 @@ public class PopupWindow {
 
 		stage.setAlwaysOnTop(true);
 		stage.getIcons().add(new Image(getClass().getResourceAsStream("../../Assets/Icon.png")));
+
+		Platform.setImplicitExit(false);
+		stage.setOnCloseRequest(new EventHandler<WindowEvent>() {
+			@Override
+			public void handle(WindowEvent event) {
+				if (!canClose) {
+					event.consume();
+				} else {
+					cleanInstance();
+				}
+			}
+		});
+
+		loadActivityItems();
+
 		show();
 
 		this_stage = stage;
@@ -96,6 +116,7 @@ public class PopupWindow {
 	private void show() {
 		try {
 			this_stage.show();
+			this_stage.toFront();
 			writeOpenWindowInDir();
 		} catch (Exception ex) {
 			// nothing
@@ -108,6 +129,12 @@ public class PopupWindow {
 		} catch (Exception ex) {
 			// nothing
 		}
+	}
+
+	private void loadActivityItems() {
+		popupWindowController.lbl_Activity.getItems().removeAll(popupWindowController.lbl_Activity.getItems());
+		popupWindowController.lbl_Activity.getItems().addAll("Coding", "Bugfixing", "Testing", "Design", "Meeting",
+				"Email", "Helping", "Networking", "Learning", "Administrative tasks", "Documentation");
 	}
 
 	protected void mousePressed(MouseEvent event) {
