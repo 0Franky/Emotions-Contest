@@ -8,26 +8,29 @@ import java.sql.Statement;
 public class SQLite {
 	public static void main(String args[]) {
 		createDB();
+
 		// dropTable();
-		createTable();
-
-		// Inserisce il primo valore (Da utilizzare solo la prima volta)
-		String[] input = { "123456789", "Working", "2", "3", "Closed", "bugfixing" };
-		insertDB(true, input);
-
-		// Insericse il secondo valore (Da utilizzare sempre)
-		String[] input2 = { "123456789", "Working", "2", "3", "Closed", "bugfixing" };
-		insertDB(false, input2);
-
-		// Stampa la Tabella
-		selectQuery();
+		// createTable();
+		/*
+		 * // Inserisce il primo valore (Da utilizzare solo la prima volta) String[]
+		 * input = { "123456789", "Working", "2", "3", "Closed", "bugfixing" };
+		 * insertDB(true, input);
+		 * 
+		 * // Insericse il secondo valore (Da utilizzare sempre) String[] input2 = {
+		 * "123456789", "Working", "2", "3", "Closed", "bugfixing" };
+		 * insertDB(false,input2);
+		 * 
+		 * // Stampa la Tabella selectQuery();
+		 */
 	}
 
 	public static void createDB() {
 		Connection c = null;
 		try {
 			Class.forName("org.sqlite.JDBC");
-			c = DriverManager.getConnection("jdbc:sqlite:EmotionDB.db");
+			c = // DriverManager.getConnection("jdbc:sqlite::resource:resources:EmotionDB.db");
+					DriverManager.getConnection("jdbc:sqlite::resource:" + "/EmotionDB.db");
+			// DriverManager.getConnection("jdbc:sqlite::resource:EmotionDB.dbC:");
 		} catch (Exception e) {
 			System.err.println(e.getClass().getName() + ": " + e.getMessage());
 			System.exit(0);
@@ -63,7 +66,8 @@ public class SQLite {
 
 		try {
 			Class.forName("org.sqlite.JDBC");
-			c = DriverManager.getConnection("jdbc:sqlite:EmotionDB.db");
+			c = // DriverManager.getConnection("jdbc:sqlite::resource:resources:EmotionDB.db");
+					DriverManager.getConnection("jdbc:sqlite::resource:file:/resources/EmotionDB.db");
 			System.out.println("Opened database successfully");
 
 			stmt = c.createStatement();
