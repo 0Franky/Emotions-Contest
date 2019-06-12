@@ -60,10 +60,10 @@ public final class GoogleDocsUtils implements ICSV_Writer {
 
 	private static GoogleDocsUtils singleton = null;
 
-	public static GoogleDocsUtils getInstance(String _spid_SurveyResults) {
+	public static GoogleDocsUtils getInstance() {
 
 		if (singleton == null) {
-			singleton = new GoogleDocsUtils(_spid_SurveyResults);
+			singleton = new GoogleDocsUtils();
 		}
 
 		return singleton;
@@ -87,8 +87,8 @@ public final class GoogleDocsUtils implements ICSV_Writer {
 	/**
 	 * Default constructor, authenticates and instantiate services.
 	 */
-	private GoogleDocsUtils(String _spid_SurveyResults) {
-		initDocs(_spid_SurveyResults);
+	private GoogleDocsUtils() {
+		initDocs();
 	}
 
 	/**
@@ -128,11 +128,13 @@ public final class GoogleDocsUtils implements ICSV_Writer {
 	public static void main(String[] args)
 			throws GeneralSecurityException, IOException, ServiceException, URISyntaxException, InterruptedException {
 		// TODO Auto-generated method stub
-		GoogleDocsUtils gs = GoogleDocsUtils.getInstance("1UGOsvpRuOgCJ8HahYCh6eoKCqOpsuzvy4cD89Rd1mpA");
+		GoogleDocsUtils gs = GoogleDocsUtils.getInstance();
 		ArrayList<String> list = new ArrayList<String>();
 		list.add("Ciao");
 		list.add("Come");
 		list.add("va");
+		list.add("?");
+		list.add("?");
 		list.add("?");
 		list.add("?");
 		gs.write(list);
@@ -210,12 +212,11 @@ public final class GoogleDocsUtils implements ICSV_Writer {
 	/**
 	 * inizializzazione GoogleDocsUtilis.
 	 */
-	private void initDocs(String _spid_SurveyResults) {
+	private void initDocs() {
 		try {
 			credential = authorize();
 			sheetsService = getSheetsService();
 			driveService = getDriveService();
-			spid_SurveyResults = _spid_SurveyResults;
 		} catch (final Exception e) {
 			System.err.println(e);
 		}
@@ -361,7 +362,7 @@ public final class GoogleDocsUtils implements ICSV_Writer {
 		request.execute();
 	}
 
-	static String spid_SurveyResults;
+	static String spid_SurveyResults = "1UGOsvpRuOgCJ8HahYCh6eoKCqOpsuzvy4cD89Rd1mpA";
 
 	@Override
 	public boolean write(List<String> data) {
