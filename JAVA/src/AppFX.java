@@ -169,7 +169,7 @@ public class AppFX extends Application {
 				AppTimer.getIstance().stopTimer();
 				System.out.println("Timer Interrotto");
 			}
-			PopupWindow.getIstance().show();
+			PopupWindow.getIstance();
 			PopupWindow.getIstance().toFront();
 		}
 	}
