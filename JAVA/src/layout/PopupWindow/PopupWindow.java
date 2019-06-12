@@ -113,7 +113,7 @@ public class PopupWindow {
 		}
 	}
 
-	private void show() {
+	public void show() {
 		try {
 			this_stage.show();
 			this_stage.toFront();
