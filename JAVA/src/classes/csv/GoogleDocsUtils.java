@@ -56,14 +56,14 @@ public final class GoogleDocsUtils implements ICSV_Writer {
 	 * The location where the SON credential file is stored on the Internet.
 	 */
 	// private static final String URL =
-	// "http://neo.di.uniba.it/credentials/project-liskov-s456hh.json";
+	// "http://neo.di.uniba.it/credentials/TOKEN-s456hh.json";
 
 	private static GoogleDocsUtils singleton = null;
 
-	public static GoogleDocsUtils getInstance() {
+	public static GoogleDocsUtils getInstance(String _spid_SurveyResults) {
 
 		if (singleton == null) {
-			singleton = new GoogleDocsUtils();
+			singleton = new GoogleDocsUtils(_spid_SurveyResults);
 		}
 
 		return singleton;
@@ -87,8 +87,8 @@ public final class GoogleDocsUtils implements ICSV_Writer {
 	/**
 	 * Default constructor, authenticates and instantiate services.
 	 */
-	private GoogleDocsUtils() {
-		initDocs();
+	private GoogleDocsUtils(String _spid_SurveyResults) {
+		initDocs(_spid_SurveyResults);
 	}
 
 	/**
@@ -128,11 +128,14 @@ public final class GoogleDocsUtils implements ICSV_Writer {
 	public static void main(String[] args)
 			throws GeneralSecurityException, IOException, ServiceException, URISyntaxException, InterruptedException {
 		// TODO Auto-generated method stub
-		GoogleDocsUtils gs = GoogleDocsUtils.getInstance();
+		GoogleDocsUtils gs = GoogleDocsUtils.getInstance("1UGOsvpRuOgCJ8HahYCh6eoKCqOpsuzvy4cD89Rd1mpA");
 		ArrayList<String> list = new ArrayList<String>();
+		list.add("Ciao");
 		list.add("Come");
 		list.add("va");
-		gs.writePublicSheet("ciao", list);
+		list.add("?");
+		list.add("?");
+		gs.write(list);
 	}
 
 	/**
@@ -207,11 +210,12 @@ public final class GoogleDocsUtils implements ICSV_Writer {
 	/**
 	 * inizializzazione GoogleDocsUtilis.
 	 */
-	private void initDocs() {
+	private void initDocs(String _spid_SurveyResults) {
 		try {
 			credential = authorize();
 			sheetsService = getSheetsService();
 			driveService = getDriveService();
+			spid_SurveyResults = _spid_SurveyResults;
 		} catch (final Exception e) {
 			System.err.println(e);
 		}
@@ -265,7 +269,7 @@ public final class GoogleDocsUtils implements ICSV_Writer {
 			throws FileNotFoundException, IOException, InterruptedException, GeneralSecurityException,
 			URISyntaxException {
 
-		final String spid = createSheet("sna4so-Liskov-1819");
+		final String spid = createSheet("SurveyResults");
 		shareSheet(spid);
 		getSheetByTitle(spid);
 		writeSheet(spid, header, results);
@@ -289,7 +293,7 @@ public final class GoogleDocsUtils implements ICSV_Writer {
 	public void writePublicSheet(final String header, final List<String> results) throws FileNotFoundException,
 			IOException, InterruptedException, GeneralSecurityException, URISyntaxException {
 
-		final String spid = createSheet("sna4so-Liskov-1819");
+		final String spid = createSheet("SurveyResults");
 		shareSheet(spid);
 		getSheetByTitle(spid);
 		writeSheet(spid, header, results);
@@ -357,15 +361,37 @@ public final class GoogleDocsUtils implements ICSV_Writer {
 		request.execute();
 	}
 
-	@Override
-	public void write(List<String> data) {
-		// TODO Auto-generated method stub
+	static String spid_SurveyResults;
 
+	@Override
+	public boolean write(List<String> data) {
+		boolean status = true;
+
+		try {
+			synchronized (GoogleDocsUtils.class) {
+				getSheetByTitle(spid_SurveyResults);
+				writeSheet(spid_SurveyResults, "SurveyResults", data);
+			}
+		} catch (Exception ex) {
+			status = false;
+		}
+
+		return status;
 	}
 
 	@Override
-	public void write(String data) {
-		// TODO Auto-generated method stub
+	public boolean write(String data) {
+		boolean status = true;
 
+		try {
+			synchronized (GoogleDocsUtils.class) {
+				getSheetByTitle(spid_SurveyResults);
+				writeSheet(spid_SurveyResults, "SurveyResults", Arrays.asList(data));
+			}
+		} catch (Exception ex) {
+			status = false;
+		}
+
+		return status;
 	}
 }

@@ -91,7 +91,7 @@ class CSV_Writer implements ICSV_Writer {
 		} while (!status);
 	}
 
-	public void write(List<String> data) {
+	public boolean write(List<String> data) {
 		if (!data.isEmpty()) {
 			EventQueue.invokeLater(new Runnable() {
 				public void run() {
@@ -99,9 +99,10 @@ class CSV_Writer implements ICSV_Writer {
 				};
 			});
 		}
+		return true;
 	}
 
-	public void write(String data) {
+	public boolean write(String data) {
 		if (!data.isEmpty()) {
 			EventQueue.invokeLater(new Runnable() {
 				public void run() {
@@ -109,6 +110,7 @@ class CSV_Writer implements ICSV_Writer {
 				};
 			});
 		}
+		return true;
 	}
 
 }
