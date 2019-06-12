@@ -29,12 +29,15 @@ public class SQLiteConnection {
 
 	}
 
+	// public static String host = "/src/";
+	public static String host = "";
+
 	private static Connection getConnectionDB() {
 		Connection con = null;
 
 		try {
 			Class.forName("org.sqlite.JDBC").newInstance();
-			con = DriverManager.getConnection("jdbc:sqlite:src/" + Title.APPLICATION_NAME + "DB.db");
+			con = DriverManager.getConnection("jdbc:sqlite:" + host + Title.APPLICATION_NAME + "DB.db");
 
 			// System.out.println("Opened database successfully");
 		} catch (Exception e) {

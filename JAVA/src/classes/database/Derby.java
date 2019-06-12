@@ -18,7 +18,8 @@ public class Derby {
 	// "jdbc:derby://localhost:1527/myDB;create=true;user=me;password=mine";
 	// jdbc:derby://localhost:1527/MyDbTest;create=true");
 	// public static String host = "//localhost:1527/";
-	public static String host = "/src/";
+	// public static String host = "/src/";
+	public static String host = "";
 	public static String protocol = "jdbc:derby:";
 	private static String nomeDB = Title.APPLICATION_NAME + "DB.db";
 	// private static String tableName = "DATA";
