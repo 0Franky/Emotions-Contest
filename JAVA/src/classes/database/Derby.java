@@ -1,4 +1,4 @@
-package classes.csv;
+package classes.database;
 
 import java.net.InetAddress;
 import java.sql.Connection;
@@ -10,22 +10,26 @@ import java.util.Random;
 
 import org.apache.derby.drda.NetworkServerControl;
 
+import Title.Title;
+import classes.Tuple;
+
 public class Derby {
 
 	// private static String dbURL =
 	// "jdbc:derby://localhost:1527/myDB;create=true;user=me;password=mine";
 	// jdbc:derby://localhost:1527/MyDbTest;create=true");
-	public static String host = "//localhost:1527/";
+	// public static String host = "//localhost:1527/";
+	public static String host = "/src/";
 	public static String protocol = "jdbc:derby:";
-	private static String nomeDB = "EmotionDB";
+	private static String nomeDB = Title.APPLICATION_NAME + "DB.db";
 	// private static String tableName = "DATA";
 	// jdbc Connection
-	private static Connection conn = null;
-	private static Statement stmt = null;
+	// private static Connection conn = null;
+	// private static Statement stmt = null;
 	private static NetworkServerControl server = null;
 
 	public static void main(String[] args) throws Exception {
-		createConnection();
+		getConnectionDB();
 		dropTable();
 		createTable();
 
@@ -36,28 +40,36 @@ public class Derby {
 		int k = random.nextInt(n) + j;// Valori compresi tra j e n
 
 		String[] input = { k + "", "Working", "2", "3", "Closed", "bugfixing" };
-		insert(input);
-		selectAll();
-		shutdown();
+		addRow(input);
+		runQuery();
+		// closeConnectionDB();
 	}
 
-	private static void createConnection() {
+	private static Connection getConnectionDB() {
+		Connection con = null;
+
 		try {
 			server = new NetworkServerControl(InetAddress.getByName("localhost"), 1527);
 			server.start(null);
 			Class.forName("org.apache.derby.jdbc.EmbeddedDriver").newInstance();
 			// Get a connection
-			conn = DriverManager.getConnection(protocol + host + nomeDB + ";create=true");
-			System.out.println("Acceso al Database Riuscito");
+			con = DriverManager.getConnection(protocol + host + nomeDB + ";create=true");
+			System.out.println("Acceso al Database Riuscito\n" + protocol + host + nomeDB + ";create=true");
 		} catch (Exception except) {
 			System.out.println("Acceso al Database non Riuscito");
 			except.printStackTrace();
 		}
+
+		return con;
 	}
 
 	public static void createTable() {
+		Connection con = null;
+		Statement stmt = null;
+
 		try {
-			stmt = conn.createStatement();
+			con = getConnectionDB();
+			stmt = con.createStatement();
 			String sql = "CREATE TABLE DATA " + "(TIMESTAMP INT 		NOT NULL, "
 					+ " ACTIVITY           VARCHAR(30), " + " VALENCE            INT, " + " AROUSAL            INT, "
 					+ " STATUS             VARCHAR(30), " + " NOTES         VARCHAR(30))";
@@ -68,11 +80,17 @@ public class Derby {
 			System.out.println("Tabella già esistente");
 			sqlExcept.printStackTrace();
 		}
+
+		closeConnectionDB(con, stmt);
 	}
 
 	public static void dropTable() {
+		Connection con = null;
+		Statement stmt = null;
+
 		try {
-			stmt = conn.createStatement();
+			con = getConnectionDB();
+			stmt = con.createStatement();
 			String sql = "DROP TABLE DATA ";
 			stmt.execute(sql);
 			System.out.println("Tabella cancellata con successo");
@@ -81,11 +99,17 @@ public class Derby {
 			System.out.println("Tabella non cancellata");
 			sqlExcept.printStackTrace();
 		}
+
+		closeConnectionDB(con, stmt);
 	}
 
-	private static void insert(String input[]) {
+	private static void addRow(String input[]) {
+		Connection con = null;
+		Statement stmt = null;
+
 		try {
-			stmt = conn.createStatement();
+			con = getConnectionDB();
+			stmt = con.createStatement();
 			String sql = "INSERT INTO DATA (TIMESTAMP,ACTIVITY,VALENCE,AROUSAL,STATUS,NOTES) " + "VALUES (" + input[0]
 					+ ",'" + input[1] + "'," + input[2] + "," + input[3] + ",'" + input[4] + "','" + input[5] + "')";
 			System.out.println(sql);
@@ -95,16 +119,25 @@ public class Derby {
 			System.out.println("Insert successfull");
 			sqlExcept.printStackTrace();
 		}
+
+		closeConnectionDB(con, stmt);
 	}
 
-	private static void selectAll() {
+	private static Tuple runQuery() {
+		Connection con = null;
+		Statement stmt = null;
+		Tuple tuple = null;
+
 		try {
-			stmt = conn.createStatement();
+			con = getConnectionDB();
+			stmt = con.createStatement();
+
 			ResultSet rs = stmt.executeQuery("SELECT * FROM DATA");
 
 			while (rs.next()) {
 				// INSERT INTO DATA (TIMESTAMP,ACTIVITY,VALENCE,AROUSAL,STATUS,NOTES)
-				// int ID = rs.getInt("ID");
+
+				int ID = rs.getInt("ID");
 				int TIMESTAMP = rs.getInt("TIMESTAMP");
 				String ACTIVITY = rs.getString("ACTIVITY");
 				int VALENCE = rs.getInt("VALENCE");
@@ -112,23 +145,20 @@ public class Derby {
 				String STATUS = rs.getString("STATUS");
 				String NOTES = rs.getString("NOTES");
 
-				// System.out.println("ID = " + ID);
-				System.out.println("TIMESTAMP = " + TIMESTAMP);
-				System.out.println("ACTIVITY = " + ACTIVITY);
-				System.out.println("VALENCE = " + VALENCE);
-				System.out.println("AROUSAL = " + AROUSAL);
-				System.out.println("STATUS = " + STATUS);
-				System.out.println("NOTES = " + NOTES);
-				System.out.println();
+				tuple = new Tuple(ID, TIMESTAMP, ACTIVITY, VALENCE, AROUSAL, STATUS, NOTES);
 			}
 			stmt.close();
 		} catch (SQLException sqlExcept) {
 			System.out.println("Select Query Failed");
 			sqlExcept.printStackTrace();
 		}
+
+		closeConnectionDB(con, stmt);
+
+		return tuple;
 	}
 
-	private static void shutdown() throws Exception {
+	private static void closeConnectionDB(Connection con, Statement stmt) {
 
 		try {
 			if (server != null) {
@@ -137,14 +167,18 @@ public class Derby {
 			if (stmt != null) {
 				stmt.close();
 			}
-			if (conn != null) {
-				DriverManager.getConnection(protocol + nomeDB + ";shutdown=true");
+			if (con != null) {
+				DriverManager.getConnection(protocol + host + nomeDB + ";shutdown=true");
 				System.out.println(protocol + nomeDB + ";shutdown=true");
-				conn.close();
+				con.commit();
+				con.close();
 			}
-		} catch (SQLException sqlExcept) {
+		} catch (Exception e) {
 			System.out.println("ShutdownFailed");
-			System.out.println(protocol + nomeDB + ";shutdown=true");
+			System.out.println(protocol + host + nomeDB + ";shutdown=true");
+			System.err.println(e.getClass().getName() + ": " + e.getMessage());
+			// new Alert(Alert.AlertType.ERROR, e.getClass().getName() + ": " +
+			// e.getMessage()).showAndWait();
 		}
 	}
 }
