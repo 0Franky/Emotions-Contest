@@ -1,8 +1,10 @@
 package classes.database;
 
 import java.sql.Connection;
+import java.sql.DatabaseMetaData;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Statement;
 
 import Title.Title;
@@ -14,7 +16,9 @@ public class SQLiteConnection {
 	public static void main(String args[]) { // getConnectionDB();
 
 		// dropTable();
-		createTable();
+		if (!tableExists("DATA")) {
+			createTable();
+		}
 
 		/* Inserisce il primo valore (Da utilizzare solo la prima volta) */
 		String[] input = { "123456789", "Working", "2", "3", "Closed", "bugfixing" };
@@ -36,6 +40,7 @@ public class SQLiteConnection {
 		Connection con = null;
 
 		try {
+			System.out.println("Try to open database: jdbc:sqlite:" + host + Title.APPLICATION_NAME + "DB.db");
 			Class.forName("org.sqlite.JDBC").newInstance();
 			con = DriverManager.getConnection("jdbc:sqlite:" + host + Title.APPLICATION_NAME + "DB.db");
 
@@ -51,11 +56,32 @@ public class SQLiteConnection {
 		return con;
 	}
 
+	public static boolean tableExists(String tableName) {
+		boolean result = false;
+		Connection con = getConnectionDB();
+
+		try {
+			con.setAutoCommit(false);
+			DatabaseMetaData md = con.getMetaData();
+			ResultSet rs = md.getTables(null, null, tableName, null);
+			rs.next();
+			result = rs.getRow() > 0;
+		} catch (SQLException e) {
+			System.err.println(e.getClass().getName() + ": " + e.getMessage());
+			new Alert(Alert.AlertType.ERROR, e.getClass().getName() + ": " + e.getMessage()).showAndWait();
+		}
+
+		closeConnectionDB(con, null);
+
+		return result;
+	}
+
 	public static void dropTable() {
 		Connection con = getConnectionDB();
 		Statement stmt = null;
 
 		try {
+			con.setAutoCommit(false);
 			stmt = con.createStatement();
 			String sql = "DROP TABLE DATA";
 
@@ -74,6 +100,7 @@ public class SQLiteConnection {
 		Statement stmt = null;
 
 		try {
+			con.setAutoCommit(false);
 			stmt = con.createStatement();
 			String sql = "CREATE TABLE DATA " + "(ID INTEGER PRIMARY KEY  AUTOINCREMENT, "
 					+ " TIMESTAMP INT 		NOT NULL, " + " ACTIVITY           TEXT, " + " VALENCE            INT, "
@@ -153,10 +180,14 @@ public class SQLiteConnection {
 
 	private static void closeConnectionDB(Connection con, Statement stmt) {
 		try {
-			stmt.close();
-			con.setAutoCommit(true);
-			con.commit();
-			con.close();
+			if (stmt != null) {
+				stmt.close();
+			}
+			if (con != null) {
+				// con.setAutoCommit(true);
+				con.commit();
+				con.close();
+			}
 		} catch (Exception e) {
 			// TODO: handle exception
 			System.err.println(e.getClass().getName() + ": " + e.getMessage());

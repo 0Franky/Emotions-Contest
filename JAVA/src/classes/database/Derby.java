@@ -2,6 +2,7 @@ package classes.database;
 
 import java.net.InetAddress;
 import java.sql.Connection;
+import java.sql.DatabaseMetaData;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -11,6 +12,7 @@ import org.apache.derby.drda.NetworkServerControl;
 
 import Title.Title;
 import classes.Tuple;
+import javafx.scene.control.Alert;
 
 public class Derby {
 
@@ -41,7 +43,9 @@ public class Derby {
 		 *
 		 */
 
-		createTable();
+		if (!tableExists("DATA")) {
+			createTable();
+		}
 
 		/* Inserisce il primo valore (Da utilizzare solo la prima volta) */
 		String[] input = { "123456789", "Working", "2", "3", "Closed", "bugfixing" };
@@ -96,6 +100,27 @@ public class Derby {
 		closeConnectionDB(con, stmt);
 	}
 
+	public static boolean tableExists(String tableName) {
+		boolean result = false;
+		Connection con = getConnectionDB();
+		// Statement stmt = null;
+
+		try {
+			// stmt = con.prepareStatement(query, ResultSet.TYPE_SCROLL_INSENSITIVE,
+			// ResultSet.CONCUR_READ_ONLY);
+			DatabaseMetaData md = con.getMetaData();
+			ResultSet rs = md.getTables(null, null, tableName, null);
+			result = rs.next();
+		} catch (SQLException e) {
+			System.err.println(e.getClass().getName() + ": " + e.getMessage());
+			new Alert(Alert.AlertType.ERROR, e.getClass().getName() + ": " + e.getMessage()).showAndWait();
+		}
+
+		closeConnectionDB(con, null);
+
+		return result;
+	}
+
 	public static void dropTable() {
 		Connection con = null;
 		Statement stmt = null;
@@ -124,6 +149,25 @@ public class Derby {
 			stmt = con.createStatement();
 			String sql = "INSERT INTO DATA (TIMESTAMP,ACTIVITY,VALENCE,AROUSAL,STATUS,NOTES) " + "VALUES (" + input[0]
 					+ ",'" + input[1] + "'," + input[2] + "," + input[3] + ",'" + input[4] + "','" + input[5] + "')";
+			System.out.println(sql);
+			stmt.execute(sql);
+			stmt.close();
+		} catch (SQLException sqlExcept) {
+			System.out.println("Insert successfull");
+			sqlExcept.printStackTrace();
+		}
+
+		closeConnectionDB(con, stmt);
+	}
+
+	public static void deleteRow(String searchedField, String tableField) {
+		Connection con = null;
+		Statement stmt = null;
+
+		try {
+			con = getConnectionDB();
+			stmt = con.createStatement();
+			String sql = "DELETE FROM DATA WHERE " + searchedField + "=" + tableField;
 			System.out.println(sql);
 			stmt.execute(sql);
 			stmt.close();
