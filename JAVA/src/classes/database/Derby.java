@@ -114,7 +114,7 @@ public class Derby {
 		closeConnectionDB(con, stmt);
 	}
 
-	private static void addRow(String input[]) {
+	public static void addRow(String input[]) {
 		Connection con = null;
 		Statement stmt = null;
 
@@ -134,7 +134,7 @@ public class Derby {
 		closeConnectionDB(con, stmt);
 	}
 
-	private static Tuple runQuery() {
+	public static Tuple runQuery() {
 		Connection con = null;
 		Statement stmt = null;
 		Tuple tuple = null;
@@ -179,14 +179,19 @@ public class Derby {
 				stmt.close();
 			}
 			if (con != null) {
-				DriverManager.getConnection(protocol + host + nomeDB + ";shutdown=true");
-				System.out.println(protocol + nomeDB + ";shutdown=true");
 				con.commit();
 				con.close();
+				try {
+					DriverManager.getConnection(protocol + ";shutdown=true");
+				} catch (SQLException e) {
+					System.out.println(protocol + ";shutdown=true");
+				} catch (Exception e) {
+					System.err.println(e.getClass().getName() + ": " + e.getMessage());
+				}
 			}
 		} catch (Exception e) {
 			System.out.println("ShutdownFailed");
-			System.out.println(protocol + host + nomeDB + ";shutdown=true");
+			System.out.println(protocol + ";shutdown=true");
 			System.err.println(e.getClass().getName() + ": " + e.getMessage());
 			// new Alert(Alert.AlertType.ERROR, e.getClass().getName() + ": " +
 			// e.getMessage()).showAndWait();
