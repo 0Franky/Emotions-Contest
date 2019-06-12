@@ -6,7 +6,6 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.Random;
 
 import org.apache.derby.drda.NetworkServerControl;
 
@@ -28,21 +27,31 @@ public class Derby {
 	// private static Statement stmt = null;
 	private static NetworkServerControl server = null;
 
-	public static void main(String[] args) throws Exception {
-		getConnectionDB();
-		dropTable();
+	public static void main(String[] args) {
+		/*
+		 * // getConnectionDB(); dropTable(); createTable();
+		 * 
+		 * // TEST CON TIMESTAMP RANDOM int j = 100000000; int n = 123456789 - j; Random
+		 * random = new Random(); int k = random.nextInt(n) + j;// Valori compresi tra j
+		 * e n
+		 * 
+		 * String[] input = { k + "", "Working", "2", "3", "Closed", "bugfixing" };
+		 * addRow(input); runQuery(); // closeConnectionDB();
+		 *
+		 */
+
 		createTable();
 
-		// TEST CON TIMESTAMP RANDOM
-		int j = 100000000;
-		int n = 123456789 - j;
-		Random random = new Random();
-		int k = random.nextInt(n) + j;// Valori compresi tra j e n
-
-		String[] input = { k + "", "Working", "2", "3", "Closed", "bugfixing" };
+		/* Inserisce il primo valore (Da utilizzare solo la prima volta) */
+		String[] input = { "123456789", "Working", "2", "3", "Closed", "bugfixing" };
 		addRow(input);
-		runQuery();
-		// closeConnectionDB();
+
+		/* Insericse il secondo valore (Da utilizzare sempre) */
+		String[] input2 = { "123456789", "Working", "2", "3", "Closed", "bugfixing" };
+		addRow(input2);
+
+		/* Stampa la Tabella */
+		runQuery().print();
 	}
 
 	private static Connection getConnectionDB() {
@@ -70,9 +79,11 @@ public class Derby {
 		try {
 			con = getConnectionDB();
 			stmt = con.createStatement();
-			String sql = "CREATE TABLE DATA " + "(TIMESTAMP INT 		NOT NULL, "
-					+ " ACTIVITY           VARCHAR(30), " + " VALENCE            INT, " + " AROUSAL            INT, "
-					+ " STATUS             VARCHAR(30), " + " NOTES         VARCHAR(30))";
+			String sql = "CREATE TABLE DATA "
+					+ "(ID INTEGER NOT NULL GENERATED ALWAYS AS IDENTITY (START WITH 1, INCREMENT BY 1), "
+					+ " TIMESTAMP INT 		NOT NULL, " + " ACTIVITY           VARCHAR(30), "
+					+ " VALENCE            INT, " + " AROUSAL            INT, " + " STATUS             VARCHAR(30), "
+					+ " NOTES         VARCHAR(30))";
 			stmt.execute(sql);
 			System.out.println("Tabella creata con successo");
 			stmt.close();

@@ -13,7 +13,7 @@ public class SQLiteConnection {
 
 	public static void main(String args[]) { // getConnectionDB();
 
-		dropTable();
+		// dropTable();
 		createTable();
 
 		/* Inserisce il primo valore (Da utilizzare solo la prima volta) */
@@ -151,6 +151,7 @@ public class SQLiteConnection {
 	private static void closeConnectionDB(Connection con, Statement stmt) {
 		try {
 			stmt.close();
+			con.setAutoCommit(true);
 			con.commit();
 			con.close();
 		} catch (Exception e) {
