@@ -27,6 +27,10 @@ import com.google.api.services.drive.Drive;
 import com.google.api.services.drive.model.Permission;
 import com.google.api.services.sheets.v4.Sheets;
 import com.google.api.services.sheets.v4.SheetsScopes;
+import com.google.api.services.sheets.v4.model.BatchUpdateSpreadsheetRequest;
+import com.google.api.services.sheets.v4.model.DeleteDimensionRequest;
+import com.google.api.services.sheets.v4.model.DimensionRange;
+import com.google.api.services.sheets.v4.model.Request;
 import com.google.api.services.sheets.v4.model.Spreadsheet;
 import com.google.api.services.sheets.v4.model.SpreadsheetProperties;
 import com.google.api.services.sheets.v4.model.ValueRange;
@@ -371,9 +375,10 @@ public final class GoogleDocsUtils implements ICSV_Writer {
 
 		try {
 			synchronized (GoogleDocsUtils.class) {
-				getSheetByTitle(spid_SurveyResults);
-				writeSheet(spid_SurveyResults, "SurveyResults", data);
-				createSheet(spid_SurveyResults);
+				// getSheetByTitle(spid_SurveyResults);
+				// writeSheet(spid_SurveyResults, "SurveyResults", data);
+				// createSheet(spid_SurveyResults);
+				appendSheet(data.toArray(new String[0]));
 			}
 		} catch (Exception ex) {
 			status = false;
@@ -388,13 +393,81 @@ public final class GoogleDocsUtils implements ICSV_Writer {
 
 		try {
 			synchronized (GoogleDocsUtils.class) {
-				getSheetByTitle(spid_SurveyResults);
-				writeSheet(spid_SurveyResults, "SurveyResults", Arrays.asList(data));
+				// getSheetByTitle(spid_SurveyResults);
+				// writeSheet(spid_SurveyResults, "SurveyResults", Arrays.asList(data));
+				appendSheet(new String[] { data });
 			}
 		} catch (Exception ex) {
 			status = false;
 		}
 
 		return status;
+	}
+
+	public List<List<Object>> readSheet(String range) throws IOException, GeneralSecurityException, URISyntaxException {
+		sheetsService = getSheetsService();
+		// READ //
+		// String range = "congress!A2:F10";
+
+		ValueRange response = sheetsService.spreadsheets().values().get(spid_SurveyResults, range).execute();
+
+		List<List<Object>> values = response.getValues();
+
+		if (values == null || values.isEmpty()) {
+			System.out.println("Not found Data");
+		} else {
+			for (List<Object> row : values) {
+				System.out.printf("%s %s from %s\n", row.get(5), row.get(4), row.get(1));
+			}
+		}
+		return values;
+	}
+
+	public void updateSheet(String range, String input[])
+			throws IOException, GeneralSecurityException, URISyntaxException {
+		sheetsService = getSheetsService();
+		// UPDATE //
+		// String range = "congress!A2:F10";
+		ValueRange body = new ValueRange().setValues(Arrays.asList(Arrays.asList(input)));
+
+		/*
+		 * UpdateValuesResponse result =
+		 * sheetsService.spreadsheets().values().update(spid_SurveyResults, range, body)
+		 * .setValueInputOption("RAW").execute();
+		 */
+		sheetsService.spreadsheets().values().update(spid_SurveyResults, range, body).setValueInputOption("RAW")
+				.execute();
+	}
+
+	public void appendSheet(String input[]) throws IOException, GeneralSecurityException, URISyntaxException {
+		sheetsService = getSheetsService();
+		// APPEND //
+		ValueRange body = new ValueRange().setValues(Arrays.asList(Arrays.asList(input)// "Ciao","Amico","Come","Stai")
+		));
+
+		/*
+		 * AppendValuesResponse appendResult = sheetsService.spreadsheets().values()
+		 * .append(spid_SurveyResults, "congress",
+		 * body).setValueInputOption("USER_ENTERED")
+		 * .setInsertDataOption("INSERT_ROWS").setIncludeValuesInResponse(true).execute(
+		 * );
+		 */
+		sheetsService.spreadsheets().values().append(spid_SurveyResults, "congress", body)
+				.setValueInputOption("USER_ENTERED").setInsertDataOption("INSERT_ROWS").setIncludeValuesInResponse(true)
+				.execute();
+	}
+
+	public void deleteOnSheet(int ID, int StartIndex) throws IOException, GeneralSecurityException, URISyntaxException {
+		sheetsService = getSheetsService();
+		// DELETE //
+		DeleteDimensionRequest deleteRequest = new DeleteDimensionRequest().setRange(new DimensionRange().setSheetId(ID)// 2063166065)
+				.setDimension("ROWS").setStartIndex(StartIndex)// 541)
+		);
+
+		List<Request> requests = new ArrayList<>();
+		requests.add(new Request().setDeleteDimension(deleteRequest));
+
+		BatchUpdateSpreadsheetRequest body = new BatchUpdateSpreadsheetRequest().setRequests(requests);
+		sheetsService.spreadsheets().batchUpdate(spid_SurveyResults, body).execute();
 	}
 }

@@ -3,6 +3,7 @@ package classes.database;
 import java.sql.Connection;
 import java.sql.DatabaseMetaData;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -28,9 +29,9 @@ public class SQLiteConnection {
 		System.out.println(getTodaysDataQuery());
 
 		// dropTable();
-		if (!tableExists("DATA")) {
-			createTable();
-		}
+		// if (!tableExists("DATA")) {
+		// createTable("DATA");
+		// }
 
 		/* Inserisce il primo valore (Da utilizzare solo la prima volta) */
 		String[] input = { "1560376810", "Working", "2", "3", "Closed", "bugfixing" };
@@ -80,7 +81,10 @@ public class SQLiteConnection {
 		if (existTable == false && checking == false) {
 			checking = true;
 			if (!tableExists("DATA")) {
-				createTable();
+				createTable("DATA");
+			}
+			if (!tableExists("DATA_TO_SYNC")) {
+				createTable("DATA_TO_SYNC");
 			}
 			existTable = true;
 		}
@@ -127,14 +131,14 @@ public class SQLiteConnection {
 		closeConnectionDB(con, stmt);
 	}
 
-	public static void createTable() {
+	public static void createTable(String tableName) {
 		Connection con = getConnectionDB();
 		Statement stmt = null;
 
 		try {
 			con.setAutoCommit(false);
 			stmt = con.createStatement();
-			String sql = "CREATE TABLE DATA " + "(ID INTEGER PRIMARY KEY  AUTOINCREMENT, "
+			String sql = "CREATE TABLE " + tableName + " (ID INTEGER PRIMARY KEY  AUTOINCREMENT, "
 					+ " TIMESTAMP INT 		NOT NULL, " + " ACTIVITY           TEXT, " + " VALENCE            INT, "
 					+ " AROUSAL            INT, " + " STATUS            INT, " + " NOTES        TEXT)";
 			stmt.executeUpdate(sql);
@@ -153,10 +157,23 @@ public class SQLiteConnection {
 			con.setAutoCommit(false);
 			stmt = con.createStatement();
 
-			String sql;
-			sql = "INSERT INTO DATA (TIMESTAMP,ACTIVITY,VALENCE,AROUSAL,STATUS,NOTES) " + "VALUES (" + input[0] + ",'"
-					+ input[1] + "'," + input[2] + "," + input[3] + ",'" + input[4] + "','" + input[5] + "');";
-			stmt.executeUpdate(sql);
+			/*
+			 * String sql; sql =
+			 * "INSERT INTO DATA (TIMESTAMP,ACTIVITY,VALENCE,AROUSAL,STATUS,NOTES) VALUES ("
+			 * + input[0] + ",'" + input[1] + "'," + input[2] + "," + input[3] + ",'" +
+			 * input[4] + "','" + input[5] + "')";
+			 * 
+			 * stmt.executeUpdate(sql);
+			 */
+			PreparedStatement prepStmt = con.prepareStatement(
+					"INSERT INTO DATA (TIMESTAMP,ACTIVITY,VALENCE,AROUSAL,STATUS,NOTES) VALUES (?,?,?,?,?,?)");
+			prepStmt.setString(1, input[0]);
+			prepStmt.setString(2, input[1]);
+			prepStmt.setString(3, input[2]);
+			prepStmt.setString(4, input[3]);
+			prepStmt.setString(5, input[4]);
+			prepStmt.setString(6, input[5]);
+			prepStmt.executeUpdate();
 		} catch (Exception e) {
 			System.err.println(e.getClass().getName() + ": " + e.getMessage());
 			new Alert(Alert.AlertType.ERROR, e.getClass().getName() + ": " + e.getMessage()).showAndWait();
@@ -173,10 +190,22 @@ public class SQLiteConnection {
 			con.setAutoCommit(false);
 			stmt = con.createStatement();
 
-			String sql;
-			sql = "INSERT INTO DATA_TO_SYNC (TIMESTAMP,ACTIVITY,VALENCE,AROUSAL,STATUS,NOTES) " + "VALUES (" + input[0]
-					+ ",'" + input[1] + "'," + input[2] + "," + input[3] + ",'" + input[4] + "','" + input[5] + "');";
-			stmt.executeUpdate(sql);
+			/*
+			 * String sql; sql =
+			 * "INSERT INTO DATA_TO_SYNC (TIMESTAMP,ACTIVITY,VALENCE,AROUSAL,STATUS,NOTES) "
+			 * + "VALUES (" + input[0] + ",'" + input[1] + "'," + input[2] + "," + input[3]
+			 * + ",'" + input[4] + "','" + input[5] + "')"; stmt.executeUpdate(sql);
+			 */
+
+			PreparedStatement prepStmt = con.prepareStatement(
+					"INSERT INTO DATA_TO_SYNC (TIMESTAMP,ACTIVITY,VALENCE,AROUSAL,STATUS,NOTES) VALUES (?,?,?,?,?,?)");
+			prepStmt.setString(1, input[0]);
+			prepStmt.setString(2, input[1]);
+			prepStmt.setString(3, input[2]);
+			prepStmt.setString(4, input[3]);
+			prepStmt.setString(5, input[4]);
+			prepStmt.setString(6, input[5]);
+			prepStmt.executeUpdate();
 		} catch (Exception e) {
 			System.err.println(e.getClass().getName() + ": " + e.getMessage());
 			new Alert(Alert.AlertType.ERROR, e.getClass().getName() + ": " + e.getMessage()).showAndWait();

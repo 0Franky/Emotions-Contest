@@ -32,7 +32,7 @@ public class AppFX extends Application {
 	 * application stage is stored so that it can be shown and hidden based on
 	 * system tray icon operations.
 	 */
-	private Stage this_stage;
+	// private Stage this_stage;
 
 	/*
 	 * a timer allowing the tray icon to provide a periodic notification event.

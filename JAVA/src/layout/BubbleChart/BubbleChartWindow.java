@@ -2,9 +2,9 @@ package layout.BubbleChart;
 
 import java.io.IOException;
 import java.util.List;
+
 import classes.DataChart;
 import classes.database.SQLiteConnection;
-import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.chart.BubbleChart;
@@ -50,10 +50,9 @@ public class BubbleChartWindow {
 		yAxis.setLabel("Excited");
 		chart.setTitle("Feeling during the day");
 
-    // PRELEVA DATI DAL DB //
-    populateChart();
+		// PRELEVA DATI DAL DB //
+		populateChart();
 		// demoAddBubble();
-		
 
 		this_stage = stage;
 		this_stage.show();
@@ -82,7 +81,7 @@ public class BubbleChartWindow {
 
 		chart.getData().add(bubble);
 	}
-  
+
 	private void close() {
 		try {
 			this_stage.close();
@@ -113,6 +112,7 @@ public class BubbleChartWindow {
 	protected void cleanInstance() {
 		instance = null;
 	}
+
 	private void populateChart() {
 		List<DataChart> data = SQLiteConnection.getDataForChart();
 		for (DataChart bubble : data) {
@@ -120,9 +120,9 @@ public class BubbleChartWindow {
 		}
 	}
 
-	public static void main(String[] args) {
-		launch(args); /* demoAddBubble(); */
-	}
+	// public static void main(String[] args) {
+	// launch(args); /* demoAddBubble(); */
+	// }
 
 	/*
 	 * private void demoAddBubble() { for (int i = 0; i < 10; i++) { double num =
