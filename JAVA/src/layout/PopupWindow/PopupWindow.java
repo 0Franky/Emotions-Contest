@@ -5,6 +5,7 @@ import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.List;
 
+import classes.TimeConverter;
 import classes.csv.CSV_WriterBuilder;
 import javafx.application.Platform;
 import javafx.event.EventHandler;
@@ -167,7 +168,7 @@ public class PopupWindow {
 	}
 
 	private List<String> activityOpenWindowToList() {
-		long unixTime = System.currentTimeMillis() / 1000L;
+		long unixTime = TimeConverter.toUnixTime(System.currentTimeMillis());
 
 		List<String> data = new ArrayList<String>();
 		data.add(Long.toString(unixTime));
@@ -180,7 +181,7 @@ public class PopupWindow {
 	}
 
 	private List<String> activityToList() {
-		long unixTime = System.currentTimeMillis() / 1000L;
+		long unixTime = TimeConverter.toUnixTime(System.currentTimeMillis());
 
 		List<String> data = new ArrayList<String>();
 		data.add(Long.toString(unixTime));
