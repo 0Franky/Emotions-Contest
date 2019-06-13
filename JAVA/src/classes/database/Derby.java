@@ -7,10 +7,18 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.ZoneId;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.List;
 
 import org.apache.derby.drda.NetworkServerControl;
 
 import Title.Title;
+import classes.TimeConverter;
 import classes.Tuple;
 import javafx.scene.control.Alert;
 
@@ -43,6 +51,8 @@ public class Derby {
 		 *
 		 */
 
+		System.out.println(getTodaysDataQuery());
+
 		if (!tableExists("DATA")) {
 			createTable();
 		}
@@ -56,7 +66,9 @@ public class Derby {
 		addRow(input2);
 
 		/* Stampa la Tabella */
-		runQuery().print();
+		runQuery(getAllDataQuery()).get(0).print();
+		System.out.println("========= TODAY: =========");
+		runQuery(getTodaysDataQuery()).get(0).print();
 	}
 
 	private static Connection getConnectionDB() {
@@ -179,16 +191,36 @@ public class Derby {
 		closeConnectionDB(con, stmt);
 	}
 
-	public static Tuple runQuery() {
+	public static final String getAllDataQuery() {
+		return "SELECT * FROM DATA";
+	}
+
+	public static final String getTodaysDataQuery() {
+		String startDate = Long.toString(TimeConverter
+				.toUnixTime(Date.from(LocalDate.parse(new SimpleDateFormat("yyyy-MM-dd").format(new Date()))
+						.atStartOfDay().atZone(ZoneId.systemDefault()).toInstant()).getTime()));
+
+		Calendar calendar = Calendar.getInstance();
+		calendar.add(Calendar.DAY_OF_YEAR, 1);
+		Date tomorrow = calendar.getTime();
+
+		String endDate = Long.toString(
+				TimeConverter.toUnixTime(Date.from(LocalDate.parse(new SimpleDateFormat("yyyy-MM-dd").format(tomorrow))
+						.atStartOfDay().atZone(ZoneId.systemDefault()).toInstant()).getTime()));
+
+		return ("SELECT * FROM DATA WHERE TIMESTAMP >= " + startDate + " AND TIMESTAMP < " + endDate);
+	}
+
+	public static List<Tuple> runQuery(String query) {
 		Connection con = null;
 		Statement stmt = null;
-		Tuple tuple = null;
+		List<Tuple> tuples = new ArrayList<Tuple>();
 
 		try {
 			con = getConnectionDB();
 			stmt = con.createStatement();
 
-			ResultSet rs = stmt.executeQuery("SELECT * FROM DATA");
+			ResultSet rs = stmt.executeQuery(query);
 
 			while (rs.next()) {
 				// INSERT INTO DATA (TIMESTAMP,ACTIVITY,VALENCE,AROUSAL,STATUS,NOTES)
@@ -201,7 +233,7 @@ public class Derby {
 				String STATUS = rs.getString("STATUS");
 				String NOTES = rs.getString("NOTES");
 
-				tuple = new Tuple(ID, TIMESTAMP, ACTIVITY, VALENCE, AROUSAL, STATUS, NOTES);
+				tuples.add(new Tuple(ID, TIMESTAMP, ACTIVITY, VALENCE, AROUSAL, STATUS, NOTES));
 			}
 			stmt.close();
 		} catch (SQLException sqlExcept) {
@@ -211,7 +243,7 @@ public class Derby {
 
 		closeConnectionDB(con, stmt);
 
-		return tuple;
+		return tuples;
 	}
 
 	private static void closeConnectionDB(Connection con, Statement stmt) {
