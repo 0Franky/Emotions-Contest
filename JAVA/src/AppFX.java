@@ -9,6 +9,7 @@ import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.scene.control.Alert;
 import javafx.stage.Stage;
+import layout.BubbleChart.BubbleChartWindow;
 import layout.Credits.CreditWindow;
 import layout.Notification.Notification;
 import layout.PopupWindow.PopupWindow;
@@ -114,6 +115,16 @@ public class AppFX extends Application {
 				}
 			}));
 
+			btn_Restrospective.addActionListener(event -> Platform.runLater(() -> {
+				try {
+					showBubbleChartWindow();
+					// System.out.println("showBubbleChartWindow pressed");
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}));
+
 			// the convention for tray icons seems to be to set the default icon for opening
 			// the application stage in a bold font.
 			java.awt.Font defaultFont = java.awt.Font.decode(null);
@@ -182,6 +193,16 @@ public class AppFX extends Application {
 	 */
 	private void showCreditWindow() throws IOException {
 		CreditWindow.getIstance().show();
+	}
+
+	/**
+	 * Shows the application stage and ensures that it is brought ot the front of
+	 * all stages.
+	 * 
+	 * @throws IOException
+	 */
+	private void showBubbleChartWindow() throws IOException {
+		BubbleChartWindow.getIstance().show();
 	}
 
 	public static void main(String[] args) throws IOException, java.awt.AWTException {
