@@ -172,14 +172,14 @@ public class PopupWindow {
 	}
 
 	private Tuple getActivityOpenWindowToTuple() {
-		return new Tuple((int) TimeConverter.toUnixTime(System.currentTimeMillis()), null, null, null, "POPUP_OPENED",
-				null);
+		return new Tuple(Long.toString(TimeConverter.toUnixTime(System.currentTimeMillis())), "", "", "",
+				"POPUP_OPENED", "");
 	}
 
 	private Tuple getActivityToTuple() {
-		return new Tuple((int) TimeConverter.toUnixTime(System.currentTimeMillis()),
-				popupWindowController.getActivity(), Integer.parseInt(pleasantness), Integer.parseInt(excitement),
-				"POPUP_CLOSED", popupWindowController.getNotes());
+		return new Tuple(Long.toString(TimeConverter.toUnixTime(System.currentTimeMillis())),
+				popupWindowController.getActivity(), pleasantness, excitement, "POPUP_CLOSED",
+				popupWindowController.getNotes());
 	}
 
 	private boolean checkCorrectionParam() {

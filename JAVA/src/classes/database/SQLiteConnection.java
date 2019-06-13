@@ -105,9 +105,8 @@ public class SQLiteConnection {
 		try {
 			con.setAutoCommit(false);
 			stmt = con.createStatement();
-			String sql = "CREATE TABLE " + tableName + " (ID INTEGER PRIMARY KEY  AUTOINCREMENT, "
-					+ " TIMESTAMP INT 		NOT NULL, " + " ACTIVITY           TEXT, " + " VALENCE            INT, "
-					+ " AROUSAL            INT, " + " STATUS            INT, " + " NOTES        TEXT)";
+			String sql = "CREATE TABLE " + tableName
+					+ " (TIMESTAMP TEXT NOT NULL, ACTIVITY TEXT, VALENCE TEXT, AROUSAL TEXT, STATUS TEXT, NOTES TEXT)";
 			stmt.executeUpdate(sql);
 		} catch (Exception e) {
 			System.err.println(e.getClass().getName() + ": " + e.getMessage());
@@ -241,10 +240,10 @@ public class SQLiteConnection {
 			while (rs.next()) {
 				// (TIMESTAMP,ACTIVITY,VALENCE,AROUSAL,STATUS,NOTES)
 				// int ID = rs.getInt("ID");
-				int TIMESTAMP = rs.getInt("TIMESTAMP");
+				String TIMESTAMP = rs.getString("TIMESTAMP");
 				String ACTIVITY = rs.getString("ACTIVITY");
-				int VALENCE = rs.getInt("VALENCE");
-				int AROUSAL = rs.getInt("AROUSAL");
+				String VALENCE = rs.getString("VALENCE");
+				String AROUSAL = rs.getString("AROUSAL");
 				String STATUS = rs.getString("STATUS");
 				String NOTES = rs.getString("NOTES");
 

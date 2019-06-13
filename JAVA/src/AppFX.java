@@ -1,17 +1,21 @@
 import java.io.File;
 import java.io.IOException;
+import java.util.List;
 
 import javax.imageio.ImageIO;
 
 import Title.Title;
 import classes.AppTimer;
+import classes.Tuple;
+import classes.csv.CSV_Manager;
+import classes.csv.CSV_WriterBuilder;
+import classes.csv.ICSV_Writer;
+import classes.database.SQLiteConnection;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.scene.control.Alert;
-import javafx.scene.control.Alert.AlertType;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
-import javafx.stage.StageStyle;
 import layout.BubbleChart.BubbleChartWindow;
 import layout.Credits.CreditWindow;
 import layout.Notification.Notification;
@@ -224,20 +228,31 @@ public class AppFX extends Application {
 	}
 
 	private void saveCSV() {
+		FileChooser.ExtensionFilter csvExtensionFilter = new FileChooser.ExtensionFilter(
+				"CSV - Comma-Separated Values (.csv)", "*.csv");
+
 		FileChooser fileChooser = new FileChooser();
 		fileChooser.setTitle("Save file");
+		fileChooser.setSelectedExtensionFilter(csvExtensionFilter);
+		fileChooser.getExtensionFilters().add(csvExtensionFilter);
 		File outFile = fileChooser.showSaveDialog(this_stage);
 
-		if (outFile == null) {
-			Alert alert = new Alert(AlertType.ERROR);
-			alert.setTitle("No folder selected");
-			alert.setHeaderText(null);
-			alert.setContentText("Aborting operation!");
-			alert.initStyle(StageStyle.UTILITY);
-			alert.initOwner(this_stage);
-			alert.showAndWait();
-		} else {
-			// exportDatabaseToCSV();
+		/*
+		 * if (outFile == null) { Alert alert = new Alert(AlertType.ERROR);
+		 * alert.setTitle("No folder selected"); alert.setHeaderText(null);
+		 * alert.setContentText("Aborting operation!");
+		 * alert.initStyle(StageStyle.UTILITY); alert.initOwner(this_stage);
+		 * alert.showAndWait(); }
+		 */
+
+		if (outFile != null) {
+			CSV_Manager.setPATH_AND_NAME_CSV(outFile);
+			List<Tuple> data = SQLiteConnection.getAllDataQuery();
+			ICSV_Writer writer = CSV_WriterBuilder.getInstance(CSV_WriterBuilder.typeCSV_Writer.built_in);
+			for (Tuple row : data) {
+				writer.write(row.toList());
+			}
+			// CSV_Manager.reset_Manager();
 		}
 	}
 }

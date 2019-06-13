@@ -13,7 +13,7 @@ public class Synchronizer {
 		ICSV_Writer writer = CSV_WriterBuilder.getInstance(CSV_WriterBuilder.typeCSV_Writer.google_sheet);
 		for (Tuple row : data) {
 			if (writer.write(row.toList())) {
-				SQLiteConnection.cancelRowToSyncQuery(Integer.toString(row.getTimestamp()));
+				SQLiteConnection.cancelRowToSyncQuery(row.getTimestamp());
 			} else {
 				break;
 			}

@@ -5,14 +5,14 @@ import java.util.List;
 
 public class Tuple {
 
-	private Integer TIMESTAMP;
+	private String TIMESTAMP;
 	private String ACTIVITY;
-	private Integer VALENCE;
-	private Integer AROUSAL;
+	private String VALENCE;
+	private String AROUSAL;
 	private String STATUS;
 	private String NOTES;
 
-	public Tuple(Integer TIMESTAMP, String ACTIVITY, Integer VALENCE, Integer AROUSAL, String STATUS, String NOTES) {
+	public Tuple(String TIMESTAMP, String ACTIVITY, String VALENCE, String AROUSAL, String STATUS, String NOTES) {
 		// TODO Auto-generated constructor stub
 
 		this.TIMESTAMP = TIMESTAMP;
@@ -23,7 +23,7 @@ public class Tuple {
 		this.NOTES = NOTES;
 	}
 
-	public Integer getTimestamp() {
+	public String getTimestamp() {
 		return TIMESTAMP;
 	}
 
@@ -31,11 +31,11 @@ public class Tuple {
 		return ACTIVITY;
 	}
 
-	public Integer getValence() {
+	public String getValence() {
 		return VALENCE;
 	}
 
-	public Integer getArousal() {
+	public String getArousal() {
 		return AROUSAL;
 	}
 
@@ -48,16 +48,15 @@ public class Tuple {
 	}
 
 	public String[] toArray() {
-		return new String[] { Integer.toString(TIMESTAMP), ACTIVITY, Integer.toString(VALENCE),
-				Integer.toString(AROUSAL), STATUS, NOTES };
+		return new String[] { TIMESTAMP, ACTIVITY, VALENCE, AROUSAL, STATUS, NOTES };
 	}
 
 	public List<String> toList() {
 		List<String> data = new ArrayList<>();
-		data.add(Integer.toString(TIMESTAMP));
+		data.add(TIMESTAMP);
 		data.add(ACTIVITY);
-		data.add(Integer.toString(VALENCE));
-		data.add(Integer.toString(AROUSAL));
+		data.add(VALENCE);
+		data.add(AROUSAL);
 		data.add(STATUS);
 		data.add(NOTES);
 
