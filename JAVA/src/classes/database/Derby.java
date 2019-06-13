@@ -18,6 +18,7 @@ import java.util.List;
 import org.apache.derby.drda.NetworkServerControl;
 
 import Title.Title;
+import classes.DataChart;
 import classes.TimeConverter;
 import classes.Tuple;
 import javafx.scene.control.Alert;
@@ -68,7 +69,12 @@ public class Derby {
 		/* Stampa la Tabella */
 		runQuery(getAllDataQuery()).get(0).print();
 		System.out.println("========= TODAY: =========");
-		runQuery(getTodaysDataQuery()).get(0).print();
+		List<Tuple> tuples = runQuery(getTodaysDataQuery());
+		if (tuples.size() > 0) {
+			for (Tuple tuple : tuples) {
+				tuple.print();
+			}
+		}
 	}
 
 	private static Connection getConnectionDB() {
@@ -84,6 +90,10 @@ public class Derby {
 		} catch (Exception except) {
 			System.out.println("Acceso al Database non Riuscito");
 			except.printStackTrace();
+		}
+
+		if (!tableExists("DATA")) {
+			createTable();
 		}
 
 		return con;
@@ -234,6 +244,60 @@ public class Derby {
 				String NOTES = rs.getString("NOTES");
 
 				tuples.add(new Tuple(ID, TIMESTAMP, ACTIVITY, VALENCE, AROUSAL, STATUS, NOTES));
+			}
+			stmt.close();
+		} catch (SQLException sqlExcept) {
+			System.out.println("Select Query Failed");
+			sqlExcept.printStackTrace();
+		}
+
+		closeConnectionDB(con, stmt);
+
+		return tuples;
+	}
+
+	public static List<DataChart> getDataForChart() {
+		Connection con = null;
+		Statement stmt = null;
+		List<DataChart> tuples = new ArrayList<>();
+
+		try {
+			String startDate = Long
+					.toString(
+							TimeConverter
+									.toUnixTime(Date
+											.from(LocalDate.parse(new SimpleDateFormat("yyyy-MM-dd").format(new Date()))
+													.atStartOfDay().atZone(ZoneId.systemDefault()).toInstant())
+											.getTime()));
+
+			Calendar calendar = Calendar.getInstance();
+			calendar.add(Calendar.DAY_OF_YEAR, 1);
+			Date tomorrow = calendar.getTime();
+
+			String endDate = Long
+					.toString(
+							TimeConverter
+									.toUnixTime(Date
+											.from(LocalDate.parse(new SimpleDateFormat("yyyy-MM-dd").format(tomorrow))
+													.atStartOfDay().atZone(ZoneId.systemDefault()).toInstant())
+											.getTime()));
+
+			String query = ("SELECT DISTINCT VALENCE, AROUSAL, COUNT(*) AS WEIGHT FROM DATA WHERE TIMESTAMP >= "
+					+ startDate + " AND TIMESTAMP < " + endDate);
+
+			con = getConnectionDB();
+			stmt = con.createStatement();
+
+			ResultSet rs = stmt.executeQuery(query);
+
+			while (rs.next()) {
+				// INSERT INTO DATA (TIMESTAMP,ACTIVITY,VALENCE,AROUSAL,STATUS,NOTES)
+
+				int VALENCE = rs.getInt("VALENCE");
+				int AROUSAL = rs.getInt("AROUSAL");
+				int WEIGHT = rs.getInt("WEIGHT");
+
+				tuples.add(new DataChart(VALENCE, AROUSAL, WEIGHT));
 			}
 			stmt.close();
 		} catch (SQLException sqlExcept) {
