@@ -15,13 +15,15 @@ import java.util.Date;
 import java.util.List;
 
 import Title.Title;
+import classes.DataChart;
 import classes.TimeConverter;
 import classes.Tuple;
 import javafx.scene.control.Alert;
 
 public class SQLiteConnection {
 
-	public static void main(String args[]) { // getConnectionDB();
+	public static void main(String args[]) {
+		// getConnectionDB();
 
 		System.out.println(getTodaysDataQuery());
 
@@ -43,16 +45,20 @@ public class SQLiteConnection {
 		System.out.println("Nella tabella sono presenti: " + nTuple + " Tuple");
 
 		/* Stampa la Tabella */
-		for (int i = 0; i < nTuple; i++)
-			runQuery(getAllDataQuery()).get(i).print();
+		runQuery(getAllDataQuery()).get(0).print();
 		System.out.println("========= TODAY: =========");
-		for (int i = 0; i < runQuery(getTodaysDataQuery()).size(); i++)
-			runQuery(getTodaysDataQuery()).get(i).print();
-
+		List<Tuple> tuples = runQuery(getTodaysDataQuery());
+		if (tuples.size() > 0) {
+			for (Tuple tuple : tuples) {
+				tuple.print();
+			}
+		}
 	}
 
 	// public static String host = "/src/";
 	public static String host = "";
+	public static boolean existTable = false;
+	public static boolean checking = false;
 
 	private static Connection getConnectionDB() {
 		Connection con = null;
@@ -69,6 +75,14 @@ public class SQLiteConnection {
 			new Alert(Alert.AlertType.ERROR,
 					"Method: getConnectionDB() | Class  : SQLiteConnection | msg system : " + e.getMessage())
 							.showAndWait();
+		}
+
+		if (existTable == false && checking == false) {
+			checking = true;
+			if (!tableExists("DATA")) {
+				createTable();
+			}
+			existTable = true;
 		}
 
 		return con;
@@ -223,6 +237,59 @@ public class SQLiteConnection {
 				String NOTES = rs.getString("NOTES");
 
 				tuples.add(new Tuple(ID, TIMESTAMP, ACTIVITY, VALENCE, AROUSAL, STATUS, NOTES));
+			}
+		} catch (Exception e) {
+			System.err.println(e.getClass().getName() + ": " + e.getMessage());
+			new Alert(Alert.AlertType.ERROR, e.getClass().getName() + ": " + e.getMessage()).showAndWait();
+		}
+
+		closeConnectionDB(con, stmt);
+
+		return tuples;
+	}
+
+	public static List<DataChart> getDataForChart() {
+
+		Connection con = getConnectionDB();
+		Statement stmt = null;
+		List<DataChart> tuples = new ArrayList<>();
+
+		try {
+			String startDate = Long
+					.toString(
+							TimeConverter
+									.toUnixTime(Date
+											.from(LocalDate.parse(new SimpleDateFormat("yyyy-MM-dd").format(new Date()))
+													.atStartOfDay().atZone(ZoneId.systemDefault()).toInstant())
+											.getTime()));
+
+			Calendar calendar = Calendar.getInstance();
+			calendar.add(Calendar.DAY_OF_YEAR, 1);
+			Date tomorrow = calendar.getTime();
+
+			String endDate = Long
+					.toString(
+							TimeConverter
+									.toUnixTime(Date
+											.from(LocalDate.parse(new SimpleDateFormat("yyyy-MM-dd").format(tomorrow))
+													.atStartOfDay().atZone(ZoneId.systemDefault()).toInstant())
+											.getTime()));
+
+			String query = ("SELECT DISTINCT VALENCE, AROUSAL, COUNT(*) AS WEIGHT FROM DATA WHERE TIMESTAMP >= "
+					+ startDate + " AND TIMESTAMP < " + endDate);
+
+			con.setAutoCommit(false);
+
+			stmt = con.createStatement();
+			ResultSet rs = stmt.executeQuery(query);
+
+			while (rs.next()) {
+				// (TIMESTAMP,ACTIVITY,VALENCE,AROUSAL,STATUS,NOTES)
+				int VALENCE = rs.getInt("VALENCE");
+				int AROUSAL = rs.getInt("AROUSAL");
+				int WEIGHT = rs.getInt("WEIGHT");
+
+				tuples.add(new DataChart(VALENCE, AROUSAL, WEIGHT));
 			}
 		} catch (Exception e) {
 			System.err.println(e.getClass().getName() + ": " + e.getMessage());
