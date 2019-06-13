@@ -23,39 +23,6 @@ import javafx.scene.control.Alert;
 
 public class SQLiteConnection {
 
-	public static void main(String args[]) {
-		// getConnectionDB();
-
-		System.out.println(getTodaysDataQuery());
-
-		// dropTable();
-		// if (!tableExists("DATA")) {
-		// createTable("DATA");
-		// }
-
-		/* Inserisce il primo valore (Da utilizzare solo la prima volta) */
-		String[] input = { "1560376810", "Working", "2", "3", "Closed", "bugfixing" };
-		addRow(input);
-
-		/* Insericse il secondo valore (Da utilizzare sempre) */
-		String[] input2 = { "1460376820", "Relaxing", "2", "3", "Closed", "CoffèTime" };
-		addRow(input2);
-
-		System.out.println("========= COUNT(*) in DATA: =========");
-		int nTuple = runQuery(getAllDataQuery()).size();
-		System.out.println("Nella tabella sono presenti: " + nTuple + " Tuple");
-
-		/* Stampa la Tabella */
-		runQuery(getAllDataQuery()).get(0).print();
-		System.out.println("========= TODAY: =========");
-		List<Tuple> tuples = runQuery(getTodaysDataQuery());
-		if (tuples.size() > 0) {
-			for (Tuple tuple : tuples) {
-				tuple.print();
-			}
-		}
-	}
-
 	// public static String host = "/src/";
 	public static String host = "";
 	public static boolean existTable = false;
@@ -215,19 +182,19 @@ public class SQLiteConnection {
 		closeConnectionDB(con, stmt);
 	}
 
-	public static final String getAllDataQuery() {
-		return "SELECT * FROM DATA";
+	public static final List<Tuple> getAllDataQuery() {
+		return runQuery("SELECT * FROM DATA");
 	}
 
-	public static final String getAllDataToSyncQuery() {
-		return "SELECT * FROM DATA_TO_SYNC ORDER BY TIMESTAMP ASC";
+	public static final List<Tuple> getAllDataToSyncQuery() {
+		return runQuery("SELECT * FROM DATA_TO_SYNC ORDER BY TIMESTAMP ASC");
 	}
 
-	public static final String cancelRowToSyncQuery(String Timestamp) {
-		return "SELECT * FROM DATA_TO_SYNC ORDER WHERE TIMESTAMP = " + Timestamp;
+	public static final void cancelRowToSyncQuery(String Timestamp) {
+		runUpdate("DELETE FROM DATA_TO_SYNC WHERE TIMESTAMP = " + Timestamp);
 	}
 
-	public static final String getTodaysDataQuery() {
+	public static final List<Tuple> getTodaysDataQuery() {
 		String startDate = Long.toString(TimeConverter
 				.toUnixTime(Date.from(LocalDate.parse(new SimpleDateFormat("yyyy-MM-dd").format(new Date()))
 						.atStartOfDay().atZone(ZoneId.systemDefault()).toInstant()).getTime()));
@@ -240,7 +207,23 @@ public class SQLiteConnection {
 				TimeConverter.toUnixTime(Date.from(LocalDate.parse(new SimpleDateFormat("yyyy-MM-dd").format(tomorrow))
 						.atStartOfDay().atZone(ZoneId.systemDefault()).toInstant()).getTime()));
 
-		return ("SELECT * FROM DATA WHERE TIMESTAMP >= " + startDate + " AND TIMESTAMP < " + endDate);
+		return runQuery("SELECT * FROM DATA WHERE TIMESTAMP >= " + startDate + " AND TIMESTAMP < " + endDate);
+	}
+
+	public static void runUpdate(String query) {
+
+		Connection con = getConnectionDB();
+
+		try {
+			con.setAutoCommit(false);
+			PreparedStatement st = con.prepareStatement(query);
+			st.executeUpdate();
+		} catch (Exception e) {
+			System.err.println(e.getClass().getName() + ": " + e.getMessage());
+			new Alert(Alert.AlertType.ERROR, e.getClass().getName() + ": " + e.getMessage()).showAndWait();
+		}
+
+		closeConnectionDB(con, null);
 	}
 
 	public static List<Tuple> runQuery(String query) {
@@ -257,7 +240,7 @@ public class SQLiteConnection {
 
 			while (rs.next()) {
 				// (TIMESTAMP,ACTIVITY,VALENCE,AROUSAL,STATUS,NOTES)
-				int ID = rs.getInt("ID");
+				// int ID = rs.getInt("ID");
 				int TIMESTAMP = rs.getInt("TIMESTAMP");
 				String ACTIVITY = rs.getString("ACTIVITY");
 				int VALENCE = rs.getInt("VALENCE");
@@ -265,7 +248,7 @@ public class SQLiteConnection {
 				String STATUS = rs.getString("STATUS");
 				String NOTES = rs.getString("NOTES");
 
-				tuples.add(new Tuple(ID, TIMESTAMP, ACTIVITY, VALENCE, AROUSAL, STATUS, NOTES));
+				tuples.add(new Tuple(TIMESTAMP, ACTIVITY, VALENCE, AROUSAL, STATUS, NOTES));
 			}
 		} catch (Exception e) {
 			System.err.println(e.getClass().getName() + ": " + e.getMessage());

@@ -1,5 +1,6 @@
 package classes.csv;
 
+import java.awt.EventQueue;
 import java.io.File;
 import java.io.FileNotFoundException;
 /**
@@ -369,56 +370,76 @@ public final class GoogleDocsUtils implements ICSV_Writer {
 		request.execute();
 	}
 
-	public void appendSheet(String input[]) throws IOException, GeneralSecurityException, URISyntaxException {
-		List<List<Object>> values = Arrays.asList(Arrays.asList(
-		// Cell values ...
-		)
-		// Additional rows ...
-		);
-		ValueRange body = new ValueRange().setValues(values);
-		/* AppendValuesResponse result = */ sheetsService.spreadsheets().values()
-				.append(spid_SurveyResults, majorDimension = ROWS, body).setValueInputOption("USER_ENTERED").execute();
-	}
-
+	private static String PAGE_SHEET_NAME = "Sheet1";
 	static String spid_SurveyResults = "1UGOsvpRuOgCJ8HahYCh6eoKCqOpsuzvy4cD89Rd1mpA";
 	/*
 	 * https://docs.google.com/spreadsheets/d/
 	 * 1UGOsvpRuOgCJ8HahYCh6eoKCqOpsuzvy4cD89Rd1mpA
 	 */
 
+	static boolean status_write_List = true;
+
 	@Override
 	public boolean write(List<String> data) {
-		boolean status = true;
+		status_write_List = true;
 
-		try {
+		if (!data.isEmpty()) {
 			synchronized (GoogleDocsUtils.class) {
 				// getSheetByTitle(spid_SurveyResults);
 				// writeSheet(spid_SurveyResults, "SurveyResults", data);
 				// createSheet(spid_SurveyResults);
-				appendSheet(data.toArray(new String[0]));
+				EventQueue.invokeLater(new Runnable() {
+					public void run() {
+						try {
+							appendSheet(data.toArray(new String[0]));
+						} catch (IOException | GeneralSecurityException e) {
+							// TODO Auto-generated catch block
+							// e.printStackTrace();
+							status_write_List = false;
+						}
+					};
+				});
 			}
-		} catch (Exception ex) {
-			status = false;
 		}
 
-		return status;
+		return status_write_List;
 	}
+
+	static boolean status_write_String = true;
 
 	@Override
 	public boolean write(String data) {
-		boolean status = true;
+		status_write_String = true;
 
-		try {
+		if (!data.isEmpty()) {
 			synchronized (GoogleDocsUtils.class) {
 				// getSheetByTitle(spid_SurveyResults);
 				// writeSheet(spid_SurveyResults, "SurveyResults", Arrays.asList(data));
-				appendSheet(new String[] { data });
+				EventQueue.invokeLater(new Runnable() {
+					public void run() {
+						try {
+							appendSheet(new String[] { data });
+						} catch (IOException | GeneralSecurityException e) {
+							// TODO Auto-generated catch block
+							// e.printStackTrace();
+							status_write_String = false;
+						}
+					};
+				});
 			}
-		} catch (Exception ex) {
-			status = false;
 		}
 
-		return status;
+		return status_write_String;
+	}
+
+	public void appendSheet(String input[]) throws IOException, GeneralSecurityException {
+		// APPEND //
+		ValueRange body = new ValueRange().setValues(Arrays.asList(Arrays.asList(input)));
+
+		/* AppendValuesResponse appendResult = */
+		sheetsService.spreadsheets().values().append(spid_SurveyResults, PAGE_SHEET_NAME, body)
+				.setValueInputOption("USER_ENTERED").setInsertDataOption("INSERT_ROWS").setIncludeValuesInResponse(true)
+				.execute();
 	}
 
 	public List<List<Object>> readSheet(String range) throws IOException, GeneralSecurityException, URISyntaxException {
@@ -453,25 +474,6 @@ public final class GoogleDocsUtils implements ICSV_Writer {
 		 * .setValueInputOption("RAW").execute();
 		 */
 		sheetsService.spreadsheets().values().update(spid_SurveyResults, range, body).setValueInputOption("RAW")
-				.execute();
-	}
-
-	public void appendSheet2(String input[]) throws IOException, GeneralSecurityException, URISyntaxException {
-		// sheetsService = getSheetsService();
-		// APPEND //
-		ValueRange body = new ValueRange().setValues(Arrays.asList(Arrays.asList(input)// "Ciao","Amico","Come","Stai")
-		));
-
-		/*
-		 * AppendValuesResponse appendResult = sheetsService.spreadsheets().values()
-		 * .append(spid_SurveyResults, "congress",
-		 * body).setValueInputOption("USER_ENTERED")
-		 * .setInsertDataOption("INSERT_ROWS").setIncludeValuesInResponse(true).execute(
-		 * );
-		 */
-
-		sheetsService.spreadsheets().values().append(spid_SurveyResults, "congress", body)
-				.setValueInputOption("USER_ENTERED").setInsertDataOption("INSERT_ROWS").setIncludeValuesInResponse(true)
 				.execute();
 	}
 

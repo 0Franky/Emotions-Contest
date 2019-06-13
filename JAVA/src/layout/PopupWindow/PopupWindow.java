@@ -2,11 +2,10 @@ package layout.PopupWindow;
 
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
-import java.util.ArrayList;
-import java.util.List;
 
 import classes.Synchronizer;
 import classes.TimeConverter;
+import classes.Tuple;
 import classes.database.SQLiteConnection;
 import javafx.application.Platform;
 import javafx.event.EventHandler;
@@ -159,43 +158,28 @@ public class PopupWindow {
 
 	protected void writeResultsInDir() throws InvocationTargetException, InterruptedException, IOException {
 		if (checkCorrectionParam()) {
-			SQLiteConnection.addRow(activityToList().toArray(new String[0]));
-			SQLiteConnection.addRowToSync(activityToList().toArray(new String[0]));
+			SQLiteConnection.addRow(getActivityToTuple().toArray());
+			SQLiteConnection.addRowToSync(getActivityToTuple().toArray());
 			Synchronizer.sync();
 			PopupWindow.getIstance().close();
 		}
 	}
 
 	private void writeOpenWindowInDir() throws InvocationTargetException, InterruptedException {
-		SQLiteConnection.addRow(activityOpenWindowToList().toArray(new String[0]));
-		SQLiteConnection.addRowToSync(activityOpenWindowToList().toArray(new String[0]));
+		SQLiteConnection.addRow(getActivityOpenWindowToTuple().toArray());
+		SQLiteConnection.addRowToSync(getActivityOpenWindowToTuple().toArray());
 		Synchronizer.sync();
 	}
 
-	private List<String> activityOpenWindowToList() {
-		long unixTime = TimeConverter.toUnixTime(System.currentTimeMillis());
-
-		List<String> data = new ArrayList<String>();
-		data.add(Long.toString(unixTime));
-		data.add("");
-		data.add("");
-		data.add("");
-		data.add("POPUP_OPENED");
-		data.add("");
-		return data;
+	private Tuple getActivityOpenWindowToTuple() {
+		return new Tuple((int) TimeConverter.toUnixTime(System.currentTimeMillis()), null, null, null, "POPUP_OPENED",
+				null);
 	}
 
-	private List<String> activityToList() {
-		long unixTime = TimeConverter.toUnixTime(System.currentTimeMillis());
-
-		List<String> data = new ArrayList<String>();
-		data.add(Long.toString(unixTime));
-		data.add(popupWindowController.getActivity());
-		data.add(pleasantness);
-		data.add(excitement);
-		data.add("POPUP_CLOSED");
-		data.add(popupWindowController.getNotes());
-		return data;
+	private Tuple getActivityToTuple() {
+		return new Tuple((int) TimeConverter.toUnixTime(System.currentTimeMillis()),
+				popupWindowController.getActivity(), Integer.parseInt(pleasantness), Integer.parseInt(excitement),
+				"POPUP_CLOSED", popupWindowController.getNotes());
 	}
 
 	private boolean checkCorrectionParam() {

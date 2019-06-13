@@ -235,7 +235,7 @@ public class Derby {
 			while (rs.next()) {
 				// INSERT INTO DATA (TIMESTAMP,ACTIVITY,VALENCE,AROUSAL,STATUS,NOTES)
 
-				int ID = rs.getInt("ID");
+				// int ID = rs.getInt("ID");
 				int TIMESTAMP = rs.getInt("TIMESTAMP");
 				String ACTIVITY = rs.getString("ACTIVITY");
 				int VALENCE = rs.getInt("VALENCE");
@@ -243,7 +243,7 @@ public class Derby {
 				String STATUS = rs.getString("STATUS");
 				String NOTES = rs.getString("NOTES");
 
-				tuples.add(new Tuple(ID, TIMESTAMP, ACTIVITY, VALENCE, AROUSAL, STATUS, NOTES));
+				tuples.add(new Tuple(TIMESTAMP, ACTIVITY, VALENCE, AROUSAL, STATUS, NOTES));
 			}
 			stmt.close();
 		} catch (SQLException sqlExcept) {
