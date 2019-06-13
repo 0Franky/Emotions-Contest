@@ -1,7 +1,10 @@
 package layout.BubbleChart;
 
 import java.io.IOException;
-
+import java.util.List;
+import classes.DataChart;
+import classes.database.SQLiteConnection;
+import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.chart.BubbleChart;
@@ -47,8 +50,10 @@ public class BubbleChartWindow {
 		yAxis.setLabel("Excited");
 		chart.setTitle("Feeling during the day");
 
+    // PRELEVA DATI DAL DB //
+    populateChart();
 		// demoAddBubble();
-		// PRELEVA DATI DAL DB // = > Mergiare il DB
+		
 
 		this_stage = stage;
 		this_stage.show();
@@ -77,20 +82,7 @@ public class BubbleChartWindow {
 
 		chart.getData().add(bubble);
 	}
-
-	public static void main(String[] args) throws IOException {
-		// launch(args);
-		BubbleChartWindow.getIstance();
-	}
-
-	private void demoAddBubble() {
-		for (int i = 0; i < 10; i++) {
-			double num = ((Math.random() * ((0.5 - 0.1) + 1)) + 0.1) % 1;
-			addBubble((int) (Math.random() * ((9 - 1) + 1)) + 1, (int) (Math.random() * ((9 - 1) + 1)) + 1, num);
-			System.out.println(num);
-		}
-	}
-
+  
 	private void close() {
 		try {
 			this_stage.close();
@@ -121,5 +113,22 @@ public class BubbleChartWindow {
 	protected void cleanInstance() {
 		instance = null;
 	}
+	private void populateChart() {
+		List<DataChart> data = SQLiteConnection.getDataForChart();
+		for (DataChart bubble : data) {
+			addBubble(bubble.getValence(), bubble.getArousal(), (float) bubble.getWeight() / 8);
+		}
+	}
+
+	public static void main(String[] args) {
+		launch(args); /* demoAddBubble(); */
+	}
+
+	/*
+	 * private void demoAddBubble() { for (int i = 0; i < 10; i++) { double num =
+	 * ((Math.random() * ((0.5 - 0.1) + 1)) + 0.1) % 1; addBubble((int)
+	 * (Math.random() * ((9 - 1) + 1)) + 1, (int) (Math.random() * ((9 - 1) + 1)) +
+	 * 1, num); //System.out.println(num); } }
+	 */
 
 }
