@@ -66,6 +66,7 @@ public class BubbleChartWindow {
 				}
 			}
 		// System.out.println("Return istance");
+		this_stage.show();
 		return instance;
 	}
 
