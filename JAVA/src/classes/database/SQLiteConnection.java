@@ -305,7 +305,8 @@ public class SQLiteConnection {
 											.getTime()));
 
 			String query = ("SELECT DISTINCT VALENCE, AROUSAL, COUNT(*) AS WEIGHT FROM DATA WHERE TIMESTAMP >= "
-					+ startDate + " AND TIMESTAMP < " + endDate);
+					+ startDate + " AND TIMESTAMP < " + endDate
+					+ " AND STATUS='POPUP_CLOSED' GROUP BY VALENCE, AROUSAL");
 
 			con.setAutoCommit(false);
 

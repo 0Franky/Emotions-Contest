@@ -133,6 +133,7 @@ public final class GoogleDocsUtils implements ICSV_Writer {
 			throws GeneralSecurityException, IOException, ServiceException, URISyntaxException, InterruptedException {
 		// TODO Auto-generated method stub
 		GoogleDocsUtils gs = GoogleDocsUtils.getInstance();
+
 		ArrayList<String> list = new ArrayList<String>();
 		list.add("Ciao");
 		list.add("Come");
@@ -141,8 +142,9 @@ public final class GoogleDocsUtils implements ICSV_Writer {
 		list.add("?");
 		list.add("?");
 		list.add("?");
-		gs.write(list);
-
+		// gs.write(list);
+		// gs.writePublicSheet("HEADER", list);
+		gs.appendSheet(list.toArray(new String[0]));
 	}
 
 	/**
@@ -367,7 +369,22 @@ public final class GoogleDocsUtils implements ICSV_Writer {
 		request.execute();
 	}
 
+	public void appendSheet(String input[]) throws IOException, GeneralSecurityException, URISyntaxException {
+		List<List<Object>> values = Arrays.asList(Arrays.asList(
+		// Cell values ...
+		)
+		// Additional rows ...
+		);
+		ValueRange body = new ValueRange().setValues(values);
+		/* AppendValuesResponse result = */ sheetsService.spreadsheets().values()
+				.append(spid_SurveyResults, majorDimension = ROWS, body).setValueInputOption("USER_ENTERED").execute();
+	}
+
 	static String spid_SurveyResults = "1UGOsvpRuOgCJ8HahYCh6eoKCqOpsuzvy4cD89Rd1mpA";
+	/*
+	 * https://docs.google.com/spreadsheets/d/
+	 * 1UGOsvpRuOgCJ8HahYCh6eoKCqOpsuzvy4cD89Rd1mpA
+	 */
 
 	@Override
 	public boolean write(List<String> data) {
@@ -439,8 +456,8 @@ public final class GoogleDocsUtils implements ICSV_Writer {
 				.execute();
 	}
 
-	public void appendSheet(String input[]) throws IOException, GeneralSecurityException, URISyntaxException {
-		sheetsService = getSheetsService();
+	public void appendSheet2(String input[]) throws IOException, GeneralSecurityException, URISyntaxException {
+		// sheetsService = getSheetsService();
 		// APPEND //
 		ValueRange body = new ValueRange().setValues(Arrays.asList(Arrays.asList(input)// "Ciao","Amico","Come","Stai")
 		));
@@ -452,6 +469,7 @@ public final class GoogleDocsUtils implements ICSV_Writer {
 		 * .setInsertDataOption("INSERT_ROWS").setIncludeValuesInResponse(true).execute(
 		 * );
 		 */
+
 		sheetsService.spreadsheets().values().append(spid_SurveyResults, "congress", body)
 				.setValueInputOption("USER_ENTERED").setInsertDataOption("INSERT_ROWS").setIncludeValuesInResponse(true)
 				.execute();
