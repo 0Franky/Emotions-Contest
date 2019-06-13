@@ -31,17 +31,23 @@ public class SQLiteConnection {
 		}
 
 		/* Inserisce il primo valore (Da utilizzare solo la prima volta) */
-		String[] input = { "123456789", "Working", "2", "3", "Closed", "bugfixing" };
-		addRow(true, input);
+		String[] input = { "1560376810", "Working", "2", "3", "Closed", "bugfixing" };
+		addRow(input);
 
 		/* Insericse il secondo valore (Da utilizzare sempre) */
-		String[] input2 = { "123456789", "Working", "2", "3", "Closed", "bugfixing" };
-		addRow(false, input2);
+		String[] input2 = { "1460376820", "Relaxing", "2", "3", "Closed", "CoffèTime" };
+		addRow(input2);
+
+		System.out.println("========= COUNT(*) in DATA: =========");
+		int nTuple = runQuery(getAllDataQuery()).size();
+		System.out.println("Nella tabella sono presenti: " + nTuple + " Tuple");
 
 		/* Stampa la Tabella */
-		runQuery(getAllDataQuery()).get(0).print();
+		for (int i = 0; i < nTuple; i++)
+			runQuery(getAllDataQuery()).get(i).print();
 		System.out.println("========= TODAY: =========");
-		runQuery(getTodaysDataQuery()).get(0).print();
+		for (int i = 0; i < runQuery(getTodaysDataQuery()).size(); i++)
+			runQuery(getTodaysDataQuery()).get(i).print();
 
 	}
 
@@ -126,26 +132,16 @@ public class SQLiteConnection {
 		closeConnectionDB(con, stmt);
 	}
 
-	public static void addRow(boolean first, String input[]) {
+	public static void addRow(String input[]) {
 		Connection con = getConnectionDB();
 		Statement stmt = null;
-		String id = "ID,";
-		String f = "1,";
 		try {
 			con.setAutoCommit(false);
 			stmt = con.createStatement();
 
 			String sql;
-
-			if (first) { // Per impostare l'AUTOINCREMENT
-				sql = "INSERT INTO DATA (" + id + "TIMESTAMP,ACTIVITY,VALENCE,AROUSAL,STATUS,NOTES) " + "VALUES (" + f
-						+ input[0] + ",'" + input[1] + "'," + input[2] + "," + input[3] + ",'" + input[4] + "','"
-						+ input[5] + "');";
-			} else {
-				sql = "INSERT INTO DATA (TIMESTAMP,ACTIVITY,VALENCE,AROUSAL,STATUS,NOTES) " + "VALUES (" + input[0]
-						+ ",'" + input[1] + "'," + input[2] + "," + input[3] + ",'" + input[4] + "','" + input[5]
-						+ "');";
-			}
+			sql = "INSERT INTO DATA (TIMESTAMP,ACTIVITY,VALENCE,AROUSAL,STATUS,NOTES) " + "VALUES (" + input[0] + ",'"
+					+ input[1] + "'," + input[2] + "," + input[3] + ",'" + input[4] + "','" + input[5] + "');";
 			stmt.executeUpdate(sql);
 		} catch (Exception e) {
 			System.err.println(e.getClass().getName() + ": " + e.getMessage());
@@ -189,7 +185,7 @@ public class SQLiteConnection {
 			ResultSet rs = stmt.executeQuery(query);
 
 			while (rs.next()) {
-				// INSERT INTO DATA (TIMESTAMP,ACTIVITY,VALENCE,AROUSAL,STATUS,NOTES)
+				// (TIMESTAMP,ACTIVITY,VALENCE,AROUSAL,STATUS,NOTES)
 				int ID = rs.getInt("ID");
 				int TIMESTAMP = rs.getInt("TIMESTAMP");
 				String ACTIVITY = rs.getString("ACTIVITY");
