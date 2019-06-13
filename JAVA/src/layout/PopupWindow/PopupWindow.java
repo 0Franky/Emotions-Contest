@@ -60,24 +60,25 @@ public class PopupWindow {
 		// stage.initStyle(StageStyle.UNDECORATED);
 		stage.initStyle(StageStyle.TRANSPARENT);
 		stage.setTitle("Popup survey");
-
-		Platform.setImplicitExit(false);
-		stage.setOnCloseRequest(new EventHandler<WindowEvent>() {
-			@Override
-			public void handle(WindowEvent event) {
-				if (!canClose) {
-					event.consume();
-				} else {
-					cleanInstance();
-				}
-			}
-		});
-
 		stage.setAlwaysOnTop(true);
 		stage.getIcons().add(new Image(getClass().getResourceAsStream("../../Assets/Icon.png")));
 
+		loadActivityItems();
+
+		this_stage = stage;
+
 		Platform.setImplicitExit(false);
-		stage.setOnCloseRequest(new EventHandler<WindowEvent>() {
+		this_stage.setOnCloseRequest(new EventHandler<WindowEvent>() {
+			@Override
+			public void handle(WindowEvent event) {
+				if (!canClose) {
+					event.consume();
+				} else {
+					cleanInstance();
+				}
+			}
+		});
+		this_stage.setOnHidden(new EventHandler<WindowEvent>() {
 			@Override
 			public void handle(WindowEvent event) {
 				if (!canClose) {
@@ -88,11 +89,7 @@ public class PopupWindow {
 			}
 		});
 
-		loadActivityItems();
-
 		show();
-
-		this_stage = stage;
 	}
 
 	public static PopupWindow getIstance() throws IOException {
@@ -102,6 +99,9 @@ public class PopupWindow {
 					instance = new PopupWindow();
 				}
 			}
+
+		this_stage.show();
+
 		return instance;
 	}
 
