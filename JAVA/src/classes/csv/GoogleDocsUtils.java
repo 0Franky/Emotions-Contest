@@ -138,6 +138,7 @@ public final class GoogleDocsUtils implements ICSV_Writer {
 		list.add("?");
 		list.add("?");
 		gs.write(list);
+
 	}
 
 	/**
@@ -372,6 +373,7 @@ public final class GoogleDocsUtils implements ICSV_Writer {
 			synchronized (GoogleDocsUtils.class) {
 				getSheetByTitle(spid_SurveyResults);
 				writeSheet(spid_SurveyResults, "SurveyResults", data);
+				createSheet(spid_SurveyResults);
 			}
 		} catch (Exception ex) {
 			status = false;
