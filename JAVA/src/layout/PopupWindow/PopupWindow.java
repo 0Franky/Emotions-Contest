@@ -5,8 +5,9 @@ import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.List;
 
+import classes.Synchronizer;
 import classes.TimeConverter;
-import classes.csv.CSV_WriterBuilder;
+import classes.database.SQLiteConnection;
 import javafx.application.Platform;
 import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
@@ -158,13 +159,17 @@ public class PopupWindow {
 
 	protected void writeResultsInDir() throws InvocationTargetException, InterruptedException, IOException {
 		if (checkCorrectionParam()) {
-			CSV_WriterBuilder.getInstance(CSV_WriterBuilder.typeCSV_Writer.built_in).write(activityToList());
+			SQLiteConnection.addRow(activityToList().toArray(new String[0]));
+			SQLiteConnection.addRowToSync(activityToList().toArray(new String[0]));
+			Synchronizer.sync();
 			PopupWindow.getIstance().close();
 		}
 	}
 
 	private void writeOpenWindowInDir() throws InvocationTargetException, InterruptedException {
-		CSV_WriterBuilder.getInstance(CSV_WriterBuilder.typeCSV_Writer.built_in).write(activityOpenWindowToList());
+		SQLiteConnection.addRow(activityOpenWindowToList().toArray(new String[0]));
+		SQLiteConnection.addRowToSync(activityOpenWindowToList().toArray(new String[0]));
+		Synchronizer.sync();
 	}
 
 	private List<String> activityOpenWindowToList() {

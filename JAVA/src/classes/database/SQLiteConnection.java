@@ -152,8 +152,36 @@ public class SQLiteConnection {
 		closeConnectionDB(con, stmt);
 	}
 
+	public static void addRowToSync(String input[]) {
+		Connection con = getConnectionDB();
+		Statement stmt = null;
+		try {
+			con.setAutoCommit(false);
+			stmt = con.createStatement();
+
+			String sql;
+			sql = "INSERT INTO DATA_TO_SYNC (TIMESTAMP,ACTIVITY,VALENCE,AROUSAL,STATUS,NOTES) " + "VALUES (" + input[0]
+					+ ",'" + input[1] + "'," + input[2] + "," + input[3] + ",'" + input[4] + "','" + input[5] + "');";
+			stmt.executeUpdate(sql);
+		} catch (Exception e) {
+			System.err.println(e.getClass().getName() + ": " + e.getMessage());
+			new Alert(Alert.AlertType.ERROR, e.getClass().getName() + ": " + e.getMessage()).showAndWait();
+			e.printStackTrace();
+		}
+
+		closeConnectionDB(con, stmt);
+	}
+
 	public static final String getAllDataQuery() {
 		return "SELECT * FROM DATA";
+	}
+
+	public static final String getAllDataToSyncQuery() {
+		return "SELECT * FROM DATA_TO_SYNC ORDER BY TIMESTAMP ASC";
+	}
+
+	public static final String cancelRowToSyncQuery(String Timestamp) {
+		return "SELECT * FROM DATA_TO_SYNC ORDER WHERE TIMESTAMP = " + Timestamp;
 	}
 
 	public static final String getTodaysDataQuery() {
