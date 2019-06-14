@@ -59,7 +59,7 @@ All'avvio dell'applicazione mediante il doppio click del file "HowAppYou.jar" è
 
 ### -(Notification)-
 
-![](src/Assets/Guide/Notifica.png)
+![](JAVA/src/Assets/Guide/Notifica.jpg)
 
 Da tale notifica è possibile:
 
@@ -71,7 +71,7 @@ Da tale notifica è possibile:
 
 ### -(HowAppYou Window)-
 
-![](src/Assets/Guide/PopUp.png)
+![](JAVA/src/Assets/Guide/PopUp.jpg)
 
 Da tale finestra è possibile:
 
@@ -88,7 +88,7 @@ Non è possibile chiudere la videata in altro modo.
 
 ### -(HowAppYou Tray)-
 
-![](src/Assets/Guide/Tray.png)
+![](JAVA/src/Assets/Guide/Tray.jpg)
 
 All'apertura dell'applicazione, in basso a destra comparirà un icona che conferma l'apertura in background dell'applicazione.
 
