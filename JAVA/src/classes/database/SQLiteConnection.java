@@ -3,6 +3,7 @@ package classes.database;
 import java.sql.Connection;
 import java.sql.DatabaseMetaData;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -21,39 +22,6 @@ import classes.Tuple;
 import javafx.scene.control.Alert;
 
 public class SQLiteConnection {
-
-	public static void main(String args[]) {
-		// getConnectionDB();
-
-		System.out.println(getTodaysDataQuery());
-
-		// dropTable();
-		if (!tableExists("DATA")) {
-			createTable();
-		}
-
-		/* Inserisce il primo valore (Da utilizzare solo la prima volta) */
-		String[] input = { "1560376810", "Working", "2", "3", "Closed", "bugfixing" };
-		addRow(input);
-
-		/* Insericse il secondo valore (Da utilizzare sempre) */
-		String[] input2 = { "1460376820", "Relaxing", "2", "3", "Closed", "CoffèTime" };
-		addRow(input2);
-
-		System.out.println("========= COUNT(*) in DATA: =========");
-		int nTuple = runQuery(getAllDataQuery()).size();
-		System.out.println("Nella tabella sono presenti: " + nTuple + " Tuple");
-
-		/* Stampa la Tabella */
-		runQuery(getAllDataQuery()).get(0).print();
-		System.out.println("========= TODAY: =========");
-		List<Tuple> tuples = runQuery(getTodaysDataQuery());
-		if (tuples.size() > 0) {
-			for (Tuple tuple : tuples) {
-				tuple.print();
-			}
-		}
-	}
 
 	// public static String host = "/src/";
 	public static String host = "";
@@ -80,7 +48,10 @@ public class SQLiteConnection {
 		if (existTable == false && checking == false) {
 			checking = true;
 			if (!tableExists("DATA")) {
-				createTable();
+				createTable("DATA");
+			}
+			if (!tableExists("DATA_TO_SYNC")) {
+				createTable("DATA_TO_SYNC");
 			}
 			existTable = true;
 		}
@@ -127,16 +98,15 @@ public class SQLiteConnection {
 		closeConnectionDB(con, stmt);
 	}
 
-	public static void createTable() {
+	public static void createTable(String tableName) {
 		Connection con = getConnectionDB();
 		Statement stmt = null;
 
 		try {
 			con.setAutoCommit(false);
 			stmt = con.createStatement();
-			String sql = "CREATE TABLE DATA " + "(ID INTEGER PRIMARY KEY  AUTOINCREMENT, "
-					+ " TIMESTAMP INT 		NOT NULL, " + " ACTIVITY           TEXT, " + " VALENCE            INT, "
-					+ " AROUSAL            INT, " + " STATUS            INT, " + " NOTES        TEXT)";
+			String sql = "CREATE TABLE " + tableName
+					+ " (TIMESTAMP TEXT NOT NULL, ACTIVITY TEXT, VALENCE TEXT, AROUSAL TEXT, STATUS TEXT, NOTES TEXT)";
 			stmt.executeUpdate(sql);
 		} catch (Exception e) {
 			System.err.println(e.getClass().getName() + ": " + e.getMessage());
@@ -153,10 +123,23 @@ public class SQLiteConnection {
 			con.setAutoCommit(false);
 			stmt = con.createStatement();
 
-			String sql;
-			sql = "INSERT INTO DATA (TIMESTAMP,ACTIVITY,VALENCE,AROUSAL,STATUS,NOTES) " + "VALUES (" + input[0] + ",'"
-					+ input[1] + "'," + input[2] + "," + input[3] + ",'" + input[4] + "','" + input[5] + "');";
-			stmt.executeUpdate(sql);
+			/*
+			 * String sql; sql =
+			 * "INSERT INTO DATA (TIMESTAMP,ACTIVITY,VALENCE,AROUSAL,STATUS,NOTES) VALUES ("
+			 * + input[0] + ",'" + input[1] + "'," + input[2] + "," + input[3] + ",'" +
+			 * input[4] + "','" + input[5] + "')";
+			 * 
+			 * stmt.executeUpdate(sql);
+			 */
+			PreparedStatement prepStmt = con.prepareStatement(
+					"INSERT INTO DATA (TIMESTAMP,ACTIVITY,VALENCE,AROUSAL,STATUS,NOTES) VALUES (?,?,?,?,?,?)");
+			prepStmt.setString(1, input[0]);
+			prepStmt.setString(2, input[1]);
+			prepStmt.setString(3, input[2]);
+			prepStmt.setString(4, input[3]);
+			prepStmt.setString(5, input[4]);
+			prepStmt.setString(6, input[5]);
+			prepStmt.executeUpdate();
 		} catch (Exception e) {
 			System.err.println(e.getClass().getName() + ": " + e.getMessage());
 			new Alert(Alert.AlertType.ERROR, e.getClass().getName() + ": " + e.getMessage()).showAndWait();
@@ -166,11 +149,51 @@ public class SQLiteConnection {
 		closeConnectionDB(con, stmt);
 	}
 
-	public static final String getAllDataQuery() {
-		return "SELECT * FROM DATA";
+	public static void addRowToSync(String input[]) {
+		Connection con = getConnectionDB();
+		Statement stmt = null;
+		try {
+			con.setAutoCommit(false);
+			stmt = con.createStatement();
+
+			/*
+			 * String sql; sql =
+			 * "INSERT INTO DATA_TO_SYNC (TIMESTAMP,ACTIVITY,VALENCE,AROUSAL,STATUS,NOTES) "
+			 * + "VALUES (" + input[0] + ",'" + input[1] + "'," + input[2] + "," + input[3]
+			 * + ",'" + input[4] + "','" + input[5] + "')"; stmt.executeUpdate(sql);
+			 */
+
+			PreparedStatement prepStmt = con.prepareStatement(
+					"INSERT INTO DATA_TO_SYNC (TIMESTAMP,ACTIVITY,VALENCE,AROUSAL,STATUS,NOTES) VALUES (?,?,?,?,?,?)");
+			prepStmt.setString(1, input[0]);
+			prepStmt.setString(2, input[1]);
+			prepStmt.setString(3, input[2]);
+			prepStmt.setString(4, input[3]);
+			prepStmt.setString(5, input[4]);
+			prepStmt.setString(6, input[5]);
+			prepStmt.executeUpdate();
+		} catch (Exception e) {
+			System.err.println(e.getClass().getName() + ": " + e.getMessage());
+			new Alert(Alert.AlertType.ERROR, e.getClass().getName() + ": " + e.getMessage()).showAndWait();
+			e.printStackTrace();
+		}
+
+		closeConnectionDB(con, stmt);
 	}
 
-	public static final String getTodaysDataQuery() {
+	public static final List<Tuple> getAllDataQuery() {
+		return runQuery("SELECT * FROM DATA");
+	}
+
+	public static final List<Tuple> getAllDataToSyncQuery() {
+		return runQuery("SELECT * FROM DATA_TO_SYNC ORDER BY TIMESTAMP ASC");
+	}
+
+	public static final void cancelRowToSyncQuery(String Timestamp) {
+		runUpdate("DELETE FROM DATA_TO_SYNC WHERE TIMESTAMP = " + Timestamp);
+	}
+
+	public static final List<Tuple> getTodaysDataQuery() {
 		String startDate = Long.toString(TimeConverter
 				.toUnixTime(Date.from(LocalDate.parse(new SimpleDateFormat("yyyy-MM-dd").format(new Date()))
 						.atStartOfDay().atZone(ZoneId.systemDefault()).toInstant()).getTime()));
@@ -183,7 +206,23 @@ public class SQLiteConnection {
 				TimeConverter.toUnixTime(Date.from(LocalDate.parse(new SimpleDateFormat("yyyy-MM-dd").format(tomorrow))
 						.atStartOfDay().atZone(ZoneId.systemDefault()).toInstant()).getTime()));
 
-		return ("SELECT * FROM DATA WHERE TIMESTAMP >= " + startDate + " AND TIMESTAMP < " + endDate);
+		return runQuery("SELECT * FROM DATA WHERE TIMESTAMP >= " + startDate + " AND TIMESTAMP < " + endDate);
+	}
+
+	public static void runUpdate(String query) {
+
+		Connection con = getConnectionDB();
+
+		try {
+			con.setAutoCommit(false);
+			PreparedStatement st = con.prepareStatement(query);
+			st.executeUpdate();
+		} catch (Exception e) {
+			System.err.println(e.getClass().getName() + ": " + e.getMessage());
+			new Alert(Alert.AlertType.ERROR, e.getClass().getName() + ": " + e.getMessage()).showAndWait();
+		}
+
+		closeConnectionDB(con, null);
 	}
 
 	public static List<Tuple> runQuery(String query) {
@@ -200,15 +239,15 @@ public class SQLiteConnection {
 
 			while (rs.next()) {
 				// (TIMESTAMP,ACTIVITY,VALENCE,AROUSAL,STATUS,NOTES)
-				int ID = rs.getInt("ID");
-				int TIMESTAMP = rs.getInt("TIMESTAMP");
+				// int ID = rs.getInt("ID");
+				String TIMESTAMP = rs.getString("TIMESTAMP");
 				String ACTIVITY = rs.getString("ACTIVITY");
-				int VALENCE = rs.getInt("VALENCE");
-				int AROUSAL = rs.getInt("AROUSAL");
+				String VALENCE = rs.getString("VALENCE");
+				String AROUSAL = rs.getString("AROUSAL");
 				String STATUS = rs.getString("STATUS");
 				String NOTES = rs.getString("NOTES");
 
-				tuples.add(new Tuple(ID, TIMESTAMP, ACTIVITY, VALENCE, AROUSAL, STATUS, NOTES));
+				tuples.add(new Tuple(TIMESTAMP, ACTIVITY, VALENCE, AROUSAL, STATUS, NOTES));
 			}
 		} catch (Exception e) {
 			System.err.println(e.getClass().getName() + ": " + e.getMessage());
@@ -248,7 +287,8 @@ public class SQLiteConnection {
 											.getTime()));
 
 			String query = ("SELECT DISTINCT VALENCE, AROUSAL, COUNT(*) AS WEIGHT FROM DATA WHERE TIMESTAMP >= "
-					+ startDate + " AND TIMESTAMP < " + endDate);
+					+ startDate + " AND TIMESTAMP < " + endDate
+					+ " AND STATUS='POPUP_CLOSED' GROUP BY VALENCE, AROUSAL");
 
 			con.setAutoCommit(false);
 

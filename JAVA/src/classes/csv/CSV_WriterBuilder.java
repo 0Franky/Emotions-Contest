@@ -26,8 +26,11 @@ public final class CSV_WriterBuilder {
 		switch (classType) {
 
 		case built_in:
-
 			instance = CSV_Writer.getInstance();
+			break;
+
+		case google_sheet:
+			instance = GoogleDocsUtils.getInstance();
 			break;
 
 		default:

@@ -2,9 +2,11 @@ package layout.BubbleChart;
 
 import java.io.IOException;
 import java.util.List;
+
 import classes.DataChart;
 import classes.database.SQLiteConnection;
-import javafx.application.Application;
+import javafx.application.Platform;
+import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.chart.BubbleChart;
@@ -13,20 +15,41 @@ import javafx.scene.chart.XYChart;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
+import javafx.stage.WindowEvent;
 
 public class BubbleChartWindow {
 
-	private BubbleChart<Number, Number> chart = null;
 	private static Stage this_stage = new Stage();
+	private static BubbleChartWindow instance = null; // riferimento all' istanza
 
-	public BubbleChartWindow() throws IOException {
+	// private BubbleChartWindowController bubbleChartWindowController = null;
+
+	private BubbleChart<Number, Number> chart = null;
+
+	private BubbleChartWindow() throws IOException {
 
 		FXMLLoader loader = new FXMLLoader();
 		loader.setLocation(BubbleChartWindow.class.getResource("BubbleChartWindow.fxml"));
 		AnchorPane rootLayout = (AnchorPane) loader.load();
+
+		// bubbleChartWindowController = loader.getController();
+
 		Stage stage = new Stage();
 		Scene scene = new Scene(rootLayout);
 		stage.setScene(scene);
+		stage.setTitle("Retrospection");
+
+		Platform.setImplicitExit(false);
+		stage.setOnCloseRequest(new EventHandler<WindowEvent>() {
+			@Override
+			public void handle(WindowEvent event) {
+				cleanInstance();
+			}
+		});
+
+		stage.setAlwaysOnTop(true);
+		stage.getIcons().add(new Image(getClass().getResourceAsStream("../../Assets/Icon.png")));
+		this_stage = stage;
 
 		chart = (BubbleChart) scene.lookup("#chart");
 
@@ -37,12 +60,12 @@ public class BubbleChartWindow {
 		stage.getIcons().add(new Image(getClass().getResourceAsStream("../../Assets/Icon.png")));
 
 		xAxis.setAutoRanging(false);
-		xAxis.setLowerBound(0);
+		xAxis.setLowerBound(1);
 		xAxis.setUpperBound(9);
 		xAxis.setTickUnit(1);
 
 		yAxis.setAutoRanging(false);
-		yAxis.setLowerBound(0);
+		yAxis.setLowerBound(1);
 		yAxis.setUpperBound(9);
 		yAxis.setTickUnit(1);
 
@@ -50,28 +73,27 @@ public class BubbleChartWindow {
 		yAxis.setLabel("Excited");
 		chart.setTitle("Feeling during the day");
 
-    // PRELEVA DATI DAL DB //
-    populateChart();
-		// demoAddBubble();
-		
+		/* PRELEVA DATI DAL DB */
+		populateChart();
+		stage.show();
+		/* demoAddBubble(); */
 
 		this_stage = stage;
 		this_stage.show();
-		// System.out.println("You shoud see me");
+		/* System.out.println("You shoud see me"); */
 
 	}
-
-	private static BubbleChartWindow instance = null; // riferimento all' istanza
 
 	public static BubbleChartWindow getIstance() throws IOException {
 		if (instance == null)
 			synchronized (BubbleChartWindow.class) {
 				if (instance == null) {
 					instance = new BubbleChartWindow();
+				} else {
+					instance.show();
+					instance.toFront();
 				}
 			}
-		// System.out.println("Return istance");
-		this_stage.show();
 		return instance;
 	}
 
@@ -82,9 +104,10 @@ public class BubbleChartWindow {
 
 		chart.getData().add(bubble);
 	}
-  
-	private void close() {
+
+	public void close() {
 		try {
+			cleanInstance();
 			this_stage.close();
 		} catch (Exception ex) {
 			System.err.println("not Hide");
@@ -113,6 +136,7 @@ public class BubbleChartWindow {
 	protected void cleanInstance() {
 		instance = null;
 	}
+
 	private void populateChart() {
 		List<DataChart> data = SQLiteConnection.getDataForChart();
 		for (DataChart bubble : data) {
@@ -120,9 +144,9 @@ public class BubbleChartWindow {
 		}
 	}
 
-	public static void main(String[] args) {
-		launch(args); /* demoAddBubble(); */
-	}
+	// public static void main(String[] args) {
+	// launch(args); /* demoAddBubble(); */
+	// }
 
 	/*
 	 * private void demoAddBubble() { for (int i = 0; i < 10; i++) { double num =

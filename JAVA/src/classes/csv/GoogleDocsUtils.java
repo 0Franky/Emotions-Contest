@@ -1,5 +1,6 @@
 package classes.csv;
 
+import java.awt.EventQueue;
 import java.io.File;
 import java.io.FileNotFoundException;
 /**
@@ -27,6 +28,10 @@ import com.google.api.services.drive.Drive;
 import com.google.api.services.drive.model.Permission;
 import com.google.api.services.sheets.v4.Sheets;
 import com.google.api.services.sheets.v4.SheetsScopes;
+import com.google.api.services.sheets.v4.model.BatchUpdateSpreadsheetRequest;
+import com.google.api.services.sheets.v4.model.DeleteDimensionRequest;
+import com.google.api.services.sheets.v4.model.DimensionRange;
+import com.google.api.services.sheets.v4.model.Request;
 import com.google.api.services.sheets.v4.model.Spreadsheet;
 import com.google.api.services.sheets.v4.model.SpreadsheetProperties;
 import com.google.api.services.sheets.v4.model.ValueRange;
@@ -129,6 +134,7 @@ public final class GoogleDocsUtils implements ICSV_Writer {
 			throws GeneralSecurityException, IOException, ServiceException, URISyntaxException, InterruptedException {
 		// TODO Auto-generated method stub
 		GoogleDocsUtils gs = GoogleDocsUtils.getInstance();
+
 		ArrayList<String> list = new ArrayList<String>();
 		list.add("Ciao");
 		list.add("Come");
@@ -137,8 +143,9 @@ public final class GoogleDocsUtils implements ICSV_Writer {
 		list.add("?");
 		list.add("?");
 		list.add("?");
-		gs.write(list);
-
+		// gs.write(list);
+		// gs.writePublicSheet("HEADER", list);
+		gs.appendSheet(list.toArray(new String[0]));
 	}
 
 	/**
@@ -363,38 +370,124 @@ public final class GoogleDocsUtils implements ICSV_Writer {
 		request.execute();
 	}
 
+	private static String PAGE_SHEET_NAME = "Sheet1";
 	static String spid_SurveyResults = "1UGOsvpRuOgCJ8HahYCh6eoKCqOpsuzvy4cD89Rd1mpA";
+	/*
+	 * https://docs.google.com/spreadsheets/d/
+	 * 1UGOsvpRuOgCJ8HahYCh6eoKCqOpsuzvy4cD89Rd1mpA
+	 */
+
+	static boolean status_write_List = true;
 
 	@Override
 	public boolean write(List<String> data) {
-		boolean status = true;
+		status_write_List = true;
 
-		try {
+		if (!data.isEmpty()) {
 			synchronized (GoogleDocsUtils.class) {
-				getSheetByTitle(spid_SurveyResults);
-				writeSheet(spid_SurveyResults, "SurveyResults", data);
-				createSheet(spid_SurveyResults);
+				// getSheetByTitle(spid_SurveyResults);
+				// writeSheet(spid_SurveyResults, "SurveyResults", data);
+				// createSheet(spid_SurveyResults);
+				EventQueue.invokeLater(new Runnable() {
+					public void run() {
+						try {
+							appendSheet(data.toArray(new String[0]));
+						} catch (IOException | GeneralSecurityException e) {
+							// TODO Auto-generated catch block
+							// e.printStackTrace();
+							status_write_List = false;
+						}
+					};
+				});
 			}
-		} catch (Exception ex) {
-			status = false;
 		}
 
-		return status;
+		return status_write_List;
 	}
+
+	static boolean status_write_String = true;
 
 	@Override
 	public boolean write(String data) {
-		boolean status = true;
+		status_write_String = true;
 
-		try {
+		if (!data.isEmpty()) {
 			synchronized (GoogleDocsUtils.class) {
-				getSheetByTitle(spid_SurveyResults);
-				writeSheet(spid_SurveyResults, "SurveyResults", Arrays.asList(data));
+				// getSheetByTitle(spid_SurveyResults);
+				// writeSheet(spid_SurveyResults, "SurveyResults", Arrays.asList(data));
+				EventQueue.invokeLater(new Runnable() {
+					public void run() {
+						try {
+							appendSheet(new String[] { data });
+						} catch (IOException | GeneralSecurityException e) {
+							// TODO Auto-generated catch block
+							// e.printStackTrace();
+							status_write_String = false;
+						}
+					};
+				});
 			}
-		} catch (Exception ex) {
-			status = false;
 		}
 
-		return status;
+		return status_write_String;
+	}
+
+	public void appendSheet(String input[]) throws IOException, GeneralSecurityException {
+		// APPEND //
+		ValueRange body = new ValueRange().setValues(Arrays.asList(Arrays.asList(input)));
+
+		/* AppendValuesResponse appendResult = */
+		sheetsService.spreadsheets().values().append(spid_SurveyResults, PAGE_SHEET_NAME, body)
+				.setValueInputOption("USER_ENTERED").setInsertDataOption("INSERT_ROWS").setIncludeValuesInResponse(true)
+				.execute();
+	}
+
+	public List<List<Object>> readSheet(String range) throws IOException, GeneralSecurityException, URISyntaxException {
+		sheetsService = getSheetsService();
+		// READ //
+		// String range = "congress!A2:F10";
+
+		ValueRange response = sheetsService.spreadsheets().values().get(spid_SurveyResults, range).execute();
+
+		List<List<Object>> values = response.getValues();
+
+		if (values == null || values.isEmpty()) {
+			System.out.println("Not found Data");
+		} else {
+			for (List<Object> row : values) {
+				System.out.printf("%s %s from %s\n", row.get(5), row.get(4), row.get(1));
+			}
+		}
+		return values;
+	}
+
+	public void updateSheet(String range, String input[])
+			throws IOException, GeneralSecurityException, URISyntaxException {
+		sheetsService = getSheetsService();
+		// UPDATE //
+		// String range = "congress!A2:F10";
+		ValueRange body = new ValueRange().setValues(Arrays.asList(Arrays.asList(input)));
+
+		/*
+		 * UpdateValuesResponse result =
+		 * sheetsService.spreadsheets().values().update(spid_SurveyResults, range, body)
+		 * .setValueInputOption("RAW").execute();
+		 */
+		sheetsService.spreadsheets().values().update(spid_SurveyResults, range, body).setValueInputOption("RAW")
+				.execute();
+	}
+
+	public void deleteOnSheet(int ID, int StartIndex) throws IOException, GeneralSecurityException, URISyntaxException {
+		sheetsService = getSheetsService();
+		// DELETE //
+		DeleteDimensionRequest deleteRequest = new DeleteDimensionRequest().setRange(new DimensionRange().setSheetId(ID)// 2063166065)
+				.setDimension("ROWS").setStartIndex(StartIndex)// 541)
+		);
+
+		List<Request> requests = new ArrayList<>();
+		requests.add(new Request().setDeleteDimension(deleteRequest));
+
+		BatchUpdateSpreadsheetRequest body = new BatchUpdateSpreadsheetRequest().setRequests(requests);
+		sheetsService.spreadsheets().batchUpdate(spid_SurveyResults, body).execute();
 	}
 }

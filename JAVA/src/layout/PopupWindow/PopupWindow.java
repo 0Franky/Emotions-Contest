@@ -2,11 +2,11 @@ package layout.PopupWindow;
 
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
-import java.util.ArrayList;
-import java.util.List;
 
+import classes.Synchronizer;
 import classes.TimeConverter;
-import classes.csv.CSV_WriterBuilder;
+import classes.Tuple;
+import classes.database.SQLiteConnection;
 import javafx.application.Platform;
 import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
@@ -158,39 +158,28 @@ public class PopupWindow {
 
 	protected void writeResultsInDir() throws InvocationTargetException, InterruptedException, IOException {
 		if (checkCorrectionParam()) {
-			CSV_WriterBuilder.getInstance(CSV_WriterBuilder.typeCSV_Writer.built_in).write(activityToList());
+			SQLiteConnection.addRow(getActivityToTuple().toArray());
+			SQLiteConnection.addRowToSync(getActivityToTuple().toArray());
+			Synchronizer.sync();
 			PopupWindow.getIstance().close();
 		}
 	}
 
 	private void writeOpenWindowInDir() throws InvocationTargetException, InterruptedException {
-		CSV_WriterBuilder.getInstance(CSV_WriterBuilder.typeCSV_Writer.built_in).write(activityOpenWindowToList());
+		SQLiteConnection.addRow(getActivityOpenWindowToTuple().toArray());
+		SQLiteConnection.addRowToSync(getActivityOpenWindowToTuple().toArray());
+		Synchronizer.sync();
 	}
 
-	private List<String> activityOpenWindowToList() {
-		long unixTime = TimeConverter.toUnixTime(System.currentTimeMillis());
-
-		List<String> data = new ArrayList<String>();
-		data.add(Long.toString(unixTime));
-		data.add("");
-		data.add("");
-		data.add("");
-		data.add("POPUP_OPENED");
-		data.add("");
-		return data;
+	private Tuple getActivityOpenWindowToTuple() {
+		return new Tuple(Long.toString(TimeConverter.toUnixTime(System.currentTimeMillis())), "", "", "",
+				"POPUP_OPENED", "");
 	}
 
-	private List<String> activityToList() {
-		long unixTime = TimeConverter.toUnixTime(System.currentTimeMillis());
-
-		List<String> data = new ArrayList<String>();
-		data.add(Long.toString(unixTime));
-		data.add(popupWindowController.getActivity());
-		data.add(pleasantness);
-		data.add(excitement);
-		data.add("POPUP_CLOSED");
-		data.add(popupWindowController.getNotes());
-		return data;
+	private Tuple getActivityToTuple() {
+		return new Tuple(Long.toString(TimeConverter.toUnixTime(System.currentTimeMillis())),
+				popupWindowController.getActivity(), pleasantness, excitement, "POPUP_CLOSED",
+				popupWindowController.getNotes());
 	}
 
 	private boolean checkCorrectionParam() {
