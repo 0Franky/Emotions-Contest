@@ -55,11 +55,11 @@ or Download [**JAVAx86**](https://www.java.com/it/download/)
 ## User Guide
 	
 Il software HowAppYou è basato sull'utilizzo di due principali finestre: la Notifica (Notification) e la finestra questionatio (HowAppYou Window).
-All'avvio dell'applicazione mediante il doppio click del file "HowAppYou.jar" è possibile visualizzare a video la notifica dell' applicazione;
+All'avvio dell'applicazione mediante il doppio click del file "HowAppYou.jar" è possibile visualizzare a video la notifica dell'applicazione;
 
 ### -(Notification)-
 
-#### | Inserire immagine Notifica definitiva |
+![](src/Assets/Guide/Notifica.png)
 
 Da tale notifica è possibile:
 
@@ -71,7 +71,7 @@ Da tale notifica è possibile:
 
 ### -(HowAppYou Window)-
 
-#### | Inserire immagine HowAppYou Window definitivo |
+![](src/Assets/Guide/PopUp.png)
 
 Da tale finestra è possibile:
 
@@ -88,7 +88,7 @@ Non è possibile chiudere la videata in altro modo.
 
 ### -(HowAppYou Tray)-
 
-#### | Inserire immagine Tray definitiva |
+![](src/Assets/Guide/Tray.png)
 
 All'apertura dell'applicazione, in basso a destra comparirà un icona che conferma l'apertura in background dell'applicazione.
 
