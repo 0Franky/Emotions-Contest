@@ -8,7 +8,7 @@ import layout.Notification.Notification;
 
 public class AppTimer extends Thread {
 
-	private static AppTimer istance = null; // riferimento all' istanza
+	private static AppTimer instance = null; // riferimento all' istanza
 	private boolean runFlag = true;
 	private Timer T = new Timer();
 
@@ -21,16 +21,17 @@ public class AppTimer extends Thread {
 	}
 
 	public static AppTimer getIstance() {
-		if (istance == null)
+		if (instance == null)
 			synchronized (AppTimer.class) {
-				if (istance == null)
-					istance = new AppTimer();
+				if (instance == null)
+					instance = new AppTimer();
 			}
-		return istance;
+		return instance;
 	}
 
 	public void stopTimer() {
 		T.cancel();
+		instance = null;
 		System.err.println("Timer Cancellato");
 	}
 
