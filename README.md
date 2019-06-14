@@ -63,11 +63,11 @@ All'avvio dell'applicazione mediante il doppio click del file "HowAppYou.jar" è
 
 Da tale notifica è possibile:
 
-1. Avviare la finestra questionario (HowAppYou Window) effettuando un click con il mouse sulla scritta "click here to open popup"
+1) Avviare la finestra questionario (HowAppYou Window) effettuando un click con il mouse sulla scritta "click here to open popup"
 
-2. Chiudere definitivamente la notifica mediante un click dul pulsante "dismiss"
+2) Chiudere definitivamente la notifica mediante un click dul pulsante "dismiss"
 
-3. Posporre la riapertura della notifica trascinando il cursore dello slider ad un valore indicato in minuti e poi premere "postpone"
+3) Posporre la riapertura della notifica trascinando il cursore dello slider ad un valore indicato in minuti e poi premere "postpone"
 
 ### -(HowAppYou Window)-
 
@@ -75,13 +75,13 @@ Da tale notifica è possibile:
 
 Da tale finestra è possibile:
 
-1. Selezionare mediante videata a cascata, l'attività che si sta svolgendo
+1) Selezionare mediante videata a cascata, l'attività che si sta svolgendo
 
-2. Selezionare il propio umore corrente, effettunado un click su uno dei cerchietti collocati sotto la prima sequenza di omini
+2) Selezionare il propio umore corrente, effettunado un click su uno dei cerchietti collocati sotto la prima sequenza di omini
 
-3. Selezionare il propio stato di eccitazione, effettunado un click su uno dei cerchietti collocati sotto la seconda sequenza di omini
+3) Selezionare il propio stato di eccitazione, effettunado un click su uno dei cerchietti collocati sotto la seconda sequenza di omini
 
-4. Compilare l'area sottostante con un commento sull'attività
+4) Compilare l'area sottostante con un commento sull'attività
 
 Notes: tutte le sezioni devono essere compilate per poter concludere la raccolta dati e poi premere "done".
 Non è possibile chiudere la videata in altro modo.
