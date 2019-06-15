@@ -154,8 +154,9 @@ public class AppFX extends Application {
 			java.awt.MenuItem exitItem = new java.awt.MenuItem("Quit");
 			exitItem.addActionListener(event -> {
 				// notificationTimer.cancel();
-				Platform.exit();
 				tray.remove(trayIcon);
+				Platform.exit();
+				System.exit(0);
 			});
 
 			// setup the popup menu for the application.
