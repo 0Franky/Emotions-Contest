@@ -59,59 +59,61 @@ All'avvio dell'applicazione mediante il doppio click del file "HowAppYou.jar" è
 
 ### -(Notification)-
 
-![](JAVA/src/Assets/Guide/Notifica.jpg)
+![](src/Assets/Guide/Notifica.png)
 
 Da tale notifica è possibile:
 
-1) Avviare la finestra questionario (HowAppYou Window) effettuando un click con il mouse sulla scritta "click here to open popup"
+1. Avviare la finestra questionario (HowAppYou Window) effettuando un click con il mouse sulla scritta "click here to open pop-up!"
 
-2) Chiudere definitivamente la notifica mediante un click dul pulsante "dismiss"
+2. Chiudere definitivamente la notifica mediante un click dul pulsante "dismiss". Una volta fatto ciò sarà necessario richiamare
+il la finestra questionario (HowAppYou Window) mediante il comando specifico nella tray.
 
-3) Posporre la riapertura della notifica trascinando il cursore dello slider ad un valore indicato in minuti e poi premere "postpone"
+3. Posporre la riapertura della notifica trascinando il cursore dello slider ad un valore indicato in minuti e poi premere "postpone"
 
 ### -(HowAppYou Window)-
 
-![](JAVA/src/Assets/Guide/PopUp.jpg)
+![](src/Assets/Guide/PopUp.png)
 
 Da tale finestra è possibile:
 
-1) Selezionare mediante videata a cascata, l'attività che si sta svolgendo
+1. Selezionare mediante menù a cascata, l'attività che si sta svolgendo
 
-2) Selezionare il propio umore corrente, effettunado un click su uno dei cerchietti collocati sotto la prima sequenza di omini
+2. Selezionare il propio umore corrente, effettunado un click su uno dei cerchietti collocati sotto la prima sequenza di omini
 
-3) Selezionare il propio stato di eccitazione, effettunado un click su uno dei cerchietti collocati sotto la seconda sequenza di omini
+3. Selezionare il propio stato di eccitazione, effettunado un click su uno dei cerchietti collocati sotto la seconda sequenza di omini
 
-4) Compilare l'area sottostante con un commento sull'attività
+4. Compilare l'area sottostante con un commento sull'attività (Facoltativo)
 
-Notes: tutte le sezioni devono essere compilate per poter concludere la raccolta dati e poi premere "done".
+Notes: tutte le sezioni (4. escluso) devono essere compilate per poter concludere la raccolta dati e poi premere "done".
 Non è possibile chiudere la videata in altro modo.
 
 ### -(HowAppYou Tray)-
 
-![](JAVA/src/Assets/Guide/Tray.jpg)
+![](src/Assets/Guide/Tray.png)
 
 All'apertura dell'applicazione, in basso a destra comparirà un icona che conferma l'apertura in background dell'applicazione.
 
 Da essa è possibile selezionare mediante il tasto destro del mouse una tra queste opzioni:
 
 - **Show retrospective :**
-Da ta le opzione è possibile mostrare una finestra che visualizza un grafico a bolle rappresentante lo stato registrato 
-durante le precedenti compilazioni del Questionario, evidenziando l'intensità di esse ingrandendone la bolla corrispettiva.
+Da tale opzione è possibile mostrare una finestra che visualizza un grafico a bolle rappresentante lo stato registrato 
+durante le precedenti compilazioni del Questionario, evidenziando l'intensità di esse dalla grandezza della bolla.
 
 - **Show HowAppYou :**
-Visualizza a video la finestra del programma pronta per una nuova compilazione.
+Visualizza a video la finestra del programma pronta per una nuova compilazione. Utile dopo aver effettuato un "dismiss"
+della notifica.
 
 - **Export to csv :**
 Effettua un salvataggio dei dati raccolti nei precedenti questionari in un file .cvs, visualizzabile in seguito 
-con un  qualsiasi strumento di calcolo.
+con un qualsiasi strumento di calcolo (ES: Microsoft Excel).
 E' necessario indicare il nome del file e la posizione in cui si desidera salvare il file.
 
 - **Info & Credits :**
 Visualizza a video una finestra contenente le informazioni principali dell'applicazioni 
-e i riferimenti alla pagina GitHub dell'app e dei suoi sviluppatori
+e i riferimenti alla pagina GitHub dell'app e dei suoi sviluppatori.
 
 - **Quit :**
-Chiude la'applicazione definitivamente
+Chiude l'applicazione definitivamente.
 
 </li>
 <li>
