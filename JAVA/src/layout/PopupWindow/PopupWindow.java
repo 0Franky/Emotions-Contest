@@ -4,6 +4,7 @@ import java.awt.EventQueue;
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 
+import classes.AppTimer;
 import classes.Synchronizer;
 import classes.TimeConverter;
 import classes.Tuple;
@@ -62,7 +63,7 @@ public class PopupWindow {
 		stage.initStyle(StageStyle.TRANSPARENT);
 		stage.setTitle("Popup survey");
 		stage.setAlwaysOnTop(true);
-		stage.getIcons().add(new Image(getClass().getResourceAsStream("../../Assets/Icon.png")));
+		stage.getIcons().add(new Image(getClass().getResourceAsStream("/Assets/Icon.png")));
 
 		loadActivityItems();
 
@@ -176,6 +177,7 @@ public class PopupWindow {
 			SQLiteConnection.addRowToSync(getActivityToTuple().toArray());
 			Synchronizer.sync();
 			PopupWindow.getIstance().close();
+			AppTimer.getIstance().startTimer(60); // Avvio Timer a 60
 		}
 	}
 

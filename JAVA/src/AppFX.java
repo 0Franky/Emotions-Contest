@@ -1,3 +1,4 @@
+import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.util.List;
@@ -33,7 +34,7 @@ public class AppFX extends Application {
 	 * "http://icons.iconarchive.com/icons/scafer31000/bubble-circle-3/16/GameCenter-icon.png";
 	 * 
 	 */
-	private static final String iconImageLoc = "src/Assets/Icon_mini.png";
+	private static final String iconImageLoc = "/Assets/Icon_mini.png";
 
 	/*
 	 * application stage is stored so that it can be shown and hidden based on
@@ -90,8 +91,11 @@ public class AppFX extends Application {
 
 			// set up a system tray icon.
 			java.awt.SystemTray tray = java.awt.SystemTray.getSystemTray();
-			File imageLoc = new File(iconImageLoc);
-			java.awt.Image image = ImageIO.read(imageLoc);
+			/*
+			 * File imageLoc = new File(iconImageLoc); java.awt.Image image =
+			 * ImageIO.read(imageLoc);
+			 */
+			BufferedImage image = ImageIO.read(getClass().getResource(iconImageLoc));
 			java.awt.TrayIcon trayIcon = new java.awt.TrayIcon(image);
 
 			// if the user double-clicks on the tray icon, show the main app stage.

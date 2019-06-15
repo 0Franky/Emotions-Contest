@@ -47,7 +47,7 @@ public class Notification {
 		});
 
 		stage.setAlwaysOnTop(true);
-		stage.getIcons().add(new Image(getClass().getResourceAsStream("../../Assets/Icon.png")));
+		stage.getIcons().add(new Image(getClass().getResourceAsStream("/Assets/Icon.png")));
 		centerStage(stage, stage.getWidth(), stage.getHeight());
 		this_stage = stage;
 		this_stage.show();

@@ -46,7 +46,7 @@ public class CreditWindow {
 		});
 
 		stage.setAlwaysOnTop(true);
-		stage.getIcons().add(new Image(getClass().getResourceAsStream("../../Assets/Icon.png")));
+		stage.getIcons().add(new Image(getClass().getResourceAsStream("/Assets/Icon.png")));
 		this_stage = stage;
 
 		creditWindowController.lbl_TitleApp.setText(Title.APPLICATION_NAME);
