@@ -50,7 +50,6 @@ public class Notification {
 		stage.getIcons().add(new Image(getClass().getResourceAsStream("/Assets/Icon.png")));
 
 		this_stage = stage;
-		this_stage.show();
 		centerStage(this_stage, this_stage.getWidth(), this_stage.getHeight());
 	}
 
@@ -114,8 +113,11 @@ public class Notification {
 		double screenHeight = screenBounds.getHeight();
 		double percentHeight = (double) 86.4 / (double) 100;
 
+		this_stage.show();
+
 		stage.setX((screenWeight - stage.getWidth()) - 10);
-		stage.setY(10);
+		stage.setY(30);
+
 	}
 
 	protected void cleanInstance() {
