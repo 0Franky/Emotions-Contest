@@ -1,5 +1,6 @@
 package layout.PopupWindow;
 
+import java.awt.EventQueue;
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 
@@ -118,7 +119,20 @@ public class PopupWindow {
 		try {
 			this_stage.show();
 			this_stage.toFront();
-			writeOpenWindowInDir();
+			EventQueue.invokeLater(new Runnable() {
+				public void run() {
+					try {
+						writeOpenWindowInDir();
+					} catch (InvocationTargetException e) {
+						System.err.println("InvocationTargetException in writeOpenWindowInDir() in show()");
+						e.printStackTrace();
+					} catch (InterruptedException e) {
+						System.err.println("InterruptedException in writeOpenWindowInDir() in show()");
+						e.printStackTrace();
+					}
+				};
+			});
+			// writeOpenWindowInDir();
 		} catch (Exception ex) {
 			// nothing
 		}
