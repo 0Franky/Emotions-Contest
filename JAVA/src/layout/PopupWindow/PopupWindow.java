@@ -176,8 +176,8 @@ public class PopupWindow {
 			SQLiteConnection.addRow(getActivityToTuple().toArray());
 			SQLiteConnection.addRowToSync(getActivityToTuple().toArray());
 			Synchronizer.sync();
-			PopupWindow.getIstance().close();
 			AppTimer.getIstance().startTimer(60); // Avvio Timer a 60
+			PopupWindow.getIstance().close();
 		}
 	}
 

@@ -37,6 +37,8 @@ import com.google.api.services.sheets.v4.model.SpreadsheetProperties;
 import com.google.api.services.sheets.v4.model.ValueRange;
 import com.google.gdata.util.ServiceException;
 
+import Title.Title;
+
 /**
  * Utility class for creating, sharing, and deleting Google spreadsheets. For
  * more, refer to
@@ -50,7 +52,7 @@ public final class GoogleDocsUtils implements ICSV_Writer {
 	/**
 	 * The app name.
 	 */
-	private static final String APPLICATION_NAME = "HowAppYou";
+	private static final String APPLICATION_NAME = Title.APPLICATION_NAME;
 
 	/**
 	 * Permissions to manage Google Drive.
