@@ -50,7 +50,7 @@ public final class GoogleDocsUtils implements ICSV_Writer {
 	/**
 	 * The app name.
 	 */
-	private static final String APPLICATION_NAME = "sna4so";
+	private static final String APPLICATION_NAME = "HowAppYou";
 
 	/**
 	 * Permissions to manage Google Drive.
@@ -114,19 +114,20 @@ public final class GoogleDocsUtils implements ICSV_Writer {
 	private final String CLIENT_ID = "provasheet@clear-backup-238511.iam.gserviceaccount.com";
 	// private final List<String> SCOPES =
 	// Arrays.asList("https://spreadsheets.google.com/feeds");
-	private final String P12FILE = "Auth.p12";
+	private final String P12FILE = "/classes/csv/Auth.p12";
 
 	private GoogleCredential authorize() throws GeneralSecurityException, IOException, URISyntaxException {
 		JacksonFactory JSON_FACTORY = JacksonFactory.getDefaultInstance();
 		HttpTransport httpTransport = GoogleNetHttpTransport.newTrustedTransport();
 
 		URL fileUrl = this.getClass().getResource(P12FILE);
+		System.out.println("fileUrl = " + fileUrl);
 		GoogleCredential credential = new GoogleCredential.Builder().setTransport(httpTransport)
 				.setJsonFactory(JSON_FACTORY).setServiceAccountId(CLIENT_ID)
 				.setServiceAccountPrivateKeyFromP12File(new File(fileUrl.toURI())).setServiceAccountScopes(SCOPES)
 				.build();
 		credential.refreshToken();
-
+		System.out.println("credential = " + credential);
 		return credential;
 	}
 
@@ -434,12 +435,13 @@ public final class GoogleDocsUtils implements ICSV_Writer {
 
 	public void appendSheet(String input[]) throws IOException, GeneralSecurityException {
 		// APPEND //
+		System.out.println("Spreadhsheet URL: https://docs.google.com/spreadsheets/d/" + spid_SurveyResults);
 		ValueRange body = new ValueRange().setValues(Arrays.asList(Arrays.asList(input)));
-
 		/* AppendValuesResponse appendResult = */
 		sheetsService.spreadsheets().values().append(spid_SurveyResults, PAGE_SHEET_NAME, body)
 				.setValueInputOption("USER_ENTERED").setInsertDataOption("INSERT_ROWS").setIncludeValuesInResponse(true)
 				.execute();
+		System.out.println("End appendSheet");
 	}
 
 	public List<List<Object>> readSheet(String range) throws IOException, GeneralSecurityException, URISyntaxException {
