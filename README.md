@@ -13,7 +13,7 @@
 ## What is HowAppYou?
 
 HowAppYou is an app developed to gather daily feedback on the emotional state of some subjects while they are working.
-The main aim of the app is gather enought data to be used later for the developement of an AI.
+The main aim of the app is to gather enough data to use later to develop an AI.
 
 </li>
 <li>
@@ -54,8 +54,8 @@ or Download [**JAVAx86**](https://www.java.com/it/download/)
 
 ## User Guide
 
-The HowAppYou software is based on the use of two main windows: the Notification and the questionatio window (HowAppYou Window).
-When the application starts by double-clicking the "HowAppYou.jar" file, you can view the application notification on the screen;
+The HowAppYou software is based on the use of two main windows: the notification and the questionnaire window (HowAppYou Window).
+When the application starts by double-clicking the "HowAppYou.jar" file, the application notification appears on the screen;
 
 ### - (Notification) -
 
@@ -63,12 +63,12 @@ When the application starts by double-clicking the "HowAppYou.jar" file, you can
 
 **From this notification it is possible:**
 
-1. Start the questionnaire window (HowAppYou Window) by clicking with the mouse on the "click here to open pop-up!"
+1. To start the questionnaire window (HowAppYou Window) by clicking with the mouse on the "click here to open pop-up!"
 
-2. Close the notification definitively by clicking on the "dismiss" button. Once this is done you will need to call back
+2. To close the notification definitively by clicking the "dismiss" button. Once this is done you will need to call back
 the questionnaire window (HowAppYou Window) using the specific command in the tray.
 
-3. Postpone the reopening of the notification by dragging the slider cursor to a value indicated in minutes and then press "postpone"
+3. To postpone the reopening of the notification by dragging the slider cursor to the value indicated in minutes and then press "postpone"
 
 ### - (HowAppYou Window) -
 
@@ -76,22 +76,22 @@ the questionnaire window (HowAppYou Window) using the specific command in the tr
 
 **From this window it is possible:**
 
-1. Select the activity that is taking place using the drop-down menu
+1. To select the activity that is taking place using the drop-down menu
 
-2. Select your current mood, by clicking on one of the circles below the first sequence of men
+2. To select your current mood, by clicking on one of the circles below the first sequence of men
 
-3. Select your own state of excitement, by clicking on one of the circles below the second sequence of men
+3. To select your own state of excitement by clicking on one of the circles below the second sequence of men
 
-4. Complete the area below with a comment on the activity (Optional)
+4. To complete the area below with a comment on the activity (Optional)
 
-Notes: all sections (4. excluded) must be completed in order to complete the data collection and then press "done".
+Notes: all sections (4. excluded) must be completed in order to collect data and press "done".
 It is not possible to close the form in any other way.
 
 ### - (HowAppYou Tray) -
 
 ![](JAVA/src/Assets/Guide/Tray.jpg)
 
-When the application opens, an icon will appear at the bottom right to confirm the opening of the application in the background.
+When the application opens, an icon appears in the lower-right corner to confirm the opening of the application in the background.
 
 From it you can select one of these options using the right mouse button:
 
@@ -100,20 +100,20 @@ From this option it is possible to show a window displaying a bubble chart repre
 during previous compilations of the Questionnaire, highlighting the intensity of them from the size of the bubble.
 
 - **Show HowAppYou:**
-Display the program window on screen ready for a new compilation. Useful after making a "dismissal"
+It displays the program window on screen ready for a new compilation. This is useful after making a "dismiss"
 of the notification.
 
 - **Export to csv:**
-It saves the data collected in the previous questionnaires in a .cvs file, which can be viewed later
+It saves the data collected in the previous questionnaires in a .csv file, which can be viewed later
 with any calculation tool (ES: Microsoft Excel).
 It is necessary to indicate the name of the file and the location where you want to save the file.
 
 - **Info & Credits:**
-Display a window containing the main information of the application
+It displays a window containing the main information of the application
 and references to the GitHub page of the app and its developers.
 
 - **Quit:**
-Closes the application permanently.
+It closes the application permanently.
 
 </li>
 <li>
