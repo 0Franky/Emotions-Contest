@@ -72,7 +72,7 @@ the questionnaire window (HowAppYou Window) using the specific command in the tr
 
 ### - (HowAppYou Window) -
 
-![](JAVA/src/Assets/Guide/PopUp.jpg)
+![](JAVA/src/Assets/Guide/Pop-Up.jpg)
 
 **From this window it is possible:**
 
