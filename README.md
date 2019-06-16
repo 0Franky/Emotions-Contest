@@ -53,67 +53,67 @@ or Download [**JAVAx86**](https://www.java.com/it/download/)
 <li>
 
 ## User Guide
-	
-Il software HowAppYou è basato sull'utilizzo di due principali finestre: la Notifica (Notification) e la finestra questionatio (HowAppYou Window).
-All'avvio dell'applicazione mediante il doppio click del file "HowAppYou.jar" è possibile visualizzare a video la notifica dell'applicazione;
 
-### -(Notification)-
+The HowAppYou software is based on the use of two main windows: the Notification and the questionatio window (HowAppYou Window).
+When the application starts by double-clicking the "HowAppYou.jar" file, you can view the application notification on the screen;
+
+### - (Notification) -
 
 ![](JAVA/src/Assets/Guide/Notifica.jpg)
 
-Da tale notifica è possibile:
+**From this notification it is possible:**
 
-1. Avviare la finestra questionario (HowAppYou Window) effettuando un click con il mouse sulla scritta "click here to open pop-up!"
+1. Start the questionnaire window (HowAppYou Window) by clicking with the mouse on the "click here to open pop-up!"
 
-2. Chiudere definitivamente la notifica mediante un click dul pulsante "dismiss". Una volta fatto ciò sarà necessario richiamare
-il la finestra questionario (HowAppYou Window) mediante il comando specifico nella tray.
+2. Close the notification definitively by clicking on the "dismiss" button. Once this is done you will need to call back
+the questionnaire window (HowAppYou Window) using the specific command in the tray.
 
-3. Posporre la riapertura della notifica trascinando il cursore dello slider ad un valore indicato in minuti e poi premere "postpone"
+3. Postpone the reopening of the notification by dragging the slider cursor to a value indicated in minutes and then press "postpone"
 
-### -(HowAppYou Window)-
+### - (HowAppYou Window) -
 
 ![](JAVA/src/Assets/Guide/PopUp.jpg)
 
-Da tale finestra è possibile:
+**From this window it is possible:**
 
-1. Selezionare mediante menù a cascata, l'attività che si sta svolgendo
+1. Select the activity that is taking place using the drop-down menu
 
-2. Selezionare il propio umore corrente, effettunado un click su uno dei cerchietti collocati sotto la prima sequenza di omini
+2. Select your current mood, by clicking on one of the circles below the first sequence of men
 
-3. Selezionare il propio stato di eccitazione, effettunado un click su uno dei cerchietti collocati sotto la seconda sequenza di omini
+3. Select your own state of excitement, by clicking on one of the circles below the second sequence of men
 
-4. Compilare l'area sottostante con un commento sull'attività (Facoltativo)
+4. Complete the area below with a comment on the activity (Optional)
 
-Notes: tutte le sezioni (4. escluso) devono essere compilate per poter concludere la raccolta dati e poi premere "done".
-Non è possibile chiudere la videata in altro modo.
+Notes: all sections (4. excluded) must be completed in order to complete the data collection and then press "done".
+It is not possible to close the form in any other way.
 
-### -(HowAppYou Tray)-
+### - (HowAppYou Tray) -
 
 ![](JAVA/src/Assets/Guide/Tray.jpg)
 
-All'apertura dell'applicazione, in basso a destra comparirà un icona che conferma l'apertura in background dell'applicazione.
+When the application opens, an icon will appear at the bottom right to confirm the opening of the application in the background.
 
-Da essa è possibile selezionare mediante il tasto destro del mouse una tra queste opzioni:
+From it you can select one of these options using the right mouse button:
 
-- **Show retrospective :**
-Da tale opzione è possibile mostrare una finestra che visualizza un grafico a bolle rappresentante lo stato registrato 
-durante le precedenti compilazioni del Questionario, evidenziando l'intensità di esse dalla grandezza della bolla.
+- **Show retrospective:**
+From this option it is possible to show a window displaying a bubble chart representing the registered status
+during previous compilations of the Questionnaire, highlighting the intensity of them from the size of the bubble.
 
-- **Show HowAppYou :**
-Visualizza a video la finestra del programma pronta per una nuova compilazione. Utile dopo aver effettuato un "dismiss"
-della notifica.
+- **Show HowAppYou:**
+Display the program window on screen ready for a new compilation. Useful after making a "dismissal"
+of the notification.
 
-- **Export to csv :**
-Effettua un salvataggio dei dati raccolti nei precedenti questionari in un file .cvs, visualizzabile in seguito 
-con un qualsiasi strumento di calcolo (ES: Microsoft Excel).
-E' necessario indicare il nome del file e la posizione in cui si desidera salvare il file.
+- **Export to csv:**
+It saves the data collected in the previous questionnaires in a .cvs file, which can be viewed later
+with any calculation tool (ES: Microsoft Excel).
+It is necessary to indicate the name of the file and the location where you want to save the file.
 
-- **Info & Credits :**
-Visualizza a video una finestra contenente le informazioni principali dell'applicazioni 
-e i riferimenti alla pagina GitHub dell'app e dei suoi sviluppatori.
+- **Info & Credits:**
+Display a window containing the main information of the application
+and references to the GitHub page of the app and its developers.
 
-- **Quit :**
-Chiude l'applicazione definitivamente.
+- **Quit:**
+Closes the application permanently.
 
 </li>
 <li>
