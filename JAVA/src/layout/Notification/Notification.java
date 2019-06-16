@@ -47,10 +47,10 @@ public class Notification {
 		});
 
 		stage.setAlwaysOnTop(true);
-		stage.getIcons().add(new Image(getClass().getResourceAsStream("../../Assets/Icon.png")));
-		centerStage(stage, stage.getWidth(), stage.getHeight());
+		stage.getIcons().add(new Image(getClass().getResourceAsStream("/Assets/Icon.png")));
+
 		this_stage = stage;
-		this_stage.show();
+		centerStage(this_stage, this_stage.getWidth(), this_stage.getHeight());
 	}
 
 	private static Stage this_stage = new Stage();
@@ -106,18 +106,21 @@ public class Notification {
 
 	private void centerStage(Stage stage, double width, double height) {
 		Rectangle2D screenBounds = Screen.getPrimary().getVisualBounds();
-		// FULL HD // 1920x1080
-		if (screenBounds.getWidth() > 1900 && screenBounds.getHeight() > 1000) {
-			stage.setX((screenBounds.getWidth() - 510));
-			stage.setY((screenBounds.getHeight() - 1000));
-		} else {
-			stage.setX((screenBounds.getWidth() - width) / 2);
-			stage.setY((screenBounds.getHeight() - height) / 2);
-		}
+
+		double screenWeight = screenBounds.getWidth();
+		double percentWeight = (double) 34.5 / (double) 100;
+
+		double screenHeight = screenBounds.getHeight();
+		double percentHeight = (double) 86.4 / (double) 100;
+
+		this_stage.show();
+
+		stage.setX((screenWeight - stage.getWidth()) - 10);
+		stage.setY(30);
+
 	}
 
 	protected void cleanInstance() {
 		instance = null;
 	}
-
 }

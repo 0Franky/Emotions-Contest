@@ -1,13 +1,13 @@
 package classes.csv;
 
 import java.awt.EventQueue;
-import java.io.File;
 import java.io.FileNotFoundException;
 /**
  * Classe contenente metodi per utilizzare l'API Google Sheets.
  */
 //<<Boundary>>
 import java.io.IOException;
+import java.io.InputStream;
 import java.net.URISyntaxException;
 import java.net.URL;
 import java.security.GeneralSecurityException;
@@ -37,6 +37,8 @@ import com.google.api.services.sheets.v4.model.SpreadsheetProperties;
 import com.google.api.services.sheets.v4.model.ValueRange;
 import com.google.gdata.util.ServiceException;
 
+import Title.Title;
+
 /**
  * Utility class for creating, sharing, and deleting Google spreadsheets. For
  * more, refer to
@@ -50,7 +52,7 @@ public final class GoogleDocsUtils implements ICSV_Writer {
 	/**
 	 * The app name.
 	 */
-	private static final String APPLICATION_NAME = "sna4so";
+	private static final String APPLICATION_NAME = Title.APPLICATION_NAME;
 
 	/**
 	 * Permissions to manage Google Drive.
@@ -111,22 +113,27 @@ public final class GoogleDocsUtils implements ICSV_Writer {
 	 * .setServiceAccountScopes(SCOPES).build(); return authCred; }
 	 */
 
-	private final String CLIENT_ID = "provasheet@clear-backup-238511.iam.gserviceaccount.com";
+	private final String CLIENT_ID = "1046237323843-hrs160ih3n4200mh0cng3h6pl89eq765.apps.googleusercontent.com";// "provasheet@clear-backup-238511.iam.gserviceaccount.com";
 	// private final List<String> SCOPES =
 	// Arrays.asList("https://spreadsheets.google.com/feeds");
-	private final String P12FILE = "Auth.p12";
+	private final String P12FILE = "/classes/csv/Auth.p12";
+
+	static String spid_SurveyResults = "1HtrBIlh83vbz4OknBO2i5pYHsGT4XDo_T41HRqeJHzM";
 
 	private GoogleCredential authorize() throws GeneralSecurityException, IOException, URISyntaxException {
 		JacksonFactory JSON_FACTORY = JacksonFactory.getDefaultInstance();
 		HttpTransport httpTransport = GoogleNetHttpTransport.newTrustedTransport();
 
-		URL fileUrl = this.getClass().getResource(P12FILE);
-		GoogleCredential credential = new GoogleCredential.Builder().setTransport(httpTransport)
-				.setJsonFactory(JSON_FACTORY).setServiceAccountId(CLIENT_ID)
-				.setServiceAccountPrivateKeyFromP12File(new File(fileUrl.toURI())).setServiceAccountScopes(SCOPES)
-				.build();
-		credential.refreshToken();
+		URL url = new URL("http://extremisinfo.altervista.org/service_account.json");
 
+		InputStream in = url.openStream();
+
+		GoogleCredential credential = GoogleCredential.fromStream(in, httpTransport, JSON_FACTORY);
+
+		credential = credential.createScoped(SCOPES);
+
+		credential.refreshToken();
+		System.out.println("credential = " + credential);
 		return credential;
 	}
 
@@ -371,7 +378,11 @@ public final class GoogleDocsUtils implements ICSV_Writer {
 	}
 
 	private static String PAGE_SHEET_NAME = "Sheet1";
-	static String spid_SurveyResults = "1UGOsvpRuOgCJ8HahYCh6eoKCqOpsuzvy4cD89Rd1mpA";
+	// static String spid_SurveyResults =
+	// "1UGOsvpRuOgCJ8HahYCh6eoKCqOpsuzvy4cD89Rd1mpA";
+	// static String spid_SurveyResults =
+	// "1YTX0f8H9uam1NK8v0jjfGBewuJyyfy3YYqe42JxvXuc";//
+	// "1rEjjdvM6iZkn1r3cIJqBPc6iq1qR9OQtEeOpqSAee8M";
 	/*
 	 * https://docs.google.com/spreadsheets/d/
 	 * 1UGOsvpRuOgCJ8HahYCh6eoKCqOpsuzvy4cD89Rd1mpA
@@ -434,12 +445,13 @@ public final class GoogleDocsUtils implements ICSV_Writer {
 
 	public void appendSheet(String input[]) throws IOException, GeneralSecurityException {
 		// APPEND //
+		System.out.println("Spreadhsheet URL: https://docs.google.com/spreadsheets/d/" + spid_SurveyResults);
 		ValueRange body = new ValueRange().setValues(Arrays.asList(Arrays.asList(input)));
-
 		/* AppendValuesResponse appendResult = */
 		sheetsService.spreadsheets().values().append(spid_SurveyResults, PAGE_SHEET_NAME, body)
 				.setValueInputOption("USER_ENTERED").setInsertDataOption("INSERT_ROWS").setIncludeValuesInResponse(true)
 				.execute();
+		System.out.println("End appendSheet");
 	}
 
 	public List<List<Object>> readSheet(String range) throws IOException, GeneralSecurityException, URISyntaxException {

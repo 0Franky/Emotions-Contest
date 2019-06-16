@@ -5,7 +5,6 @@ import java.lang.reflect.InvocationTargetException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-import classes.AppTimer;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -35,7 +34,6 @@ public class PopupWindowController implements Initializable {
 			throws IOException, InvocationTargetException, InterruptedException {
 		// System.out.println("You clicked postponeButton");
 		PopupWindow.getIstance().writeResultsInDir();
-		AppTimer.getIstance().startTimer(60);
 	}
 
 	@FXML

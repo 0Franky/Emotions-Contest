@@ -48,7 +48,6 @@ public class BubbleChartWindow {
 		});
 
 		stage.setAlwaysOnTop(true);
-		stage.getIcons().add(new Image(getClass().getResourceAsStream("../../Assets/Icon.png")));
 		this_stage = stage;
 
 		chart = (BubbleChart) scene.lookup("#chart");
@@ -57,7 +56,7 @@ public class BubbleChartWindow {
 		NumberAxis yAxis = (NumberAxis) chart.getYAxis();
 
 		stage.setTitle("Bubble Chart Sample");
-		stage.getIcons().add(new Image(getClass().getResourceAsStream("../../Assets/Icon.png")));
+		stage.getIcons().add(new Image(getClass().getResourceAsStream("/Assets/Icon.png")));
 
 		xAxis.setAutoRanging(false);
 		xAxis.setLowerBound(1);
