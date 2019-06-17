@@ -259,24 +259,30 @@ public class SQLiteConnection {
 		return tuples;
 	}
 
-	public static List<DataChart> getDataForChart() {
+	public static List<DataChart> getDataForChart(int day) {
 
 		Connection con = getConnectionDB();
 		Statement stmt = null;
 		List<DataChart> tuples = new ArrayList<>();
 
 		try {
+			Calendar calendar = Calendar.getInstance();
+			calendar.add(Calendar.DAY_OF_YEAR, -day);
+			Date pastDate = calendar.getTime();
+			System.out.println("pastDate : -" + day + " giorni =" + pastDate);
+
 			String startDate = Long
 					.toString(
 							TimeConverter
 									.toUnixTime(Date
-											.from(LocalDate.parse(new SimpleDateFormat("yyyy-MM-dd").format(new Date()))
+											.from(LocalDate.parse(new SimpleDateFormat("yyyy-MM-dd").format(pastDate))
 													.atStartOfDay().atZone(ZoneId.systemDefault()).toInstant())
 											.getTime()));
 
-			Calendar calendar = Calendar.getInstance();
-			calendar.add(Calendar.DAY_OF_YEAR, 1);
-			Date tomorrow = calendar.getTime();
+			Calendar calendar2 = Calendar.getInstance();
+			calendar2.add(Calendar.DAY_OF_YEAR, 1);
+			Date tomorrow = calendar2.getTime();
+			System.out.println("tomorrow : +1 giorno =" + tomorrow);
 
 			String endDate = Long
 					.toString(

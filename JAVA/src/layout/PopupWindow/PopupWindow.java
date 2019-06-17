@@ -22,6 +22,7 @@ import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import javafx.stage.WindowEvent;
+import layout.BubbleChart.BubbleChartWindow;
 
 public class PopupWindow {
 
@@ -177,6 +178,11 @@ public class PopupWindow {
 			SQLiteConnection.addRowToSync(getActivityToTuple().toArray());
 			Synchronizer.sync();
 			AppTimer.getIstance().startTimer(60); // Avvio Timer a 60
+			if (BubbleChartWindow.getIstance() != null) { // Refresh BubbleChartWindow
+				BubbleChartWindow.getIstance().populateChart(0); // Prelevare valore slider BubbleChartwindow al posto
+																	// dello 0//
+				System.out.println("Refresh BubbleChart");
+			}
 			PopupWindow.getIstance().close();
 		}
 	}

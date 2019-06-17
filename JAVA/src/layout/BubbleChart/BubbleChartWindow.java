@@ -38,6 +38,7 @@ public class BubbleChartWindow {
 		Scene scene = new Scene(rootLayout);
 		stage.setScene(scene);
 		stage.setTitle("Retrospection");
+		stage.setResizable(false);
 
 		Platform.setImplicitExit(false);
 		stage.setOnCloseRequest(new EventHandler<WindowEvent>() {
@@ -55,30 +56,30 @@ public class BubbleChartWindow {
 		NumberAxis xAxis = (NumberAxis) chart.getXAxis();
 		NumberAxis yAxis = (NumberAxis) chart.getYAxis();
 
-		stage.setTitle("Bubble Chart Sample");
+		stage.setTitle("Bubble Chart");
 		stage.getIcons().add(new Image(getClass().getResourceAsStream("/Assets/Icon.png")));
 
 		xAxis.setAutoRanging(false);
-		xAxis.setLowerBound(1);
-		xAxis.setUpperBound(9);
+		xAxis.setLowerBound(0);
+		xAxis.setUpperBound(10);
 		xAxis.setTickUnit(1);
 
 		yAxis.setAutoRanging(false);
-		yAxis.setLowerBound(1);
-		yAxis.setUpperBound(9);
+		yAxis.setLowerBound(0);
+		yAxis.setUpperBound(10);
 		yAxis.setTickUnit(1);
 
 		xAxis.setLabel("Calm");
 		yAxis.setLabel("Excited");
-		chart.setTitle("Feeling during the day");
+		chart.setTitle("Feeling chart");
 
 		/* PRELEVA DATI DAL DB */
-		populateChart();
-		stage.show();
+		populateChart(0);
+		// stage.show();
 		/* demoAddBubble(); */
 
 		this_stage = stage;
-		this_stage.show();
+		// this_stage.show();
 		/* System.out.println("You shoud see me"); */
 
 	}
@@ -136,8 +137,9 @@ public class BubbleChartWindow {
 		instance = null;
 	}
 
-	private void populateChart() {
-		List<DataChart> data = SQLiteConnection.getDataForChart();
+	public void populateChart(int day) {
+		chart.getData().clear();
+		List<DataChart> data = SQLiteConnection.getDataForChart(day);
 		for (DataChart bubble : data) {
 			addBubble(bubble.getValence(), bubble.getArousal(), (float) bubble.getWeight() / 8);
 		}

@@ -19,7 +19,7 @@
             <Image url="@../../Assets/Icon.png" />
          </image>
       </ImageView>
-   <Label alignment="CENTER" contentDisplay="TOP" layoutX="14.0" layoutY="38.0" onMouseClicked="#openPopUp" prefHeight="23.0" prefWidth="198.0" style="-fx-border-color: gray;" text="Click here to open pop-up!" textAlignment="CENTER" textOverrun="CLIP" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="108.0" AnchorPane.topAnchor="38.0">
+   <Label alignment="CENTER" contentDisplay="TOP" layoutX="14.0" layoutY="33.0" onMouseClicked="#openPopUp" prefHeight="23.0" prefWidth="198.0" style="-fx-border-color: gray;" text="Click here to open pop-up!" textAlignment="CENTER" textOverrun="CLIP" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="108.0" AnchorPane.topAnchor="33.0">
          <font>
             <Font name="System Bold" size="15.0" />
          </font></Label>
@@ -44,7 +44,7 @@
             <Button fx:id="postponeButton" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#postponeAction" prefHeight="45.0" prefWidth="88.0" text="Postpone" textAlignment="CENTER" />
          </children>
       </HBox>
-      <Label alignment="CENTER" layoutX="14.0" layoutY="10.0" onMouseClicked="#openPopUp" prefHeight="21.0" prefWidth="198.0" text="How are you feeling ?" textAlignment="CENTER">
+      <Label alignment="CENTER" layoutX="14.0" layoutY="10.0" onMouseClicked="#openPopUp" prefHeight="23.0" prefWidth="198.0" text="How are you feeling ?" textAlignment="CENTER">
          <font>
             <Font name="System Bold" size="15.0" />
          </font>
