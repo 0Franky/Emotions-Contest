@@ -328,6 +328,77 @@ public class SQLiteConnection {
 		return tuples;
 	}
 
+	private static void createSheetTable() {
+		Connection con = getConnectionDB();
+		Statement stmt = null;
+
+		try {
+			con.setAutoCommit(false);
+			stmt = con.createStatement();
+			String sql = "CREATE TABLE SHEET (SPID TEXT NOT NULL)";
+			stmt.executeUpdate(sql);
+		} catch (Exception e) {
+			System.err.println(e.getClass().getName() + ": " + e.getMessage());
+			new Alert(Alert.AlertType.ERROR, e.getClass().getName() + ": " + e.getMessage()).showAndWait();
+		}
+
+		// closeConnectionDB(con, stmt);
+		closeStatement(stmt);
+	}
+
+	public static void setSheet(String spid) {
+		Connection con = getConnectionDB();
+		Statement stmt = null;
+		try {
+			if (!tableExists("SHEET")) {
+				createSheetTable();
+			}
+
+			con.setAutoCommit(false);
+			stmt = con.createStatement();
+			PreparedStatement prepStmt = con.prepareStatement("INSERT INTO SHEET (SPID) VALUES (?)");
+			prepStmt.setString(1, spid);
+			prepStmt.executeUpdate();
+		} catch (Exception e) {
+			System.err.println(e.getClass().getName() + ": " + e.getMessage());
+			new Alert(Alert.AlertType.ERROR, e.getClass().getName() + ": " + e.getMessage()).showAndWait();
+			e.printStackTrace();
+		}
+
+		// closeConnectionDB(con, stmt);
+		closeStatement(stmt);
+	}
+
+	public static String getSpid() {
+
+		Connection con = getConnectionDB();
+		Statement stmt = null;
+		String spid = "";
+
+		if (tableExists("SHEET")) {
+			try {
+				con.setAutoCommit(false);
+
+				stmt = con.createStatement();
+				ResultSet rs = stmt.executeQuery("SELECT SPID FROM SHEET");
+
+				while (rs.next()) {
+					// (TIMESTAMP,ACTIVITY,VALENCE,AROUSAL,STATUS,NOTES)
+					// int ID = rs.getInt("ID");
+					spid = rs.getString("SPID");
+				}
+			} catch (Exception e) {
+				System.err.println(e.getClass().getName() + ": " + e.getMessage());
+				new Alert(Alert.AlertType.ERROR, e.getClass().getName() + ": " + e.getMessage()).showAndWait();
+			}
+
+			// closeConnectionDB(con, stmt);
+			closeStatement(stmt);
+		}
+
+		return spid;
+	}
+
 	private static void closeStatement(Statement stmt) {
 		if (stmt != null) {
 			try {

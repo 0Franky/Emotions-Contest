@@ -38,6 +38,7 @@ import com.google.api.services.sheets.v4.model.ValueRange;
 import com.google.gdata.util.ServiceException;
 
 import Title.Title;
+import classes.database.SQLiteConnection;
 
 /**
  * Utility class for creating, sharing, and deleting Google spreadsheets. For
@@ -113,12 +114,16 @@ public final class GoogleDocsUtils implements ICSV_Writer {
 	 * .setServiceAccountScopes(SCOPES).build(); return authCred; }
 	 */
 
-	private final String CLIENT_ID = "1046237323843-hrs160ih3n4200mh0cng3h6pl89eq765.apps.googleusercontent.com";// "provasheet@clear-backup-238511.iam.gserviceaccount.com";
 	// private final List<String> SCOPES =
 	// Arrays.asList("https://spreadsheets.google.com/feeds");
-	private final String P12FILE = "/classes/csv/Auth.p12";
 
-	static String spid_SurveyResults = "1HtrBIlh83vbz4OknBO2i5pYHsGT4XDo_T41HRqeJHzM";
+	private static String PAGE_SHEET_NAME = "Sheet1";
+
+	static String spid_SurveyResults = ""; // "1HtrBIlh83vbz4OknBO2i5pYHsGT4XDo_T41HRqeJHzM";
+	/*
+	 * https://docs.google.com/spreadsheets/d/
+	 * 1HtrBIlh83vbz4OknBO2i5pYHsGT4XDo_T41HRqeJHzM
+	 */
 
 	private GoogleCredential authorize() throws GeneralSecurityException, IOException, URISyntaxException {
 		JacksonFactory JSON_FACTORY = JacksonFactory.getDefaultInstance();
@@ -152,7 +157,8 @@ public final class GoogleDocsUtils implements ICSV_Writer {
 		list.add("?");
 		// gs.write(list);
 		// gs.writePublicSheet("HEADER", list);
-		gs.appendSheet(list.toArray(new String[0]));
+		// gs.appendSheet(list.toArray(new String[0]));
+		gs.appendSheet(list);
 	}
 
 	/**
@@ -232,6 +238,8 @@ public final class GoogleDocsUtils implements ICSV_Writer {
 			credential = authorize();
 			sheetsService = getSheetsService();
 			driveService = getDriveService();
+
+			spid_SurveyResults = SQLiteConnection.getSpid();
 		} catch (final Exception e) {
 			System.err.println(e);
 		}
@@ -329,9 +337,11 @@ public final class GoogleDocsUtils implements ICSV_Writer {
 
 		final List<List<Object>> writeData = new ArrayList<>();
 
-		final List<Object> columnHeader = new ArrayList<>();
-		columnHeader.addAll(header);
-		writeData.add(columnHeader);
+		if (header != null && header.size() != 0) {
+			final List<Object> columnHeader = new ArrayList<>();
+			columnHeader.addAll(header);
+			writeData.add(columnHeader);
+		}
 
 		for (final List<String> someDataRow : res) {
 			final List<Object> dataRow = new ArrayList<>();
@@ -359,9 +369,11 @@ public final class GoogleDocsUtils implements ICSV_Writer {
 	public void writeSheet(final String spid, final String header, final List<String> res) throws IOException {
 		final List<List<Object>> writeData = new ArrayList<>();
 
-		final List<Object> columnHeader = new ArrayList<>();
-		columnHeader.add(header);
-		writeData.add(columnHeader);
+		if (header != null && header != "") {
+			final List<Object> columnHeader = new ArrayList<>();
+			columnHeader.add(header);
+			writeData.add(columnHeader);
+		}
 
 		for (final Object someData : res) {
 			final List<Object> dataRow = new ArrayList<>();
@@ -377,17 +389,6 @@ public final class GoogleDocsUtils implements ICSV_Writer {
 		request.execute();
 	}
 
-	private static String PAGE_SHEET_NAME = "Sheet1";
-	// static String spid_SurveyResults =
-	// "1UGOsvpRuOgCJ8HahYCh6eoKCqOpsuzvy4cD89Rd1mpA";
-	// static String spid_SurveyResults =
-	// "1YTX0f8H9uam1NK8v0jjfGBewuJyyfy3YYqe42JxvXuc";//
-	// "1rEjjdvM6iZkn1r3cIJqBPc6iq1qR9OQtEeOpqSAee8M";
-	/*
-	 * https://docs.google.com/spreadsheets/d/
-	 * 1UGOsvpRuOgCJ8HahYCh6eoKCqOpsuzvy4cD89Rd1mpA
-	 */
-
 	static boolean status_write_List = true;
 
 	@Override
@@ -402,7 +403,8 @@ public final class GoogleDocsUtils implements ICSV_Writer {
 				EventQueue.invokeLater(new Runnable() {
 					public void run() {
 						try {
-							appendSheet(data.toArray(new String[0]));
+							/* appendSheet(data.toArray(new String[0])); */
+							appendSheet(data);
 						} catch (IOException | GeneralSecurityException e) {
 							// TODO Auto-generated catch block
 							// e.printStackTrace();
@@ -429,7 +431,8 @@ public final class GoogleDocsUtils implements ICSV_Writer {
 				EventQueue.invokeLater(new Runnable() {
 					public void run() {
 						try {
-							appendSheet(new String[] { data });
+							/* appendSheet(new String[] { data }); */
+							appendSheet(data);
 						} catch (IOException | GeneralSecurityException e) {
 							// TODO Auto-generated catch block
 							// e.printStackTrace();
@@ -443,10 +446,21 @@ public final class GoogleDocsUtils implements ICSV_Writer {
 		return status_write_String;
 	}
 
-	public void appendSheet(String input[]) throws IOException, GeneralSecurityException {
+	public void appendSheet(String input) throws IOException, GeneralSecurityException {
+		List<String> data = new ArrayList<>();
+		data.add(input);
+
+		appendSheet(data);
+	}
+
+	public void appendSheet(List<String> input) throws IOException, GeneralSecurityException {
 		// APPEND //
+
+		List<Object> data = new ArrayList<>();
+		data.addAll(input);
+
 		System.out.println("Spreadhsheet URL: https://docs.google.com/spreadsheets/d/" + spid_SurveyResults);
-		ValueRange body = new ValueRange().setValues(Arrays.asList(Arrays.asList(input)));
+		ValueRange body = new ValueRange().setValues(Arrays.asList(data));
 		/* AppendValuesResponse appendResult = */
 		sheetsService.spreadsheets().values().append(spid_SurveyResults, PAGE_SHEET_NAME, body)
 				.setValueInputOption("USER_ENTERED").setInsertDataOption("INSERT_ROWS").setIncludeValuesInResponse(true)
