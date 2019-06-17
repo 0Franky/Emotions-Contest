@@ -154,6 +154,7 @@ public class AppFX extends Application {
 			java.awt.MenuItem exitItem = new java.awt.MenuItem("Quit");
 			exitItem.addActionListener(event -> {
 				// notificationTimer.cancel();
+				SQLiteConnection.closeConnectionDB(SQLiteConnection.getConnectionDB(), null);
 				tray.remove(trayIcon);
 				Platform.exit();
 				System.exit(0);
