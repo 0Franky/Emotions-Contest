@@ -23,26 +23,29 @@ import javafx.scene.control.Alert;
 
 public class SQLiteConnection {
 
-	// public static String host = "/src/";
-	public static String host = "";
-	public static boolean existTable = false;
-	public static boolean checking = false;
+	// private static String host = "/src/";
+	private static String host = "";
+	private static boolean existTable = false;
+	private static boolean checking = false;
 
-	private static Connection getConnectionDB() {
-		Connection con = null;
+	private static Connection con = null;
 
-		try {
-			System.out.println("Try to open database: jdbc:sqlite:" + host + Title.APPLICATION_NAME + "DB.db");
-			Class.forName("org.sqlite.JDBC").newInstance();
-			con = DriverManager.getConnection("jdbc:sqlite:" + host + Title.APPLICATION_NAME + "DB.db");
+	public static Connection getConnectionDB() {
+		if (con == null) {
 
-			// System.out.println("Opened database successfully");
-		} catch (Exception e) {
-			System.err
-					.println("Method: getConnectionDB() | Class  : SQLiteConnection | msg system : " + e.getMessage());
-			new Alert(Alert.AlertType.ERROR,
-					"Method: getConnectionDB() | Class  : SQLiteConnection | msg system : " + e.getMessage())
-							.showAndWait();
+			try {
+				System.out.println("Try to open database: jdbc:sqlite:" + host + Title.APPLICATION_NAME + "DB.db");
+				Class.forName("org.sqlite.JDBC").newInstance();
+				con = DriverManager.getConnection("jdbc:sqlite:" + host + Title.APPLICATION_NAME + "DB.db");
+
+				// System.out.println("Opened database successfully");
+			} catch (Exception e) {
+				System.err.println(
+						"Method: getConnectionDB() | Class  : SQLiteConnection | msg system : " + e.getMessage());
+				new Alert(Alert.AlertType.ERROR,
+						"Method: getConnectionDB() | Class  : SQLiteConnection | msg system : " + e.getMessage())
+								.showAndWait();
+			}
 		}
 
 		if (existTable == false && checking == false) {
@@ -74,7 +77,7 @@ public class SQLiteConnection {
 			new Alert(Alert.AlertType.ERROR, e.getClass().getName() + ": " + e.getMessage()).showAndWait();
 		}
 
-		closeConnectionDB(con, null);
+		// closeConnectionDB(con, null);
 
 		return result;
 	}
@@ -95,7 +98,8 @@ public class SQLiteConnection {
 			// //System.exit(0);
 		}
 
-		closeConnectionDB(con, stmt);
+		// closeConnectionDB(con, stmt);
+		closeStatement(stmt);
 	}
 
 	public static void createTable(String tableName) {
@@ -113,7 +117,8 @@ public class SQLiteConnection {
 			new Alert(Alert.AlertType.ERROR, e.getClass().getName() + ": " + e.getMessage()).showAndWait();
 		}
 
-		closeConnectionDB(con, stmt);
+		// closeConnectionDB(con, stmt);
+		closeStatement(stmt);
 	}
 
 	public static void addRow(String input[]) {
@@ -146,7 +151,8 @@ public class SQLiteConnection {
 			e.printStackTrace();
 		}
 
-		closeConnectionDB(con, stmt);
+		// closeConnectionDB(con, stmt);
+		closeStatement(stmt);
 	}
 
 	public static void addRowToSync(String input[]) {
@@ -178,7 +184,8 @@ public class SQLiteConnection {
 			e.printStackTrace();
 		}
 
-		closeConnectionDB(con, stmt);
+		// closeConnectionDB(con, stmt);
+		closeStatement(stmt);
 	}
 
 	public static final List<Tuple> getAllDataQuery() {
@@ -222,7 +229,7 @@ public class SQLiteConnection {
 			new Alert(Alert.AlertType.ERROR, e.getClass().getName() + ": " + e.getMessage()).showAndWait();
 		}
 
-		closeConnectionDB(con, null);
+		// closeConnectionDB(con, null);
 	}
 
 	public static List<Tuple> runQuery(String query) {
@@ -254,7 +261,8 @@ public class SQLiteConnection {
 			new Alert(Alert.AlertType.ERROR, e.getClass().getName() + ": " + e.getMessage()).showAndWait();
 		}
 
-		closeConnectionDB(con, stmt);
+		// closeConnectionDB(con, stmt);
+		closeStatement(stmt);
 
 		return tuples;
 	}
@@ -314,16 +322,28 @@ public class SQLiteConnection {
 			new Alert(Alert.AlertType.ERROR, e.getClass().getName() + ": " + e.getMessage()).showAndWait();
 		}
 
-		closeConnectionDB(con, stmt);
+		// closeConnectionDB(con, stmt);
+		closeStatement(stmt);
 
 		return tuples;
 	}
 
-	private static void closeConnectionDB(Connection con, Statement stmt) {
-		try {
-			if (stmt != null) {
+	private static void closeStatement(Statement stmt) {
+		if (stmt != null) {
+			try {
 				stmt.close();
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				// e.printStackTrace();
+				System.err.println(e.getClass().getName() + ": " + e.getMessage());
 			}
+		}
+	}
+
+	public static void closeConnectionDB(Connection con, Statement stmt) {
+		try {
+			closeStatement(stmt);
+
 			if (con != null) {
 				// con.setAutoCommit(true);
 				con.commit();
