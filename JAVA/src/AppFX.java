@@ -66,6 +66,9 @@ public class AppFX extends Application {
 		 */
 
 		Platform.setImplicitExit(false);
+
+		SQLiteConnection.getConnectionDB();
+
 		// sets up the tray icon (using awt code run on the swing thread).
 		javax.swing.SwingUtilities.invokeLater(this::addAppToTray);
 
