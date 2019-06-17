@@ -16,7 +16,7 @@
             <Image url="@../../Assets/Icon.png" />
          </image>
       </ImageView>
-      <BubbleChart id="chart" layoutX="10.0" layoutY="10.0" legendSide="RIGHT" prefHeight="403.0" prefWidth="600.0" title="Feeling chart" AnchorPane.bottomAnchor="70.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <BubbleChart id="chart" layoutX="10.0" layoutY="10.0" legendSide="RIGHT" legendVisible="false" prefHeight="403.0" prefWidth="600.0" title="Feeling chart" AnchorPane.bottomAnchor="70.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <xAxis>
             <NumberAxis side="BOTTOM" fx:id="xAxis" />
          </xAxis>
@@ -24,7 +24,7 @@
             <NumberAxis fx:id="yAxis" side="LEFT" />
          </yAxis>
       </BubbleChart>
-      <Slider fx:id="mySlider" blockIncrement="1.0" layoutX="269.0" layoutY="408.0" majorTickUnit="14.0" max="30.0" min="1.0" minorTickCount="5" onMouseClicked="#onSliderChanged" onMouseReleased="#onSliderChanged" prefHeight="45.0" prefWidth="305.0" showTickLabels="true" showTickMarks="true" />
+      <Slider fx:id="mySlider" blockIncrement="1.0" layoutX="270.0" layoutY="420.0" majorTickUnit="14.0" max="30.0" min="1.0" minorTickCount="5" onMouseClicked="#onSliderChanged" onMouseReleased="#onSliderChanged" prefHeight="45.0" prefWidth="305.0" showTickLabels="true" showTickMarks="true" />
       <Label layoutX="44.0" layoutY="420.0" prefHeight="21.0" prefWidth="130.0" text="Select day range :">
          <font>
             <Font name="System Bold" size="15.0" />

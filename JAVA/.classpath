@@ -11,5 +11,34 @@
 	<classpathentry kind="lib" path="lib/google-api-services-sheets-v4-rev567-1.25.0.jar"/>
 	<classpathentry kind="lib" path="lib/google-oauth-client-java6-1.25.0.jar"/>
 	<classpathentry kind="lib" path="lib/google-oauth-client-jetty-1.25.0.jar"/>
+	<classpathentry kind="lib" path="lib/commons-logging-1.2.jar"/>
+	<classpathentry kind="lib" path="lib/gdata-base-1.0.jar"/>
+	<classpathentry kind="lib" path="lib/gdata-client-1.0.jar"/>
+	<classpathentry kind="lib" path="lib/gdata-client-meta-1.0.jar"/>
+	<classpathentry kind="lib" path="lib/gdata-core-1.0.jar"/>
+	<classpathentry kind="lib" path="lib/gdata-spreadsheet-3.0.jar"/>
+	<classpathentry kind="lib" path="lib/gdata-spreadsheet-meta-3.0.jar"/>
+	<classpathentry kind="lib" path="lib/google-api-client-1.24.1.jar"/>
+	<classpathentry kind="lib" path="lib/google-api-client-gson-1.24.1.jar"/>
+	<classpathentry kind="lib" path="lib/google-api-client-jackson2-1.24.1.jar"/>
+	<classpathentry kind="lib" path="lib/google-api-client-java6-1.24.1.jar"/>
+	<classpathentry kind="lib" path="lib/google-http-client-1.24.1.jar"/>
+	<classpathentry kind="lib" path="lib/google-http-client-gson-1.24.1.jar"/>
+	<classpathentry kind="lib" path="lib/google-http-client-jackson-1.24.1.jar"/>
+	<classpathentry kind="lib" path="lib/google-http-client-jackson2-1.24.1.jar"/>
+	<classpathentry kind="lib" path="lib/google-oauth-client-1.24.1.jar"/>
+	<classpathentry kind="lib" path="lib/google-oauth-client-appengine-1.24.1.jar"/>
+	<classpathentry kind="lib" path="lib/google-oauth-client-java6-1.24.1.jar"/>
+	<classpathentry kind="lib" path="lib/google-oauth-client-jetty-1.24.1.jar"/>
+	<classpathentry kind="lib" path="lib/gson-2.1.jar"/>
+	<classpathentry kind="lib" path="lib/httpclient-4.5.3.jar"/>
+	<classpathentry kind="lib" path="lib/httpcore-4.4.6.jar"/>
+	<classpathentry kind="lib" path="lib/jackson-core-2.9.2.jar"/>
+	<classpathentry kind="lib" path="lib/jackson-core-asl-1.9.11.jar"/>
+	<classpathentry kind="lib" path="lib/jetty-6.1.26.jar"/>
+	<classpathentry kind="lib" path="lib/jetty-util-6.1.26.jar"/>
+	<classpathentry kind="lib" path="lib/jsr305-3.0.2.jar"/>
+	<classpathentry kind="lib" path="lib/sqlite-jdbc-3.27.2.1.jar"/>
+	<classpathentry kind="lib" path="lib/transaction-api-1.1.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
