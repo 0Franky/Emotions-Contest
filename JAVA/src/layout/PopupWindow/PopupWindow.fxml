@@ -265,7 +265,7 @@
             </Label>
          </children>
       </AnchorPane>
-      <Label alignment="CENTER" layoutX="24.0" layoutY="659.0" text="Notes (Optinal)" textAlignment="CENTER" AnchorPane.leftAnchor="24.0" AnchorPane.topAnchor="659.0">
+      <Label alignment="CENTER" layoutX="24.0" layoutY="659.0" text="Notes (Optional)" textAlignment="CENTER" AnchorPane.leftAnchor="24.0" AnchorPane.topAnchor="659.0">
          <font>
             <Font name="System Bold" size="20.0" />
          </font></Label>
