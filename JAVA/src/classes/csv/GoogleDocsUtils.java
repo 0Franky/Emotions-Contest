@@ -390,7 +390,7 @@ public final class GoogleDocsUtils implements ICSV_Writer {
 
 	@Override
 	public boolean write(List<String> data) {
-		boolean status_write_List = true;
+		boolean status_write_List = false;
 
 		if (!data.isEmpty()) {
 			synchronized (GoogleDocsUtils.class) {
@@ -402,10 +402,10 @@ public final class GoogleDocsUtils implements ICSV_Writer {
 				try {
 					/* appendSheet(data.toArray(new String[0])); */
 					appendSheet(data);
+					status_write_List = true;
 				} catch (IOException | GeneralSecurityException e) {
 					// TODO Auto-generated catch block
 					// e.printStackTrace();
-					status_write_List = false;
 				}
 				// };
 				// });
@@ -417,7 +417,7 @@ public final class GoogleDocsUtils implements ICSV_Writer {
 
 	@Override
 	public boolean write(String data) {
-		boolean status_write_String = true;
+		boolean status_write_String = false;
 
 		if (!data.isEmpty()) {
 			synchronized (GoogleDocsUtils.class) {
@@ -428,10 +428,10 @@ public final class GoogleDocsUtils implements ICSV_Writer {
 				try {
 					/* appendSheet(new String[] { data }); */
 					appendSheet(data);
+					status_write_String = true;
 				} catch (IOException | GeneralSecurityException e) {
 					// TODO Auto-generated catch block
 					// e.printStackTrace();
-					status_write_String = false;
 				}
 				// };
 				// });
