@@ -1,6 +1,5 @@
 package layout.PopupWindow;
 
-import java.awt.EventQueue;
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 import java.net.URL;
@@ -41,24 +40,7 @@ public class PopupWindowController implements Initializable {
 	private void btn_Done_OnAction(ActionEvent event)
 			throws IOException, InvocationTargetException, InterruptedException {
 		// System.out.println("You clicked postponeButton");
-		// PopupWindow.getIstance().writeResultsInDir();
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					PopupWindow.getIstance().writeResultsInDir();
-				} catch (InvocationTargetException e) {
-					System.err.println("InvocationTargetException in writeResultsInDir() in btn_Done_OnAction()");
-					e.printStackTrace();
-				} catch (InterruptedException e) {
-					System.err.println("InterruptedException in writeResultsInDir() in btn_Done_OnAction()");
-					e.printStackTrace();
-				} catch (IOException e) {
-					// TODO Auto-generated catch block
-					System.err.println("IOException in writeResultsInDir() in btn_Done_OnAction()");
-					e.printStackTrace();
-				}
-			};
-		});
+		PopupWindow.getIstance().writeResultsInDir();
 	}
 
 	@FXML
