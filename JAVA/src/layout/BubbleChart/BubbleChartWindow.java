@@ -6,6 +6,7 @@ import java.util.List;
 import classes.DataChart;
 import classes.database.SQLiteConnection;
 import javafx.application.Platform;
+import javafx.beans.binding.Bindings;
 import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -22,22 +23,24 @@ public class BubbleChartWindow {
 	private static Stage this_stage = new Stage();
 	private static BubbleChartWindow instance = null; // riferimento all' istanza
 
-	// private BubbleChartWindowController bubbleChartWindowController = null;
+	private BubbleChartController bubbleChartController = null;
 
 	private BubbleChart<Number, Number> chart = null;
 
+	@SuppressWarnings({ "rawtypes", "unchecked" })
 	private BubbleChartWindow() throws IOException {
 
 		FXMLLoader loader = new FXMLLoader();
 		loader.setLocation(BubbleChartWindow.class.getResource("BubbleChartWindow.fxml"));
 		AnchorPane rootLayout = (AnchorPane) loader.load();
 
-		// bubbleChartWindowController = loader.getController();
+		bubbleChartController = loader.getController();
 
 		Stage stage = new Stage();
 		Scene scene = new Scene(rootLayout);
 		stage.setScene(scene);
 		stage.setTitle("Retrospection");
+		stage.setResizable(false);
 
 		Platform.setImplicitExit(false);
 		stage.setOnCloseRequest(new EventHandler<WindowEvent>() {
@@ -55,30 +58,33 @@ public class BubbleChartWindow {
 		NumberAxis xAxis = (NumberAxis) chart.getXAxis();
 		NumberAxis yAxis = (NumberAxis) chart.getYAxis();
 
-		stage.setTitle("Bubble Chart Sample");
+		stage.setTitle("Bubble Chart");
 		stage.getIcons().add(new Image(getClass().getResourceAsStream("/Assets/Icon.png")));
 
 		xAxis.setAutoRanging(false);
-		xAxis.setLowerBound(1);
-		xAxis.setUpperBound(9);
+		xAxis.setLowerBound(0);
+		xAxis.setUpperBound(10);
 		xAxis.setTickUnit(1);
 
 		yAxis.setAutoRanging(false);
-		yAxis.setLowerBound(1);
-		yAxis.setUpperBound(9);
+		yAxis.setLowerBound(0);
+		yAxis.setUpperBound(10);
 		yAxis.setTickUnit(1);
 
 		xAxis.setLabel("Calm");
 		yAxis.setLabel("Excited");
-		chart.setTitle("Feeling during the day");
+		chart.setTitle("Feeling chart");
+
+		bubbleChartController.labelSlider.textProperty()
+				.bind(Bindings.format("%.0f", bubbleChartController.mySlider.valueProperty()));
 
 		/* PRELEVA DATI DAL DB */
-		populateChart();
-		stage.show();
+		populateChart(0);
+		// stage.show();
 		/* demoAddBubble(); */
 
 		this_stage = stage;
-		this_stage.show();
+		// this_stage.show();
 		/* System.out.println("You shoud see me"); */
 
 	}
@@ -96,6 +102,11 @@ public class BubbleChartWindow {
 		return instance;
 	}
 
+	public static boolean isIstanceNULL() throws IOException {
+		return (instance == null);
+	}
+
+	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public void addBubble(Number xValue, Number yValue, Number weight) {
 		XYChart.Series bubble = new XYChart.Series();
 		// bubble.setName("Anger");
@@ -136,11 +147,17 @@ public class BubbleChartWindow {
 		instance = null;
 	}
 
-	private void populateChart() {
-		List<DataChart> data = SQLiteConnection.getDataForChart();
+	public void populateChart(int day) {
+		chart.getData().clear();
+		List<DataChart> data = SQLiteConnection.getDataForChart(day);
 		for (DataChart bubble : data) {
 			addBubble(bubble.getValence(), bubble.getArousal(), (float) bubble.getWeight() / 8);
 		}
+	}
+
+	public void updateChart() {
+		chart.getData().clear();
+		populateChart((int) bubbleChartController.mySlider.getValue());
 	}
 
 	// public static void main(String[] args) {

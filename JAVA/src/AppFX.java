@@ -10,6 +10,7 @@ import classes.AppTimer;
 import classes.Tuple;
 import classes.csv.CSV_Manager;
 import classes.csv.CSV_WriterBuilder;
+import classes.csv.GoogleDocsUtils;
 import classes.csv.ICSV_Writer;
 import classes.database.SQLiteConnection;
 import javafx.application.Application;
@@ -55,6 +56,38 @@ public class AppFX extends Application {
 	 * main stage remains invisible until the user interacts with the tray icon.
 	 */
 
+	public static void main(String[] args) throws IOException, java.awt.AWTException {
+		// Just launches the JavaFX application.
+		// Due to way the application is coded, the application will remain running
+		// until the user selects the Exit menu option from the tray icon.
+
+		try {
+			if (args.length == 1 && args[0].contains("-newSheet=")) {
+				String companyName = args[0].substring(args[0].indexOf("=") + 1);
+				final String spid = GoogleDocsUtils.getInstance().createSheet("SurveyResults-" + companyName);
+				GoogleDocsUtils.getInstance().shareSheet(spid);
+				GoogleDocsUtils.getInstance().getSheetByTitle(spid);
+				SQLiteConnection.setSheet(spid);
+
+				System.out.println("CompanySheet: " + spid);
+				exitApp_STATIC();
+			} else {
+				if (args.length == 1 && args[0].contains("-setSheet=")) {
+					String spid = args[0].substring(args[0].indexOf("=") + 1);
+					SQLiteConnection.setSheet(spid);
+
+					System.out.println("CompanySheet: " + spid);
+					// exitApp_STATIC();
+				}
+
+				launch(args);
+			}
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+
+	}
+
 	@Override
 	public void start(final Stage stage) throws Exception {
 
@@ -66,8 +99,16 @@ public class AppFX extends Application {
 		 */
 
 		Platform.setImplicitExit(false);
+
+		SQLiteConnection.getConnectionDB();
+
 		// sets up the tray icon (using awt code run on the swing thread).
 		javax.swing.SwingUtilities.invokeLater(this::addAppToTray);
+
+		if (SQLiteConnection.getSpid() == "") {
+			new Alert(Alert.AlertType.ERROR, "No spid is setted, application exiting.").showAndWait();
+			exitApp();
+		}
 
 		Notification.getIstance();
 		// PopupWindow.getIstance();
@@ -87,6 +128,7 @@ public class AppFX extends Application {
 				System.out.println("No system tray support, application exiting.");
 				new Alert(Alert.AlertType.ERROR, "No system tray support, application exiting.").showAndWait();
 				Platform.exit();
+				System.exit(0);
 			}
 
 			// set up a system tray icon.
@@ -155,8 +197,7 @@ public class AppFX extends Application {
 			exitItem.addActionListener(event -> {
 				// notificationTimer.cancel();
 				tray.remove(trayIcon);
-				Platform.exit();
-				System.exit(0);
+				exitApp();
 			});
 
 			// setup the popup menu for the application.
@@ -178,6 +219,18 @@ public class AppFX extends Application {
 			System.out.println("Unable to init system tray");
 			e.printStackTrace();
 		}
+	}
+
+	private void exitApp() {
+		SQLiteConnection.closeConnectionDB(SQLiteConnection.getConnectionDB(), null);
+		Platform.exit();
+		System.exit(0);
+	}
+
+	private static void exitApp_STATIC() {
+		SQLiteConnection.closeConnectionDB(SQLiteConnection.getConnectionDB(), null);
+		Platform.exit();
+		System.exit(0);
 	}
 
 	/**
@@ -218,18 +271,6 @@ public class AppFX extends Application {
 	 */
 	private void showBubbleChartWindow() throws IOException {
 		BubbleChartWindow.getIstance().show();
-	}
-
-	public static void main(String[] args) throws IOException, java.awt.AWTException {
-		// Just launches the JavaFX application.
-		// Due to way the application is coded, the application will remain running
-		// until the user selects the Exit menu option from the tray icon.
-		try {
-			launch(args);
-		} catch (Exception e) {
-			// TODO: handle exception
-		}
-
 	}
 
 	private void saveCSV() {

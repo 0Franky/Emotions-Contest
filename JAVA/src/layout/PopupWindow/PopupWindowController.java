@@ -14,6 +14,7 @@ import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextArea;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.GridPane;
 
 public class PopupWindowController implements Initializable {
 
@@ -28,6 +29,12 @@ public class PopupWindowController implements Initializable {
 
 	@FXML
 	protected AnchorPane pnl_window;
+
+	@FXML
+	protected GridPane g1;
+
+	@FXML
+	protected GridPane g2;
 
 	@FXML
 	private void btn_Done_OnAction(ActionEvent event)

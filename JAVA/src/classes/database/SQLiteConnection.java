@@ -23,26 +23,29 @@ import javafx.scene.control.Alert;
 
 public class SQLiteConnection {
 
-	// public static String host = "/src/";
-	public static String host = "";
-	public static boolean existTable = false;
-	public static boolean checking = false;
+	// private static String host = "/src/";
+	private static String host = "";
+	private static boolean existTable = false;
+	private static boolean checking = false;
 
-	private static Connection getConnectionDB() {
-		Connection con = null;
+	private static Connection con = null;
 
-		try {
-			System.out.println("Try to open database: jdbc:sqlite:" + host + Title.APPLICATION_NAME + "DB.db");
-			Class.forName("org.sqlite.JDBC").newInstance();
-			con = DriverManager.getConnection("jdbc:sqlite:" + host + Title.APPLICATION_NAME + "DB.db");
+	public static Connection getConnectionDB() {
+		if (con == null) {
 
-			// System.out.println("Opened database successfully");
-		} catch (Exception e) {
-			System.err
-					.println("Method: getConnectionDB() | Class  : SQLiteConnection | msg system : " + e.getMessage());
-			new Alert(Alert.AlertType.ERROR,
-					"Method: getConnectionDB() | Class  : SQLiteConnection | msg system : " + e.getMessage())
-							.showAndWait();
+			try {
+				System.out.println("Try to open database: jdbc:sqlite:" + host + Title.APPLICATION_NAME + "DB.db");
+				Class.forName("org.sqlite.JDBC").newInstance();
+				con = DriverManager.getConnection("jdbc:sqlite:" + host + Title.APPLICATION_NAME + "DB.db");
+
+				// System.out.println("Opened database successfully");
+			} catch (Exception e) {
+				System.err.println(
+						"Method: getConnectionDB() | Class  : SQLiteConnection | msg system : " + e.getMessage());
+				new Alert(Alert.AlertType.ERROR,
+						"Method: getConnectionDB() | Class  : SQLiteConnection | msg system : " + e.getMessage())
+								.showAndWait();
+			}
 		}
 
 		if (existTable == false && checking == false) {
@@ -74,7 +77,7 @@ public class SQLiteConnection {
 			new Alert(Alert.AlertType.ERROR, e.getClass().getName() + ": " + e.getMessage()).showAndWait();
 		}
 
-		closeConnectionDB(con, null);
+		// closeConnectionDB(con, null);
 
 		return result;
 	}
@@ -95,7 +98,8 @@ public class SQLiteConnection {
 			// //System.exit(0);
 		}
 
-		closeConnectionDB(con, stmt);
+		// closeConnectionDB(con, stmt);
+		closeStatement(stmt);
 	}
 
 	public static void createTable(String tableName) {
@@ -113,7 +117,8 @@ public class SQLiteConnection {
 			new Alert(Alert.AlertType.ERROR, e.getClass().getName() + ": " + e.getMessage()).showAndWait();
 		}
 
-		closeConnectionDB(con, stmt);
+		// closeConnectionDB(con, stmt);
+		closeStatement(stmt);
 	}
 
 	public static void addRow(String input[]) {
@@ -146,7 +151,8 @@ public class SQLiteConnection {
 			e.printStackTrace();
 		}
 
-		closeConnectionDB(con, stmt);
+		// closeConnectionDB(con, stmt);
+		closeStatement(stmt);
 	}
 
 	public static void addRowToSync(String input[]) {
@@ -178,7 +184,8 @@ public class SQLiteConnection {
 			e.printStackTrace();
 		}
 
-		closeConnectionDB(con, stmt);
+		// closeConnectionDB(con, stmt);
+		closeStatement(stmt);
 	}
 
 	public static final List<Tuple> getAllDataQuery() {
@@ -222,7 +229,7 @@ public class SQLiteConnection {
 			new Alert(Alert.AlertType.ERROR, e.getClass().getName() + ": " + e.getMessage()).showAndWait();
 		}
 
-		closeConnectionDB(con, null);
+		// closeConnectionDB(con, null);
 	}
 
 	public static List<Tuple> runQuery(String query) {
@@ -254,29 +261,36 @@ public class SQLiteConnection {
 			new Alert(Alert.AlertType.ERROR, e.getClass().getName() + ": " + e.getMessage()).showAndWait();
 		}
 
-		closeConnectionDB(con, stmt);
+		// closeConnectionDB(con, stmt);
+		closeStatement(stmt);
 
 		return tuples;
 	}
 
-	public static List<DataChart> getDataForChart() {
+	public static List<DataChart> getDataForChart(int day) {
 
 		Connection con = getConnectionDB();
 		Statement stmt = null;
 		List<DataChart> tuples = new ArrayList<>();
 
 		try {
+			Calendar calendar = Calendar.getInstance();
+			calendar.add(Calendar.DAY_OF_YEAR, -day);
+			Date pastDate = calendar.getTime();
+			System.out.println("pastDate : -" + day + " giorni =" + pastDate);
+
 			String startDate = Long
 					.toString(
 							TimeConverter
 									.toUnixTime(Date
-											.from(LocalDate.parse(new SimpleDateFormat("yyyy-MM-dd").format(new Date()))
+											.from(LocalDate.parse(new SimpleDateFormat("yyyy-MM-dd").format(pastDate))
 													.atStartOfDay().atZone(ZoneId.systemDefault()).toInstant())
 											.getTime()));
 
-			Calendar calendar = Calendar.getInstance();
-			calendar.add(Calendar.DAY_OF_YEAR, 1);
-			Date tomorrow = calendar.getTime();
+			Calendar calendar2 = Calendar.getInstance();
+			calendar2.add(Calendar.DAY_OF_YEAR, 1);
+			Date tomorrow = calendar2.getTime();
+			System.out.println("tomorrow : +1 giorno =" + tomorrow);
 
 			String endDate = Long
 					.toString(
@@ -308,16 +322,99 @@ public class SQLiteConnection {
 			new Alert(Alert.AlertType.ERROR, e.getClass().getName() + ": " + e.getMessage()).showAndWait();
 		}
 
-		closeConnectionDB(con, stmt);
+		// closeConnectionDB(con, stmt);
+		closeStatement(stmt);
 
 		return tuples;
 	}
 
-	private static void closeConnectionDB(Connection con, Statement stmt) {
+	private static void createSheetTable() {
+		Connection con = getConnectionDB();
+		Statement stmt = null;
+
 		try {
-			if (stmt != null) {
-				stmt.close();
+			con.setAutoCommit(false);
+			stmt = con.createStatement();
+			String sql = "CREATE TABLE SHEET (SPID TEXT NOT NULL)";
+			stmt.executeUpdate(sql);
+		} catch (Exception e) {
+			System.err.println(e.getClass().getName() + ": " + e.getMessage());
+			new Alert(Alert.AlertType.ERROR, e.getClass().getName() + ": " + e.getMessage()).showAndWait();
+		}
+
+		// closeConnectionDB(con, stmt);
+		closeStatement(stmt);
+	}
+
+	public static void setSheet(String spid) {
+		Connection con = getConnectionDB();
+		Statement stmt = null;
+		try {
+			if (!tableExists("SHEET")) {
+				createSheetTable();
 			}
+
+			con.setAutoCommit(false);
+			stmt = con.createStatement();
+			PreparedStatement prepStmt = con.prepareStatement("INSERT INTO SHEET (SPID) VALUES (?)");
+			prepStmt.setString(1, spid);
+			prepStmt.executeUpdate();
+		} catch (Exception e) {
+			System.err.println(e.getClass().getName() + ": " + e.getMessage());
+			new Alert(Alert.AlertType.ERROR, e.getClass().getName() + ": " + e.getMessage()).showAndWait();
+			e.printStackTrace();
+		}
+
+		// closeConnectionDB(con, stmt);
+		closeStatement(stmt);
+	}
+
+	public static String getSpid() {
+
+		Connection con = getConnectionDB();
+		Statement stmt = null;
+		String spid = "";
+
+		if (tableExists("SHEET")) {
+			try {
+				con.setAutoCommit(false);
+
+				stmt = con.createStatement();
+				ResultSet rs = stmt.executeQuery("SELECT SPID FROM SHEET");
+
+				while (rs.next()) {
+					// (TIMESTAMP,ACTIVITY,VALENCE,AROUSAL,STATUS,NOTES)
+					// int ID = rs.getInt("ID");
+					spid = rs.getString("SPID");
+				}
+			} catch (Exception e) {
+				System.err.println(e.getClass().getName() + ": " + e.getMessage());
+				new Alert(Alert.AlertType.ERROR, e.getClass().getName() + ": " + e.getMessage()).showAndWait();
+			}
+
+			// closeConnectionDB(con, stmt);
+			closeStatement(stmt);
+		}
+
+		return spid;
+	}
+
+	private static void closeStatement(Statement stmt) {
+		if (stmt != null) {
+			try {
+				stmt.close();
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				// e.printStackTrace();
+				System.err.println(e.getClass().getName() + ": " + e.getMessage());
+			}
+		}
+	}
+
+	public static void closeConnectionDB(Connection con, Statement stmt) {
+		try {
+			closeStatement(stmt);
+
 			if (con != null) {
 				// con.setAutoCommit(true);
 				con.commit();

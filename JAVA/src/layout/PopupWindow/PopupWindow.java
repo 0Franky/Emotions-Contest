@@ -12,16 +12,22 @@ import classes.database.SQLiteConnection;
 import javafx.application.Platform;
 import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Rectangle2D;
+import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
+import javafx.stage.Screen;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import javafx.stage.WindowEvent;
+import layout.BubbleChart.BubbleChartWindow;
 
 public class PopupWindow {
 
@@ -92,6 +98,44 @@ public class PopupWindow {
 		});
 
 		show();
+
+		dimCorrection();
+	}
+
+	private void dimCorrection() {
+		GridPane grid = popupWindowController.g1;
+		Rectangle2D screenBounds = Screen.getPrimary().getVisualBounds();
+
+		double screenWidth = screenBounds.getWidth();
+		double screenHeight = screenBounds.getHeight();
+
+		for (Node node : grid.getChildren()) {
+			ImageView img = (ImageView) node;
+
+			// img.fitWidthProperty().bind(grid.widthProperty());
+			img.fitHeightProperty().bind(grid.heightProperty());
+		}
+
+		grid = popupWindowController.g2;
+
+		for (Node node : grid.getChildren()) {
+			ImageView img = (ImageView) node;
+
+			// img.fitWidthProperty().bind(grid.widthProperty());
+			img.fitHeightProperty().bind(grid.heightProperty());
+		}
+
+		if (this_stage.getHeight() > screenHeight) {
+			this_stage.setHeight(screenHeight);
+			this_stage.setWidth((924 * screenHeight) / 813);
+		}
+
+		if (this_stage.getWidth() > screenWidth) {
+			this_stage.setWidth(screenWidth);
+		}
+
+		this_stage.setX((screenWidth / 2) - (this_stage.getWidth() / 2));
+		this_stage.setY((screenHeight / 2) - (this_stage.getHeight() / 2));
 	}
 
 	public static PopupWindow getIstance() throws IOException {
@@ -177,6 +221,11 @@ public class PopupWindow {
 			SQLiteConnection.addRowToSync(getActivityToTuple().toArray());
 			Synchronizer.sync();
 			AppTimer.getIstance().startTimer(60); // Avvio Timer a 60
+			if (BubbleChartWindow.isIstanceNULL() == false) { // Refresh BubbleChartWindow
+				BubbleChartWindow.getIstance().updateChart(); // Prelevare valore slider BubbleChartwindow al posto
+																// dello 0//
+				System.out.println("Refresh BubbleChart");
+			}
 			PopupWindow.getIstance().close();
 		}
 	}
