@@ -6,6 +6,7 @@ import java.util.List;
 import classes.DataChart;
 import classes.database.SQLiteConnection;
 import javafx.application.Platform;
+import javafx.beans.binding.Bindings;
 import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -22,7 +23,7 @@ public class BubbleChartWindow {
 	private static Stage this_stage = new Stage();
 	private static BubbleChartWindow instance = null; // riferimento all' istanza
 
-	// private BubbleChartWindowController bubbleChartWindowController = null;
+	private BubbleChartController bubbleChartController = null;
 
 	private BubbleChart<Number, Number> chart = null;
 
@@ -32,7 +33,7 @@ public class BubbleChartWindow {
 		loader.setLocation(BubbleChartWindow.class.getResource("BubbleChartWindow.fxml"));
 		AnchorPane rootLayout = (AnchorPane) loader.load();
 
-		// bubbleChartWindowController = loader.getController();
+		bubbleChartController = loader.getController();
 
 		Stage stage = new Stage();
 		Scene scene = new Scene(rootLayout);
@@ -72,6 +73,9 @@ public class BubbleChartWindow {
 		xAxis.setLabel("Calm");
 		yAxis.setLabel("Excited");
 		chart.setTitle("Feeling chart");
+
+		bubbleChartController.labelSlider.textProperty()
+				.bind(Bindings.format("%.0f", bubbleChartController.mySlider.valueProperty()));
 
 		/* PRELEVA DATI DAL DB */
 		populateChart(0);
