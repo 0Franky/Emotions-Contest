@@ -18,15 +18,40 @@ import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 
+/**
+ * Class that defines the BubbleChartWindow object. it is used to manage the
+ * application BubbleChartWindow window.
+ */
 public class BubbleChartWindow {
 
+	/**
+	 * Stage this_stage define the layout of the window
+	 */
 	private static Stage this_stage = new Stage();
-	private static BubbleChartWindow instance = null; // riferimento all' istanza
 
+	/**
+	 * BubbleChartWindow instance is useful to make BubbleChartWindow class
+	 * "Singleton"
+	 */
+	private static BubbleChartWindow instance = null;
+
+	/**
+	 * BubbleChartController bubbleChartController is useful to make
+	 * BubbleChartController class "Singleton"
+	 */
 	private BubbleChartController bubbleChartController = null;
 
+	/**
+	 * Define a Chart of type BubbleChart
+	 */
 	private BubbleChart<Number, Number> chart = null;
 
+	/**
+	 * Creates a new BubbleChartWindow
+	 *
+	 * @return an object of BubbleChartWindow.
+	 * @throws IOException Generic I/O error.
+	 */
 	@SuppressWarnings({ "rawtypes", "unchecked" })
 	private BubbleChartWindow() throws IOException {
 
@@ -78,17 +103,17 @@ public class BubbleChartWindow {
 		bubbleChartController.labelSlider.textProperty()
 				.bind(Bindings.format("%.0f", bubbleChartController.mySlider.valueProperty()));
 
-		/* PRELEVA DATI DAL DB */
-		populateChart(0);
-		// stage.show();
-		/* demoAddBubble(); */
+		populateChart(0); /* GETS DATA FROM DB */
 
 		this_stage = stage;
-		// this_stage.show();
-		/* System.out.println("You shoud see me"); */
-
 	}
 
+	/**
+	 * Return the unique possible instance of the BubbleChartWindow
+	 *
+	 * @return The BubbleChartWindow.
+	 * @throws IOException Generic I/O error.
+	 */
 	public static BubbleChartWindow getIstance() throws IOException {
 		if (instance == null)
 			synchronized (BubbleChartWindow.class) {
@@ -102,10 +127,23 @@ public class BubbleChartWindow {
 		return instance;
 	}
 
+	/**
+	 * Check if the istance is null
+	 *
+	 * @return boolean result of (instance == null)
+	 * @throws IOException Generic I/O error.
+	 */
 	public static boolean isIstanceNULL() throws IOException {
 		return (instance == null);
 	}
 
+	/**
+	 * Adds a Bubble to the chart
+	 * 
+	 * @params Number xValue, Number yValue, Number weight (coordinates and value of
+	 *         the bubble)
+	 * @throws IOException Generic I/O error.
+	 */
 	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public void addBubble(Number xValue, Number yValue, Number weight) {
 		XYChart.Series bubble = new XYChart.Series();
@@ -115,6 +153,9 @@ public class BubbleChartWindow {
 		chart.getData().add(bubble);
 	}
 
+	/**
+	 * Close the BubbleChartWindow
+	 */
 	public void close() {
 		try {
 			cleanInstance();
@@ -125,6 +166,9 @@ public class BubbleChartWindow {
 		}
 	}
 
+	/**
+	 * Show on screen the BubbleChartWindow
+	 */
 	public void show() {
 		try {
 			this_stage.show();
@@ -134,6 +178,9 @@ public class BubbleChartWindow {
 		}
 	}
 
+	/**
+	 * Set on front of all opened window the BubbleChartWindow
+	 */
 	private void toFront() {
 		try {
 			this_stage.toFront();
@@ -143,10 +190,20 @@ public class BubbleChartWindow {
 		}
 	}
 
+	/**
+	 * Destroys the Window, to free of memory of the notification when it is closed
+	 * 
+	 * @param Stage stage (the window of the BubbleChartWindow).
+	 */
 	protected void cleanInstance() {
 		instance = null;
 	}
 
+	/**
+	 * Populate the Chart adding all bubbles
+	 * 
+	 * @param int day (to set the range to display on the chart [day,today]).
+	 */
 	public void populateChart(int day) {
 		chart.getData().clear();
 		List<DataChart> data = SQLiteConnection.getDataForChart(day);
@@ -155,20 +212,13 @@ public class BubbleChartWindow {
 		}
 	}
 
+	/**
+	 * update the Chart refreshing all bubbles
+	 * 
+	 * @param int day (to set the range to display on the chart [day,today]).
+	 */
 	public void updateChart() {
 		chart.getData().clear();
 		populateChart((int) bubbleChartController.mySlider.getValue());
 	}
-
-	// public static void main(String[] args) {
-	// launch(args); /* demoAddBubble(); */
-	// }
-
-	/*
-	 * private void demoAddBubble() { for (int i = 0; i < 10; i++) { double num =
-	 * ((Math.random() * ((0.5 - 0.1) + 1)) + 0.1) % 1; addBubble((int)
-	 * (Math.random() * ((9 - 1) + 1)) + 1, (int) (Math.random() * ((9 - 1) + 1)) +
-	 * 1, num); //System.out.println(num); } }
-	 */
-
 }

@@ -11,7 +11,15 @@ import javafx.scene.control.Slider;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.shape.Line;
 
+/**
+ * Class that defines the BubbleChartController. it is used to control the
+ * JAVAFX GUI of the BubbleChart
+ */
 public class BubbleChartController implements Initializable {
+
+	/**
+	 * List of objects inside the GUI of the BubbleChart
+	 */
 
 	@FXML
 	private URL location;
@@ -40,25 +48,23 @@ public class BubbleChartController implements Initializable {
 	private void initialize() {
 	}
 
+	/**
+	 * Manage the slider of the BubbleChartWindow
+	 *
+	 * @throws IOException Generic I/O error.
+	 */
 	@FXML
 	public void onSliderChanged() throws IOException {
-		// labelSlider.textProperty().bind(Bindings.format("%.0f",
-		// mySlider.valueProperty()));
 		System.out.println("Slider value = " + mySlider.getValue());
 		labelSliderValue = (int) mySlider.getValue();
 		BubbleChartWindow.getIstance().populateChart(labelSliderValue);
 		System.out.println("Refresh BubbleChart");
-
 	}
 
-	public int getlabelSliderValue() {
-		return labelSliderValue;
-	}
-
+	/**
+	 * Empty initialize
+	 */
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-		// TODO Auto-generated method stub
-
 	}
-
 }

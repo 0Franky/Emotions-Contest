@@ -13,6 +13,10 @@ import javafx.scene.text.Text;
 
 public class CreditWindowController {
 
+	/**
+	 * List of objects inside the GUI of the CreditWindow
+	 */
+
 	@FXML
 	private Hyperlink GitHub0Franky;
 
@@ -32,8 +36,11 @@ public class CreditWindowController {
 	Label lbl_VersionBuild;
 
 	@FXML
-	Text txt_AppDescription;
+	private Text txt_AppDescription;
 
+	/**
+	 * Open the Browser on the link "https://github.com/0Franky/Emotions-Contest"
+	 */
 	@FXML
 	private void gotoPage() {
 		try {
@@ -45,6 +52,9 @@ public class CreditWindowController {
 		}
 	}
 
+	/**
+	 * Open the Browser on the link "https://github.com/Chrism1c"
+	 */
 	@FXML
 	private void gotoChrism1c() {
 		try {
@@ -56,6 +66,9 @@ public class CreditWindowController {
 		}
 	}
 
+	/**
+	 * Open the Browser on the link "https://github.com/0Franky"
+	 */
 	@FXML
 	private void goto0Franky() {
 		try {
@@ -67,10 +80,14 @@ public class CreditWindowController {
 		}
 	}
 
+	/**
+	 * Manage the click on "OK" button and close the CreditWindow
+	 * 
+	 * @param ActionEvent event
+	 * @throws IOException Generic I/O error.
+	 */
 	@FXML
 	private void pressedOk(ActionEvent event) throws IOException {
-		// System.out.println("You clicked ok");
-		// Chiudi Finestra //
 		CreditWindow.getIstance().close();
 	}
 
