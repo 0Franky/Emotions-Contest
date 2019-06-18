@@ -107,15 +107,15 @@ public class Notification {
 	private void centerStage(Stage stage, double width, double height) {
 		Rectangle2D screenBounds = Screen.getPrimary().getVisualBounds();
 
-		double screenWeight = screenBounds.getWidth();
-		double percentWeight = (double) 34.5 / (double) 100;
+		double screenWidth = screenBounds.getWidth();
+		// double percentWeight = (double) 34.5 / (double) 100;
 
-		double screenHeight = screenBounds.getHeight();
-		double percentHeight = (double) 86.4 / (double) 100;
+		// double screenHeight = screenBounds.getHeight();
+		// double percentHeight = (double) 86.4 / (double) 100;
 
 		this_stage.show();
 
-		stage.setX((screenWeight - stage.getWidth()) - 10);
+		stage.setX((screenWidth - stage.getWidth()) - 10);
 		stage.setY(30);
 
 	}
