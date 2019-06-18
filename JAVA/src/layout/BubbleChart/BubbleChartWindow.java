@@ -101,6 +101,10 @@ public class BubbleChartWindow {
 		return instance;
 	}
 
+	public static boolean isIstanceNULL() throws IOException {
+		return (instance == null);
+	}
+
 	public void addBubble(Number xValue, Number yValue, Number weight) {
 		XYChart.Series bubble = new XYChart.Series();
 		// bubble.setName("Anger");
@@ -147,6 +151,11 @@ public class BubbleChartWindow {
 		for (DataChart bubble : data) {
 			addBubble(bubble.getValence(), bubble.getArousal(), (float) bubble.getWeight() / 8);
 		}
+	}
+
+	public void updateChart() {
+		chart.getData().clear();
+		populateChart((int) bubbleChartController.mySlider.getValue());
 	}
 
 	// public static void main(String[] args) {
