@@ -1,6 +1,5 @@
 package classes.csv;
 
-import java.awt.EventQueue;
 import java.io.FileNotFoundException;
 /**
  * Classe contenente metodi per utilizzare l'API Google Sheets.
@@ -389,57 +388,53 @@ public final class GoogleDocsUtils implements ICSV_Writer {
 		request.execute();
 	}
 
-	static boolean status_write_List = true;
-
 	@Override
 	public boolean write(List<String> data) {
-		status_write_List = true;
+		boolean status_write_List = true;
 
 		if (!data.isEmpty()) {
 			synchronized (GoogleDocsUtils.class) {
 				// getSheetByTitle(spid_SurveyResults);
 				// writeSheet(spid_SurveyResults, "SurveyResults", data);
 				// createSheet(spid_SurveyResults);
-				EventQueue.invokeLater(new Runnable() {
-					public void run() {
-						try {
-							/* appendSheet(data.toArray(new String[0])); */
-							appendSheet(data);
-						} catch (IOException | GeneralSecurityException e) {
-							// TODO Auto-generated catch block
-							// e.printStackTrace();
-							status_write_List = false;
-						}
-					};
-				});
+				// EventQueue.invokeLater(new Runnable() {
+				// public void run() {
+				try {
+					/* appendSheet(data.toArray(new String[0])); */
+					appendSheet(data);
+				} catch (IOException | GeneralSecurityException e) {
+					// TODO Auto-generated catch block
+					// e.printStackTrace();
+					status_write_List = false;
+				}
+				// };
+				// });
 			}
 		}
 
 		return status_write_List;
 	}
 
-	static boolean status_write_String = true;
-
 	@Override
 	public boolean write(String data) {
-		status_write_String = true;
+		boolean status_write_String = true;
 
 		if (!data.isEmpty()) {
 			synchronized (GoogleDocsUtils.class) {
 				// getSheetByTitle(spid_SurveyResults);
 				// writeSheet(spid_SurveyResults, "SurveyResults", Arrays.asList(data));
-				EventQueue.invokeLater(new Runnable() {
-					public void run() {
-						try {
-							/* appendSheet(new String[] { data }); */
-							appendSheet(data);
-						} catch (IOException | GeneralSecurityException e) {
-							// TODO Auto-generated catch block
-							// e.printStackTrace();
-							status_write_String = false;
-						}
-					};
-				});
+				// EventQueue.invokeLater(new Runnable() {
+				// public void run() {
+				try {
+					/* appendSheet(new String[] { data }); */
+					appendSheet(data);
+				} catch (IOException | GeneralSecurityException e) {
+					// TODO Auto-generated catch block
+					// e.printStackTrace();
+					status_write_String = false;
+				}
+				// };
+				// });
 			}
 		}
 
