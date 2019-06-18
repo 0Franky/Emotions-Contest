@@ -36,7 +36,7 @@
                   <Reflection bottomOpacity="0.35" fraction="1.0" topOffset="-10.0" topOpacity="0.05" />
                </effect></Label>
             <Separator opacity="0.0" orientation="VERTICAL" prefHeight="45.0" prefWidth="8.0" />
-            <Slider fx:id="mySlider" blockIncrement="1" majorTickUnit="59.0" max="120.0" min="1" minorTickCount="1" onMouseReleased="#onSliderChanged" prefHeight="11.0" prefWidth="155.0" showTickLabels="true" showTickMarks="true">
+            <Slider fx:id="mySlider" blockIncrement="1" majorTickUnit="59.0" max="120.0" min="1" minorTickCount="1" prefHeight="11.0" prefWidth="155.0" showTickLabels="true" showTickMarks="true">
                <effect>
                   <Reflection fraction="0.0" topOffset="-10.0" topOpacity="0.0" />
                </effect></Slider>
