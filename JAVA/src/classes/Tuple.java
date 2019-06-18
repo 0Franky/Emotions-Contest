@@ -1,6 +1,6 @@
 package classes;
 
-import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class Tuple {
@@ -15,12 +15,12 @@ public class Tuple {
 	public Tuple(String TIMESTAMP, String ACTIVITY, String VALENCE, String AROUSAL, String STATUS, String NOTES) {
 		// TODO Auto-generated constructor stub
 
-		this.TIMESTAMP = TIMESTAMP;
-		this.ACTIVITY = ACTIVITY;
-		this.VALENCE = VALENCE;
-		this.AROUSAL = AROUSAL;
-		this.STATUS = STATUS;
-		this.NOTES = NOTES;
+		this.TIMESTAMP = TIMESTAMP.trim();
+		this.ACTIVITY = ACTIVITY.trim();
+		this.VALENCE = VALENCE.trim();
+		this.AROUSAL = AROUSAL.trim();
+		this.STATUS = STATUS.trim();
+		this.NOTES = NOTES.trim();
 	}
 
 	public String getTimestamp() {
@@ -52,15 +52,7 @@ public class Tuple {
 	}
 
 	public List<String> toList() {
-		List<String> data = new ArrayList<>();
-		data.add(TIMESTAMP);
-		data.add(ACTIVITY);
-		data.add(VALENCE);
-		data.add(AROUSAL);
-		data.add(STATUS);
-		data.add(NOTES);
-
-		return data;
+		return Arrays.asList(new String[] { TIMESTAMP, ACTIVITY, VALENCE, AROUSAL, STATUS, NOTES });
 	}
 
 	public void print() {

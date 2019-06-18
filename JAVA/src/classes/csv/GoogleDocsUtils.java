@@ -37,6 +37,7 @@ import com.google.api.services.sheets.v4.model.ValueRange;
 import com.google.gdata.util.ServiceException;
 
 import Title.Title;
+import classes.Tuple;
 import classes.database.SQLiteConnection;
 
 /**
@@ -147,17 +148,33 @@ public final class GoogleDocsUtils implements ICSV_Writer {
 		GoogleDocsUtils gs = GoogleDocsUtils.getInstance();
 
 		ArrayList<String> list = new ArrayList<String>();
-		list.add("Ciao");
-		list.add("Come");
-		list.add("va");
-		list.add("?");
-		list.add("?");
-		list.add("?");
-		list.add("?");
+		/*
+		 * list.add("Ciao"); list.add("Come"); list.add("va"); list.add("?");
+		 * list.add("?"); list.add("?"); list.add("?");
+		 */
+
+		gs.appendSheet(new Tuple("1560862033", "", "", "", "POPUP_OPENED", ""));
+		gs.appendSheet(new Tuple("1560862033", "", "", "", "POPUP_OPENED", ""));
+
+		// String EMPTY = null;
+
+		// list.add("1560862033");
+		// list.add("");
+		// list.add("");
+		// list.add("");
+		// list.add("POPUP_OPENED");
+		// list.add("");
 		// gs.write(list);
 		// gs.writePublicSheet("HEADER", list);
 		// gs.appendSheet(list.toArray(new String[0]));
-		gs.appendSheet(list);
+		// gs.appendSheet(list);
+		// gs.appendSheet(list);
+		// gs.appendSheet(new Tuple("1560862033", "", "", "", "POPUP_OPENED", ""));
+		// gs.appendSheet(new Tuple("1560862054", "BUGFIX", "3", "3", "POPUP_OPENED",
+		// ""));
+
+		System.out.println("CURRENT SPID: https://docs.google.com/spreadsheets/d/" + gs.spid_SurveyResults);
+		// gs.readSheet("A1:E5");
 	}
 
 	/**
@@ -403,7 +420,7 @@ public final class GoogleDocsUtils implements ICSV_Writer {
 					/* appendSheet(data.toArray(new String[0])); */
 					appendSheet(data);
 					status_write_List = true;
-				} catch (IOException | GeneralSecurityException e) {
+				} catch (IOException | GeneralSecurityException | URISyntaxException e) {
 					// TODO Auto-generated catch block
 					// e.printStackTrace();
 				}
@@ -429,7 +446,7 @@ public final class GoogleDocsUtils implements ICSV_Writer {
 					/* appendSheet(new String[] { data }); */
 					appendSheet(data);
 					status_write_String = true;
-				} catch (IOException | GeneralSecurityException e) {
+				} catch (IOException | GeneralSecurityException | URISyntaxException e) {
 					// TODO Auto-generated catch block
 					// e.printStackTrace();
 				}
@@ -441,25 +458,40 @@ public final class GoogleDocsUtils implements ICSV_Writer {
 		return status_write_String;
 	}
 
-	public void appendSheet(String input) throws IOException, GeneralSecurityException {
+	public void appendSheet(String input) throws IOException, GeneralSecurityException, URISyntaxException {
 		List<String> data = new ArrayList<>();
 		data.add(input);
 
 		appendSheet(data);
 	}
 
-	public void appendSheet(List<String> input) throws IOException, GeneralSecurityException {
+	public void appendSheet(List<String> input) throws IOException, GeneralSecurityException, URISyntaxException {
 		// APPEND //
 
-		List<Object> data = new ArrayList<>();
-		data.addAll(input);
+		int numRows = 1;
+		try {
+			numRows = sheetsService.spreadsheets().values().get(spid_SurveyResults, "Sheet1!A1:F").execute().getValues()
+					.size() + 1;
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
 
-		System.out.println("Spreadhsheet URL: https://docs.google.com/spreadsheets/d/" + spid_SurveyResults);
-		ValueRange body = new ValueRange().setValues(Arrays.asList(data));
-		/* AppendValuesResponse appendResult = */
-		sheetsService.spreadsheets().values().append(spid_SurveyResults, PAGE_SHEET_NAME, body)
-				.setValueInputOption("USER_ENTERED").setInsertDataOption("INSERT_ROWS").setIncludeValuesInResponse(true)
-				.execute();
+		updateSheet(PAGE_SHEET_NAME + "!A" + numRows + ":F", input);
+		System.out.println("End appendSheet");
+	}
+
+	public void appendSheet(Tuple input) throws IOException, GeneralSecurityException, URISyntaxException {
+		// APPEND //
+
+		int numRows = 1;
+		try {
+			numRows = sheetsService.spreadsheets().values().get(spid_SurveyResults, "Sheet1!A1:F").execute().getValues()
+					.size() + 1;
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+
+		updateSheet(PAGE_SHEET_NAME + "!A" + numRows + ":F", input.toList());
 		System.out.println("End appendSheet");
 	}
 
