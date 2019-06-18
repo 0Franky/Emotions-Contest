@@ -22,7 +22,7 @@
             <Image url="@../../Assets/Icon.png" />
          </image>
       </ImageView>
-      <Label alignment="CENTER" layoutX="24.0" layoutY="14.0" text="In witch activity have you mainly been involved since the last notification?" textAlignment="CENTER" AnchorPane.leftAnchor="24.0" AnchorPane.rightAnchor="24.0">
+      <Label alignment="CENTER" layoutX="24.0" layoutY="14.0" text="In which activity have you mainly been involved since the last notification?" textAlignment="CENTER" AnchorPane.leftAnchor="24.0" AnchorPane.rightAnchor="24.0">
          <font>
             <Font name="System Bold" size="22.0" />
          </font></Label>
@@ -35,7 +35,7 @@
             </ComboBox>
          </children>
       </HBox>
-      <Label alignment="CENTER" layoutX="24.0" layoutY="102.0" text="How do you feel right now?" textAlignment="CENTER" AnchorPane.leftAnchor="24.0" AnchorPane.rightAnchor="24.0" AnchorPane.topAnchor="102.0">
+      <Label alignment="CENTER" layoutX="24.0" layoutY="102.0" text="How do you feel just now?" textAlignment="CENTER" AnchorPane.leftAnchor="24.0" AnchorPane.rightAnchor="24.0" AnchorPane.topAnchor="102.0">
          <font>
             <Font name="System Bold" size="22.0" />
          </font></Label>
@@ -299,7 +299,7 @@
             </AnchorPane>
          </children>
       </GridPane>
-      <Label alignment="CENTER" layoutX="24.0" layoutY="659.0" text="Notes (Optinal)" textAlignment="CENTER" AnchorPane.bottomAnchor="124.0" AnchorPane.leftAnchor="24.0">
+      <Label alignment="CENTER" layoutX="24.0" layoutY="659.0" text="Notes (Optional)" textAlignment="CENTER" AnchorPane.bottomAnchor="124.0" AnchorPane.leftAnchor="24.0">
          <font>
             <Font name="System Bold" size="20.0" />
          </font></Label>
