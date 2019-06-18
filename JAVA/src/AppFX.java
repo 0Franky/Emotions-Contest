@@ -23,39 +23,33 @@ import layout.Credits.CreditWindow;
 import layout.Notification.Notification;
 import layout.PopupWindow.PopupWindow;
 
-// Java 8 code
+/**
+ * Main Class that defines the tray of the App and the Static Main
+ */
 public class AppFX extends Application {
 
-	/*
-	 * one icon location is shared between the application tray icon and task bar
-	 * icon. you could also use multiple icons to allow for clean display of tray
-	 * icons on hi-dpi devices. altri possibili link da cui recuperare l'immagine
+	/**
+	 * Definition of the icon of the App
 	 * 
+	 * Online links to the used icons
 	 * "http://www.icons101.com/icon_png/size_512/id_78555/Game_Center.png";
 	 * "http://icons.iconarchive.com/icons/scafer31000/bubble-circle-3/16/GameCenter-icon.png";
-	 * 
 	 */
 	private static final String iconImageLoc = "/Assets/Icon_mini.png";
 
-	/*
+	/**
 	 * application stage is stored so that it can be shown and hidden based on
 	 * system tray icon operations.
 	 */
 	private Stage this_stage;
 
-	/*
-	 * a timer allowing the tray icon to provide a periodic notification event.
-	 * private Timer notificationTimer = new Timer();
-	 */
-
-	/*
-	 * format used to display the current time in a tray icon notification. private
-	 * DateFormat timeFormat = SimpleDateFormat.getTimeInstance();
+	/**
+	 * Main
 	 * 
-	 * sets up the javafx application. a tray icon is setup for the icon, but the
-	 * main stage remains invisible until the user interacts with the tray icon.
+	 * @param args
+	 * @throws IOException
+	 * @throws             java.awt.AWTException
 	 */
-
 	public static void main(String[] args) throws IOException, java.awt.AWTException {
 		// Just launches the JavaFX application.
 		// Due to way the application is coded, the application will remain running
@@ -88,6 +82,11 @@ public class AppFX extends Application {
 
 	}
 
+	/**
+	 * Sets up the tray icon, database and the main stage (Notification)
+	 * 
+	 * @param final Stage stage
+	 */
 	@Override
 	public void start(final Stage stage) throws Exception {
 
@@ -111,8 +110,6 @@ public class AppFX extends Application {
 		}
 
 		Notification.getIstance();
-		// PopupWindow.getIstance();
-
 	}
 
 	/**
@@ -133,15 +130,9 @@ public class AppFX extends Application {
 
 			// set up a system tray icon.
 			java.awt.SystemTray tray = java.awt.SystemTray.getSystemTray();
-			/*
-			 * File imageLoc = new File(iconImageLoc); java.awt.Image image =
-			 * ImageIO.read(imageLoc);
-			 */
+
 			BufferedImage image = ImageIO.read(getClass().getResource(iconImageLoc));
 			java.awt.TrayIcon trayIcon = new java.awt.TrayIcon(image);
-
-			// if the user double-clicks on the tray icon, show the main app stage.
-			// trayIcon.addActionListener(event -> Platform.runLater(this::showStage));
 
 			// if the user selects the default menu item (which includes the app name),
 			// show the main app stage.
@@ -195,7 +186,6 @@ public class AppFX extends Application {
 			// tray icon (removing the tray icon will also shut down AWT).
 			java.awt.MenuItem exitItem = new java.awt.MenuItem("Quit");
 			exitItem.addActionListener(event -> {
-				// notificationTimer.cancel();
 				tray.remove(trayIcon);
 				exitApp();
 			});
@@ -221,12 +211,22 @@ public class AppFX extends Application {
 		}
 	}
 
+	/**
+	 * Close the app closing the connection to DB
+	 * 
+	 * @throws IOException
+	 */
 	private void exitApp() {
 		SQLiteConnection.closeConnectionDB(SQLiteConnection.getConnectionDB(), null);
 		Platform.exit();
 		System.exit(0);
 	}
 
+	/**
+	 * Close the app closing the connection to DB (Static Version)
+	 * 
+	 * @throws IOException
+	 */
 	private static void exitApp_STATIC() {
 		SQLiteConnection.closeConnectionDB(SQLiteConnection.getConnectionDB(), null);
 		Platform.exit();
@@ -234,8 +234,9 @@ public class AppFX extends Application {
 	}
 
 	/**
-	 * Shows the application stage and ensures that it is brought ot the front of
-	 * all stages.
+	 * Shows the PopupWindow application stage and ensures that it is brought out
+	 * the front of all stages. Stop timer if it is running and close Notification
+	 * if it is opened
 	 * 
 	 * @throws IOException
 	 */
@@ -254,8 +255,8 @@ public class AppFX extends Application {
 	}
 
 	/**
-	 * Shows the application stage and ensures that it is brought ot the front of
-	 * all stages.
+	 * Shows the CreditWindow application stage and ensures that it is brought out
+	 * the front of all stages.
 	 * 
 	 * @throws IOException
 	 */
@@ -264,8 +265,8 @@ public class AppFX extends Application {
 	}
 
 	/**
-	 * Shows the application stage and ensures that it is brought ot the front of
-	 * all stages.
+	 * Shows the BubbleChartWindow application stage and ensures that it is brought
+	 * out the front of all stages.
 	 * 
 	 * @throws IOException
 	 */
@@ -273,6 +274,9 @@ public class AppFX extends Application {
 		BubbleChartWindow.getIstance().show();
 	}
 
+	/**
+	 * Allow the export of a file .csv with all data already stored
+	 */
 	private void saveCSV() {
 		FileChooser.ExtensionFilter csvExtensionFilter = new FileChooser.ExtensionFilter(
 				"CSV - Comma-Separated Values (.csv)", "*.csv");
@@ -283,14 +287,6 @@ public class AppFX extends Application {
 		fileChooser.getExtensionFilters().add(csvExtensionFilter);
 		File outFile = fileChooser.showSaveDialog(this_stage);
 
-		/*
-		 * if (outFile == null) { Alert alert = new Alert(AlertType.ERROR);
-		 * alert.setTitle("No folder selected"); alert.setHeaderText(null);
-		 * alert.setContentText("Aborting operation!");
-		 * alert.initStyle(StageStyle.UTILITY); alert.initOwner(this_stage);
-		 * alert.showAndWait(); }
-		 */
-
 		if (outFile != null) {
 			CSV_Manager.setPATH_AND_NAME_CSV(outFile);
 			List<Tuple> data = SQLiteConnection.getAllDataQuery();
@@ -298,7 +294,6 @@ public class AppFX extends Application {
 			for (Tuple row : data) {
 				writer.write(row.toList());
 			}
-			// CSV_Manager.reset_Manager();
 		}
 	}
 }
