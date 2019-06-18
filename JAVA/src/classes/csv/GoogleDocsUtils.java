@@ -482,12 +482,16 @@ public final class GoogleDocsUtils implements ICSV_Writer {
 		return values;
 	}
 
-	public void updateSheet(String range, String input[])
+	public void updateSheet(String range, List<String> input)
 			throws IOException, GeneralSecurityException, URISyntaxException {
 		sheetsService = getSheetsService();
 		// UPDATE //
 		// String range = "congress!A2:F10";
-		ValueRange body = new ValueRange().setValues(Arrays.asList(Arrays.asList(input)));
+
+		List<Object> data = new ArrayList<>();
+		data.addAll(input);
+
+		ValueRange body = new ValueRange().setValues(Arrays.asList(data));
 
 		/*
 		 * UpdateValuesResponse result =

@@ -27,6 +27,7 @@ public class BubbleChartWindow {
 
 	private BubbleChart<Number, Number> chart = null;
 
+	@SuppressWarnings({ "rawtypes", "unchecked" })
 	private BubbleChartWindow() throws IOException {
 
 		FXMLLoader loader = new FXMLLoader();
@@ -105,6 +106,7 @@ public class BubbleChartWindow {
 		return (instance == null);
 	}
 
+	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public void addBubble(Number xValue, Number yValue, Number weight) {
 		XYChart.Series bubble = new XYChart.Series();
 		// bubble.setName("Anger");
