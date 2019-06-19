@@ -53,6 +53,9 @@ public class CreditWindow {
 
 		creditWindowController = loader.getController();
 
+		String find = "http://icons.iconarchive.com/icons/paomedia/small-n-flat/128/cat-icon.png";
+		creditWindowController.My.setImage(new javafx.scene.image.Image(find));
+
 		Stage stage = new Stage();
 		Scene scene = new Scene(rootLayout);
 		stage.setScene(scene);
@@ -69,6 +72,7 @@ public class CreditWindow {
 
 		stage.setAlwaysOnTop(true);
 		stage.getIcons().add(new Image(getClass().getResourceAsStream("/Assets/Icon.png")));
+
 		this_stage = stage;
 
 		creditWindowController.lbl_TitleApp.setText(Title.APPLICATION_NAME);
