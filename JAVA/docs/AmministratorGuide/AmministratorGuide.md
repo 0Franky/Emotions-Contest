@@ -1,5 +1,6 @@
 # Amministrator Guide
 
+- Spostare i due file batch nella stessa dir del file HowAppYou.jar
 - Aprire mediante un editor di testo il file batch "HowAppYou [DB build]"
 - Sostituire il campo "Azienda" con il nome dello Sheet da creare online, salvare il file .bat
 `start javaw -jar HowAppYou.jar -newSheet=Azienda`
