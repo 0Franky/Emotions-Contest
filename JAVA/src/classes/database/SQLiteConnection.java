@@ -23,12 +23,21 @@ import javafx.scene.control.Alert;
 
 public class SQLiteConnection {
 
+	/**
+	 * Attributes for SQLiteConnection String host = IP of local db host boolean
+	 * existTable = check Table existence boolean checking = check something
+	 * Connection con = Create a connection object for SQLite connection
+	 */
 	private static String host = "";
 	private static boolean existTable = false;
 	private static boolean checking = false;
-
 	private static Connection con = null;
 
+	/**
+	 * Start a new Connection on Title.APPLICATION_NAME + "DB.db"
+	 * 
+	 * @return con
+	 */
 	public static Connection getConnectionDB() {
 		if (con == null) {
 
@@ -61,6 +70,12 @@ public class SQLiteConnection {
 		return con;
 	}
 
+	/**
+	 * Check if Table already Exists
+	 * 
+	 * @param tableName
+	 * @return
+	 */
 	public static boolean tableExists(String tableName) {
 		boolean result = false;
 		Connection con = getConnectionDB();
@@ -75,13 +90,14 @@ public class SQLiteConnection {
 			System.err.println(e.getClass().getName() + ": " + e.getMessage());
 			new Alert(Alert.AlertType.ERROR, e.getClass().getName() + ": " + e.getMessage()).showAndWait();
 		}
-
-		// closeConnectionDB(con, null);
 		forceUpdateDB(con);
 
 		return result;
 	}
 
+	/**
+	 * Destroy the main table if Exists
+	 */
 	public static void dropTable() {
 		Connection con = getConnectionDB();
 		Statement stmt = null;
@@ -95,15 +111,18 @@ public class SQLiteConnection {
 		} catch (Exception e) {
 			System.err.println(e.getClass().getName() + ": " + e.getMessage());
 			new Alert(Alert.AlertType.ERROR, e.getClass().getName() + ": " + e.getMessage()).showAndWait();
-			// //System.exit(0);
 		}
 
-		// closeConnectionDB(con, stmt);
 		closeStatement(stmt);
-
 		forceUpdateDB(con);
 	}
 
+	/**
+	 * Create the Main table
+	 * 
+	 * @param String    tableName
+	 * @param tableName
+	 */
 	public static void createTable(String tableName) {
 		Connection con = getConnectionDB();
 		Statement stmt = null;
@@ -119,12 +138,15 @@ public class SQLiteConnection {
 			new Alert(Alert.AlertType.ERROR, e.getClass().getName() + ": " + e.getMessage()).showAndWait();
 		}
 
-		// closeConnectionDB(con, stmt);
 		closeStatement(stmt);
-
 		forceUpdateDB(con);
 	}
 
+	/**
+	 * add a Row into DB (row is in String input[] format)
+	 * 
+	 * @param input
+	 */
 	public static void addRow(String input[]) {
 		Connection con = getConnectionDB();
 		Statement stmt = null;
@@ -146,13 +168,15 @@ public class SQLiteConnection {
 			new Alert(Alert.AlertType.ERROR, e.getClass().getName() + ": " + e.getMessage()).showAndWait();
 			e.printStackTrace();
 		}
-
-		// closeConnectionDB(con, stmt);
 		closeStatement(stmt);
-
 		forceUpdateDB(con);
 	}
 
+	/**
+	 * add a addRowToSync into DB (row is in String input[] format)
+	 * 
+	 * @param input
+	 */
 	public static void addRowToSync(String input[]) {
 		Connection con = getConnectionDB();
 		Statement stmt = null;
@@ -175,24 +199,42 @@ public class SQLiteConnection {
 			e.printStackTrace();
 		}
 
-		// closeConnectionDB(con, stmt);
 		closeStatement(stmt);
-
 		forceUpdateDB(con);
 	}
 
+	/**
+	 * SELECT all FROM DATA Table
+	 * 
+	 * @return List<Tuple>
+	 */
 	public static final List<Tuple> getAllDataQuery() {
 		return runQuery("SELECT * FROM DATA");
 	}
 
+	/**
+	 * SELECT all FROM DATA_TO_SYNC Table
+	 * 
+	 * @return List<Tuple>
+	 */
 	public static final List<Tuple> getAllDataToSyncQuery() {
 		return runQuery("SELECT * FROM DATA_TO_SYNC ORDER BY TIMESTAMP ASC");
 	}
 
+	/**
+	 * cancel a Row with "Timestamp" into DATA_TO_SYNC Table
+	 * 
+	 * @param Timestamp
+	 */
 	public static final void cancelRowToSyncQuery(String Timestamp) {
 		runUpdate("DELETE FROM DATA_TO_SYNC WHERE TIMESTAMP = " + Timestamp);
 	}
 
+	/**
+	 * get all Tuples made Today
+	 * 
+	 * @return List<Tuple>
+	 */
 	public static final List<Tuple> getTodaysDataQuery() {
 		String startDate = Long.toString(TimeConverter
 				.toUnixTime(Date.from(LocalDate.parse(new SimpleDateFormat("yyyy-MM-dd").format(new Date()))
@@ -209,6 +251,11 @@ public class SQLiteConnection {
 		return runQuery("SELECT * FROM DATA WHERE TIMESTAMP >= " + startDate + " AND TIMESTAMP < " + endDate);
 	}
 
+	/**
+	 * Execute an Update Query
+	 * 
+	 * @param query
+	 */
 	public static void runUpdate(String query) {
 
 		Connection con = getConnectionDB();
@@ -222,11 +269,15 @@ public class SQLiteConnection {
 			new Alert(Alert.AlertType.ERROR, e.getClass().getName() + ": " + e.getMessage()).showAndWait();
 		}
 
-		// closeConnectionDB(con, null);
-
 		forceUpdateDB(con);
 	}
 
+	/**
+	 * Execute a Generic Query
+	 * 
+	 * @param query
+	 * @return List<Tuple>
+	 */
 	public static List<Tuple> runQuery(String query) {
 
 		Connection con = getConnectionDB();
@@ -254,14 +305,18 @@ public class SQLiteConnection {
 			new Alert(Alert.AlertType.ERROR, e.getClass().getName() + ": " + e.getMessage()).showAndWait();
 		}
 
-		// closeConnectionDB(con, stmt);
 		closeStatement(stmt);
-
 		forceUpdateDB(con);
 
 		return tuples;
 	}
 
+	/**
+	 * get all Tuples made from [Today-day,Today]
+	 * 
+	 * @param day
+	 * @return List<DataChart>
+	 */
 	public static List<DataChart> getDataForChart(int day) {
 
 		Connection con = getConnectionDB();
@@ -316,14 +371,15 @@ public class SQLiteConnection {
 			new Alert(Alert.AlertType.ERROR, e.getClass().getName() + ": " + e.getMessage()).showAndWait();
 		}
 
-		// closeConnectionDB(con, stmt);
 		closeStatement(stmt);
-
 		forceUpdateDB(con);
 
 		return tuples;
 	}
 
+	/**
+	 * create the Sheet Table
+	 */
 	private static void createSheetTable() {
 		Connection con = getConnectionDB();
 		Statement stmt = null;
@@ -338,12 +394,15 @@ public class SQLiteConnection {
 			new Alert(Alert.AlertType.ERROR, e.getClass().getName() + ": " + e.getMessage()).showAndWait();
 		}
 
-		// closeConnectionDB(con, stmt);
 		closeStatement(stmt);
-
 		forceUpdateDB(con);
 	}
 
+	/**
+	 * Set spid into Sheet Table
+	 * 
+	 * @param spid
+	 */
 	public static void setSheet(String spid) {
 		Connection con = getConnectionDB();
 		Statement stmt = null;
@@ -363,12 +422,15 @@ public class SQLiteConnection {
 			e.printStackTrace();
 		}
 
-		// closeConnectionDB(con, stmt);
 		closeStatement(stmt);
-
 		forceUpdateDB(con);
 	}
 
+	/**
+	 * getter for Spid into SHEET Table
+	 * 
+	 * @return spid
+	 */
 	public static String getSpid() {
 
 		Connection con = getConnectionDB();
@@ -390,7 +452,6 @@ public class SQLiteConnection {
 				new Alert(Alert.AlertType.ERROR, e.getClass().getName() + ": " + e.getMessage()).showAndWait();
 			}
 
-			// closeConnectionDB(con, stmt);
 			closeStatement(stmt);
 		}
 
@@ -399,44 +460,51 @@ public class SQLiteConnection {
 		return spid;
 	}
 
+	/**
+	 * close current Statement
+	 * 
+	 * @param stmt
+	 */
 	private static void closeStatement(Statement stmt) {
 		if (stmt != null) {
 			try {
 				stmt.close();
 			} catch (Exception e) {
-				// TODO Auto-generated catch block
 				// e.printStackTrace();
 				System.err.println(e.getClass().getName() + ": " + e.getMessage());
 			}
 		}
 	}
 
+	/**
+	 * close Connection to database
+	 * 
+	 * @param con
+	 * @param stmt
+	 */
 	public static void closeConnectionDB(Connection con, Statement stmt) {
 		try {
 			closeStatement(stmt);
 
 			if (con != null) {
-				// con.setAutoCommit(true);
 				con.commit();
 				con.close();
 			}
 		} catch (Exception e) {
-			// TODO: handle exception
 			System.err.println(e.getClass().getName() + ": " + e.getMessage());
-			// new Alert(Alert.AlertType.ERROR, e.getClass().getName() + ": " +
-			// e.getMessage()).showAndWait();
 		}
 	}
 
-	public static void /* restartConnectionDb */ forceUpdateDB(Connection con) {
+	/**
+	 * Force the execution of a commit when database connection is still opened
+	 * 
+	 * @param con
+	 */
+	public static void forceUpdateDB(Connection con) {
 		try {
 			con.commit();
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		// closeConnectionDB(con, null);
-		// getConnectionDB();
 	}
-
 }
