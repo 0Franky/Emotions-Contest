@@ -18,17 +18,19 @@ import javafx.scene.control.Alert.AlertType;
  */
 class CSV_Writer implements ICSV_Writer {
 
+	/**
+	 * Empty Constructor for CSV_Writer
+	 */
 	private CSV_Writer() {
 
 	}
 
-	// private static CSV_Writer singleton = null;
-
+	/**
+	 * Return the unique possible instance of the CSV_Writer
+	 * 
+	 * @return new CSV_Writer
+	 */
 	public static CSV_Writer getInstance() {
-		// if (singleton == null) {
-		// singleton = new CSV_Writer();
-		// }
-		// return singleton;
 
 		return new CSV_Writer();
 	}
@@ -80,17 +82,21 @@ class CSV_Writer implements ICSV_Writer {
 			} catch (Exception e) {
 				attempt++;
 
-				// TODO: handle exception
 				try {
 					Thread.sleep(1000);
 				} catch (InterruptedException e1) {
-					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}
 			}
 		} while (!status);
 	}
 
+	/**
+	 * write List<String> data on CSV
+	 * 
+	 * @param String data
+	 * @return boolean
+	 */
 	public boolean write(List<String> data) {
 		if (!data.isEmpty()) {
 			EventQueue.invokeLater(new Runnable() {
@@ -102,6 +108,12 @@ class CSV_Writer implements ICSV_Writer {
 		return true;
 	}
 
+	/**
+	 * write data on CSV
+	 * 
+	 * @param String data
+	 * @return boolean
+	 */
 	public boolean write(String data) {
 		if (!data.isEmpty()) {
 			EventQueue.invokeLater(new Runnable() {

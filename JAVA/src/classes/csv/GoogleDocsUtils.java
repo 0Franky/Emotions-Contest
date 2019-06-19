@@ -64,8 +64,16 @@ public final class GoogleDocsUtils implements ICSV_Writer {
 	 * The location where the SON credential file is stored on the Internet.
 	 */
 
+	/**
+	 * GoogleDocsUtils instance is useful to make GoogleDocsUtils class "Singleton"
+	 */
 	private static GoogleDocsUtils singleton = null;
 
+	/**
+	 * Return the unique possible instance of the GoogleDocsUtils
+	 *
+	 * @return The GoogleDocsUtils.
+	 */
 	public static GoogleDocsUtils getInstance() {
 
 		if (singleton == null) {
@@ -98,35 +106,30 @@ public final class GoogleDocsUtils implements ICSV_Writer {
 	}
 
 	/**
-	 * Performs Google authentication process.
-	 *
-	 * @return Credential object.
-	 * @throws IOException              Generic I/O error
-	 * @throws GeneralSecurityException Failed authentication.
-	 * @throws URISyntaxException       Malformed URI.
+	 * Define the PAGE_SHEET_NAME
 	 */
-	/*
-	 * private Credential authorize() throws IOException, GeneralSecurityException,
-	 * URISyntaxException { final GoogleCredential authCred =
-	 * GoogleCredential.fromStream(new URL(URL).openStream()).toBuilder()
-	 * .setServiceAccountScopes(SCOPES).build(); return authCred; }
-	 */
-
-	// private final List<String> SCOPES =
-	// Arrays.asList("https://spreadsheets.google.com/feeds");
-
 	private static String PAGE_SHEET_NAME = "Sheet1";
 
-	static String spid_SurveyResults = ""; // "1HtrBIlh83vbz4OknBO2i5pYHsGT4XDo_T41HRqeJHzM";
-	/*
-	 * https://docs.google.com/spreadsheets/d/
-	 * 1HtrBIlh83vbz4OknBO2i5pYHsGT4XDo_T41HRqeJHzM
+	/**
+	 * Set Sheet spid name
 	 */
+	static String spid_SurveyResults = "";
 
+	/**
+	 * Methods to authorize the use of GOOGLE APIs
+	 * 
+	 * @return
+	 * @throws GeneralSecurityException
+	 * @throws IOException
+	 * @throws URISyntaxException
+	 */
 	private GoogleCredential authorize() throws GeneralSecurityException, IOException, URISyntaxException {
 		JacksonFactory JSON_FACTORY = JacksonFactory.getDefaultInstance();
 		HttpTransport httpTransport = GoogleNetHttpTransport.newTrustedTransport();
 
+		/**
+		 * json online file whit used credentials
+		 */
 		URL url = new URL("http://extremisinfo.altervista.org/service_account.json");
 
 		InputStream in = url.openStream();
@@ -140,39 +143,26 @@ public final class GoogleDocsUtils implements ICSV_Writer {
 		return credential;
 	}
 
+	/**
+	 * Main Tester
+	 * 
+	 * @param args
+	 * @throws GeneralSecurityException
+	 * @throws IOException
+	 * @throws ServiceException
+	 * @throws URISyntaxException
+	 * @throws InterruptedException
+	 */
 	public static void main(String[] args)
 			throws GeneralSecurityException, IOException, ServiceException, URISyntaxException, InterruptedException {
-		// TODO Auto-generated method stub
+
 		GoogleDocsUtils gs = GoogleDocsUtils.getInstance();
-
 		ArrayList<String> list = new ArrayList<String>();
-		/*
-		 * list.add("Ciao"); list.add("Come"); list.add("va"); list.add("?");
-		 * list.add("?"); list.add("?"); list.add("?");
-		 */
 
 		gs.appendSheet(new Tuple("1560862033", "", "", "", "POPUP_OPENED", ""));
 		gs.appendSheet(new Tuple("1560862033", "", "", "", "POPUP_OPENED", ""));
-
-		// String EMPTY = null;
-
-		// list.add("1560862033");
-		// list.add("");
-		// list.add("");
-		// list.add("");
-		// list.add("POPUP_OPENED");
-		// list.add("");
-		// gs.write(list);
-		// gs.writePublicSheet("HEADER", list);
-		// gs.appendSheet(list.toArray(new String[0]));
-		// gs.appendSheet(list);
-		// gs.appendSheet(list);
-		// gs.appendSheet(new Tuple("1560862033", "", "", "", "POPUP_OPENED", ""));
-		// gs.appendSheet(new Tuple("1560862054", "BUGFIX", "3", "3", "POPUP_OPENED",
-		// ""));
 
 		System.out.println("CURRENT SPID: https://docs.google.com/spreadsheets/d/" + gs.spid_SurveyResults);
-		// gs.readSheet("A1:E5");
 	}
 
 	/**
@@ -192,9 +182,8 @@ public final class GoogleDocsUtils implements ICSV_Writer {
 
 	}
 
-	// Intentionally not used it. Use it to delete a sheet.
 	/**
-	 * Deletes a spreadsheet.
+	 * Deletes a spreadsheet. (Intentionally not used)
 	 *
 	 * @param spid The spreadsheet id.
 	 * @throws IOException Generic I/O error.
@@ -245,7 +234,7 @@ public final class GoogleDocsUtils implements ICSV_Writer {
 	}
 
 	/**
-	 * inizializzazione GoogleDocsUtilis.
+	 * Initialize GoogleDocsUtilis.
 	 */
 	private void initDocs() {
 		try {
@@ -366,8 +355,6 @@ public final class GoogleDocsUtils implements ICSV_Writer {
 		final ValueRange vr = new ValueRange().setValues(writeData).setMajorDimension("ROWS");
 		final Sheets.Spreadsheets.Values.Update request = sheetsService.spreadsheets().values().update(spid, "A1", vr);
 		request.setValueInputOption("USER_ENTERED");
-
-		// UpdateValuesResponse response = request.execute();
 		request.execute();
 	}
 
@@ -399,63 +386,65 @@ public final class GoogleDocsUtils implements ICSV_Writer {
 		final Sheets.Spreadsheets.Values.Update request = sheetsService.spreadsheets().values().update(spid, "A1", vr);
 		request.setValueInputOption("USER_ENTERED");
 
-		// UpdateValuesResponse response = request.execute();
 		request.execute();
 	}
 
+	/**
+	 * write on Sheet with append
+	 * 
+	 * @param List<String> data
+	 * @return boolean status_write_List
+	 */
 	@Override
 	public boolean write(List<String> data) {
 		boolean status_write_List = false;
 
 		if (!data.isEmpty()) {
 			synchronized (GoogleDocsUtils.class) {
-				// getSheetByTitle(spid_SurveyResults);
-				// writeSheet(spid_SurveyResults, "SurveyResults", data);
-				// createSheet(spid_SurveyResults);
-				// EventQueue.invokeLater(new Runnable() {
-				// public void run() {
 				try {
-					/* appendSheet(data.toArray(new String[0])); */
 					appendSheet(data);
 					status_write_List = true;
 				} catch (IOException | GeneralSecurityException | URISyntaxException e) {
-					// TODO Auto-generated catch block
-					// e.printStackTrace();
+					System.err.println("write fallito");
+					e.printStackTrace();
 				}
-				// };
-				// });
 			}
 		}
 
 		return status_write_List;
 	}
 
+	/**
+	 * write on Sheet with append
+	 * 
+	 * @param String data
+	 * @return boolean status_write_String
+	 */
 	@Override
 	public boolean write(String data) {
 		boolean status_write_String = false;
 
 		if (!data.isEmpty()) {
 			synchronized (GoogleDocsUtils.class) {
-				// getSheetByTitle(spid_SurveyResults);
-				// writeSheet(spid_SurveyResults, "SurveyResults", Arrays.asList(data));
-				// EventQueue.invokeLater(new Runnable() {
-				// public void run() {
 				try {
-					/* appendSheet(new String[] { data }); */
 					appendSheet(data);
 					status_write_String = true;
 				} catch (IOException | GeneralSecurityException | URISyntaxException e) {
-					// TODO Auto-generated catch block
-					// e.printStackTrace();
 				}
-				// };
-				// });
 			}
 		}
 
 		return status_write_String;
 	}
 
+	/**
+	 * Append on Sheet a String
+	 * 
+	 * @param input
+	 * @throws IOException
+	 * @throws GeneralSecurityException
+	 * @throws URISyntaxException
+	 */
 	public void appendSheet(String input) throws IOException, GeneralSecurityException, URISyntaxException {
 		List<String> data = new ArrayList<>();
 		data.add(input);
@@ -463,6 +452,14 @@ public final class GoogleDocsUtils implements ICSV_Writer {
 		appendSheet(data);
 	}
 
+	/**
+	 * Append on Sheet a List<String> input
+	 * 
+	 * @param List<String> input
+	 * @throws IOException
+	 * @throws GeneralSecurityException
+	 * @throws URISyntaxException
+	 */
 	public void appendSheet(List<String> input) throws IOException, GeneralSecurityException, URISyntaxException {
 		// APPEND //
 
@@ -471,13 +468,22 @@ public final class GoogleDocsUtils implements ICSV_Writer {
 			numRows = sheetsService.spreadsheets().values().get(spid_SurveyResults, "Sheet1!A1:F").execute().getValues()
 					.size() + 1;
 		} catch (Exception e) {
-			// TODO: handle exception
+			e.printStackTrace();
 		}
 
 		updateSheet(PAGE_SHEET_NAME + "!A" + numRows + ":F", input);
 		System.out.println("End appendSheet");
 	}
 
+	/**
+	 * Append on Sheet a Tuple input (Use Update with a methods to calculate the
+	 * Range of update
+	 * 
+	 * @param input
+	 * @throws IOException
+	 * @throws GeneralSecurityException
+	 * @throws URISyntaxException
+	 */
 	public void appendSheet(Tuple input) throws IOException, GeneralSecurityException, URISyntaxException {
 		// APPEND //
 
@@ -486,17 +492,25 @@ public final class GoogleDocsUtils implements ICSV_Writer {
 			numRows = sheetsService.spreadsheets().values().get(spid_SurveyResults, "Sheet1!A1:F").execute().getValues()
 					.size() + 1;
 		} catch (Exception e) {
-			// TODO: handle exception
+			e.printStackTrace();
 		}
 
 		updateSheet(PAGE_SHEET_NAME + "!A" + numRows + ":F", input.toList());
 		System.out.println("End appendSheet");
 	}
 
+	/**
+	 * read Sheet in a range
+	 * 
+	 * @param range
+	 * @return List<List<Object>> values
+	 * @throws IOException
+	 * @throws GeneralSecurityException
+	 * @throws URISyntaxException
+	 */
 	public List<List<Object>> readSheet(String range) throws IOException, GeneralSecurityException, URISyntaxException {
 		sheetsService = getSheetsService();
 		// READ //
-		// String range = "congress!A2:F10";
 
 		ValueRange response = sheetsService.spreadsheets().values().get(spid_SurveyResults, range).execute();
 
@@ -512,26 +526,37 @@ public final class GoogleDocsUtils implements ICSV_Writer {
 		return values;
 	}
 
+	/**
+	 * updateSheet in a range from a List<String> input
+	 * 
+	 * @param range
+	 * @param input
+	 * @throws IOException
+	 * @throws GeneralSecurityException
+	 * @throws URISyntaxException
+	 */
 	public void updateSheet(String range, List<String> input)
 			throws IOException, GeneralSecurityException, URISyntaxException {
 		sheetsService = getSheetsService();
 		// UPDATE //
-		// String range = "congress!A2:F10";
 
 		List<Object> data = new ArrayList<>();
 		data.addAll(input);
 
 		ValueRange body = new ValueRange().setValues(Arrays.asList(data));
-
-		/*
-		 * UpdateValuesResponse result =
-		 * sheetsService.spreadsheets().values().update(spid_SurveyResults, range, body)
-		 * .setValueInputOption("RAW").execute();
-		 */
 		sheetsService.spreadsheets().values().update(spid_SurveyResults, range, body).setValueInputOption("RAW")
 				.execute();
 	}
 
+	/**
+	 * delete On Sheet from a StartIndex
+	 * 
+	 * @param ID         of the Sheet
+	 * @param StartIndex
+	 * @throws IOException
+	 * @throws GeneralSecurityException
+	 * @throws URISyntaxException
+	 */
 	public void deleteOnSheet(int ID, int StartIndex) throws IOException, GeneralSecurityException, URISyntaxException {
 		sheetsService = getSheetsService();
 		// DELETE //

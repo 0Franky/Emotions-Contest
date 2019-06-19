@@ -1,9 +1,13 @@
 package classes.csv;
 
+/**
+ * Class useful to build a CSV
+ *
+ */
 public final class CSV_WriterBuilder {
 
 	private CSV_WriterBuilder() {
-		// TODO Auto-generated constructor stub
+
 	}
 
 	public enum typeCSV_Writer {
