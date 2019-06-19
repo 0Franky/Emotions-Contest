@@ -45,9 +45,10 @@ The main aim of the app is to gather enough data to use later to develop an AI.
 		Ubuntu Linux 14.x (8u25 and newer)
 		Ubuntu Linux 15.04 (8u45 and newer)
 		Ubuntu Linux 15.10 (8u65 and newer)
-	
-Download [**JAVAx64**](https://www.java.com/it/download/windows-64bit.jsp)
-or Download [**JAVAx86**](https://www.java.com/it/download/)
+
+**Java Virtual Machine [Required]**
+Download JVM for your OS : [**JAVA JVM**](https://www.java.com/en/download/manual.jsp)
+
 
 </li>
 <li>
@@ -118,6 +119,19 @@ It closes the application permanently.
 </li>
 <li>
 
+### - (Bubble Chart) -
+
+![](JAVA/src/Assets/Guide/Bubble.jpg)
+
+With a click on “Show retrospective” this window will show up on screen.
+
+**From the slider on the bottom-right:**
+
+it is possible to update the chart representing the registered status during previous compilations of the Questionnaire, changing the range of days.
+
+</li>
+<li>
+	
 ## Credits
 
 **Developed and Designed by:**
