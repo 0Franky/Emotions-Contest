@@ -5,7 +5,6 @@
 <?import javafx.scene.control.Hyperlink?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ScrollPane?>
-<?import javafx.scene.control.TextArea?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -35,7 +34,7 @@
                   <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
                </rowConstraints>
                <children>
-                  <Text fx:id="txt_AppDescription"  strokeType="OUTSIDE" strokeWidth="0.0" text="This program is free software; &#10;you can redistribute it and/or modify it.&#10;It was developed developed to gather information &#10;for the development of an IA ....&#10;&#10;This program is distributed in the&#10; hope that it will be useful, &#10;but WITHOUT ANY WARRANTY; &#10;We hope the notification will not be to stressfull&#10;&#10;You should have received a manual to use&#10;this software, if not go to the official GitHub page." wrappingWidth="367.0859375">
+                  <Text fx:id="txt_AppDescription" strokeType="OUTSIDE" strokeWidth="0.0" text="This program is free software; &#10;you can redistribute it and/or modify it.&#10;This app was made to gather information &#10;and help the development of an AI.&#10;&#10;This program is distributed in the&#10; hope that it will be useful, &#10;but WITHOUT ANY WARRANTY; &#10;We hope the notification will not be too stressfull&#10;&#10;You should have received a manual to use&#10;this software, if not go to the official GitHub page." wrappingWidth="340.0859375">
                      <font>
                         <Font name="System Italic" size="15.0" />
                      </font>
@@ -72,7 +71,7 @@
             </LinearGradient>
          </textFill>
       </Label>
-      <Button fx:id="buttonOk" alignment="CENTER" blendMode="MULTIPLY" contentDisplay="CENTER" layoutX="205.0" layoutY="440.0" mnemonicParsing="false" onAction="#pressedOk" prefHeight="34.0" prefWidth="112.0" text="Ok" textAlignment="CENTER" />
+      <Button fx:id="buttonOk" alignment="CENTER" blendMode="MULTIPLY" contentDisplay="CENTER" layoutX="204.0" layoutY="450.0" mnemonicParsing="false" onAction="#pressedOk" prefHeight="34.0" prefWidth="112.0" text="Ok" textAlignment="CENTER" />
       <Hyperlink fx:id="GitHubLink" layoutX="170.0" layoutY="184.0" onAction="#gotoPage" prefHeight="29.0" prefWidth="307.0" text="https://github.com/0Franky/Emotions-Contest">
          <font>
             <Font size="14.0" />
@@ -108,7 +107,11 @@
             <Image url="@../../Assets/Icon.png" />
          </image>
       </ImageView>
-      
+      <ImageView fx:id="My" fitHeight="21.0" fitWidth="19.0" layoutX="510.0" layoutY="480.0" onMouseClicked="#miao" opacity="0.25" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../Assets/Icon_mini.png" />
+         </image>
+      </ImageView>    
 
    </children>
 </AnchorPane>

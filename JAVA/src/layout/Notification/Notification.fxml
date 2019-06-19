@@ -12,14 +12,14 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="AnchorPaneNotification" onMouseDragged="#onWindowDragged" onMousePressed="#mousePressed" depthTest="DISABLE" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="120.0" prefWidth="320.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="layout.Notification.NotificationController">
+<AnchorPane fx:id="AnchorPaneNotification" depthTest="DISABLE" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseDragged="#onWindowDragged" onMousePressed="#mousePressed" prefHeight="120.0" prefWidth="320.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="layout.Notification.NotificationController">
    <children>
       <ImageView fitHeight="345.0" fitWidth="346.0" layoutX="-12.0" layoutY="-110.0" opacity="0.2" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../../Assets/Icon.png" />
          </image>
       </ImageView>
-   <Label alignment="CENTER" layoutX="14.0" layoutY="33.0" onMouseClicked="#openPopUp" prefHeight="26.0" prefWidth="198.0" text="Click here to open pop-up!" textAlignment="CENTER" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="108.0" AnchorPane.topAnchor="33.0">
+   <Label alignment="CENTER" contentDisplay="TOP" layoutX="14.0" layoutY="33.0" onMouseClicked="#openPopUp" prefHeight="23.0" prefWidth="198.0" style="-fx-border-color: gray;" text="Click here to open pop-up!" textAlignment="CENTER" textOverrun="CLIP" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="108.0" AnchorPane.topAnchor="33.0">
          <font>
             <Font name="System Bold" size="15.0" />
          </font></Label>
@@ -36,7 +36,7 @@
                   <Reflection bottomOpacity="0.35" fraction="1.0" topOffset="-10.0" topOpacity="0.05" />
                </effect></Label>
             <Separator opacity="0.0" orientation="VERTICAL" prefHeight="45.0" prefWidth="8.0" />
-            <Slider fx:id="mySlider" blockIncrement="1" majorTickUnit="59.0" max="120.0" min="1" minorTickCount="1" onMouseReleased="#onSliderChanged" prefHeight="45.0" prefWidth="155.0" showTickLabels="true" showTickMarks="true">
+            <Slider fx:id="mySlider" blockIncrement="1" majorTickUnit="59.0" max="120.0" min="1" minorTickCount="1" prefHeight="11.0" prefWidth="155.0" showTickLabels="true" showTickMarks="true">
                <effect>
                   <Reflection fraction="0.0" topOffset="-10.0" topOpacity="0.0" />
                </effect></Slider>
@@ -44,7 +44,7 @@
             <Button fx:id="postponeButton" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#postponeAction" prefHeight="45.0" prefWidth="88.0" text="Postpone" textAlignment="CENTER" />
          </children>
       </HBox>
-      <Label alignment="CENTER" layoutX="3.0" layoutY="10.0" onMouseClicked="#openPopUp" prefHeight="26.0" prefWidth="183.0" text="How are you feeling ?" textAlignment="CENTER">
+      <Label alignment="CENTER" layoutX="14.0" layoutY="10.0" onMouseClicked="#openPopUp" prefHeight="23.0" prefWidth="198.0" text="How are you feeling ?" textAlignment="CENTER">
          <font>
             <Font name="System Bold" size="15.0" />
          </font>

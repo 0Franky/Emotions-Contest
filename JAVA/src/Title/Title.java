@@ -1,6 +1,17 @@
 package Title;
 
+/**
+ * Class util to makes Strings indipendet from code
+ */
 public class Title {
+
+	/**
+	 * Makes dynamic the NAME of the App
+	 */
 	public static String APPLICATION_NAME = "HowAppYou";
-	public static String APPLICATION_VERSION = "0.1";
+
+	/**
+	 * Makes dynamic the VERSION of the App
+	 */
+	public static String APPLICATION_VERSION = "0.9";
 }

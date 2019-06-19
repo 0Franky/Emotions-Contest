@@ -13,27 +13,52 @@ import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 
+/**
+ * Class that defines the CreditWindow object. it is used to manage the
+ * application CreditWindow window.
+ */
 public class CreditWindow {
 
+	/**
+	 * Stage this_stage define the layout of the window
+	 */
 	private static Stage this_stage = new Stage();
-	private static CreditWindow instance = null; // riferimento all' istanza
 
-	private CreditWindowController creditWindowController = null;
+	/**
+	 * CreditWindow instance is useful to make CreditWindow class "Singleton"
+	 */
+	private static CreditWindow instance = null;
 
+	/**
+	 * Variables used to manage the location of the window on screen
+	 */
 	private double X, Y;
 
+	/**
+	 * CreditWindowController creditWindowController is useful to make
+	 * CreditWindowController class "Singleton"
+	 */
+	private CreditWindowController creditWindowController = null;
+
+	/**
+	 * Creates a new CreditWindow
+	 *
+	 * @return an object of CreditWindow.
+	 * @throws IOException Generic I/O error.
+	 */
 	private CreditWindow() throws IOException {
-		// TODO Auto-generated method stub
 		FXMLLoader loader = new FXMLLoader();
 		loader.setLocation(CreditWindow.class.getResource("CreditWindow.fxml"));
 		AnchorPane rootLayout = (AnchorPane) loader.load();
 
 		creditWindowController = loader.getController();
 
+		String find = "http://icons.iconarchive.com/icons/paomedia/small-n-flat/128/cat-icon.png";
+		creditWindowController.My.setImage(new javafx.scene.image.Image(find));
+
 		Stage stage = new Stage();
 		Scene scene = new Scene(rootLayout);
 		stage.setScene(scene);
-		// stage.initStyle(StageStyle.TRANSPARENT);
 		stage.resizableProperty().setValue(Boolean.FALSE);
 		stage.setTitle("Credit & Inforation");
 
@@ -47,6 +72,7 @@ public class CreditWindow {
 
 		stage.setAlwaysOnTop(true);
 		stage.getIcons().add(new Image(getClass().getResourceAsStream("/Assets/Icon.png")));
+
 		this_stage = stage;
 
 		creditWindowController.lbl_TitleApp.setText(Title.APPLICATION_NAME);
@@ -55,6 +81,12 @@ public class CreditWindow {
 		this_stage.show();
 	}
 
+	/**
+	 * Return the unique possible instance of the CreditWindow
+	 *
+	 * @return The CreditWindow.
+	 * @throws IOException Generic I/O error.
+	 */
 	public static CreditWindow getIstance() throws IOException {
 		if (instance == null)
 			synchronized (CreditWindow.class) {
@@ -68,6 +100,9 @@ public class CreditWindow {
 		return instance;
 	}
 
+	/**
+	 * Close the CreditWindow
+	 */
 	public void close() {
 		try {
 			cleanInstance();
@@ -78,6 +113,9 @@ public class CreditWindow {
 		}
 	}
 
+	/**
+	 * Show on screen the CreditWindow
+	 */
 	public void show() {
 		try {
 			this_stage.show();
@@ -87,6 +125,9 @@ public class CreditWindow {
 		}
 	}
 
+	/**
+	 * Set on front of all opened window the CreditWindow
+	 */
 	public void toFront() {
 		try {
 			this_stage.toFront();
@@ -96,17 +137,32 @@ public class CreditWindow {
 		}
 	}
 
-	protected void cleanInstance() {
-		instance = null;
-	}
-
+	/**
+	 * Method util to manage the drag on screen of the CreditWindow
+	 * 
+	 * @param MouseEvent event.
+	 */
 	protected void mousePressed(MouseEvent event) {
 		X = this_stage.getX() - event.getScreenX();
 		Y = this_stage.getY() - event.getScreenY();
 	}
 
+	/**
+	 * Method util to manage the drag on screen of the CreditWindow
+	 * 
+	 * @param MouseEvent event.
+	 */
 	protected void onWindowDragged(MouseEvent event) {
 		this_stage.setX(event.getScreenX() + X);
 		this_stage.setY(event.getScreenY() + Y);
+	}
+
+	/**
+	 * Destroys the Window, to free of memory of the notification when it is closed
+	 * 
+	 * @param Stage stage (the window of the CreditWindow).
+	 */
+	protected void cleanInstance() {
+		instance = null;
 	}
 }

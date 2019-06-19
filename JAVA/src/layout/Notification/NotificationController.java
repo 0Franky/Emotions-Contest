@@ -5,7 +5,6 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 import classes.AppTimer;
-import javafx.beans.binding.Bindings;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -16,13 +15,15 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import layout.PopupWindow.PopupWindow;
 
+/**
+ * Class that defines the NotificationController. it is used to control the
+ * JAVAFX GUI of the Notification
+ */
 public class NotificationController implements Initializable {
 
-	// The reference of outputText will be injected by the FXML loader
-
-	// Add a public no-args constructor
-	// public FxFXMLController() {
-	// }
+	/**
+	 * List of objects inside the GUI of the Notification
+	 */
 
 	@FXML
 	private URL location;
@@ -31,13 +32,13 @@ public class NotificationController implements Initializable {
 	private ResourceBundle resources;
 
 	@FXML
-	AnchorPane AnchorPaneNotification;
+	private AnchorPane AnchorPaneNotification;
 
 	@FXML
-	Button dismissButton;
+	private Button dismissButton;
 
 	@FXML
-	Button postponeButton;
+	private Button postponeButton;
 
 	@FXML
 	Slider mySlider;
@@ -49,56 +50,70 @@ public class NotificationController implements Initializable {
 	private void initialize() {
 	}
 
+	/**
+	 * Manage the click (ActionEvent) on "postpone" button
+	 *
+	 * @param ActionEvent event
+	 * @throws IOException           Generic I/O error.
+	 * @throws NumberFormatException Generic NumberFormat error.
+	 * @throws InterruptedException  Generic Interruption error.
+	 */
 	@FXML
 	private void postponeAction(ActionEvent event) throws IOException, NumberFormatException, InterruptedException {
-		System.out.println("You clicked postponeButton");
 		String Time = labelSlider.getText();
-		// Time = Time.substring(0, Time.length() - 1);
 		System.out.println("Minuti da passare al Timer: " + Time);
 		Notification.getIstance().close();
-		// Imposto il Timer //
-		AppTimer.getIstance().startTimer(Integer.parseInt(Time));
-		// System.out.println("Fine Thread");
+		AppTimer.getIstance().startTimer(Integer.parseInt(Time)); // Set Timer //
 		Notification.getIstance().cleanInstance(); // <<-->> CANCEL THE INSTANCE <<-->>
 	}
 
-	@FXML
-	public void onSliderChanged() {
-		labelSlider.textProperty().bind(Bindings.format("%.0f", mySlider.valueProperty()));
-		/*
-		 * int sliderValue = (int) mySlider.getValue();
-		 * labelSlider.setStyle("-fx-font-weight: bold;");
-		 * labelSlider.setText(sliderValue + "'"); // System.out.println("sliderValue "
-		 * + sliderValue);
-		 */
-	}
-
+	/**
+	 * Opens the popUp-Window and close the Notification
+	 */
 	@FXML
 	public void openPopUp() throws IOException {
 		Notification.getIstance().close();
 		PopupWindow.getIstance();
 	}
 
+	/**
+	 * Manage the click (ActionEvent) on "dismiss" button
+	 *
+	 * @param ActionEvent event
+	 * @throws IOException Generic I/O error.
+	 */
 	@FXML
 	private void dismissAction(ActionEvent event) throws IOException {
-		// System.out.println("You clicked dismissButton");
 		Notification.getIstance().close();
 	}
 
+	/**
+	 * Manage the press (MouseEvent) of the Notification
+	 *
+	 * @param MouseEvent event
+	 * @throws IOException Generic I/O error.
+	 */
 	@FXML
 	public void mousePressed(MouseEvent event) throws IOException {
 		Notification.getIstance().mousePressed(event);
 	}
 
+	/**
+	 * Manage the Drag (MouseEvent) of the Notification
+	 *
+	 * @param MouseEvent event
+	 * @throws IOException Generic I/O error.
+	 */
 	@FXML
 	protected void onWindowDragged(MouseEvent event) throws IOException {
 		Notification.getIstance().onWindowDragged(event);
 	}
 
+	/**
+	 * Empty initialize
+	 */
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		// TODO Auto-generated method stub
-
 	}
-
 }
