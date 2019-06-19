@@ -23,7 +23,6 @@ import javafx.scene.control.Alert;
 
 public class SQLiteConnection {
 
-	// private static String host = "/src/";
 	private static String host = "";
 	private static boolean existTable = false;
 	private static boolean checking = false;
@@ -128,14 +127,6 @@ public class SQLiteConnection {
 			con.setAutoCommit(false);
 			stmt = con.createStatement();
 
-			/*
-			 * String sql; sql =
-			 * "INSERT INTO DATA (TIMESTAMP,ACTIVITY,VALENCE,AROUSAL,STATUS,NOTES) VALUES ("
-			 * + input[0] + ",'" + input[1] + "'," + input[2] + "," + input[3] + ",'" +
-			 * input[4] + "','" + input[5] + "')";
-			 * 
-			 * stmt.executeUpdate(sql);
-			 */
 			PreparedStatement prepStmt = con.prepareStatement(
 					"INSERT INTO DATA (TIMESTAMP,ACTIVITY,VALENCE,AROUSAL,STATUS,NOTES) VALUES (?,?,?,?,?,?)");
 			prepStmt.setString(1, input[0]);
@@ -161,13 +152,6 @@ public class SQLiteConnection {
 		try {
 			con.setAutoCommit(false);
 			stmt = con.createStatement();
-
-			/*
-			 * String sql; sql =
-			 * "INSERT INTO DATA_TO_SYNC (TIMESTAMP,ACTIVITY,VALENCE,AROUSAL,STATUS,NOTES) "
-			 * + "VALUES (" + input[0] + ",'" + input[1] + "'," + input[2] + "," + input[3]
-			 * + ",'" + input[4] + "','" + input[5] + "')"; stmt.executeUpdate(sql);
-			 */
 
 			PreparedStatement prepStmt = con.prepareStatement(
 					"INSERT INTO DATA_TO_SYNC (TIMESTAMP,ACTIVITY,VALENCE,AROUSAL,STATUS,NOTES) VALUES (?,?,?,?,?,?)");
@@ -245,8 +229,6 @@ public class SQLiteConnection {
 			ResultSet rs = stmt.executeQuery(query);
 
 			while (rs.next()) {
-				// (TIMESTAMP,ACTIVITY,VALENCE,AROUSAL,STATUS,NOTES)
-				// int ID = rs.getInt("ID");
 				String TIMESTAMP = rs.getString("TIMESTAMP");
 				String ACTIVITY = rs.getString("ACTIVITY");
 				String VALENCE = rs.getString("VALENCE");
@@ -310,7 +292,6 @@ public class SQLiteConnection {
 			ResultSet rs = stmt.executeQuery(query);
 
 			while (rs.next()) {
-				// (TIMESTAMP,ACTIVITY,VALENCE,AROUSAL,STATUS,NOTES)
 				int VALENCE = rs.getInt("VALENCE");
 				int AROUSAL = rs.getInt("AROUSAL");
 				int WEIGHT = rs.getInt("WEIGHT");
@@ -383,8 +364,6 @@ public class SQLiteConnection {
 				ResultSet rs = stmt.executeQuery("SELECT SPID FROM SHEET");
 
 				while (rs.next()) {
-					// (TIMESTAMP,ACTIVITY,VALENCE,AROUSAL,STATUS,NOTES)
-					// int ID = rs.getInt("ID");
 					spid = rs.getString("SPID");
 				}
 			} catch (Exception e) {
@@ -426,6 +405,11 @@ public class SQLiteConnection {
 			// new Alert(Alert.AlertType.ERROR, e.getClass().getName() + ": " +
 			// e.getMessage()).showAndWait();
 		}
+	}
+
+	public static void restartConnectionDb(Connection con) {
+		closeConnectionDB(con, null);
+		getConnectionDB();
 	}
 
 }
