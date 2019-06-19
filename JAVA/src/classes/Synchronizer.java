@@ -7,8 +7,14 @@ import classes.csv.CSV_WriterBuilder;
 import classes.csv.ICSV_Writer;
 import classes.database.SQLiteConnection;
 
+/**
+ * Useful class to Synchronize offline db data with online Sheet data
+ */
 public class Synchronizer {
 
+	/**
+	 * Check connection and Synchronize all data
+	 */
 	public static final void sync() {
 		if (ConnectionUtils.isConnectedToInternet()) {
 			EventQueue.invokeLater(new Runnable() {
