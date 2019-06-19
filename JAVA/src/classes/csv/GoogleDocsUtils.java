@@ -63,8 +63,6 @@ public final class GoogleDocsUtils implements ICSV_Writer {
 	/**
 	 * The location where the SON credential file is stored on the Internet.
 	 */
-	// private static final String URL =
-	// "http://neo.di.uniba.it/credentials/TOKEN-s456hh.json";
 
 	private static GoogleDocsUtils singleton = null;
 

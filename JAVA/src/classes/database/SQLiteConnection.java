@@ -77,6 +77,7 @@ public class SQLiteConnection {
 		}
 
 		// closeConnectionDB(con, null);
+		forceUpdateDB(con);
 
 		return result;
 	}
@@ -99,6 +100,8 @@ public class SQLiteConnection {
 
 		// closeConnectionDB(con, stmt);
 		closeStatement(stmt);
+
+		forceUpdateDB(con);
 	}
 
 	public static void createTable(String tableName) {
@@ -118,6 +121,8 @@ public class SQLiteConnection {
 
 		// closeConnectionDB(con, stmt);
 		closeStatement(stmt);
+
+		forceUpdateDB(con);
 	}
 
 	public static void addRow(String input[]) {
@@ -144,6 +149,8 @@ public class SQLiteConnection {
 
 		// closeConnectionDB(con, stmt);
 		closeStatement(stmt);
+
+		forceUpdateDB(con);
 	}
 
 	public static void addRowToSync(String input[]) {
@@ -170,6 +177,8 @@ public class SQLiteConnection {
 
 		// closeConnectionDB(con, stmt);
 		closeStatement(stmt);
+
+		forceUpdateDB(con);
 	}
 
 	public static final List<Tuple> getAllDataQuery() {
@@ -214,6 +223,8 @@ public class SQLiteConnection {
 		}
 
 		// closeConnectionDB(con, null);
+
+		forceUpdateDB(con);
 	}
 
 	public static List<Tuple> runQuery(String query) {
@@ -245,6 +256,8 @@ public class SQLiteConnection {
 
 		// closeConnectionDB(con, stmt);
 		closeStatement(stmt);
+
+		forceUpdateDB(con);
 
 		return tuples;
 	}
@@ -306,6 +319,8 @@ public class SQLiteConnection {
 		// closeConnectionDB(con, stmt);
 		closeStatement(stmt);
 
+		forceUpdateDB(con);
+
 		return tuples;
 	}
 
@@ -325,6 +340,8 @@ public class SQLiteConnection {
 
 		// closeConnectionDB(con, stmt);
 		closeStatement(stmt);
+
+		forceUpdateDB(con);
 	}
 
 	public static void setSheet(String spid) {
@@ -348,6 +365,8 @@ public class SQLiteConnection {
 
 		// closeConnectionDB(con, stmt);
 		closeStatement(stmt);
+
+		forceUpdateDB(con);
 	}
 
 	public static String getSpid() {
@@ -374,6 +393,8 @@ public class SQLiteConnection {
 			// closeConnectionDB(con, stmt);
 			closeStatement(stmt);
 		}
+
+		forceUpdateDB(con);
 
 		return spid;
 	}
@@ -407,9 +428,15 @@ public class SQLiteConnection {
 		}
 	}
 
-	public static void restartConnectionDb(Connection con) {
-		closeConnectionDB(con, null);
-		getConnectionDB();
+	public static void /* restartConnectionDb */ forceUpdateDB(Connection con) {
+		try {
+			con.commit();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		// closeConnectionDB(con, null);
+		// getConnectionDB();
 	}
 
 }
