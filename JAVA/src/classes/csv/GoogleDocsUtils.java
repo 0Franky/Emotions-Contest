@@ -157,12 +157,12 @@ public final class GoogleDocsUtils implements ICSV_Writer {
 			throws GeneralSecurityException, IOException, ServiceException, URISyntaxException, InterruptedException {
 
 		GoogleDocsUtils gs = GoogleDocsUtils.getInstance();
-		ArrayList<String> list = new ArrayList<String>();
 
-		gs.appendSheet(new Tuple("1560862033", "", "", "", "POPUP_OPENED", ""));
-		gs.appendSheet(new Tuple("1560862033", "", "", "", "POPUP_OPENED", ""));
+		gs.appendSheet(new Tuple("1560862033", "", "", "", "", "", "POPUP_OPENED", "").toList());
+		gs.appendSheet(new Tuple("1560862033", "", "", "", "", "", "POPUP_OPENED", "").toList());
 
-		System.out.println("CURRENT SPID: https://docs.google.com/spreadsheets/d/" + gs.spid_SurveyResults);
+		System.out
+				.println("CURRENT SPID: https://docs.google.com/spreadsheets/d/" + GoogleDocsUtils.spid_SurveyResults);
 	}
 
 	/**
@@ -472,30 +472,6 @@ public final class GoogleDocsUtils implements ICSV_Writer {
 		}
 
 		updateSheet(PAGE_SHEET_NAME + "!A" + numRows + ":F", input);
-		System.out.println("End appendSheet");
-	}
-
-	/**
-	 * Append on Sheet a Tuple input (Use Update with a methods to calculate the
-	 * Range of update
-	 * 
-	 * @param input
-	 * @throws IOException
-	 * @throws GeneralSecurityException
-	 * @throws URISyntaxException
-	 */
-	public void appendSheet(Tuple input) throws IOException, GeneralSecurityException, URISyntaxException {
-		// APPEND //
-
-		int numRows = 1;
-		try {
-			numRows = sheetsService.spreadsheets().values().get(spid_SurveyResults, "Sheet1!A1:F").execute().getValues()
-					.size() + 1;
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-
-		updateSheet(PAGE_SHEET_NAME + "!A" + numRows + ":F", input.toList());
 		System.out.println("End appendSheet");
 	}
 

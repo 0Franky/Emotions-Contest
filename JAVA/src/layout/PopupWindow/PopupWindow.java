@@ -71,6 +71,11 @@ public class PopupWindow {
 	protected String excitement = "";
 
 	/**
+	 * String used set the dominance
+	 */
+	protected String dominance = "";
+
+	/**
 	 * Creates a new PopupWindow
 	 *
 	 * @return an object of PopupWindow.
@@ -99,6 +104,7 @@ public class PopupWindow {
 		stage.getIcons().add(new Image(getClass().getResourceAsStream("/Assets/Icon.png")));
 
 		loadActivityItems();
+		loadProductivityItems();
 
 		this_stage = stage;
 
@@ -146,6 +152,15 @@ public class PopupWindow {
 		}
 
 		grid = popupWindowController.g2;
+
+		for (Node node : grid.getChildren()) {
+			ImageView img = (ImageView) node;
+
+			// img.fitWidthProperty().bind(grid.widthProperty());
+			img.fitHeightProperty().bind(grid.heightProperty());
+		}
+
+		grid = popupWindowController.g3;
 
 		for (Node node : grid.getChildren()) {
 			ImageView img = (ImageView) node;
@@ -240,6 +255,12 @@ public class PopupWindow {
 				"Email", "Helping", "Networking", "Learning", "Administrative tasks", "Documentation");
 	}
 
+	private void loadProductivityItems() {
+		popupWindowController.lbl_Productivity.getItems().removeAll(popupWindowController.lbl_Productivity.getItems());
+		popupWindowController.lbl_Productivity.getItems().addAll("very low", "below average", "average",
+				"above aver-age", "very high");
+	}
+
 	/**
 	 * Method util to manage the drag on screen of the PopupWindow
 	 * 
@@ -299,7 +320,7 @@ public class PopupWindow {
 	 * @return Tuple
 	 */
 	private Tuple getActivityOpenWindowToTuple() {
-		return new Tuple(Long.toString(TimeConverter.toUnixTime(System.currentTimeMillis())), "", "", "",
+		return new Tuple(Long.toString(TimeConverter.toUnixTime(System.currentTimeMillis())), "", "", "", "", "",
 				"POPUP_OPENED", "");
 	}
 
@@ -310,8 +331,8 @@ public class PopupWindow {
 	 */
 	private Tuple getActivityToTuple() {
 		return new Tuple(Long.toString(TimeConverter.toUnixTime(System.currentTimeMillis())),
-				popupWindowController.getActivity(), pleasantness, excitement, "POPUP_CLOSED",
-				popupWindowController.getNotes());
+				popupWindowController.getActivity(), pleasantness, excitement, dominance, "POPUP_CLOSED",
+				popupWindowController.getProductivity(), popupWindowController.getNotes());
 	}
 
 	/**
@@ -335,6 +356,16 @@ public class PopupWindow {
 		if (excitement == "") {
 			status = false;
 			MessageBox("Excitement not checked!");
+		}
+
+		if (dominance == "") {
+			status = false;
+			MessageBox("Dominance not checked!");
+		}
+
+		if (popupWindowController.getProductivity() == "") {
+			status = false;
+			MessageBox("Productivity not filled!");
 		}
 
 		return status;

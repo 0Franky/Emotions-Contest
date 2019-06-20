@@ -33,6 +33,9 @@ public class PopupWindowController implements Initializable {
 	protected ComboBox<String> lbl_Activity;
 
 	@FXML
+	protected ComboBox<String> lbl_Productivity;
+
+	@FXML
 	protected TextArea txt_Notes;
 
 	@FXML
@@ -43,6 +46,9 @@ public class PopupWindowController implements Initializable {
 
 	@FXML
 	protected GridPane g2;
+
+	@FXML
+	protected GridPane g3;
 
 	/**
 	 * Manage the click (ActionEvent) on "Done" button starting the write of results
@@ -84,6 +90,21 @@ public class PopupWindowController implements Initializable {
 		RadioButton cb = (RadioButton) event.getSource();
 		try {
 			PopupWindow.getIstance().excitement = cb.getText();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+
+	/**
+	 * Check the click (ActionEvent) on a Dominance radio button
+	 *
+	 * @param ActionEvent event
+	 */
+	@FXML
+	private void cb_Dominance_Checking(ActionEvent event) {
+		RadioButton cb = (RadioButton) event.getSource();
+		try {
+			PopupWindow.getIstance().dominance = cb.getText();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -138,6 +159,19 @@ public class PopupWindowController implements Initializable {
 		String text = "";
 		if (lbl_Activity.getValue() != null) {
 			text = lbl_Activity.getValue().toString();
+		}
+		return text;
+	}
+
+	/**
+	 * return the content of lbl_Productivity.getValue()
+	 * 
+	 * @return text
+	 */
+	protected String getProductivity() {
+		String text = "";
+		if (lbl_Productivity.getValue() != null) {
+			text = lbl_Productivity.getValue().toString();
 		}
 		return text;
 	}

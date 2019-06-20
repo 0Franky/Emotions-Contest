@@ -16,6 +16,8 @@ public class Tuple {
 	private String VALENCE;
 	private String AROUSAL;
 	private String STATUS;
+	private String PRODUCTIVITY;
+	private String DOMINANCE;
 	private String NOTES;
 
 	/**
@@ -25,16 +27,21 @@ public class Tuple {
 	 * @param ACTIVITY
 	 * @param VALENCE
 	 * @param AROUSAL
+	 * @param DOMINANCE
+	 * @param PRODUCTIVITY
 	 * @param STATUS
 	 * @param NOTES
 	 */
-	public Tuple(String TIMESTAMP, String ACTIVITY, String VALENCE, String AROUSAL, String STATUS, String NOTES) {
+	public Tuple(String TIMESTAMP, String ACTIVITY, String VALENCE, String AROUSAL, String DOMINANCE,
+			String PRODUCTIVITY, String STATUS, String NOTES) {
 		// TODO Auto-generated constructor stub
 
 		this.TIMESTAMP = TIMESTAMP.trim();
 		this.ACTIVITY = ACTIVITY.trim();
 		this.VALENCE = VALENCE.trim();
 		this.AROUSAL = AROUSAL.trim();
+		this.DOMINANCE = DOMINANCE.trim();
+		this.PRODUCTIVITY = PRODUCTIVITY.trim();
 		this.STATUS = STATUS.trim();
 		this.NOTES = NOTES.trim();
 	}
@@ -60,6 +67,14 @@ public class Tuple {
 		return AROUSAL;
 	}
 
+	public String getProductivity() {
+		return PRODUCTIVITY;
+	}
+
+	public String getDominance() {
+		return DOMINANCE;
+	}
+
 	public String getStatus() {
 		return STATUS;
 	}
@@ -74,7 +89,7 @@ public class Tuple {
 	 * @return String[]
 	 */
 	public String[] toArray() {
-		return new String[] { TIMESTAMP, ACTIVITY, VALENCE, AROUSAL, STATUS, NOTES };
+		return new String[] { TIMESTAMP, ACTIVITY, VALENCE, AROUSAL, DOMINANCE, PRODUCTIVITY, STATUS, NOTES };
 	}
 
 	/**
@@ -83,7 +98,8 @@ public class Tuple {
 	 * @return String[]
 	 */
 	public List<String> toList() {
-		return Arrays.asList(new String[] { TIMESTAMP, ACTIVITY, VALENCE, AROUSAL, STATUS, NOTES });
+		return Arrays
+				.asList(new String[] { TIMESTAMP, ACTIVITY, VALENCE, AROUSAL, DOMINANCE, PRODUCTIVITY, STATUS, NOTES });
 	}
 
 	/**
@@ -94,6 +110,8 @@ public class Tuple {
 		System.out.println("ACTIVITY: " + ACTIVITY);
 		System.out.println("VALENCE: " + VALENCE);
 		System.out.println("AROUSAL: " + AROUSAL);
+		System.out.println("PRODUCTIVITY: " + PRODUCTIVITY);
+		System.out.println("DOMINANCE: " + DOMINANCE);
 		System.out.println("STATUS: " + STATUS);
 		System.out.println("NOTES: " + NOTES);
 	}

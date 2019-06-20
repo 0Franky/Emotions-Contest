@@ -131,7 +131,7 @@ public class SQLiteConnection {
 			con.setAutoCommit(false);
 			stmt = con.createStatement();
 			String sql = "CREATE TABLE " + tableName
-					+ " (TIMESTAMP TEXT NOT NULL, ACTIVITY TEXT, VALENCE TEXT, AROUSAL TEXT, STATUS TEXT, NOTES TEXT)";
+					+ " (TIMESTAMP TEXT NOT NULL, ACTIVITY TEXT, VALENCE TEXT, AROUSAL TEXT, DOMINANCE TEXT, PRODUCTIVITY TEXT, STATUS TEXT, NOTES TEXT)";
 			stmt.executeUpdate(sql);
 		} catch (Exception e) {
 			System.err.println(e.getClass().getName() + ": " + e.getMessage());
@@ -155,13 +155,13 @@ public class SQLiteConnection {
 			stmt = con.createStatement();
 
 			PreparedStatement prepStmt = con.prepareStatement(
-					"INSERT INTO DATA (TIMESTAMP,ACTIVITY,VALENCE,AROUSAL,STATUS,NOTES) VALUES (?,?,?,?,?,?)");
-			prepStmt.setString(1, input[0]);
-			prepStmt.setString(2, input[1]);
-			prepStmt.setString(3, input[2]);
-			prepStmt.setString(4, input[3]);
-			prepStmt.setString(5, input[4]);
-			prepStmt.setString(6, input[5]);
+					"INSERT INTO DATA (TIMESTAMP,ACTIVITY,VALENCE,AROUSAL,DOMINANCE,PRODUCTIVITY,STATUS,NOTES) "
+							+ "VALUES (?,?,?,?,?,?,?,?)");
+
+			for (int i = 0; i < input.length; i++) {
+				prepStmt.setString(i + 1, input[i]);
+			}
+
 			prepStmt.executeUpdate();
 		} catch (Exception e) {
 			System.err.println(e.getClass().getName() + ": " + e.getMessage());
@@ -185,13 +185,13 @@ public class SQLiteConnection {
 			stmt = con.createStatement();
 
 			PreparedStatement prepStmt = con.prepareStatement(
-					"INSERT INTO DATA_TO_SYNC (TIMESTAMP,ACTIVITY,VALENCE,AROUSAL,STATUS,NOTES) VALUES (?,?,?,?,?,?)");
-			prepStmt.setString(1, input[0]);
-			prepStmt.setString(2, input[1]);
-			prepStmt.setString(3, input[2]);
-			prepStmt.setString(4, input[3]);
-			prepStmt.setString(5, input[4]);
-			prepStmt.setString(6, input[5]);
+					"INSERT INTO DATA_TO_SYNC (TIMESTAMP,ACTIVITY,VALENCE,AROUSAL,DOMINANCE,PRODUCTIVITY,STATUS,NOTES) "
+							+ "VALUES (?,?,?,?,?,?,?,?)");
+
+			for (int i = 0; i < input.length; i++) {
+				prepStmt.setString(i + 1, input[i]);
+			}
+
 			prepStmt.executeUpdate();
 		} catch (Exception e) {
 			System.err.println(e.getClass().getName() + ": " + e.getMessage());
@@ -295,10 +295,12 @@ public class SQLiteConnection {
 				String ACTIVITY = rs.getString("ACTIVITY");
 				String VALENCE = rs.getString("VALENCE");
 				String AROUSAL = rs.getString("AROUSAL");
+				String DOMINANCE = rs.getString("DOMINANCE");
+				String PRODUCTIVITY = rs.getString("PRODUCTIVITY");
 				String STATUS = rs.getString("STATUS");
 				String NOTES = rs.getString("NOTES");
 
-				tuples.add(new Tuple(TIMESTAMP, ACTIVITY, VALENCE, AROUSAL, STATUS, NOTES));
+				tuples.add(new Tuple(TIMESTAMP, ACTIVITY, VALENCE, AROUSAL, DOMINANCE, PRODUCTIVITY, STATUS, NOTES));
 			}
 		} catch (Exception e) {
 			System.err.println(e.getClass().getName() + ": " + e.getMessage());

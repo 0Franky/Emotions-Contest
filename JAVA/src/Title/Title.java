@@ -13,5 +13,5 @@ public class Title {
 	/**
 	 * Makes dynamic the VERSION of the App
 	 */
-	public static String APPLICATION_VERSION = "0.9";
+	public static String APPLICATION_VERSION = "1.0";
 }
