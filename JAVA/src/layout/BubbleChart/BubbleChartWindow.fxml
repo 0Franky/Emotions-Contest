@@ -37,7 +37,7 @@
             <Font name="System Bold" size="15.0" />
          </font>
       </Label>
-      <AnchorPane id="pnlLine" layoutX="57.0" layoutY="36.0">
+      <AnchorPane id="pnlLine" layoutX="57.0" layoutY="36.0" AnchorPane.bottomAnchor="90.0" AnchorPane.leftAnchor="38.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
             <HBox alignment="CENTER" layoutY="-0.5" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                <children>

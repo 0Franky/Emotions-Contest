@@ -33,8 +33,6 @@ public class BubbleChartController implements Initializable {
 	@FXML
 	Label labelSlider;
 
-	private int labelSliderValue;
-
 	@FXML
 	protected AnchorPane pnlLine;
 
