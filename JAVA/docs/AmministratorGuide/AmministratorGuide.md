@@ -5,7 +5,7 @@
 2.1. Aprire mediante un editor di testo il file batch "HowAppYou HowAppYou [Build DB - makeSheet]". Il campo "TOKEN" indica il nome che assumerà lo sheet.<br>
 2.2. Aprire mediante un editor di testo il file batch "HowAppYou HowAppYou [Build DB - setSheet]". Il campo "TOKEN" indica lo spid sul quale verrano salvati i dati.
 3. Sostituire il campo "TOKEN" con lo specifico dato, quindi salvare il file .bat.
-4. Eseguire il file bat desiderato, prima del primo avvio dell'applicazione.
+4. Eseguire il file bat desiderato, prima del primo avvio dell'applicazione. Al termine verrà mostrato lo spid corrente.
 5. Eseguire l'applicazione mediante il file batch "HowAppYou [Run app]" quando necessario.
 
 ## N.B.:
