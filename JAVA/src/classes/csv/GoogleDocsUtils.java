@@ -471,8 +471,10 @@ public final class GoogleDocsUtils implements ICSV_Writer {
 			// e.printStackTrace();
 		}
 
-		updateSheet(PAGE_SHEET_NAME + "!A" + numRows + ":H",
-				input); /* PER UNA MIGLIORE DINAMICITà SI PUO' CANCELLARE ``+ ":H"`` */
+		updateSheet(PAGE_SHEET_NAME + "!A" + numRows, input); /*
+																 * PER UNA MIGLIORE DINAMICITA' SI PUO' CANCELLARE (O SE
+																 * NECESSARIO INSERIRE) ``+ ":H"``
+																 */
 		System.out.println("End appendSheet");
 	}
 
