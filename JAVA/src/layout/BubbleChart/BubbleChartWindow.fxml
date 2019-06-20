@@ -26,13 +26,13 @@
             <NumberAxis fx:id="yAxis" side="LEFT" />
          </yAxis>
       </BubbleChart>
-      <Slider fx:id="mySlider" blockIncrement="1.0" layoutX="270.0" layoutY="420.0" majorTickUnit="14.0" max="30.0" min="1.0" minorTickCount="5" onMouseClicked="#onSliderChanged" onMouseReleased="#onSliderChanged" prefHeight="45.0" prefWidth="305.0" showTickLabels="true" showTickMarks="true" />
+      <Slider fx:id="mySlider" blockIncrement="1.0" layoutX="270.0" layoutY="420.0" majorTickUnit="15.0" max="30.0" minorTickCount="0" onMouseClicked="#onSliderChanged" onMouseReleased="#onSliderChanged" prefHeight="45.0" prefWidth="305.0" showTickLabels="true" showTickMarks="true" />
       <Label layoutX="44.0" layoutY="420.0" prefHeight="21.0" prefWidth="130.0" text="Select day range :">
          <font>
             <Font name="System Bold" size="15.0" />
          </font>
       </Label>
-      <Label fx:id="labelSlider" alignment="CENTER" contentDisplay="CENTER" layoutX="202.0" layoutY="419.0" prefHeight="21.0" prefWidth="34.0" style="-fx-border-color: lightgray;" text="1">
+      <Label fx:id="labelSlider" alignment="CENTER" contentDisplay="CENTER" layoutX="202.0" layoutY="419.0" prefHeight="21.0" prefWidth="34.0" style="-fx-border-color: lightgray;" text="0">
          <font>
             <Font name="System Bold" size="15.0" />
          </font>
