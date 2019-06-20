@@ -64,6 +64,7 @@ public class AppFX extends Application {
 				SQLiteConnection.setSheet(spid);
 
 				System.out.println("CompanySheet: " + spid);
+				System.out.println("End.");
 				exitApp_STATIC();
 			} else {
 				if (args.length == 1 && args[0].contains("-setSheet=")) {
@@ -71,6 +72,7 @@ public class AppFX extends Application {
 					SQLiteConnection.setSheet(spid);
 
 					System.out.println("CompanySheet: " + spid);
+					System.out.println("End.");
 					// exitApp_STATIC();
 				}
 
