@@ -468,7 +468,7 @@ public final class GoogleDocsUtils implements ICSV_Writer {
 			numRows = sheetsService.spreadsheets().values().get(spid_SurveyResults, "Sheet1!A1:F").execute().getValues()
 					.size() + 1;
 		} catch (Exception e) {
-			e.printStackTrace();
+			// e.printStackTrace();
 		}
 
 		updateSheet(PAGE_SHEET_NAME + "!A" + numRows + ":F", input);
