@@ -55,9 +55,9 @@ public class BubbleChartController implements Initializable {
 	 */
 	@FXML
 	public void onSliderChanged() throws IOException {
-		System.out.println("Slider value = " + mySlider.getValue());
-		labelSliderValue = (int) mySlider.getValue();
-		BubbleChartWindow.getIstance().populateChart(labelSliderValue);
+		System.out.println("Slider value = " + (int) mySlider.getValue());
+		// labelSliderValue = (int) mySlider.getValue();
+		BubbleChartWindow.getIstance().updateChart();
 		System.out.println("Refresh BubbleChart");
 	}
 

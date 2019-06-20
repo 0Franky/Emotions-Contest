@@ -218,7 +218,6 @@ public class BubbleChartWindow {
 	 * @param int day (to set the range to display on the chart [day,today]).
 	 */
 	public void updateChart() {
-		chart.getData().clear();
 		populateChart((int) bubbleChartController.mySlider.getValue());
 	}
 }
