@@ -15,9 +15,9 @@ public class Tuple {
 	private String ACTIVITY;
 	private String VALENCE;
 	private String AROUSAL;
-	private String STATUS;
 	private String PRODUCTIVITY;
 	private String DOMINANCE;
+	private String STATUS;
 	private String NOTES;
 
 	/**
@@ -67,12 +67,12 @@ public class Tuple {
 		return AROUSAL;
 	}
 
-	public String getProductivity() {
-		return PRODUCTIVITY;
-	}
-
 	public String getDominance() {
 		return DOMINANCE;
+	}
+
+	public String getProductivity() {
+		return PRODUCTIVITY;
 	}
 
 	public String getStatus() {

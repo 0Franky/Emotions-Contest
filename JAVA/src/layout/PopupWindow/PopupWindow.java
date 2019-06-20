@@ -331,8 +331,8 @@ public class PopupWindow {
 	 */
 	private Tuple getActivityToTuple() {
 		return new Tuple(Long.toString(TimeConverter.toUnixTime(System.currentTimeMillis())),
-				popupWindowController.getActivity(), pleasantness, excitement, dominance, "POPUP_CLOSED",
-				popupWindowController.getProductivity(), popupWindowController.getNotes());
+				popupWindowController.getActivity(), pleasantness, excitement, dominance,
+				popupWindowController.getProductivity(), "POPUP_CLOSED", popupWindowController.getNotes());
 	}
 
 	/**
