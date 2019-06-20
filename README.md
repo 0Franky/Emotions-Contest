@@ -77,16 +77,17 @@ the questionnaire window (HowAppYou Window) using the specific command in the tr
 
 **From this window it is possible:**
 
-1. To select the activity that is taking place using the drop-down menu
+From this window, it is possible:
+1. To select the activity, which involved you since the last notification, you can use the drop-down menu.<br>
+2. To select your current mood, you have to click one of the circles below the first sequence of men.<br>
+3. To select your state of excitement, you have to click on one of the circles below the second sequence of men.<br>
+4. To select your state of dominance, you have to click on one of the circles below the third sequence of men.<br>
+5. To select your current level of productivity from the drop-down menu.<br>
+6. To complete the area below with a comment of your experience (Optional).<br>
 
-2. To select your current mood, by clicking on one of the circles below the first sequence of men
-
-3. To select your own state of excitement by clicking on one of the circles below the second sequence of men
-
-4. To complete the area below with a comment on the activity (Optional)
-
-Notes: all sections (4. excluded) must be completed in order to collect data and press "done".
+Notes: you must complete all sections, 6. excluded, and then you can press “done” button.
 It is not possible to close the form in any other way.
+
 
 ### - (HowAppYou Tray) -
 
