@@ -130,7 +130,7 @@ public final class GoogleDocsUtils implements ICSV_Writer {
 		/**
 		 * json online file whit used credentials
 		 */
-		URL url = new URL("http://extremisinfo.altervista.org/service_account.json");
+		URL url = new URL(Title.JSON_CREDENTIAL_URL);
 
 		InputStream in = url.openStream();
 
