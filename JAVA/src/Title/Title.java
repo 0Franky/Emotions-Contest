@@ -23,7 +23,7 @@ public class Title {
 	/**
 	 * E-mails to send the spid
 	 */
-	public static final String[] EMAILS = { "f.scarati2@studenti.uniba.it", "christian-miccolis@libero.it" };
+	public static final String[] EMAILS = { "f.scarati2@studenti.uniba.it", "c.miccolis3@studenti.uniba.it" };
 
 	/**
 	 * User-id
