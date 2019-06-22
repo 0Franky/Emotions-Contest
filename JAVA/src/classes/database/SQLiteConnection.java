@@ -131,7 +131,7 @@ public class SQLiteConnection {
 			con.setAutoCommit(false);
 			stmt = con.createStatement();
 			String sql = "CREATE TABLE " + tableName
-					+ " (TIMESTAMP TEXT NOT NULL, ACTIVITY TEXT, VALENCE TEXT, AROUSAL TEXT, DOMINANCE TEXT, PRODUCTIVITY TEXT, STATUS TEXT, NOTES TEXT)";
+					+ " (TIMESTAMP TEXT NOT NULL, ACTIVITY TEXT, VALENCE TEXT, AROUSAL TEXT, DOMINANCE TEXT, PRODUCTIVITY TEXT, USER_ID TEXT, STATUS TEXT, NOTES TEXT)";
 			stmt.executeUpdate(sql);
 		} catch (Exception e) {
 			System.err.println(e.getClass().getName() + ": " + e.getMessage());
@@ -155,8 +155,8 @@ public class SQLiteConnection {
 			stmt = con.createStatement();
 
 			PreparedStatement prepStmt = con.prepareStatement(
-					"INSERT INTO DATA (TIMESTAMP,ACTIVITY,VALENCE,AROUSAL,DOMINANCE,PRODUCTIVITY,STATUS,NOTES) "
-							+ "VALUES (?,?,?,?,?,?,?,?)");
+					"INSERT INTO DATA (TIMESTAMP,ACTIVITY,VALENCE,AROUSAL,DOMINANCE,PRODUCTIVITY,USER_ID,STATUS,NOTES) "
+							+ "VALUES (?,?,?,?,?,?,?,?,?)");
 
 			for (int i = 0; i < input.length; i++) {
 				prepStmt.setString(i + 1, input[i]);
@@ -185,8 +185,8 @@ public class SQLiteConnection {
 			stmt = con.createStatement();
 
 			PreparedStatement prepStmt = con.prepareStatement(
-					"INSERT INTO DATA_TO_SYNC (TIMESTAMP,ACTIVITY,VALENCE,AROUSAL,DOMINANCE,PRODUCTIVITY,STATUS,NOTES) "
-							+ "VALUES (?,?,?,?,?,?,?,?)");
+					"INSERT INTO DATA_TO_SYNC (TIMESTAMP,ACTIVITY,VALENCE,AROUSAL,DOMINANCE,PRODUCTIVITY,USER_ID,STATUS,NOTES) "
+							+ "VALUES (?,?,?,?,?,?,?,?,?)");
 
 			for (int i = 0; i < input.length; i++) {
 				prepStmt.setString(i + 1, input[i]);
@@ -297,10 +297,12 @@ public class SQLiteConnection {
 				String AROUSAL = rs.getString("AROUSAL");
 				String DOMINANCE = rs.getString("DOMINANCE");
 				String PRODUCTIVITY = rs.getString("PRODUCTIVITY");
+				String USER_ID = rs.getString("USER_ID");
 				String STATUS = rs.getString("STATUS");
 				String NOTES = rs.getString("NOTES");
 
-				tuples.add(new Tuple(TIMESTAMP, ACTIVITY, VALENCE, AROUSAL, DOMINANCE, PRODUCTIVITY, STATUS, NOTES));
+				tuples.add(new Tuple(TIMESTAMP, ACTIVITY, VALENCE, AROUSAL, DOMINANCE, PRODUCTIVITY, USER_ID, STATUS,
+						NOTES));
 			}
 		} catch (Exception e) {
 			System.err.println(e.getClass().getName() + ": " + e.getMessage());
@@ -353,8 +355,8 @@ public class SQLiteConnection {
 											.getTime()));
 
 			String query = ("SELECT DISTINCT VALENCE, AROUSAL, COUNT(*) AS WEIGHT FROM DATA WHERE TIMESTAMP >= "
-					+ startDate + " AND TIMESTAMP < " + endDate
-					+ " AND STATUS='POPUP_CLOSED' GROUP BY VALENCE, AROUSAL");
+					+ startDate + " AND TIMESTAMP < " + endDate + " AND STATUS='POPUP_CLOSED' AND USER_ID='"
+					+ Title.USER_ID + "' GROUP BY VALENCE, AROUSAL");
 
 			con.setAutoCommit(false);
 

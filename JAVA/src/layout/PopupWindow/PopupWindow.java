@@ -4,6 +4,7 @@ import java.awt.EventQueue;
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 
+import Title.Title;
 import classes.AppTimer;
 import classes.Synchronizer;
 import classes.TimeConverter;
@@ -320,7 +321,7 @@ public class PopupWindow {
 	 * @return Tuple
 	 */
 	private Tuple getActivityOpenWindowToTuple() {
-		return new Tuple(Long.toString(TimeConverter.toUnixTime(System.currentTimeMillis())), "", "", "", "", "",
+		return new Tuple(Long.toString(TimeConverter.toUnixTime(System.currentTimeMillis())), "", "", "", "", "", "",
 				"POPUP_OPENED", "");
 	}
 
@@ -332,7 +333,8 @@ public class PopupWindow {
 	private Tuple getActivityToTuple() {
 		return new Tuple(Long.toString(TimeConverter.toUnixTime(System.currentTimeMillis())),
 				popupWindowController.getActivity(), pleasantness, excitement, dominance,
-				popupWindowController.getProductivity(), "POPUP_CLOSED", popupWindowController.getNotes());
+				popupWindowController.getProductivity(), Title.USER_ID, "POPUP_CLOSED",
+				popupWindowController.getNotes());
 	}
 
 	/**
