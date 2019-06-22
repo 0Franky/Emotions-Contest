@@ -5,6 +5,7 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.Map;
 
 import org.json.simple.JSONArray;
@@ -45,7 +46,7 @@ public class RW_JSON {
 	 * 
 	 * @param jsonName
 	 */
-	public static void readJson(String jsonName) {
+	public static HashMap<String, String> readJson(String jsonName) {
 		// JSON parser object to parse read file
 		JSONParser jsonParser = new JSONParser();
 
@@ -54,7 +55,26 @@ public class RW_JSON {
 			Object obj = jsonParser.parse(reader);
 
 			JSONArray parametersList = (JSONArray) obj;
-			System.out.println(parametersList);
+			// System.out.println(parametersList);
+
+			JSONObject MapRes = (JSONObject) parametersList.get(0);
+
+			HashMap<String, String> res = new HashMap<String, String>();
+			Iterator<?> keys = MapRes.keySet().iterator();
+			Iterator<?> values = MapRes.values().iterator();
+
+			MapRes.values();
+			while (keys.hasNext()) {
+				String key = (String) keys.next();
+				String value = (String) values.next();
+				res.put(key, value);
+			}
+
+			// System.out.println(" @ " + MapRes.keySet());
+			// System.out.println(" @ " + MapRes.values());
+			// System.out.println(" @ " + res);
+
+			return res;
 
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
@@ -63,6 +83,7 @@ public class RW_JSON {
 		} catch (ParseException e) {
 			e.printStackTrace();
 		}
+		return null;
 	}
 
 	/**
@@ -78,8 +99,10 @@ public class RW_JSON {
 		parametri.put("3", "fuck");
 		parametri.put("4", "test");
 		parametri.put("5", "marocco");
+		System.out.println("writeJson = " + parametri);
 		writeJson("Config.json", parametri);
-		readJson("Config.json");
+		Map<String, String> result = readJson("Config.json");
+		System.out.println("readJson = " + result);
 	}
 
 }
