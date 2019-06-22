@@ -1,5 +1,6 @@
 package classes.json;
 
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
@@ -50,38 +51,40 @@ public class RW_JSON {
 		// JSON parser object to parse read file
 		JSONParser jsonParser = new JSONParser();
 
-		try (FileReader reader = new FileReader(jsonName)) {
-			// Read JSON file
-			Object obj = jsonParser.parse(reader);
+		if (new File(jsonName).exists()) {
+			try (FileReader reader = new FileReader(jsonName)) {
+				// Read JSON file
+				Object obj = jsonParser.parse(reader);
 
-			JSONArray parametersList = (JSONArray) obj;
-			// System.out.println(parametersList);
+				JSONArray parametersList = (JSONArray) obj;
+				// System.out.println(parametersList);
 
-			JSONObject MapRes = (JSONObject) parametersList.get(0);
+				JSONObject MapRes = (JSONObject) parametersList.get(0);
 
-			HashMap<String, String> res = new HashMap<String, String>();
-			Iterator<?> keys = MapRes.keySet().iterator();
-			Iterator<?> values = MapRes.values().iterator();
+				HashMap<String, String> res = new HashMap<String, String>();
+				Iterator<?> keys = MapRes.keySet().iterator();
+				Iterator<?> values = MapRes.values().iterator();
 
-			MapRes.values();
-			while (keys.hasNext()) {
-				String key = (String) keys.next();
-				String value = (String) values.next();
-				res.put(key, value);
+				MapRes.values();
+				while (keys.hasNext()) {
+					String key = (String) keys.next();
+					String value = (String) values.next();
+					res.put(key, value);
+				}
+
+				// System.out.println(" @ " + MapRes.keySet());
+				// System.out.println(" @ " + MapRes.values());
+				// System.out.println(" @ " + res);
+
+				return res;
+
+			} catch (FileNotFoundException e) {
+				e.printStackTrace();
+			} catch (IOException e) {
+				e.printStackTrace();
+			} catch (ParseException e) {
+				e.printStackTrace();
 			}
-
-			// System.out.println(" @ " + MapRes.keySet());
-			// System.out.println(" @ " + MapRes.values());
-			// System.out.println(" @ " + res);
-
-			return res;
-
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
-		} catch (ParseException e) {
-			e.printStackTrace();
 		}
 		return null;
 	}

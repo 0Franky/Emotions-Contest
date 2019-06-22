@@ -39,7 +39,29 @@ public class ConfigurationWindow extends Application {
 	/**
 	 * ConfigurationWindowController is useful to manage Slider
 	 */
-	private ConfigurationWindowController ConfigurationWindowController = null;
+	private static ConfigurationWindowController ConfigurationWindowController = null;
+
+	@Override
+	public void start(Stage primaryStage) throws Exception {
+		FXMLLoader loader = new FXMLLoader();
+		loader.setLocation(ConfigurationWindow.class.getResource("ConfigurationWindow.fxml"));
+		AnchorPane rootLayout = (AnchorPane) loader.load();
+
+		ConfigurationWindowController = loader.getController();
+
+		rootLayout.setStyle("-fx-border-color: gray; -fx-border-width: 1px 1px 1px 1px");
+
+		stage = primaryStage;
+
+		Scene scene = new Scene(rootLayout);
+		stage.setScene(scene);
+		stage.initStyle(StageStyle.UTILITY);
+		stage.setTitle("Configuration");
+		stage.getIcons().add(new Image(getClass().getResourceAsStream("/Assets/Icon.png")));
+		centerStage(stage);
+
+		checkAutoFill();
+	}
 
 	/**
 	 * Return the unique possible instance of the ConfigurationWindow
@@ -67,7 +89,7 @@ public class ConfigurationWindow extends Application {
 		Rectangle2D screenBounds = Screen.getPrimary().getVisualBounds();
 
 		double screenWidth = screenBounds.getWidth();
-		double screenHeight = screenBounds.getWidth();
+		double screenHeight = screenBounds.getHeight();
 
 		stage.show();
 
@@ -79,15 +101,22 @@ public class ConfigurationWindow extends Application {
 
 		Map<String, String> json_param = RW_JSON.readJson(Title.APPLICATION_NAME + ".conf");
 
-		String companyName = json_param.get("companyName");
-		String spid = json_param.get("spid");
+		String companyName = "";
+		String spid = "";
 
-		ConfigurationWindowController.lbl_SheetName.setText(companyName);
-		ConfigurationWindowController.lbl_Spid.setText(spid);
+		try {
+			companyName = json_param.get("companyName");
+			spid = json_param.get("spid");
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+
+		ConfigurationWindowController.txt_SheetName.setText(companyName);
+		ConfigurationWindowController.txt_Spid.setText(spid);
 	}
 
 	protected void makeSheet() throws IOException, GeneralSecurityException, URISyntaxException {
-		String companyName = ConfigurationWindowController.lbl_SheetName.getText();
+		String companyName = ConfigurationWindowController.txt_SheetName.getText();
 		final String spid = GoogleDocsUtils.getInstance().createSheet("SurveyResults-" + companyName);
 		GoogleDocsUtils.getInstance().shareSheet(spid);
 		GoogleDocsUtils.getInstance().getSheetByTitle(spid);
@@ -109,7 +138,7 @@ public class ConfigurationWindow extends Application {
 	}
 
 	protected void setSheet() {
-		String spid = ConfigurationWindowController.lbl_Spid.getText();
+		String spid = ConfigurationWindowController.txt_Spid.getText();
 		SQLiteConnection.setSheet(spid);
 
 		InfoAlert("CompanySheet: " + spid + "\n\nEnd.");
@@ -130,26 +159,16 @@ public class ConfigurationWindow extends Application {
 		alert.showAndWait();
 	}
 
-	@Override
-	public void start(Stage primaryStage) throws Exception {
-		FXMLLoader loader = new FXMLLoader();
-		loader.setLocation(ConfigurationWindow.class.getResource("ConfigurationWindow.fxml"));
-		AnchorPane rootLayout = (AnchorPane) loader.load();
+	public static void main(String[] args) throws IOException, java.awt.AWTException {
+		// Just launches the JavaFX application.
+		// Due to way the application is coded, the application will remain running
+		// until the user selects the Exit menu option from the tray icon.
 
-		ConfigurationWindowController = loader.getController();
+		try {
+			launch(args);
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
 
-		rootLayout.setStyle("-fx-border-color: gray; -fx-border-width: 1px 1px 1px 1px");
-
-		stage = primaryStage;
-
-		Scene scene = new Scene(rootLayout);
-		stage.setScene(scene);
-		stage.initStyle(StageStyle.UNDECORATED);
-		stage.setTitle("Configuration");
-		stage.getIcons().add(new Image(getClass().getResourceAsStream("/Assets/Icon.png")));
-		centerStage(stage);
-
-		checkAutoFill();
 	}
-
 }

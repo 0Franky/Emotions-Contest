@@ -18,13 +18,13 @@ import javafx.stage.StageStyle;
 public class ConfigurationWindowController implements Initializable {
 
 	@FXML
-	protected TextField lbl_SheetName;
+	protected TextField txt_SheetName;
 
 	@FXML
 	protected Button btn_Done_SheetName;
 
 	@FXML
-	protected TextField lbl_Spid;
+	protected TextField txt_Spid;
 
 	@FXML
 	protected Button btn_Done_Spid;
@@ -37,12 +37,16 @@ public class ConfigurationWindowController implements Initializable {
 	 */
 	@FXML
 	private void pressed_btn_Done_SheetName(ActionEvent event) throws IOException {
-		try {
-			ConfigurationWindow.getIstance().makeSheet();
-		} catch (GeneralSecurityException | URISyntaxException e) {
-			// TODO Auto-generated catch block
-			// e.printStackTrace();
-			WarningAlert("No sheets created!\nSomething went wrong! Try again later...");
+		if (!txt_SheetName.getText().equals("")) {
+			try {
+				ConfigurationWindow.getIstance().makeSheet();
+			} catch (GeneralSecurityException | URISyntaxException e) {
+				// TODO Auto-generated catch block
+				// e.printStackTrace();
+				WarningAlert("No sheets created!\nSomething went wrong! Try again later...");
+			}
+		} else {
+			WarningAlert("Name sheet not filled!");
 		}
 	}
 
@@ -54,7 +58,11 @@ public class ConfigurationWindowController implements Initializable {
 	 */
 	@FXML
 	private void pressed_btn_Done_Spid(ActionEvent event) throws IOException {
-		ConfigurationWindow.getIstance().setSheet();
+		if (!txt_Spid.getText().equals("")) {
+			ConfigurationWindow.getIstance().setSheet();
+		} else {
+			WarningAlert("Spid not filled!");
+		}
 	}
 
 	/**

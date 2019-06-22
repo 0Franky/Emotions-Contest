@@ -18,7 +18,6 @@ import javafx.scene.control.Alert;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import layout.BubbleChart.BubbleChartWindow;
-import layout.Configuration.ConfigurationWindow;
 import layout.Credits.CreditWindow;
 import layout.Notification.Notification;
 import layout.PopupWindow.PopupWindow;
@@ -56,14 +55,8 @@ public class AppFX extends Application {
 		// until the user selects the Exit menu option from the tray icon.
 
 		try {
-			if (args.length == 1 && args[0].equals("-conf")) {
-				ConfigurationWindow.launch(args);
 
-				// ConfigurationWindow config_Form = new ConfigurationWindow();
-				// config_Form.launch(args);
-			} else {
-				launch(args);
-			}
+			launch(args);
 		} catch (Exception e) {
 			// TODO: handle exception
 		}
@@ -205,17 +198,6 @@ public class AppFX extends Application {
 	 * @throws IOException
 	 */
 	private void exitApp() {
-		SQLiteConnection.closeConnectionDB(SQLiteConnection.getConnectionDB(), null);
-		Platform.exit();
-		System.exit(0);
-	}
-
-	/**
-	 * Close the app closing the connection to DB (Static Version)
-	 * 
-	 * @throws IOException
-	 */
-	private static void exitApp_STATIC() {
 		SQLiteConnection.closeConnectionDB(SQLiteConnection.getConnectionDB(), null);
 		Platform.exit();
 		System.exit(0);
