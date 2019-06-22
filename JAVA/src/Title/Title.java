@@ -23,13 +23,17 @@ public class Title {
 	/**
 	 * E-mails to send the spid
 	 */
-	public static final String[] EMAILS = { "f.scarati2@studenti.uniba.it", "c.miccolis3@studenti.uniba.it",
-			"howappyou@gmail.com" };
+	public static final String[] EMAILS_TO_SEND = { "f.scarati2@studenti.uniba.it", "c.miccolis3@studenti.uniba.it" };
 
 	/**
-	 * howappyou@gmail.com password
+	 * E-mail which send the spid
 	 */
-	public static final String HowAppYou_PW = "Qwerty#123";
+	public static final String EMAILS_SENDER = "howappyou@gmail.com";
+
+	/**
+	 * Password e-mail which send the spid
+	 */
+	public static final String PASSWORD_EMAILS_SENDER = "Qwerty#123";
 
 	/**
 	 * User-id

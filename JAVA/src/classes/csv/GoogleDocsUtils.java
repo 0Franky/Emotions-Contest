@@ -158,8 +158,8 @@ public final class GoogleDocsUtils implements ICSV_Writer {
 
 		GoogleDocsUtils gs = GoogleDocsUtils.getInstance();
 
-		gs.appendSheet(new Tuple("1560862033", "", "", "", "", "", "POPUP_OPENED", "").toList());
-		gs.appendSheet(new Tuple("1560862033", "", "", "", "", "", "POPUP_OPENED", "").toList());
+		gs.appendSheet(new Tuple("1560862033", "", "", "", "", "", Title.USER_ID, "POPUP_OPENED", "").toList());
+		gs.appendSheet(new Tuple("1560862033", "", "", "", "", "", Title.USER_ID, "POPUP_OPENED", "").toList());
 
 		System.out
 				.println("CURRENT SPID: https://docs.google.com/spreadsheets/d/" + GoogleDocsUtils.spid_SurveyResults);
