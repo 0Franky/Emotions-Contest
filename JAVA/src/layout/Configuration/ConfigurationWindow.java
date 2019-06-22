@@ -141,7 +141,7 @@ public class ConfigurationWindow extends Application {
 		String spid = ConfigurationWindowController.txt_Spid.getText();
 		SQLiteConnection.setSheet(spid);
 
-		InfoAlert("CompanySheet: " + spid + "\n\nEnd.");
+		InfoAlert("Company spid: " + spid + "\n\nEnd.");
 	}
 
 	/**
