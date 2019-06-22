@@ -3,11 +3,14 @@ package layout.Configuration;
 import java.io.IOException;
 import java.net.URISyntaxException;
 import java.security.GeneralSecurityException;
+import java.util.HashMap;
+import java.util.Map;
 
 import Title.Title;
 import classes.MailSender;
 import classes.csv.GoogleDocsUtils;
 import classes.database.SQLiteConnection;
+import classes.json.RW_JSON;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Rectangle2D;
@@ -25,7 +28,7 @@ public class ConfigurationWindow extends Application {
 	/**
 	 * Stage this_stage define the layout of the window
 	 */
-	protected static Stage this_stage = new Stage();
+	protected static Stage stage = null;
 
 	/**
 	 * ConfigurationWindow instance is useful to make ConfigurationWindow class
@@ -37,27 +40,6 @@ public class ConfigurationWindow extends Application {
 	 * ConfigurationWindowController is useful to manage Slider
 	 */
 	private ConfigurationWindowController ConfigurationWindowController = null;
-
-	private ConfigurationWindow() throws IOException {
-		FXMLLoader loader = new FXMLLoader();
-		loader.setLocation(ConfigurationWindow.class.getResource("ConfigurationWindow.fxml"));
-		AnchorPane rootLayout = (AnchorPane) loader.load();
-
-		ConfigurationWindowController = loader.getController();
-
-		rootLayout.setStyle("-fx-border-color: gray; -fx-border-width: 1px 1px 1px 1px");
-		Stage stage = new Stage();
-
-		Scene scene = new Scene(rootLayout);
-		stage.setScene(scene);
-		stage.initStyle(StageStyle.UNDECORATED);
-		stage.setTitle("Configuration");
-		stage.getIcons().add(new Image(getClass().getResourceAsStream("/Assets/Icon.png")));
-		this_stage = stage;
-		centerStage(this_stage);
-
-		checkAutoFill();
-	}
 
 	/**
 	 * Return the unique possible instance of the ConfigurationWindow
@@ -87,17 +69,19 @@ public class ConfigurationWindow extends Application {
 		double screenWidth = screenBounds.getWidth();
 		double screenHeight = screenBounds.getWidth();
 
-		this_stage.show();
+		stage.show();
 
 		stage.setX((screenWidth / 2) - (stage.getWidth() / 2));
 		stage.setY((screenHeight / 2) - (stage.getHeight() / 2));
 	}
 
 	private void checkAutoFill() {
-		
-		String companyName = READ_JSON
-		String spid = READ_JSON
-		
+
+		Map<String, String> json_param = RW_JSON.readJson(Title.APPLICATION_NAME + ".conf");
+
+		String companyName = json_param.get("companyName");
+		String spid = json_param.get("spid");
+
 		ConfigurationWindowController.lbl_SheetName.setText(companyName);
 		ConfigurationWindowController.lbl_Spid.setText(spid);
 	}
@@ -112,8 +96,13 @@ public class ConfigurationWindow extends Application {
 		for (String email : Title.EMAILS_TO_SEND) {
 			MailSender.sendMail(Title.EMAILS_SENDER, Title.PASSWORD_EMAILS_SENDER, email, "SPID " + companyName, spid);
 		}
-		
-		WRITE_JSON
+
+		Map<String, String> json_param = new HashMap<>();
+
+		json_param.put("companyName", companyName);
+		json_param.put("spid", spid);
+
+		RW_JSON.writeJson(Title.APPLICATION_NAME + ".conf", json_param);
 
 		InfoAlert("Company spid: " + spid + "\nCompany sheet: https://docs.google.com/spreadsheets/d/" + spid
 				+ "\n\nEnd.");
@@ -137,14 +126,30 @@ public class ConfigurationWindow extends Application {
 		alert.setHeaderText(null);
 		alert.setContentText(text);
 		alert.initStyle(StageStyle.UTILITY);
-		alert.initOwner(this_stage);
+		alert.initOwner(stage);
 		alert.showAndWait();
 	}
 
 	@Override
 	public void start(Stage primaryStage) throws Exception {
-		// TODO Auto-generated method stub
-		ConfigurationWindow.getIstance();
+		FXMLLoader loader = new FXMLLoader();
+		loader.setLocation(ConfigurationWindow.class.getResource("ConfigurationWindow.fxml"));
+		AnchorPane rootLayout = (AnchorPane) loader.load();
+
+		ConfigurationWindowController = loader.getController();
+
+		rootLayout.setStyle("-fx-border-color: gray; -fx-border-width: 1px 1px 1px 1px");
+
+		stage = primaryStage;
+
+		Scene scene = new Scene(rootLayout);
+		stage.setScene(scene);
+		stage.initStyle(StageStyle.UNDECORATED);
+		stage.setTitle("Configuration");
+		stage.getIcons().add(new Image(getClass().getResourceAsStream("/Assets/Icon.png")));
+		centerStage(stage);
+
+		checkAutoFill();
 	}
 
 }

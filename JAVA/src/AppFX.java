@@ -58,6 +58,9 @@ public class AppFX extends Application {
 		try {
 			if (args.length == 1 && args[0].equals("-conf")) {
 				ConfigurationWindow.launch(args);
+
+				// ConfigurationWindow config_Form = new ConfigurationWindow();
+				// config_Form.launch(args);
 			} else {
 				launch(args);
 			}

@@ -68,7 +68,7 @@ public class ConfigurationWindowController implements Initializable {
 		alert.setHeaderText(null);
 		alert.setContentText(text);
 		alert.initStyle(StageStyle.UTILITY);
-		alert.initOwner(ConfigurationWindow.this_stage);
+		alert.initOwner(ConfigurationWindow.stage);
 		alert.showAndWait();
 	}
 
