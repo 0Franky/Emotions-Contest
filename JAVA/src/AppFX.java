@@ -10,7 +10,6 @@ import classes.AppTimer;
 import classes.Tuple;
 import classes.csv.CSV_Manager;
 import classes.csv.CSV_WriterBuilder;
-import classes.csv.GoogleDocsUtils;
 import classes.csv.ICSV_Writer;
 import classes.database.SQLiteConnection;
 import javafx.application.Application;
@@ -19,6 +18,7 @@ import javafx.scene.control.Alert;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import layout.BubbleChart.BubbleChartWindow;
+import layout.Configuration.ConfigurationWindow;
 import layout.Credits.CreditWindow;
 import layout.Notification.Notification;
 import layout.PopupWindow.PopupWindow;
@@ -56,26 +56,9 @@ public class AppFX extends Application {
 		// until the user selects the Exit menu option from the tray icon.
 
 		try {
-			if (args.length == 1 && args[0].contains("-newSheet=")) {
-				String companyName = args[0].substring(args[0].indexOf("=") + 1);
-				final String spid = GoogleDocsUtils.getInstance().createSheet("SurveyResults-" + companyName);
-				GoogleDocsUtils.getInstance().shareSheet(spid);
-				GoogleDocsUtils.getInstance().getSheetByTitle(spid);
-				SQLiteConnection.setSheet(spid);
-
-				System.out.println("CompanySheet: " + spid);
-				System.out.println("End.");
-				exitApp_STATIC();
+			if (args.length == 1 && args[0].equals("-conf")) {
+				ConfigurationWindow.launch(args);
 			} else {
-				if (args.length == 1 && args[0].contains("-setSheet=")) {
-					String spid = args[0].substring(args[0].indexOf("=") + 1);
-					SQLiteConnection.setSheet(spid);
-
-					System.out.println("CompanySheet: " + spid);
-					System.out.println("End.");
-					// exitApp_STATIC();
-				}
-
 				launch(args);
 			}
 		} catch (Exception e) {
