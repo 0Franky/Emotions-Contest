@@ -40,5 +40,7 @@
 	<classpathentry kind="lib" path="lib/jsr305-3.0.2.jar"/>
 	<classpathentry kind="lib" path="lib/sqlite-jdbc-3.27.2.1.jar"/>
 	<classpathentry kind="lib" path="lib/transaction-api-1.1.jar"/>
+	<classpathentry kind="lib" path="lib/activation.jar"/>
+	<classpathentry kind="lib" path="lib/mail.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
