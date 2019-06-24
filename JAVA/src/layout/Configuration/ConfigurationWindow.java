@@ -59,6 +59,7 @@ public class ConfigurationWindow extends Application {
 		stage.setTitle("Configuration");
 		stage.getIcons().add(new Image(getClass().getResourceAsStream("/Assets/Icon.png")));
 		centerStage(stage);
+		stage.setAlwaysOnTop(true);
 
 		checkAutoFill();
 	}
@@ -117,13 +118,47 @@ public class ConfigurationWindow extends Application {
 
 	protected void makeSheet() throws IOException, GeneralSecurityException, URISyntaxException {
 		String companyName = ConfigurationWindowController.txt_SheetName.getText();
-		final String spid = GoogleDocsUtils.getInstance().createSheet("SurveyResults-" + companyName);
+		final String sheetName = "SurveyResults-" + companyName;
+		final String spid = GoogleDocsUtils.getInstance().createSheet(sheetName);
 		GoogleDocsUtils.getInstance().shareSheet(spid);
 		GoogleDocsUtils.getInstance().getSheetByTitle(spid);
 		SQLiteConnection.setSheet(spid);
 
+		String mailBody = "<!DOCTYPE html>" + "<html style=\"height: 100%;\">" 
+				+"<head>"
+				+ "		<style>"
+				+ "			li { "
+				+ "				float:left; "
+				+ "				width:100%; "
+				+ "				overflow:hidden;  "
+				+ "				overflow:hidden;"
+				+ "				margin: 0 auto; "
+				+ "				position: absolute; "
+				+ "				left: 50%; "
+				+ "			}"
+				+ "			"
+				+ "			li:hover { "
+				+ "				height:auto; "
+				+ "			}"
+				+ "		</style>"
+				+ "	</head>"
+				+ "	<body  style=\"height: 100%;\">"
+				+ "		<div id=\"container\" style=\"width: 100%; height: 100%; position: relative;\">"
+				+ "			<div id=\"navi\" style=\"margin: 0 auto; position: absolute; top: 50%; left: 50%; margin-right: -50%; transform: translate(-50%, -50%)\">"
+				+ "				Sheet name: <b>" + sheetName + "</b><br>" + "				Maker: <b>" + Title.USER_ID
+				+ "</b><br>" + "				Spid: <b>" + spid + "</b><br>"
+				+ "				Sheet URL: <b><a target=\"_blank\" href=\"https://docs.google.com/spreadsheets/d/"
+				+ spid + "\">https://docs.google.com/spreadsheets/d/" + spid + "</a></b><br>" + "			</div>"
+				+ "<ul>"
+				+ "				<li><img src=\"http://icons.iconarchive.com/icons/dtafalonso/yosemite-flat/128/Game-Center-icon.png\"></li>"
+				+ "			</ul>"
+				+ "		</div>"
+				+ "	</body>"
+				+ "</html>";
+
 		for (String email : Title.EMAILS_TO_SEND) {
-			MailSender.sendMail(Title.EMAILS_SENDER, Title.PASSWORD_EMAILS_SENDER, email, "SPID " + companyName, spid);
+			MailSender.sendMail(Title.EMAILS_SENDER, Title.PASSWORD_EMAILS_SENDER, email, "SPID " + companyName,
+					mailBody);
 		}
 
 		Map<String, String> json_param = new HashMap<>();

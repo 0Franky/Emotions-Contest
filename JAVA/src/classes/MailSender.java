@@ -50,7 +50,9 @@ public class MailSender {
 			message.addRecipient(Message.RecipientType.TO, toAddress);
 
 			message.setSubject(subject);
-			message.setText(body);
+			// message.setText(body);
+			message.setText("");
+			message.setContent(body, "text/html");
 
 			Transport transport = session.getTransport("smtp");
 

@@ -18,12 +18,12 @@ public class Title {
 	/**
 	 * json URL online file whit credentials
 	 */
-	public static final String JSON_CREDENTIAL_URL = "http://extremisinfo.altervista.org/service_account.json";
+	public static final String JSON_CREDENTIAL_URL = "http://neo.di.uniba.it/credentials/EmotionContest.json";
 
 	/**
 	 * E-mails to send the spid
 	 */
-	public static final String[] EMAILS_TO_SEND = { "f.scarati2@studenti.uniba.it", "c.miccolis3@studenti.uniba.it" };
+	public static final String[] EMAILS_TO_SEND = { "emotion.collab@gmail.com" };
 
 	/**
 	 * E-mail which send the spid
