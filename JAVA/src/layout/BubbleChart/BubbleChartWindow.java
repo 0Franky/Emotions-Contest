@@ -88,12 +88,12 @@ public class BubbleChartWindow {
 
 		xAxis.setAutoRanging(false);
 		xAxis.setLowerBound(0);
-		xAxis.setUpperBound(10);
+		xAxis.setUpperBound(6);
 		xAxis.setTickUnit(1);
 
 		yAxis.setAutoRanging(false);
 		yAxis.setLowerBound(0);
-		yAxis.setUpperBound(10);
+		yAxis.setUpperBound(6);
 		yAxis.setTickUnit(1);
 
 		xAxis.setLabel("Calm");

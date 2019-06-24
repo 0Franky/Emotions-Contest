@@ -10,7 +10,6 @@ import classes.AppTimer;
 import classes.Tuple;
 import classes.csv.CSV_Manager;
 import classes.csv.CSV_WriterBuilder;
-import classes.csv.GoogleDocsUtils;
 import classes.csv.ICSV_Writer;
 import classes.database.SQLiteConnection;
 import javafx.application.Application;
@@ -56,26 +55,8 @@ public class AppFX extends Application {
 		// until the user selects the Exit menu option from the tray icon.
 
 		try {
-			if (args.length == 1 && args[0].contains("-newSheet=")) {
-				String companyName = args[0].substring(args[0].indexOf("=") + 1);
-				final String spid = GoogleDocsUtils.getInstance().createSheet("SurveyResults-" + companyName);
-				GoogleDocsUtils.getInstance().shareSheet(spid);
-				GoogleDocsUtils.getInstance().getSheetByTitle(spid);
-				SQLiteConnection.setSheet(spid);
 
-				System.out.println("CompanySheet: " + spid);
-				exitApp_STATIC();
-			} else {
-				if (args.length == 1 && args[0].contains("-setSheet=")) {
-					String spid = args[0].substring(args[0].indexOf("=") + 1);
-					SQLiteConnection.setSheet(spid);
-
-					System.out.println("CompanySheet: " + spid);
-					// exitApp_STATIC();
-				}
-
-				launch(args);
-			}
+			launch(args);
 		} catch (Exception e) {
 			// TODO: handle exception
 		}
@@ -217,17 +198,6 @@ public class AppFX extends Application {
 	 * @throws IOException
 	 */
 	private void exitApp() {
-		SQLiteConnection.closeConnectionDB(SQLiteConnection.getConnectionDB(), null);
-		Platform.exit();
-		System.exit(0);
-	}
-
-	/**
-	 * Close the app closing the connection to DB (Static Version)
-	 * 
-	 * @throws IOException
-	 */
-	private static void exitApp_STATIC() {
 		SQLiteConnection.closeConnectionDB(SQLiteConnection.getConnectionDB(), null);
 		Platform.exit();
 		System.exit(0);

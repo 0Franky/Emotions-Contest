@@ -15,6 +15,9 @@ public class Tuple {
 	private String ACTIVITY;
 	private String VALENCE;
 	private String AROUSAL;
+	private String PRODUCTIVITY;
+	private String DOMINANCE;
+	private String USER_ID;
 	private String STATUS;
 	private String NOTES;
 
@@ -25,16 +28,23 @@ public class Tuple {
 	 * @param ACTIVITY
 	 * @param VALENCE
 	 * @param AROUSAL
+	 * @param DOMINANCE
+	 * @param PRODUCTIVITY
+	 * @param USER_ID
 	 * @param STATUS
 	 * @param NOTES
 	 */
-	public Tuple(String TIMESTAMP, String ACTIVITY, String VALENCE, String AROUSAL, String STATUS, String NOTES) {
+	public Tuple(String TIMESTAMP, String ACTIVITY, String VALENCE, String AROUSAL, String DOMINANCE,
+			String PRODUCTIVITY, String USER_ID, String STATUS, String NOTES) {
 		// TODO Auto-generated constructor stub
 
 		this.TIMESTAMP = TIMESTAMP.trim();
 		this.ACTIVITY = ACTIVITY.trim();
 		this.VALENCE = VALENCE.trim();
 		this.AROUSAL = AROUSAL.trim();
+		this.DOMINANCE = DOMINANCE.trim();
+		this.PRODUCTIVITY = PRODUCTIVITY.trim();
+		this.USER_ID = USER_ID.trim();
 		this.STATUS = STATUS.trim();
 		this.NOTES = NOTES.trim();
 	}
@@ -60,6 +70,18 @@ public class Tuple {
 		return AROUSAL;
 	}
 
+	public String getDominance() {
+		return DOMINANCE;
+	}
+
+	public String getProductivity() {
+		return PRODUCTIVITY;
+	}
+
+	public String getUserId() {
+		return USER_ID;
+	}
+
 	public String getStatus() {
 		return STATUS;
 	}
@@ -74,7 +96,7 @@ public class Tuple {
 	 * @return String[]
 	 */
 	public String[] toArray() {
-		return new String[] { TIMESTAMP, ACTIVITY, VALENCE, AROUSAL, STATUS, NOTES };
+		return new String[] { TIMESTAMP, ACTIVITY, VALENCE, AROUSAL, DOMINANCE, PRODUCTIVITY, USER_ID, STATUS, NOTES };
 	}
 
 	/**
@@ -83,7 +105,7 @@ public class Tuple {
 	 * @return String[]
 	 */
 	public List<String> toList() {
-		return Arrays.asList(new String[] { TIMESTAMP, ACTIVITY, VALENCE, AROUSAL, STATUS, NOTES });
+		return Arrays.asList(toArray());
 	}
 
 	/**
@@ -94,6 +116,9 @@ public class Tuple {
 		System.out.println("ACTIVITY: " + ACTIVITY);
 		System.out.println("VALENCE: " + VALENCE);
 		System.out.println("AROUSAL: " + AROUSAL);
+		System.out.println("PRODUCTIVITY: " + PRODUCTIVITY);
+		System.out.println("DOMINANCE: " + DOMINANCE);
+		System.out.println("USER_ID: " + USER_ID);
 		System.out.println("STATUS: " + STATUS);
 		System.out.println("NOTES: " + NOTES);
 	}
