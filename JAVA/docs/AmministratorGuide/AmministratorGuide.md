@@ -2,9 +2,9 @@
 
 ## Configurazione Sheet
 
-**(0.0) ||Pre configurazione||** Spostare il file batch `HowAppYou [Run].bat` nella stessa directory del file `HowAppYou.jar`
+**(0.0) ||Pre configurazione||** Spostare il file batch `HowAppYou [-conf].bat` nella stessa directory del file `HowAppYou.jar`
 
-**(1.0) Per configurare l'applicazione:** Eseguire il file batch `HowAppYou [Run].bat`. Esso avvierà il file `HowAppYou.jar`
+**(1.0) Per configurare l'applicazione:** Eseguire il file batch `HowAppYou [-conf].bat`. Esso avvierà il file `HowAppYou.jar`
 
 **(2.1) Per creare online un nuovo sheet:** Inserire nel campo _"Name Sheet"_ un nome identificativo per lo Sheet (ES: Azienda01) in seguito premere il tasto _"done"_<br>
 In seguito verrà visualizzata un finestra di conferma di corretta avvenuta dell'operazione desiderata, quindi chiudere la finestra di Configurazione.
