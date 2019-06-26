@@ -12,7 +12,6 @@ import classes.csv.CSV_Manager;
 import classes.csv.CSV_WriterBuilder;
 import classes.csv.ICSV_Writer;
 import classes.database.SQLiteConnection;
-import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.scene.control.Alert;
 import javafx.stage.FileChooser;
@@ -25,7 +24,29 @@ import layout.PopupWindow.PopupWindow;
 /**
  * Main Class that defines the tray of the App and the Static Main
  */
-public class AppFX extends Application {
+public class AppFX {
+
+	/**
+	 * ConfigurationWindow instance is useful to make ConfigurationWindow class
+	 * "Singleton"
+	 */
+	private static AppFX instance = null;
+
+	/**
+	 * Return the unique possible instance of the AppFX
+	 *
+	 * @return The ConfigurationWindow.
+	 * @throws Exception
+	 */
+	public static AppFX getIstance() throws Exception {
+		if (instance == null)
+			synchronized (AppFX.class) {
+				if (instance == null) {
+					instance = new AppFX();
+				}
+			}
+		return instance;
+	}
 
 	/**
 	 * Definition of the icon of the App
@@ -43,33 +64,9 @@ public class AppFX extends Application {
 	private Stage this_stage;
 
 	/**
-	 * Main
-	 * 
-	 * @param args
-	 * @throws IOException
-	 * @throws             java.awt.AWTException
-	 */
-	public static void main(String[] args) throws IOException, java.awt.AWTException {
-		// Just launches the JavaFX application.
-		// Due to way the application is coded, the application will remain running
-		// until the user selects the Exit menu option from the tray icon.
-
-		try {
-
-			launch(args);
-		} catch (Exception e) {
-			// TODO: handle exception
-		}
-
-	}
-
-	/**
 	 * Sets up the tray icon, database and the main stage (Notification)
-	 * 
-	 * @param final Stage stage
 	 */
-	@Override
-	public void start(final Stage stage) throws Exception {
+	public AppFX() throws Exception {
 
 		/*
 		 * stores a reference to the stage. this.stage = stage;
@@ -77,6 +74,10 @@ public class AppFX extends Application {
 		 * instructs the javafx system not to exit implicitly when the last application
 		 * window is shut.
 		 */
+
+		Stage primaryStage = new Stage();
+
+		this_stage = primaryStage;
 
 		Platform.setImplicitExit(false);
 
