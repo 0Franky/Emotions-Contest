@@ -11,7 +11,6 @@ import classes.MailSender;
 import classes.csv.GoogleDocsUtils;
 import classes.database.SQLiteConnection;
 import classes.json.RW_JSON;
-import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Scene;
@@ -23,7 +22,7 @@ import javafx.stage.Screen;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
-public class ConfigurationWindow extends Application {
+public class ConfigurationWindow {
 
 	/**
 	 * Stage this_stage define the layout of the window
@@ -41,8 +40,7 @@ public class ConfigurationWindow extends Application {
 	 */
 	private static ConfigurationWindowController ConfigurationWindowController = null;
 
-	@Override
-	public void start(Stage primaryStage) throws Exception {
+	public ConfigurationWindow() throws IOException {
 		FXMLLoader loader = new FXMLLoader();
 		loader.setLocation(ConfigurationWindow.class.getResource("ConfigurationWindow.fxml"));
 		AnchorPane rootLayout = (AnchorPane) loader.load();
@@ -51,10 +49,13 @@ public class ConfigurationWindow extends Application {
 
 		rootLayout.setStyle("-fx-border-color: gray; -fx-border-width: 1px 1px 1px 1px");
 
-		stage = primaryStage;
-
+		Stage primaryStage = new Stage();
 		Scene scene = new Scene(rootLayout);
-		stage.setScene(scene);
+		primaryStage.setScene(scene);
+
+		stage = primaryStage;
+		stage.resizableProperty().setValue(Boolean.FALSE);
+
 		stage.initStyle(StageStyle.UTILITY);
 		stage.setTitle("Configuration");
 		stage.getIcons().add(new Image(getClass().getResourceAsStream("/Assets/Icon.png")));
@@ -124,25 +125,12 @@ public class ConfigurationWindow extends Application {
 		GoogleDocsUtils.getInstance().getSheetByTitle(spid);
 		SQLiteConnection.setSheet(spid);
 
-		String mailBody = "<!DOCTYPE html>" + "<html style=\"height: 100%;\">" 
-				+"<head>"
-				+ "		<style>"
-				+ "			li { "
-				+ "				float:left; "
-				+ "				width:100%; "
-				+ "				overflow:hidden;  "
-				+ "				overflow:hidden;"
-				+ "				margin: 0 auto; "
-				+ "				position: absolute; "
-				+ "				left: 50%; "
-				+ "			}"
-				+ "			"
-				+ "			li:hover { "
-				+ "				height:auto; "
-				+ "			}"
-				+ "		</style>"
-				+ "	</head>"
-				+ "	<body  style=\"height: 100%;\">"
+		String mailBody = "<!DOCTYPE html>" + "<html style=\"height: 100%;\">" + "<head>" + "		<style>"
+				+ "			li { " + "				float:left; " + "				width:100%; "
+				+ "				overflow:hidden;  " + "				overflow:hidden;"
+				+ "				margin: 0 auto; " + "				position: absolute; " + "				left: 50%; "
+				+ "			}" + "			" + "			li:hover { " + "				height:auto; "
+				+ "			}" + "		</style>" + "	</head>" + "	<body  style=\"height: 100%;\">"
 				+ "		<div id=\"container\" style=\"width: 100%; height: 100%; position: relative;\">"
 				+ "			<div id=\"navi\" style=\"margin: 0 auto; position: absolute; top: 50%; left: 50%; margin-right: -50%; transform: translate(-50%, -50%)\">"
 				+ "				Sheet name: <b>" + sheetName + "</b><br>" + "				Maker: <b>" + Title.USER_ID
@@ -151,10 +139,7 @@ public class ConfigurationWindow extends Application {
 				+ spid + "\">https://docs.google.com/spreadsheets/d/" + spid + "</a></b><br>" + "			</div>"
 				+ "<ul>"
 				+ "				<li><img src=\"http://icons.iconarchive.com/icons/dtafalonso/yosemite-flat/128/Game-Center-icon.png\"></li>"
-				+ "			</ul>"
-				+ "		</div>"
-				+ "	</body>"
-				+ "</html>";
+				+ "			</ul>" + "		</div>" + "	</body>" + "</html>";
 
 		for (String email : Title.EMAILS_TO_SEND) {
 			MailSender.sendMail(Title.EMAILS_SENDER, Title.PASSWORD_EMAILS_SENDER, email, "SPID " + companyName,
@@ -199,11 +184,8 @@ public class ConfigurationWindow extends Application {
 		// Due to way the application is coded, the application will remain running
 		// until the user selects the Exit menu option from the tray icon.
 
-		try {
-			launch(args);
-		} catch (Exception e) {
-			// TODO: handle exception
-		}
-
+		/*
+		 * try { launch(args); } catch (Exception e) { // TODO: handle exception }
+		 */
 	}
 }
