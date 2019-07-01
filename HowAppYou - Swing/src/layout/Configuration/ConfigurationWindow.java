@@ -72,7 +72,7 @@ public class ConfigurationWindow implements WindowListener {
 		this_stage.setType(Type.UTILITY);
 		this_stage.setResizable(false);
 
-		this_stage.setSize(686, 250);
+		this_stage.setSize(640, 250);
 		this_stage.addWindowListener(this);
 
 		final JPanel panel = new JPanel();
@@ -84,47 +84,47 @@ public class ConfigurationWindow implements WindowListener {
 		Configuration.setFont(new Font("System", Font.BOLD, 18));
 		Configuration.setBounds(247, 13, 148, 22);
 		panel.add(Configuration);
-		panel_1.setBounds(22, 48, 648, 60);
+		panel_1.setBounds(22, 48, 590, 60);
 
 		panel.add(panel_1);
 		panel_1.setLayout(null);
-		lblMakingSheetprima.setBounds(12, 13, 237, 16);
+		lblMakingSheetprima.setBounds(10, 5, 237, 16);
 		panel_1.add(lblMakingSheetprima);
-		lblMakingSheetprima.setHorizontalAlignment(SwingConstants.CENTER);
+		lblMakingSheetprima.setHorizontalAlignment(SwingConstants.LEFT);
 		lblMakingSheetprima.setFont(new Font("System", Font.BOLD | Font.ITALIC, 13));
-		btn_Done_SheetName.setBounds(534, 13, 90, 37);
+		btn_Done_SheetName.setBounds(503, 25, 65, 25);
 		panel_1.add(btn_Done_SheetName);
 
-		btn_Done_SheetName.setFont(new Font("System", Font.BOLD, 17));
+		btn_Done_SheetName.setFont(new Font("Dialog", Font.BOLD, 12));
 
 		txt_SheetName = new JTextField();
-		txt_SheetName.setBounds(261, 13, 273, 37);
+		txt_SheetName.setBounds(184, 25, 311, 25);
 		panel_1.add(txt_SheetName);
 		txt_SheetName.setColumns(10);
 
 		final JLabel lblNewLabel = new JLabel("Name sheet (es. SUN_COMPANY):");
-		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNewLabel.setBounds(12, 25, 250, 25);
+		lblNewLabel.setHorizontalAlignment(SwingConstants.LEFT);
+		lblNewLabel.setBounds(12, 25, 165, 25);
 		panel_1.add(lblNewLabel);
 		panel_2.setLayout(null);
-		panel_2.setBounds(22, 121, 648, 60);
+		panel_2.setBounds(22, 121, 590, 60);
 
 		panel.add(panel_2);
-		btn_Done_Spid.setFont(new Font("System", Font.BOLD, 17));
-		btn_Done_Spid.setBounds(534, 13, 90, 37);
+		btn_Done_Spid.setFont(new Font("Dialog", Font.BOLD, 12));
+		btn_Done_Spid.setBounds(503, 25, 65, 25);
 
 		panel_2.add(btn_Done_Spid);
 		txt_Spid.setColumns(10);
-		txt_Spid.setBounds(261, 13, 273, 37);
+		txt_Spid.setBounds(184, 25, 311, 25);
 
 		panel_2.add(txt_Spid);
-		lblSpidesSuncompany.setHorizontalAlignment(SwingConstants.CENTER);
-		lblSpidesSuncompany.setBounds(12, 25, 250, 25);
+		lblSpidesSuncompany.setHorizontalAlignment(SwingConstants.LEFT);
+		lblSpidesSuncompany.setBounds(12, 25, 130, 25);
 
 		panel_2.add(lblSpidesSuncompany);
-		lblSettingSheetprima.setBounds(10, 13, 239, 22);
+		lblSettingSheetprima.setBounds(10, 5, 239, 22);
 		panel_2.add(lblSettingSheetprima);
-		lblSettingSheetprima.setHorizontalAlignment(SwingConstants.CENTER);
+		lblSettingSheetprima.setHorizontalAlignment(SwingConstants.LEFT);
 		lblSettingSheetprima.setFont(new Font("System", Font.BOLD | Font.ITALIC, 13));
 
 		btn_Done_SheetName.addActionListener(new ActionListener() {
