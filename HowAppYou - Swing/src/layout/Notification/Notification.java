@@ -74,15 +74,15 @@ public class Notification implements WindowListener {
 		SliderLabel.setFont(new Font("Tahoma", Font.BOLD, 15));
 		SliderLabel.setBounds(12, 76, 44, 26);
 		panel.add(SliderLabel);
+		mySlider.setPaintLabels(true);
 
 		mySlider.setMajorTickSpacing(60);
 		mySlider.setPaintTicks(true);
 		mySlider.setValue(1);
 		mySlider.setMinorTickSpacing(20);
-		mySlider.setMinimum(1);
 		mySlider.setMaximum(120);
 		mySlider.setBorder(new CompoundBorder());
-		mySlider.setBounds(68, 76, 183, 26);
+		mySlider.setBounds(68, 76, 183, 46);
 
 		mySlider.addChangeListener(new ChangeListener() {
 			@Override
@@ -189,7 +189,7 @@ public class Notification implements WindowListener {
 	public void close() {
 		try {
 			canClose = true;
-			this_stage.dispatchEvent(new WindowEvent(this_stage, WindowEvent.WINDOW_CLOSING));
+			this_stage.setVisible(false);
 		} catch (final Exception ex) {
 			System.err.println("not Hide");
 			ex.printStackTrace();
@@ -201,7 +201,7 @@ public class Notification implements WindowListener {
 	 */
 	public void show() {
 		try {
-			this_stage.isShowing();
+			this_stage.setVisible(true);
 		} catch (final Exception ex) {
 			System.err.println("not Show");
 			ex.printStackTrace();
