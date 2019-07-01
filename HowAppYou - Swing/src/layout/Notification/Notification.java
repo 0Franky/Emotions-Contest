@@ -20,6 +20,8 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JSlider;
 import javax.swing.SwingConstants;
+import javax.swing.UIManager;
+import javax.swing.UnsupportedLookAndFeelException;
 import javax.swing.WindowConstants;
 import javax.swing.border.Border;
 import javax.swing.border.CompoundBorder;
@@ -30,6 +32,15 @@ import classes.AppTimer;
 import layout.PopupWindow.PopupWindow;
 
 public class Notification implements WindowListener {
+
+	static {
+		try {
+			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+		} catch (ClassNotFoundException | InstantiationException | IllegalAccessException
+				| UnsupportedLookAndFeelException e) {
+			// ; // usa il look di default
+		}
+	}
 
 	JButton dismiss = new JButton("dismiss");
 	JButton postpone = new JButton("postpone");
@@ -47,6 +58,8 @@ public class Notification implements WindowListener {
 	private boolean canClose = false;
 
 	public Notification() {
+		// this_stage.setUndecorated(true);
+
 		this_stage.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 		// ATTIVA setUndecorated se hai fatto il DRAG AND DROP //
 
@@ -59,7 +72,6 @@ public class Notification implements WindowListener {
 
 		this_stage.setSize(435, 170);
 		this_stage.addWindowListener(this);
-		this_stage.setVisible(true);
 		this_stage.setResizable(false);
 
 		// BLOCCA LA CHIUSURA DALLA X //
@@ -71,7 +83,7 @@ public class Notification implements WindowListener {
 
 		final JLabel SliderLabel = new JLabel("1");
 		SliderLabel.setHorizontalAlignment(SwingConstants.CENTER);
-		SliderLabel.setFont(new Font("Tahoma", Font.BOLD, 15));
+		SliderLabel.setFont(new Font("System", Font.BOLD, 15));
 		SliderLabel.setBounds(12, 76, 44, 26);
 		panel.add(SliderLabel);
 		mySlider.setPaintLabels(true);
@@ -95,15 +107,15 @@ public class Notification implements WindowListener {
 
 		final JLabel lblHowDoYou = new JLabel("How do you feeling?");
 		lblHowDoYou.setHorizontalAlignment(SwingConstants.CENTER);
-		lblHowDoYou.setFont(new Font("Tahoma", Font.BOLD, 18));
+		lblHowDoYou.setFont(new Font("System", Font.BOLD, 18));
 		lblHowDoYou.setBounds(12, 13, 239, 22);
 		panel.add(lblHowDoYou);
 
 		final JLabel lblClickHereTo = new JLabel("Click here to open pop-up!");
 		final Border border = BorderFactory.createLineBorder(Color.BLACK, 1);
 		lblClickHereTo.setBorder(border);
-		lblClickHereTo.setFont(new Font("Tahoma", Font.BOLD, 17));
-		lblClickHereTo.setHorizontalAlignment(SwingConstants.LEFT);
+		lblClickHereTo.setFont(new Font("System", Font.BOLD, 17));
+		lblClickHereTo.setHorizontalAlignment(SwingConstants.CENTER);
 		lblClickHereTo.setBounds(12, 38, 239, 22);
 		lblClickHereTo.addMouseListener(new MouseAdapter() {
 			@Override
@@ -116,7 +128,7 @@ public class Notification implements WindowListener {
 		});
 		panel.add(lblClickHereTo);
 
-		postpone.setFont(new Font("Tahoma", Font.BOLD, 17));
+		postpone.setFont(new Font("System", Font.BOLD, 17));
 		postpone.setBounds(260, 60, 150, 50);
 		postpone.addActionListener(new ActionListener() {
 			@Override
@@ -131,7 +143,7 @@ public class Notification implements WindowListener {
 		});
 		panel.add(postpone);
 
-		dismiss.setFont(new Font("Tahoma", Font.BOLD, 17));
+		dismiss.setFont(new Font("System", Font.BOLD, 17));
 		dismiss.setBounds(260, 8, 150, 50);
 		dismiss.addActionListener(new ActionListener() {
 			@Override
@@ -147,6 +159,8 @@ public class Notification implements WindowListener {
 		panel.add(dismiss);
 
 		centerStage();
+
+		this_stage.setVisible(true);
 	}
 
 	// END GUI
@@ -285,8 +299,7 @@ public class Notification implements WindowListener {
 
 	@Override
 	public void windowIconified(final WindowEvent e) {
-		// TODO Auto-generated method stub
-
+		this_stage.setState(JFrame.NORMAL);
 	}
 
 	@Override

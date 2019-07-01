@@ -30,6 +30,8 @@ import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.JTextArea;
 import javax.swing.SwingConstants;
+import javax.swing.UIManager;
+import javax.swing.UnsupportedLookAndFeelException;
 import javax.swing.border.Border;
 
 import Title.Title;
@@ -41,6 +43,15 @@ import classes.database.SQLiteConnection;
 import layout.BubbleChart.BubbleChartWindow;
 
 public class PopupWindow implements WindowListener {
+
+	static {
+		try {
+			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+		} catch (ClassNotFoundException | InstantiationException | IllegalAccessException
+				| UnsupportedLookAndFeelException e) {
+			// ; // usa il look di default
+		}
+	}
 
 	private final JFrame this_stage = new JFrame();
 	private final JButton done = new JButton("done");
@@ -120,12 +131,12 @@ public class PopupWindow implements WindowListener {
 		final JLabel lblWhitchActivity = new JLabel(
 				"In which activity have you mainly been involved since the last notification?");
 		lblWhitchActivity.setHorizontalAlignment(SwingConstants.CENTER);
-		lblWhitchActivity.setFont(new Font("Tahoma", Font.BOLD, 18));
+		lblWhitchActivity.setFont(new Font("System", Font.BOLD, 18));
 		lblWhitchActivity.setBounds(146, 13, 699, 22);
 		panel.add(lblWhitchActivity);
 		final Border border = BorderFactory.createLineBorder(Color.BLACK, 1);
 
-		done.setFont(new Font("Tahoma", Font.BOLD, 17));
+		done.setFont(new Font("System", Font.BOLD, 17));
 		done.setBounds(441, 855, 104, 25);
 		done.addActionListener(new ActionListener() {
 			@Override
@@ -134,9 +145,9 @@ public class PopupWindow implements WindowListener {
 
 					// AZIONI DEL DONE //
 
-					pleasantness = getSelected_RadioGroup(group_V);
-					excitement = getSelected_RadioGroup(group_A);
-					dominance = getSelected_RadioGroup(group_D);
+					pleasantness = getSelected_RadioGroup(group_V).toString();
+					excitement = getSelected_RadioGroup(group_A).toString();
+					dominance = getSelected_RadioGroup(group_D).toString();
 
 					System.out.println(getActivity() + " " + pleasantness + " " + excitement + " " + dominance + " "
 							+ getProductivity() + " " + getNotes());
@@ -158,24 +169,24 @@ public class PopupWindow implements WindowListener {
 		});
 		panel.add(done);
 		lblMyProductivityIs.setHorizontalAlignment(SwingConstants.CENTER);
-		lblMyProductivityIs.setFont(new Font("Tahoma", Font.BOLD, 18));
+		lblMyProductivityIs.setFont(new Font("System", Font.BOLD, 18));
 		lblMyProductivityIs.setBounds(50, 756, 164, 22);
 
 		panel.add(lblMyProductivityIs);
 		lblNotesoptional.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNotesoptional.setFont(new Font("Tahoma", Font.BOLD, 18));
+		lblNotesoptional.setFont(new Font("System", Font.BOLD, 18));
 		lblNotesoptional.setBounds(50, 782, 149, 22);
 
 		panel.add(lblNotesoptional);
 
 		NotesTextArea.setBackground(Color.WHITE);
-		NotesTextArea.setForeground(Color.WHITE);
+		NotesTextArea.setForeground(Color.BLACK);
 		NotesTextArea.setBounds(50, 807, 900, 43);
 		panel.add(NotesTextArea);
 
 		final JLabel lblHowDoYou = new JLabel("How do you fell now?");
 		lblHowDoYou.setHorizontalAlignment(SwingConstants.CENTER);
-		lblHowDoYou.setFont(new Font("Tahoma", Font.BOLD, 18));
+		lblHowDoYou.setFont(new Font("System", Font.BOLD, 18));
 		lblHowDoYou.setBounds(252, 82, 490, 22);
 		panel.add(lblHowDoYou);
 
@@ -221,24 +232,24 @@ public class PopupWindow implements WindowListener {
 
 		// RADIO BUTTON DOMINACE //
 		rdbtn_D1.setBackground(Color.LIGHT_GRAY);
-		rdbtn_D1.setFont(new Font("Tahoma", Font.BOLD, 13));
+		rdbtn_D1.setFont(new Font("System", Font.BOLD, 13));
 		rdbtn_D1.setHorizontalAlignment(SwingConstants.CENTER);
 
 		rdbtn_D2.setBackground(Color.LIGHT_GRAY);
-		rdbtn_D2.setFont(new Font("Tahoma", Font.BOLD, 13));
+		rdbtn_D2.setFont(new Font("System", Font.BOLD, 13));
 		rdbtn_D2.setHorizontalAlignment(SwingConstants.CENTER);
 
 		rdbtn_D3.setBackground(Color.LIGHT_GRAY);
-		rdbtn_D3.setFont(new Font("Tahoma", Font.BOLD, 13));
+		rdbtn_D3.setFont(new Font("System", Font.BOLD, 13));
 		rdbtn_D3.setHorizontalAlignment(SwingConstants.CENTER);
 
 		rdbtn_D4.setBackground(Color.LIGHT_GRAY);
-		rdbtn_D4.setFont(new Font("Tahoma", Font.BOLD, 13));
+		rdbtn_D4.setFont(new Font("System", Font.BOLD, 13));
 		rdbtn_D4.setHorizontalAlignment(SwingConstants.CENTER);
 
 		rdbtn_D5.setForeground(Color.BLACK);
 		rdbtn_D5.setBackground(Color.LIGHT_GRAY);
-		rdbtn_D5.setFont(new Font("Tahoma", Font.BOLD, 13));
+		rdbtn_D5.setFont(new Font("System", Font.BOLD, 13));
 		rdbtn_D5.setHorizontalAlignment(SwingConstants.CENTER);
 
 		DominanceRadioPanel.add(rdbtn_D1);
@@ -283,20 +294,20 @@ public class PopupWindow implements WindowListener {
 
 		// LABEL IMAGES DOMINANCE
 		final JLabel Submition = new JLabel("Submition");
-		Submition.setFont(new Font("Tahoma", Font.BOLD, 13));
+		Submition.setFont(new Font("System", Font.BOLD, 13));
 		Submition.setHorizontalAlignment(SwingConstants.CENTER);
 		Submition.setBounds(50, 180, 69, 16);
 		Full_Dominance.add(Submition);
 
 		final JLabel Dominant = new JLabel("Dominant");
-		Dominant.setFont(new Font("Tahoma", Font.BOLD, 13));
+		Dominant.setFont(new Font("System", Font.BOLD, 13));
 		Dominant.setHorizontalAlignment(SwingConstants.CENTER);
 		Dominant.setBounds(740, 180, 69, 16);
 		Full_Dominance.add(Dominant);
 
 		final JLabel D_Neutral = new JLabel("Neutral");
 		D_Neutral.setHorizontalAlignment(SwingConstants.CENTER);
-		D_Neutral.setFont(new Font("Tahoma", Font.BOLD, 13));
+		D_Neutral.setFont(new Font("System", Font.BOLD, 13));
 		D_Neutral.setBounds(400, 180, 69, 16);
 		Full_Dominance.add(D_Neutral);
 
@@ -318,24 +329,24 @@ public class PopupWindow implements WindowListener {
 		Full_Excited.add(ExcitedRadioPanel);
 
 		rdbtn_A1.setHorizontalAlignment(SwingConstants.CENTER);
-		rdbtn_A1.setFont(new Font("Tahoma", Font.BOLD, 13));
+		rdbtn_A1.setFont(new Font("System", Font.BOLD, 13));
 		rdbtn_A1.setBackground(Color.LIGHT_GRAY);
 
 		rdbtn_A2.setHorizontalAlignment(SwingConstants.CENTER);
-		rdbtn_A2.setFont(new Font("Tahoma", Font.BOLD, 13));
+		rdbtn_A2.setFont(new Font("System", Font.BOLD, 13));
 		rdbtn_A2.setBackground(Color.LIGHT_GRAY);
 
 		rdbtn_A3.setHorizontalAlignment(SwingConstants.CENTER);
-		rdbtn_A3.setFont(new Font("Tahoma", Font.BOLD, 13));
+		rdbtn_A3.setFont(new Font("System", Font.BOLD, 13));
 		rdbtn_A3.setBackground(Color.LIGHT_GRAY);
 
 		rdbtn_A4.setHorizontalAlignment(SwingConstants.CENTER);
-		rdbtn_A4.setFont(new Font("Tahoma", Font.BOLD, 13));
+		rdbtn_A4.setFont(new Font("System", Font.BOLD, 13));
 		rdbtn_A4.setBackground(Color.LIGHT_GRAY);
 
 		rdbtn_A5.setHorizontalAlignment(SwingConstants.CENTER);
 		rdbtn_A5.setForeground(Color.BLACK);
-		rdbtn_A5.setFont(new Font("Tahoma", Font.BOLD, 13));
+		rdbtn_A5.setFont(new Font("System", Font.BOLD, 13));
 		rdbtn_A5.setBackground(Color.LIGHT_GRAY);
 
 		ExcitedRadioPanel.add(rdbtn_A1);
@@ -379,18 +390,18 @@ public class PopupWindow implements WindowListener {
 		final JLabel lblVeryCalm = new JLabel("Very calm");
 		lblVeryCalm.setBounds(50, 180, 69, 16);
 		Full_Excited.add(lblVeryCalm);
-		lblVeryCalm.setFont(new Font("Tahoma", Font.BOLD, 13));
+		lblVeryCalm.setFont(new Font("System", Font.BOLD, 13));
 		lblVeryCalm.setHorizontalAlignment(SwingConstants.CENTER);
 
 		final JLabel lblVeryExcited = new JLabel("Very excited");
 		lblVeryExcited.setBounds(740, 180, 82, 16);
 		Full_Excited.add(lblVeryExcited);
-		lblVeryExcited.setFont(new Font("Tahoma", Font.BOLD, 13));
+		lblVeryExcited.setFont(new Font("System", Font.BOLD, 13));
 		lblVeryExcited.setHorizontalAlignment(SwingConstants.CENTER);
 
 		final JLabel lblNeutral = new JLabel("Neutral");
 		lblNeutral.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNeutral.setFont(new Font("Tahoma", Font.BOLD, 13));
+		lblNeutral.setFont(new Font("System", Font.BOLD, 13));
 		lblNeutral.setBounds(400, 180, 69, 16);
 		Full_Excited.add(lblNeutral);
 
@@ -408,24 +419,24 @@ public class PopupWindow implements WindowListener {
 		PleasantRadioPanel.setLayout(new GridLayout(0, 5, 0, 0));
 
 		rdbtn_V1.setHorizontalAlignment(SwingConstants.CENTER);
-		rdbtn_V1.setFont(new Font("Tahoma", Font.BOLD, 13));
+		rdbtn_V1.setFont(new Font("System", Font.BOLD, 13));
 		rdbtn_V1.setBackground(Color.LIGHT_GRAY);
 
 		rdbtn_V2.setHorizontalAlignment(SwingConstants.CENTER);
-		rdbtn_V2.setFont(new Font("Tahoma", Font.BOLD, 13));
+		rdbtn_V2.setFont(new Font("System", Font.BOLD, 13));
 		rdbtn_V2.setBackground(Color.LIGHT_GRAY);
 
 		rdbtn_V3.setHorizontalAlignment(SwingConstants.CENTER);
-		rdbtn_V3.setFont(new Font("Tahoma", Font.BOLD, 13));
+		rdbtn_V3.setFont(new Font("System", Font.BOLD, 13));
 		rdbtn_V3.setBackground(Color.LIGHT_GRAY);
 
 		rdbtn_V4.setHorizontalAlignment(SwingConstants.CENTER);
-		rdbtn_V4.setFont(new Font("Tahoma", Font.BOLD, 13));
+		rdbtn_V4.setFont(new Font("System", Font.BOLD, 13));
 		rdbtn_V4.setBackground(Color.LIGHT_GRAY);
 
 		rdbtn_V5.setHorizontalAlignment(SwingConstants.CENTER);
 		rdbtn_V5.setForeground(Color.BLACK);
-		rdbtn_V5.setFont(new Font("Tahoma", Font.BOLD, 13));
+		rdbtn_V5.setFont(new Font("System", Font.BOLD, 13));
 		rdbtn_V5.setBackground(Color.LIGHT_GRAY);
 
 		PleasantRadioPanel.add(rdbtn_V1);
@@ -469,18 +480,18 @@ public class PopupWindow implements WindowListener {
 		final JLabel lblVeryUnpleasant = new JLabel("Very unpleasant");
 		lblVeryUnpleasant.setBounds(50, 180, 119, 16);
 		Full_Pleasant.add(lblVeryUnpleasant);
-		lblVeryUnpleasant.setFont(new Font("Tahoma", Font.BOLD, 13));
+		lblVeryUnpleasant.setFont(new Font("System", Font.BOLD, 13));
 		lblVeryUnpleasant.setHorizontalAlignment(SwingConstants.CENTER);
 
 		final JLabel lblVeryPleasant = new JLabel("Very pleasant");
 		lblVeryPleasant.setBounds(720, 180, 104, 16);
 		Full_Pleasant.add(lblVeryPleasant);
-		lblVeryPleasant.setFont(new Font("Tahoma", Font.BOLD, 13));
+		lblVeryPleasant.setFont(new Font("System", Font.BOLD, 13));
 		lblVeryPleasant.setHorizontalAlignment(SwingConstants.CENTER);
 
 		final JLabel label_15 = new JLabel("Neutral");
 		label_15.setHorizontalAlignment(SwingConstants.CENTER);
-		label_15.setFont(new Font("Tahoma", Font.BOLD, 13));
+		label_15.setFont(new Font("System", Font.BOLD, 13));
 		label_15.setBounds(400, 180, 69, 16);
 		Full_Pleasant.add(label_15);
 
@@ -576,7 +587,7 @@ public class PopupWindow implements WindowListener {
 	 * @return Tuple
 	 */
 	private void MessageBox(final String text) {
-		JOptionPane.showMessageDialog(null, "Information Missed!", text, JOptionPane.WARNING_MESSAGE);
+		JOptionPane.showMessageDialog(this_stage, text, "Information Missed!", JOptionPane.WARNING_MESSAGE);
 	}
 
 	/**
@@ -686,7 +697,7 @@ public class PopupWindow implements WindowListener {
 				return button.getText();
 			}
 		}
-		return null;
+		return "";
 	}
 
 	/**
@@ -745,8 +756,7 @@ public class PopupWindow implements WindowListener {
 
 	@Override
 	public void windowIconified(final WindowEvent e) {
-		// TODO Auto-generated method stub
-
+		this_stage.setState(JFrame.NORMAL);
 	}
 
 	@Override

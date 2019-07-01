@@ -11,13 +11,14 @@ import java.io.IOException;
 import java.text.DecimalFormat;
 import java.util.List;
 
-import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JSlider;
 import javax.swing.SwingConstants;
 import javax.swing.SwingUtilities;
+import javax.swing.UIManager;
+import javax.swing.UnsupportedLookAndFeelException;
 import javax.swing.border.CompoundBorder;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
@@ -36,6 +37,16 @@ import classes.DataChart;
 import classes.database.SQLiteConnection;
 
 public class BubbleChartWindow implements WindowListener {
+
+	static {
+		try {
+			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+		} catch (ClassNotFoundException | InstantiationException | IllegalAccessException
+				| UnsupportedLookAndFeelException e) {
+			// ; // usa il look di default
+		}
+	}
+
 	JFrame this_stage = new JFrame();
 	JSlider mySlider = new JSlider();
 
@@ -54,7 +65,7 @@ public class BubbleChartWindow implements WindowListener {
 	 */
 	private boolean canClose = false;
 	private final JLabel lblNotesoptional = new JLabel("Notes (Optional)");
-	private final JLabel Feeling = new JLabel("Feeling Chart");
+	// private final JLabel Feeling = new JLabel("Feeling Chart");
 
 	private BubbleChartWindow() throws IOException {
 		this_stage.setTitle("Bubble Chart Window");
@@ -75,7 +86,7 @@ public class BubbleChartWindow implements WindowListener {
 		dataset = createDataset();
 
 		// Create chart
-		chart = ChartFactory.createBubbleChart("Country(Cars, Buses, Trucks)", "X-Values", "Y-Values", dataset);
+		chart = ChartFactory.createBubbleChart("Feeling Chart", "Calm", "Excited", dataset);
 
 		// Set range for X-Axis
 		final XYPlot plot = chart.getXYPlot();
@@ -97,7 +108,7 @@ public class BubbleChartWindow implements WindowListener {
 
 		final JLabel SliderLabel = new JLabel("0");
 		SliderLabel.setHorizontalAlignment(SwingConstants.CENTER);
-		SliderLabel.setFont(new Font("Tahoma", Font.BOLD, 15));
+		SliderLabel.setFont(new Font("System", Font.BOLD, 15));
 		SliderLabel.setBounds(217, 475, 44, 26);
 		panel.add(SliderLabel);
 		mySlider.setPaintLabels(true);
@@ -122,14 +133,14 @@ public class BubbleChartWindow implements WindowListener {
 
 		final JLabel lblHowDoYou = new JLabel("Select day range:");
 		lblHowDoYou.setHorizontalAlignment(SwingConstants.CENTER);
-		lblHowDoYou.setFont(new Font("Tahoma", Font.BOLD, 18));
+		lblHowDoYou.setFont(new Font("System", Font.BOLD, 18));
 		lblHowDoYou.setBounds(22, 476, 183, 22);
 		panel.add(lblHowDoYou);
-		Feeling.setHorizontalAlignment(SwingConstants.CENTER);
-		Feeling.setFont(new Font("Tahoma", Font.BOLD, 18));
-		Feeling.setBounds(269, 13, 149, 22);
+		// Feeling.setHorizontalAlignment(SwingConstants.CENTER);
+		// Feeling.setFont(new Font("System", Font.BOLD, 18));
+		// Feeling.setBounds(269, 13, 149, 22);
 
-		panel.add(Feeling);
+		// panel.add(Feeling);
 
 		// Create Panel
 		BubbleChart = new ChartPanel(chart);
@@ -284,17 +295,17 @@ public class BubbleChartWindow implements WindowListener {
 	 * @param int day (to set the range to display on the chart [day,today]).
 	 */
 	public void populateChart(final int day) {
-		// dataset = new DefaultXYZDataset();
-		final DefaultXYZDataset newData = ((DefaultXYZDataset) dataset);
-		newData.removeAllSeries();
-		dataset.removeAllSeries
+		dataset = new DefaultXYZDataset();
+		// final DefaultXYZDataset newData = ((DefaultXYZDataset) dataset);
+		// newData.removeAllSeries();
+		// dataset.removeAllSeries
 
 		final List<DataChart> data = SQLiteConnection.getDataForChart(day);
 		for (final DataChart bubble : data) {
 			addBubble(bubble.getValence(), bubble.getArousal(), (float) bubble.getWeight() / 8);
 		}
 
-		chart = ChartFactory.createBubbleChart("Country(Cars, Buses, Trucks)", "X-Values", "Y-Values", dataset);
+		chart = ChartFactory.createBubbleChart("Feeling Chart", "Calm", "Excited", dataset);
 
 		BubbleChart = new ChartPanel(chart);
 		BubbleChart.setForeground(Color.WHITE);

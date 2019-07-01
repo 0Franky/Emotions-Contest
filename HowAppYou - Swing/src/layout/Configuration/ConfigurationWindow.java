@@ -22,6 +22,8 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
+import javax.swing.UIManager;
+import javax.swing.UnsupportedLookAndFeelException;
 
 import Title.Title;
 import classes.MailSender;
@@ -31,6 +33,15 @@ import classes.json.RW_JSON;
 import layout.PopupWindow.PopupWindow;
 
 public class ConfigurationWindow implements WindowListener {
+
+	static {
+		try {
+			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+		} catch (ClassNotFoundException | InstantiationException | IllegalAccessException
+				| UnsupportedLookAndFeelException e) {
+			// ; // usa il look di default
+		}
+	}
 
 	JButton btn_Done_SheetName = new JButton("Done");
 	JFrame this_stage = new JFrame();
@@ -55,6 +66,7 @@ public class ConfigurationWindow implements WindowListener {
 	private final JLabel lblSpidesSuncompany = new JLabel("SPID (es. SUN_COMPANY):");
 
 	private ConfigurationWindow() {
+		this_stage.setAlwaysOnTop(true);
 		this_stage.setIconImage(
 				Toolkit.getDefaultToolkit().getImage(ConfigurationWindow.class.getResource("/Assets/Icon.png")));
 		this_stage.setType(Type.UTILITY);
@@ -62,7 +74,6 @@ public class ConfigurationWindow implements WindowListener {
 
 		this_stage.setSize(686, 250);
 		this_stage.addWindowListener(this);
-		this_stage.setVisible(true);
 
 		final JPanel panel = new JPanel();
 		this_stage.getContentPane().add(panel, BorderLayout.CENTER);
@@ -70,7 +81,7 @@ public class ConfigurationWindow implements WindowListener {
 
 		final JLabel Configuration = new JLabel("Configuration");
 		Configuration.setHorizontalAlignment(SwingConstants.CENTER);
-		Configuration.setFont(new Font("Tahoma", Font.BOLD, 18));
+		Configuration.setFont(new Font("System", Font.BOLD, 18));
 		Configuration.setBounds(247, 13, 148, 22);
 		panel.add(Configuration);
 		panel_1.setBounds(22, 48, 648, 60);
@@ -80,11 +91,11 @@ public class ConfigurationWindow implements WindowListener {
 		lblMakingSheetprima.setBounds(12, 13, 237, 16);
 		panel_1.add(lblMakingSheetprima);
 		lblMakingSheetprima.setHorizontalAlignment(SwingConstants.CENTER);
-		lblMakingSheetprima.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 13));
+		lblMakingSheetprima.setFont(new Font("System", Font.BOLD | Font.ITALIC, 13));
 		btn_Done_SheetName.setBounds(534, 13, 90, 37);
 		panel_1.add(btn_Done_SheetName);
 
-		btn_Done_SheetName.setFont(new Font("Tahoma", Font.BOLD, 17));
+		btn_Done_SheetName.setFont(new Font("System", Font.BOLD, 17));
 
 		txt_SheetName = new JTextField();
 		txt_SheetName.setBounds(261, 13, 273, 37);
@@ -99,7 +110,7 @@ public class ConfigurationWindow implements WindowListener {
 		panel_2.setBounds(22, 121, 648, 60);
 
 		panel.add(panel_2);
-		btn_Done_Spid.setFont(new Font("Tahoma", Font.BOLD, 17));
+		btn_Done_Spid.setFont(new Font("System", Font.BOLD, 17));
 		btn_Done_Spid.setBounds(534, 13, 90, 37);
 
 		panel_2.add(btn_Done_Spid);
@@ -114,18 +125,34 @@ public class ConfigurationWindow implements WindowListener {
 		lblSettingSheetprima.setBounds(10, 13, 239, 22);
 		panel_2.add(lblSettingSheetprima);
 		lblSettingSheetprima.setHorizontalAlignment(SwingConstants.CENTER);
-		lblSettingSheetprima.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 13));
+		lblSettingSheetprima.setFont(new Font("System", Font.BOLD | Font.ITALIC, 13));
+
 		btn_Done_SheetName.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(final ActionEvent e) {
-				//////
-				System.out.println("Done1");
+				try {
+					makeSheet();
+				} catch (IOException | GeneralSecurityException | URISyntaxException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+				System.out.println("btn_Done_SheetName");
+			}
+		});
+
+		btn_Done_Spid.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(final ActionEvent e) {
+				setSheet();
+				System.out.println("btn_Done_Spid");
 			}
 		});
 
 		checkAutoFill();
 
 		centerStage();
+
+		this_stage.setVisible(true);
 	}
 
 	/**
@@ -278,8 +305,8 @@ public class ConfigurationWindow implements WindowListener {
 	 * @return Tuple
 	 */
 	protected void InfoAlert(final String text) {
-		JOptionPane.showConfirmDialog(null, text, "Information", JOptionPane.OK_CANCEL_OPTION,
-				JOptionPane.WARNING_MESSAGE);
+		JOptionPane.showConfirmDialog(this_stage, text, "Information", JOptionPane.OK_CANCEL_OPTION,
+				JOptionPane.INFORMATION_MESSAGE);
 	}
 
 	/**

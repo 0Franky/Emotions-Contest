@@ -261,7 +261,12 @@ public class SystemTray {
 		fileChooser.setAcceptAllFileFilterUsed(true);
 		final int result = fileChooser.showOpenDialog(this_stage);
 		if (result == JFileChooser.APPROVE_OPTION) {
-			final File selectedFile = fileChooser.getSelectedFile();
+			File selectedFile = fileChooser.getSelectedFile();
+
+			if (!fileChooser.getSelectedFile().getAbsolutePath().endsWith(".csv")) {
+				selectedFile = new File(fileChooser.getSelectedFile() + ".csv");
+			}
+
 			System.out.println("Selected file: " + selectedFile.getAbsolutePath());
 			if (selectedFile != null) {
 				CSV_Manager.setPATH_AND_NAME_CSV(selectedFile);
