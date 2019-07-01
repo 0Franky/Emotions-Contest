@@ -55,6 +55,8 @@ public class BubbleChartWindow implements WindowListener {
 
 	XYZDataset dataset;
 
+	JPanel panel;
+
 	/**
 	 * Notification instance is useful to make Notification class "Singleton"
 	 */
@@ -76,35 +78,9 @@ public class BubbleChartWindow implements WindowListener {
 		this_stage.setIconImage(
 				Toolkit.getDefaultToolkit().getImage(BubbleChartWindow.class.getResource("/Assets/Icon.png")));
 
-		final JPanel panel = new JPanel();
+		panel = new JPanel();
 		this_stage.getContentPane().add(panel, BorderLayout.CENTER);
 		panel.setLayout(null);
-
-		////////////// INIZIO BUBBLE CHART//////////////
-
-		// Create dataset
-		dataset = createDataset();
-
-		// Create chart
-		chart = ChartFactory.createBubbleChart("Feeling Chart", "Calm", "Excited", dataset);
-
-		// Set range for X-Axis
-		final XYPlot plot = chart.getXYPlot();
-		final NumberAxis domain = (NumberAxis) plot.getDomainAxis();
-		domain.setRange(0, 100);
-
-		// Set range for Y-Axis
-		final NumberAxis range = (NumberAxis) plot.getRangeAxis();
-		range.setRange(0, 100);
-
-		// Format label
-		final XYBubbleRenderer renderer = (XYBubbleRenderer) plot.getRenderer();
-		final BubbleXYItemLabelGenerator generator = new BubbleXYItemLabelGenerator(" {0}:({1},{2},{3}) ",
-				new DecimalFormat("0"), new DecimalFormat("0"), new DecimalFormat("0"));
-		renderer.setBaseItemLabelGenerator(generator);
-		renderer.setBaseItemLabelsVisible(true);
-
-		////////////// FINE BUBBLE CHART//////////////
 
 		final JLabel SliderLabel = new JLabel("0");
 		SliderLabel.setHorizontalAlignment(SwingConstants.CENTER);
@@ -125,7 +101,10 @@ public class BubbleChartWindow implements WindowListener {
 			@Override
 			public void stateChanged(final ChangeEvent e) {
 				SliderLabel.setText(String.valueOf(mySlider.getValue()));
-				updateChart();
+				final JSlider source = (JSlider) e.getSource();
+				if (!source.getValueIsAdjusting()) {
+					updateChart();
+				}
 			}
 		});
 
@@ -142,25 +121,29 @@ public class BubbleChartWindow implements WindowListener {
 
 		// panel.add(Feeling);
 
-		// Create Panel
-		BubbleChart = new ChartPanel(chart);
-		BubbleChart.setForeground(Color.WHITE);
-		BubbleChart.setMouseZoomable(false);
-		BubbleChart.setBounds(22, 50, 658, 403);
-		panel.add(BubbleChart);
-
 		centerStage();
 
 		this_stage.setVisible(true);
 
-		populateChart(3);
+		populateChart(0);
 
 		updateUI();
 
 	}
 
 	private void updateUI() {
-		SwingUtilities.updateComponentTreeUI(this_stage);
+		try {
+			SwingUtilities.invokeLater(new Runnable() {
+				@Override
+				public void run() {
+					SwingUtilities.updateComponentTreeUI(this_stage);
+				}
+			});
+		} catch (final Exception e) {
+			System.err.println(
+					"ERROR: updateUI()\nCOMMAND: SwingUtilities.updateComponentTreeUI(this_stage);\nERROR DETAILS:\n");
+			e.printStackTrace();
+		}
 	}
 
 	/**
@@ -178,23 +161,6 @@ public class BubbleChartWindow implements WindowListener {
 
 		this_stage.setLocation(((screenWidth / 2) - (this_stage.getWidth() / 2)),
 				((screenHeight / 2) - (this_stage.getHeight() / 2)));
-	}
-
-	/**
-	 * @return
-	 */
-	private XYZDataset createDataset() {
-		final DefaultXYZDataset dataset = new DefaultXYZDataset();
-
-		dataset.addSeries("INDIA", new double[][] { { 40 }, // X-Value
-				{ 65 }, // Y-Value
-				{ 70 } // Z-Value
-		});
-		dataset.addSeries("USA", new double[][] { { 30 }, { 20 }, { 50 } });
-		dataset.addSeries("CHINA", new double[][] { { 80 }, { 50 }, { 80 } });
-		dataset.addSeries("JAPAN", new double[][] { { 11 }, { 50 }, { 20 } });
-
-		return dataset;
 	}
 
 	/**
@@ -225,22 +191,6 @@ public class BubbleChartWindow implements WindowListener {
 	 */
 	public static boolean isIstanceNULL() throws IOException {
 		return (instance == null);
-	}
-
-	/**
-	 * Adds a Bubble to the chart
-	 *
-	 * @params Number xValue, Number yValue, Number weight (coordinates and value of
-	 *         the bubble)
-	 * @throws IOException Generic I/O error.
-	 */
-	public void addBubble(final double xValue, final double yValue, final double weight) {
-
-		((DefaultXYZDataset) dataset).addSeries("", new double[][] { { xValue }, // X-Value
-				{ yValue }, // Y-Value
-				{ weight } // Z-Value
-		});
-
 	}
 
 	/**
@@ -295,24 +245,72 @@ public class BubbleChartWindow implements WindowListener {
 	 * @param int day (to set the range to display on the chart [day,today]).
 	 */
 	public void populateChart(final int day) {
-		dataset = new DefaultXYZDataset();
-		// final DefaultXYZDataset newData = ((DefaultXYZDataset) dataset);
+		// final DefaultXYZDataset newData = dataset;
 		// newData.removeAllSeries();
 		// dataset.removeAllSeries
+
+		dataset = new DefaultXYZDataset();
 
 		final List<DataChart> data = SQLiteConnection.getDataForChart(day);
 		for (final DataChart bubble : data) {
 			addBubble(bubble.getValence(), bubble.getArousal(), (float) bubble.getWeight() / 8);
 		}
 
+		updateChartGUI();
+
+		updateUI();
+	}
+
+	/**
+	 * Adds a Bubble to the chart
+	 *
+	 * @params Number xValue, Number yValue, Number weight (coordinates and value of
+	 *         the bubble)
+	 * @throws IOException Generic I/O error.
+	 */
+	public void addBubble(final double xValue, final double yValue, final double weight) {
+		((DefaultXYZDataset) dataset).addSeries(Integer.toString(dataset.getSeriesCount()), new double[][] { { xValue }, // X-Value
+				{ yValue }, // Y-Value
+				{ weight } // Z-Value
+		});
+	}
+
+	private void updateChartGUI() {
 		chart = ChartFactory.createBubbleChart("Feeling Chart", "Calm", "Excited", dataset);
 
+		// Set range for X-Axis
+		final XYPlot plot = chart.getXYPlot();
+		final NumberAxis domain = (NumberAxis) plot.getDomainAxis();
+		domain.setRange(0, 6);
+
+		// Set range for Y-Axis
+		final NumberAxis range = (NumberAxis) plot.getRangeAxis();
+		range.setRange(0, 6);
+
+		// Format label
+		final XYBubbleRenderer renderer = (XYBubbleRenderer) plot.getRenderer();
+		final BubbleXYItemLabelGenerator generator = new BubbleXYItemLabelGenerator(" {0}:({1},{2},{3}) ",
+				new DecimalFormat("0"), new DecimalFormat("0"), new DecimalFormat("0"));
+		renderer.setBaseItemLabelGenerator(generator);
+		renderer.setBaseItemLabelsVisible(true);
+
+		// Create Panel
+		chart.clearSubtitles();
+		try {
+			BubbleChart.removeAll();
+		} catch (final Exception e) {
+			System.err.println("ERROR: BubbleChart.removeAll();");
+		}
+		try {
+			panel.remove(BubbleChart);
+		} catch (final Exception e) {
+			System.err.println("ERROR: panel.remove(BubbleChart);");
+		}
 		BubbleChart = new ChartPanel(chart);
 		BubbleChart.setForeground(Color.WHITE);
 		BubbleChart.setMouseZoomable(false);
 		BubbleChart.setBounds(22, 50, 658, 403);
-
-		updateUI();
+		panel.add(BubbleChart);
 	}
 
 	/**

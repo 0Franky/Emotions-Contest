@@ -123,7 +123,7 @@ public class PopupWindow implements WindowListener {
 
 		this_stage.setVisible(true);
 
-		final ImageIcon img = new ImageIcon("/Assets/Icon.png");
+		// final ImageIcon img = new ImageIcon("/Assets/Icon.png");
 		this_stage
 				.setIconImage(Toolkit.getDefaultToolkit().getImage(PopupWindow.class.getResource("/Assets/Icon.png")));
 
