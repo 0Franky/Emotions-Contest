@@ -110,6 +110,35 @@ public class BubbleChartWindow implements WindowListener {
 
 		panel.add(mySlider);
 
+		// START CHART
+		dataset = new DefaultXYZDataset();
+		chart = ChartFactory.createBubbleChart("Feeling Chart", "Calm", "Excited", dataset);
+
+		// Set range for X-Axis
+		final XYPlot plot = chart.getXYPlot();
+		final NumberAxis domain = (NumberAxis) plot.getDomainAxis();
+		domain.setRange(0, 6);
+
+		// Set range for Y-Axis
+		final NumberAxis range = (NumberAxis) plot.getRangeAxis();
+		range.setRange(0, 6);
+
+		// Format label
+		final XYBubbleRenderer renderer = (XYBubbleRenderer) plot.getRenderer();
+		final BubbleXYItemLabelGenerator generator = new BubbleXYItemLabelGenerator(" {0}:({1},{2},{3}) ",
+				new DecimalFormat("0"), new DecimalFormat("0"), new DecimalFormat("0"));
+		renderer.setBaseItemLabelGenerator(generator);
+		renderer.setBaseItemLabelsVisible(true);
+
+		// Create Panel
+		chart.clearSubtitles();
+		BubbleChart = new ChartPanel(chart);
+		BubbleChart.setForeground(Color.WHITE);
+		BubbleChart.setMouseZoomable(false);
+		BubbleChart.setBounds(22, 50, 658, 403);
+		panel.add(BubbleChart);
+		// END CHART
+
 		final JLabel lblHowDoYou = new JLabel("Select day range:");
 		lblHowDoYou.setHorizontalAlignment(SwingConstants.CENTER);
 		lblHowDoYou.setFont(new Font("System", Font.BOLD, 18));
@@ -249,14 +278,17 @@ public class BubbleChartWindow implements WindowListener {
 		// newData.removeAllSeries();
 		// dataset.removeAllSeries
 
-		dataset = new DefaultXYZDataset();
+		// dataset = new DefaultXYZDataset();
+
+		final int countSeries = dataset.getSeriesCount();
+		for (int i = 0; i < countSeries; i++) {
+			((DefaultXYZDataset) dataset).removeSeries(dataset.getSeriesKey(0));
+		}
 
 		final List<DataChart> data = SQLiteConnection.getDataForChart(day);
 		for (final DataChart bubble : data) {
 			addBubble(bubble.getValence(), bubble.getArousal(), (float) bubble.getWeight() / 8);
 		}
-
-		updateChartGUI();
 
 		updateUI();
 	}
@@ -273,44 +305,6 @@ public class BubbleChartWindow implements WindowListener {
 				{ yValue }, // Y-Value
 				{ weight } // Z-Value
 		});
-	}
-
-	private void updateChartGUI() {
-		chart = ChartFactory.createBubbleChart("Feeling Chart", "Calm", "Excited", dataset);
-
-		// Set range for X-Axis
-		final XYPlot plot = chart.getXYPlot();
-		final NumberAxis domain = (NumberAxis) plot.getDomainAxis();
-		domain.setRange(0, 6);
-
-		// Set range for Y-Axis
-		final NumberAxis range = (NumberAxis) plot.getRangeAxis();
-		range.setRange(0, 6);
-
-		// Format label
-		final XYBubbleRenderer renderer = (XYBubbleRenderer) plot.getRenderer();
-		final BubbleXYItemLabelGenerator generator = new BubbleXYItemLabelGenerator(" {0}:({1},{2},{3}) ",
-				new DecimalFormat("0"), new DecimalFormat("0"), new DecimalFormat("0"));
-		renderer.setBaseItemLabelGenerator(generator);
-		renderer.setBaseItemLabelsVisible(true);
-
-		// Create Panel
-		chart.clearSubtitles();
-		try {
-			BubbleChart.removeAll();
-		} catch (final Exception e) {
-			System.err.println("ERROR: BubbleChart.removeAll();");
-		}
-		try {
-			panel.remove(BubbleChart);
-		} catch (final Exception e) {
-			System.err.println("ERROR: panel.remove(BubbleChart);");
-		}
-		BubbleChart = new ChartPanel(chart);
-		BubbleChart.setForeground(Color.WHITE);
-		BubbleChart.setMouseZoomable(false);
-		BubbleChart.setBounds(22, 50, 658, 403);
-		panel.add(BubbleChart);
 	}
 
 	/**
