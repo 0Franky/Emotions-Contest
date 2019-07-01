@@ -32,6 +32,7 @@ import javax.swing.JTextArea;
 import javax.swing.SwingConstants;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
+import javax.swing.WindowConstants;
 import javax.swing.border.Border;
 
 import Title.Title;
@@ -103,6 +104,8 @@ public class PopupWindow implements WindowListener {
 	private boolean canClose = false;
 
 	public PopupWindow() throws IOException {
+
+		this_stage.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 
 		// ATTIVA setUndecorated se hai fatto il DRAG AND DROP //
 
@@ -744,8 +747,10 @@ public class PopupWindow implements WindowListener {
 
 	@Override
 	public void windowClosing(final WindowEvent e) {
-		// TODO Auto-generated method stub
-
+		if (canClose) {
+			this_stage.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+			cleanInstance();
+		}
 	}
 
 	@Override
