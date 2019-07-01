@@ -1,9 +1,12 @@
 package classes;
 
+import java.io.IOException;
 import java.util.Date;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
+
+import layout.Notification.Notification;
 
 /**
  * Useful class to set/stop a Timer for Time controlled Notification
@@ -83,6 +86,12 @@ public class AppTimer extends Thread {
 					invertFlag();
 				} else {
 					System.out.println(new Date());
+					try {
+						Notification.getIstance();
+					} catch (final IOException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
 					ses.shutdown();
 					System.out.println("TIMER SHUTDOWN");
 				}
