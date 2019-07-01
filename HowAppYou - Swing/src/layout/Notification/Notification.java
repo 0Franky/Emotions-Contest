@@ -88,10 +88,11 @@ public class Notification implements WindowListener {
 		panel.add(SliderLabel);
 		mySlider.setPaintLabels(true);
 
-		mySlider.setMajorTickSpacing(60);
+		mySlider.setMinorTickSpacing(60);
+		mySlider.setMajorTickSpacing(119);
 		mySlider.setPaintTicks(true);
+		mySlider.setMinimum(1);
 		mySlider.setValue(1);
-		mySlider.setMinorTickSpacing(20);
 		mySlider.setMaximum(120);
 		mySlider.setBorder(new CompoundBorder());
 		mySlider.setBounds(68, 76, 183, 46);
@@ -116,6 +117,7 @@ public class Notification implements WindowListener {
 		lblClickHereTo.setBorder(border);
 		lblClickHereTo.setFont(new Font("System", Font.BOLD, 17));
 		lblClickHereTo.setHorizontalAlignment(SwingConstants.CENTER);
+		lblClickHereTo.setVerticalAlignment(SwingConstants.CENTER);
 		lblClickHereTo.setBounds(12, 38, 239, 22);
 		lblClickHereTo.addMouseListener(new MouseAdapter() {
 			@Override
