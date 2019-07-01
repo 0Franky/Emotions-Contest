@@ -13,9 +13,13 @@ import java.awt.event.ActionListener;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
 import java.io.IOException;
+import java.lang.reflect.InvocationTargetException;
+import java.util.Enumeration;
 
 import javax.imageio.ImageIO;
+import javax.swing.AbstractButton;
 import javax.swing.BorderFactory;
+import javax.swing.ButtonGroup;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -28,10 +32,17 @@ import javax.swing.JTextArea;
 import javax.swing.SwingConstants;
 import javax.swing.border.Border;
 
+import classes.Synchronizer;
+import classes.TimeConverter;
+import classes.Tuple;
+import classes.database.SQLiteConnection;
+
 public class PopupWindow implements WindowListener {
 
-	JButton done = new JButton("done");
 	JFrame this_stage = new JFrame();
+	JButton done = new JButton("done");
+	JComboBox<String> lblActivity = new JComboBox<>();
+	JComboBox<String> lblProductivity = new JComboBox<>();
 
 	/**
 	 * Notification instance is useful to make Notification class "Singleton"
@@ -49,6 +60,30 @@ public class PopupWindow implements WindowListener {
 	private boolean canClose = false;
 	private final JLabel lblMyProductivityIs = new JLabel("My productivity is:");
 	private final JLabel lblNotesoptional = new JLabel("Notes (Optional)");
+
+	/**
+	 * ALL RADIO BUTTON
+	 */
+	ButtonGroup group_D = new ButtonGroup();
+	private final JRadioButton rdbtn_D1 = new JRadioButton("1");
+	private final JRadioButton rdbtn_D2 = new JRadioButton("2");
+	private final JRadioButton rdbtn_D3 = new JRadioButton("3");
+	private final JRadioButton rdbtn_D4 = new JRadioButton("4");
+	private final JRadioButton rdbtn_D5 = new JRadioButton("5");
+
+	ButtonGroup group_A = new ButtonGroup();
+	private final JRadioButton rdbtn_A1 = new JRadioButton("1");
+	private final JRadioButton rdbtn_A2 = new JRadioButton("2");
+	private final JRadioButton rdbtn_A3 = new JRadioButton("3");
+	private final JRadioButton rdbtn_A4 = new JRadioButton("4");
+	private final JRadioButton rdbtn_A5 = new JRadioButton("5");
+
+	ButtonGroup group_V = new ButtonGroup();
+	private final JRadioButton rdbtn_V1 = new JRadioButton("1");
+	private final JRadioButton rdbtn_V2 = new JRadioButton("2");
+	private final JRadioButton rdbtn_V3 = new JRadioButton("3");
+	private final JRadioButton rdbtn_V4 = new JRadioButton("4");
+	private final JRadioButton rdbtn_V5 = new JRadioButton("5");
 
 	public PopupWindow() throws IOException {
 
@@ -91,9 +126,19 @@ public class PopupWindow implements WindowListener {
 			public void actionPerformed(final ActionEvent e) {
 				try {
 
-					// AZIONI DEL DONE//
+					// AZIONI DEL DONE //
 
+					System.out.println(getActivity() + " " + getSelected_RadioGroup(group_V) + " "
+							+ getSelected_RadioGroup(group_A) + " " + getSelected_RadioGroup(group_D) + " "
+							+ getProductivity());
+
+					// Controlla Riempimento //
+
+					// Manda Messaggio di ERRORE specifico //
+
+					// if(OK)
 					PopupWindow.getIstance().close();
+
 				} catch (final IOException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
@@ -124,20 +169,39 @@ public class PopupWindow implements WindowListener {
 		lblHowDoYou.setBounds(252, 82, 490, 22);
 		panel.add(lblHowDoYou);
 
-		final JComboBox comboBox = new JComboBox();
-		comboBox.setBounds(252, 48, 490, 22);
-		panel.add(comboBox);
+		// Coding, Bugfixing, Testing, Design, Meeting, Email, Helping, Networking,
+		// Learning, Administrative tasks, Documentation
+		lblActivity.setBounds(252, 48, 490, 22);
+		lblActivity.insertItemAt("Coding", 0);
+		lblActivity.insertItemAt("Bugfixing", 1);
+		lblActivity.insertItemAt("Testing", 2);
+		lblActivity.insertItemAt("Design", 3);
+		lblActivity.insertItemAt("Meeting", 4);
+		lblActivity.insertItemAt("Email", 5);
+		lblActivity.insertItemAt("Helping", 6);
+		lblActivity.insertItemAt("Networking", 7);
+		lblActivity.insertItemAt("Learning", 8);
+		lblActivity.insertItemAt("Administrative tasks", 9);
+		lblActivity.insertItemAt("Documentation", 10);
+		panel.add(lblActivity);
 
-		final JComboBox comboBox_1 = new JComboBox();
-		comboBox_1.setBounds(252, 758, 490, 22);
-		panel.add(comboBox_1);
+		// very low, below average, average, above average, very high
+		lblProductivity.setBounds(252, 758, 490, 22);
+		lblProductivity.insertItemAt("very low", 0);
+		lblProductivity.insertItemAt("below average", 1);
+		lblProductivity.insertItemAt("average", 2);
+		lblProductivity.insertItemAt("above average", 3);
+		lblProductivity.insertItemAt("very high", 4);
+		panel.add(lblProductivity);
 
+		// PANEL DOMINACE //
 		final JPanel Full_Dominance = new JPanel();
 		Full_Dominance.setBackground(Color.LIGHT_GRAY);
 		Full_Dominance.setBounds(50, 543, 900, 200);
 		panel.add(Full_Dominance);
 		Full_Dominance.setLayout(null);
 
+		// RADIO PANEL DOMINACE //
 		final JPanel DominanceRadioPanel = new JPanel();
 		DominanceRadioPanel.setForeground(Color.BLACK);
 		DominanceRadioPanel.setBackground(Color.LIGHT_GRAY);
@@ -145,37 +209,40 @@ public class PopupWindow implements WindowListener {
 		Full_Dominance.add(DominanceRadioPanel);
 		DominanceRadioPanel.setLayout(new GridLayout(0, 5, 0, 0));
 
-		final JRadioButton rdbtnNewRadioButton = new JRadioButton("1");
-		rdbtnNewRadioButton.setBackground(Color.LIGHT_GRAY);
-		rdbtnNewRadioButton.setFont(new Font("Tahoma", Font.BOLD, 13));
-		rdbtnNewRadioButton.setHorizontalAlignment(SwingConstants.CENTER);
-		DominanceRadioPanel.add(rdbtnNewRadioButton);
+		// RADIO BUTTON DOMINACE //
+		rdbtn_D1.setBackground(Color.LIGHT_GRAY);
+		rdbtn_D1.setFont(new Font("Tahoma", Font.BOLD, 13));
+		rdbtn_D1.setHorizontalAlignment(SwingConstants.CENTER);
 
-		final JRadioButton radioButton = new JRadioButton("2");
-		radioButton.setBackground(Color.LIGHT_GRAY);
-		radioButton.setFont(new Font("Tahoma", Font.BOLD, 13));
-		radioButton.setHorizontalAlignment(SwingConstants.CENTER);
-		DominanceRadioPanel.add(radioButton);
+		rdbtn_D2.setBackground(Color.LIGHT_GRAY);
+		rdbtn_D2.setFont(new Font("Tahoma", Font.BOLD, 13));
+		rdbtn_D2.setHorizontalAlignment(SwingConstants.CENTER);
 
-		final JRadioButton radioButton_1 = new JRadioButton("3");
-		radioButton_1.setBackground(Color.LIGHT_GRAY);
-		radioButton_1.setFont(new Font("Tahoma", Font.BOLD, 13));
-		radioButton_1.setHorizontalAlignment(SwingConstants.CENTER);
-		DominanceRadioPanel.add(radioButton_1);
+		rdbtn_D3.setBackground(Color.LIGHT_GRAY);
+		rdbtn_D3.setFont(new Font("Tahoma", Font.BOLD, 13));
+		rdbtn_D3.setHorizontalAlignment(SwingConstants.CENTER);
 
-		final JRadioButton radioButton_2 = new JRadioButton("4");
-		radioButton_2.setBackground(Color.LIGHT_GRAY);
-		radioButton_2.setFont(new Font("Tahoma", Font.BOLD, 13));
-		radioButton_2.setHorizontalAlignment(SwingConstants.CENTER);
-		DominanceRadioPanel.add(radioButton_2);
+		rdbtn_D4.setBackground(Color.LIGHT_GRAY);
+		rdbtn_D4.setFont(new Font("Tahoma", Font.BOLD, 13));
+		rdbtn_D4.setHorizontalAlignment(SwingConstants.CENTER);
 
-		final JRadioButton radioButton_3 = new JRadioButton("5");
-		radioButton_3.setForeground(Color.BLACK);
-		radioButton_3.setBackground(Color.LIGHT_GRAY);
-		radioButton_3.setFont(new Font("Tahoma", Font.BOLD, 13));
-		radioButton_3.setHorizontalAlignment(SwingConstants.CENTER);
-		DominanceRadioPanel.add(radioButton_3);
+		rdbtn_D5.setForeground(Color.BLACK);
+		rdbtn_D5.setBackground(Color.LIGHT_GRAY);
+		rdbtn_D5.setFont(new Font("Tahoma", Font.BOLD, 13));
+		rdbtn_D5.setHorizontalAlignment(SwingConstants.CENTER);
 
+		DominanceRadioPanel.add(rdbtn_D1);
+		DominanceRadioPanel.add(rdbtn_D2);
+		DominanceRadioPanel.add(rdbtn_D3);
+		DominanceRadioPanel.add(rdbtn_D4);
+		DominanceRadioPanel.add(rdbtn_D5);
+		group_D.add(rdbtn_D1);
+		group_D.add(rdbtn_D2);
+		group_D.add(rdbtn_D3);
+		group_D.add(rdbtn_D4);
+		group_D.add(rdbtn_D5);
+
+		// PANEL IMAGE DOMINANACE //
 		final JPanel DominancePanelImageContainer = new JPanel();
 		DominancePanelImageContainer.setForeground(Color.BLACK);
 		DominancePanelImageContainer.setBackground(Color.LIGHT_GRAY);
@@ -183,6 +250,7 @@ public class PopupWindow implements WindowListener {
 		Full_Dominance.add(DominancePanelImageContainer);
 		DominancePanelImageContainer.setLayout(new GridLayout(1, 5, 0, 0));
 
+		// IMAGE DOMINACE //
 		final JLabel D1 = new JLabel(
 				new ImageIcon(ImageIO.read(this.getClass().getResource("/Assets/Dominance/D1.png"))));
 		DominancePanelImageContainer.add(D1);
@@ -203,6 +271,7 @@ public class PopupWindow implements WindowListener {
 				new ImageIcon(ImageIO.read(this.getClass().getResource("/Assets/Dominance/D5.png"))));
 		DominancePanelImageContainer.add(D5);
 
+		// LABEL IMAGES DOMINANCE
 		final JLabel Submition = new JLabel("Submition");
 		Submition.setFont(new Font("Tahoma", Font.BOLD, 13));
 		Submition.setHorizontalAlignment(SwingConstants.CENTER);
@@ -221,6 +290,10 @@ public class PopupWindow implements WindowListener {
 		D_Neutral.setBounds(400, 180, 69, 16);
 		Full_Dominance.add(D_Neutral);
 
+		/**
+		 * EXCITEMENT PANEL
+		 */
+
 		final JPanel Full_Excited = new JPanel();
 		Full_Excited.setLayout(null);
 		Full_Excited.setBackground(Color.LIGHT_GRAY);
@@ -231,39 +304,40 @@ public class PopupWindow implements WindowListener {
 		ExcitedRadioPanel.setForeground(Color.BLACK);
 		ExcitedRadioPanel.setBackground(Color.LIGHT_GRAY);
 		ExcitedRadioPanel.setBounds(40, 160, 820, 20);
+		ExcitedRadioPanel.setLayout(new GridLayout(0, 5, 0, 0));
 		Full_Excited.add(ExcitedRadioPanel);
 
-		final JRadioButton radioButton_4 = new JRadioButton("1");
-		radioButton_4.setHorizontalAlignment(SwingConstants.CENTER);
-		radioButton_4.setFont(new Font("Tahoma", Font.BOLD, 13));
-		radioButton_4.setBackground(Color.LIGHT_GRAY);
+		rdbtn_A1.setHorizontalAlignment(SwingConstants.CENTER);
+		rdbtn_A1.setFont(new Font("Tahoma", Font.BOLD, 13));
+		rdbtn_A1.setBackground(Color.LIGHT_GRAY);
 
-		final JRadioButton radioButton_5 = new JRadioButton("2");
-		radioButton_5.setHorizontalAlignment(SwingConstants.CENTER);
-		radioButton_5.setFont(new Font("Tahoma", Font.BOLD, 13));
-		radioButton_5.setBackground(Color.LIGHT_GRAY);
-		ExcitedRadioPanel.setLayout(new GridLayout(0, 5, 0, 0));
-		ExcitedRadioPanel.add(radioButton_4);
-		ExcitedRadioPanel.add(radioButton_5);
+		rdbtn_A2.setHorizontalAlignment(SwingConstants.CENTER);
+		rdbtn_A2.setFont(new Font("Tahoma", Font.BOLD, 13));
+		rdbtn_A2.setBackground(Color.LIGHT_GRAY);
 
-		final JRadioButton radioButton_6 = new JRadioButton("3");
-		radioButton_6.setHorizontalAlignment(SwingConstants.CENTER);
-		radioButton_6.setFont(new Font("Tahoma", Font.BOLD, 13));
-		radioButton_6.setBackground(Color.LIGHT_GRAY);
-		ExcitedRadioPanel.add(radioButton_6);
+		rdbtn_A3.setHorizontalAlignment(SwingConstants.CENTER);
+		rdbtn_A3.setFont(new Font("Tahoma", Font.BOLD, 13));
+		rdbtn_A3.setBackground(Color.LIGHT_GRAY);
 
-		final JRadioButton radioButton_7 = new JRadioButton("4");
-		radioButton_7.setHorizontalAlignment(SwingConstants.CENTER);
-		radioButton_7.setFont(new Font("Tahoma", Font.BOLD, 13));
-		radioButton_7.setBackground(Color.LIGHT_GRAY);
-		ExcitedRadioPanel.add(radioButton_7);
+		rdbtn_A4.setHorizontalAlignment(SwingConstants.CENTER);
+		rdbtn_A4.setFont(new Font("Tahoma", Font.BOLD, 13));
+		rdbtn_A4.setBackground(Color.LIGHT_GRAY);
 
-		final JRadioButton radioButton_8 = new JRadioButton("5");
-		radioButton_8.setHorizontalAlignment(SwingConstants.CENTER);
-		radioButton_8.setForeground(Color.BLACK);
-		radioButton_8.setFont(new Font("Tahoma", Font.BOLD, 13));
-		radioButton_8.setBackground(Color.LIGHT_GRAY);
-		ExcitedRadioPanel.add(radioButton_8);
+		rdbtn_A5.setHorizontalAlignment(SwingConstants.CENTER);
+		rdbtn_A5.setForeground(Color.BLACK);
+		rdbtn_A5.setFont(new Font("Tahoma", Font.BOLD, 13));
+		rdbtn_A5.setBackground(Color.LIGHT_GRAY);
+
+		ExcitedRadioPanel.add(rdbtn_A1);
+		ExcitedRadioPanel.add(rdbtn_A2);
+		ExcitedRadioPanel.add(rdbtn_A3);
+		ExcitedRadioPanel.add(rdbtn_A4);
+		ExcitedRadioPanel.add(rdbtn_A5);
+		group_A.add(rdbtn_A1);
+		group_A.add(rdbtn_A2);
+		group_A.add(rdbtn_A3);
+		group_A.add(rdbtn_A4);
+		group_A.add(rdbtn_A5);
 
 		final JPanel ExcitedImagePanel = new JPanel();
 		ExcitedImagePanel.setForeground(Color.BLACK);
@@ -323,36 +397,37 @@ public class PopupWindow implements WindowListener {
 		Full_Pleasant.add(PleasantRadioPanel);
 		PleasantRadioPanel.setLayout(new GridLayout(0, 5, 0, 0));
 
-		final JRadioButton radioButton_9 = new JRadioButton("1");
-		radioButton_9.setHorizontalAlignment(SwingConstants.CENTER);
-		radioButton_9.setFont(new Font("Tahoma", Font.BOLD, 13));
-		radioButton_9.setBackground(Color.LIGHT_GRAY);
-		PleasantRadioPanel.add(radioButton_9);
+		rdbtn_V1.setHorizontalAlignment(SwingConstants.CENTER);
+		rdbtn_V1.setFont(new Font("Tahoma", Font.BOLD, 13));
+		rdbtn_V1.setBackground(Color.LIGHT_GRAY);
 
-		final JRadioButton radioButton_10 = new JRadioButton("2");
-		radioButton_10.setHorizontalAlignment(SwingConstants.CENTER);
-		radioButton_10.setFont(new Font("Tahoma", Font.BOLD, 13));
-		radioButton_10.setBackground(Color.LIGHT_GRAY);
-		PleasantRadioPanel.add(radioButton_10);
+		rdbtn_V2.setHorizontalAlignment(SwingConstants.CENTER);
+		rdbtn_V2.setFont(new Font("Tahoma", Font.BOLD, 13));
+		rdbtn_V2.setBackground(Color.LIGHT_GRAY);
 
-		final JRadioButton radioButton_11 = new JRadioButton("3");
-		radioButton_11.setHorizontalAlignment(SwingConstants.CENTER);
-		radioButton_11.setFont(new Font("Tahoma", Font.BOLD, 13));
-		radioButton_11.setBackground(Color.LIGHT_GRAY);
-		PleasantRadioPanel.add(radioButton_11);
+		rdbtn_V3.setHorizontalAlignment(SwingConstants.CENTER);
+		rdbtn_V3.setFont(new Font("Tahoma", Font.BOLD, 13));
+		rdbtn_V3.setBackground(Color.LIGHT_GRAY);
 
-		final JRadioButton radioButton_12 = new JRadioButton("4");
-		radioButton_12.setHorizontalAlignment(SwingConstants.CENTER);
-		radioButton_12.setFont(new Font("Tahoma", Font.BOLD, 13));
-		radioButton_12.setBackground(Color.LIGHT_GRAY);
-		PleasantRadioPanel.add(radioButton_12);
+		rdbtn_V4.setHorizontalAlignment(SwingConstants.CENTER);
+		rdbtn_V4.setFont(new Font("Tahoma", Font.BOLD, 13));
+		rdbtn_V4.setBackground(Color.LIGHT_GRAY);
 
-		final JRadioButton radioButton_13 = new JRadioButton("5");
-		radioButton_13.setHorizontalAlignment(SwingConstants.CENTER);
-		radioButton_13.setForeground(Color.BLACK);
-		radioButton_13.setFont(new Font("Tahoma", Font.BOLD, 13));
-		radioButton_13.setBackground(Color.LIGHT_GRAY);
-		PleasantRadioPanel.add(radioButton_13);
+		rdbtn_V5.setHorizontalAlignment(SwingConstants.CENTER);
+		rdbtn_V5.setForeground(Color.BLACK);
+		rdbtn_V5.setFont(new Font("Tahoma", Font.BOLD, 13));
+		rdbtn_V5.setBackground(Color.LIGHT_GRAY);
+
+		PleasantRadioPanel.add(rdbtn_V1);
+		PleasantRadioPanel.add(rdbtn_V2);
+		PleasantRadioPanel.add(rdbtn_V3);
+		PleasantRadioPanel.add(rdbtn_V4);
+		PleasantRadioPanel.add(rdbtn_V5);
+		group_V.add(rdbtn_V1);
+		group_V.add(rdbtn_V2);
+		group_V.add(rdbtn_V3);
+		group_V.add(rdbtn_V4);
+		group_V.add(rdbtn_V5);
 
 		final JPanel PleasantImagePanel = new JPanel();
 		PleasantImagePanel.setForeground(Color.BLACK);
@@ -440,7 +515,7 @@ public class PopupWindow implements WindowListener {
 	public void close() {
 		try {
 			canClose = true;
-			this_stage.dispatchEvent(new WindowEvent(this_stage, WindowEvent.WINDOW_CLOSING));
+			this_stage.setVisible(false);
 		} catch (final Exception ex) {
 			// nothing
 		}
@@ -449,21 +524,24 @@ public class PopupWindow implements WindowListener {
 	/**
 	 * Show on screen the PopupWindow
 	 */
-	private void show() {
+	public void show() {
 		try {
-			this_stage.isShowing();
+			this_stage.setVisible(true);
 			this_stage.toFront();
 			EventQueue.invokeLater(new Runnable() {
 				@Override
 				public void run() {
-					/*
-					 * try { writeOpenWindowInDir(); } catch (InvocationTargetException e) {
-					 * System.err.
-					 * println("InvocationTargetException in writeOpenWindowInDir() in show()");
-					 * e.printStackTrace(); } catch (InterruptedException e) {
-					 * System.err.println("InterruptedException in writeOpenWindowInDir() in show()"
-					 * ); e.printStackTrace(); }
-					 */
+
+					try {
+						writeOpenWindowInDir();
+					} catch (final InvocationTargetException e) {
+						System.err.println("InvocationTargetException in writeOpenWindowInDir() in show()");
+						e.printStackTrace();
+					} catch (final InterruptedException e) {
+						System.err.println("InterruptedException in writeOpenWindowInDir() in show()");
+						e.printStackTrace();
+					}
+
 				};
 			});
 		} catch (final Exception ex) {
@@ -489,12 +567,6 @@ public class PopupWindow implements WindowListener {
 	 */
 	private void MessageBox(final String text) {
 		JOptionPane.showMessageDialog(null, "Information Missed!", text, JOptionPane.WARNING_MESSAGE);
-		/*
-		 * final Alert alert = new Alert(AlertType.WARNING);
-		 * alert.setTitle("Information Missed!"); alert.setHeaderText(null);
-		 * alert.setContentText(text); alert.initStyle(StageStyle.UTILITY); //
-		 * alert.initOwner(this_stage); alert.showAndWait();
-		 */
 	}
 
 	/**
@@ -503,6 +575,68 @@ public class PopupWindow implements WindowListener {
 	 */
 	protected void cleanInstance() {
 		instance = null;
+	}
+
+	/**
+	 * Write open_popUp on database and start sync for online Sheet
+	 *
+	 * @throws InvocationTargetException, InterruptedException
+	 */
+	private void writeOpenWindowInDir() throws InvocationTargetException, InterruptedException {
+		SQLiteConnection.addRow(getActivityOpenWindowToTuple().toArray());
+		SQLiteConnection.addRowToSync(getActivityOpenWindowToTuple().toArray());
+		Synchronizer.sync();
+	}
+
+	/**
+	 * Create a new Tuple for "POPUP_OPENED" event
+	 *
+	 * @return Tuple
+	 */
+	private Tuple getActivityOpenWindowToTuple() {
+		return new Tuple(Long.toString(TimeConverter.toUnixTime(System.currentTimeMillis())), "", "", "", "", "", "",
+				"POPUP_OPENED", "");
+	}
+
+	/**
+	 * return the content of lbl_Activity.getValue()
+	 *
+	 * @return text
+	 */
+	private String getActivity() {
+		String text = "";
+		if (lblActivity.getSelectedItem() != null) {
+			text = lblActivity.getSelectedItem().toString();
+		}
+		return text;
+	}
+
+	/**
+	 * return the content of lbl_Productivity.getValue()
+	 *
+	 * @return text
+	 */
+	private String getProductivity() {
+		String text = "";
+		if (lblProductivity.getSelectedItem() != null) {
+			text = lblProductivity.getSelectedItem().toString();
+		}
+		return text;
+	}
+
+	/**
+	 * get Selected button from group of RadioButton
+	 *
+	 * @return D
+	 */
+	private String getSelected_RadioGroup(final ButtonGroup BG) {
+		for (final Enumeration<AbstractButton> buttons = BG.getElements(); buttons.hasMoreElements();) {
+			final AbstractButton button = buttons.nextElement();
+			if (button.isSelected()) {
+				return button.getText();
+			}
+		}
+		return null;
 	}
 
 	@Override

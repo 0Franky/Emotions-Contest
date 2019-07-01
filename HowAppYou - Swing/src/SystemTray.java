@@ -225,7 +225,7 @@ public class SystemTray {
 				AppTimer.getIstance().stopTimer();
 				System.out.println("Timer Interrotto");
 			}
-			PopupWindow.getIstance();
+			PopupWindow.getIstance().show();
 			PopupWindow.getIstance().toFront();
 		}
 	}
