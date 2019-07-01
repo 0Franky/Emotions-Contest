@@ -1,10 +1,9 @@
 package classes;
 
-import java.io.IOException;
-import java.util.Timer;
-
-import javafx.application.Platform;
-import layout.Notification.Notification;
+import java.util.Date;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
 
 /**
  * Useful class to set/stop a Timer for Time controlled Notification
@@ -19,12 +18,13 @@ public class AppTimer extends Thread {
 	/**
 	 * Boolean used set the possibility to run the Thread or not
 	 */
-	private boolean runFlag = true;
+	private static boolean runFlag = false;
 
 	/**
-	 * Attribute Timer
+	 *
+	 * ScheduledExecutorService
 	 */
-	private Timer T = new Timer();
+	final ScheduledExecutorService ses = Executors.newSingleThreadScheduledExecutor();
 
 	/**
 	 * Constructor fo Timer whit Start Thread
@@ -36,7 +36,7 @@ public class AppTimer extends Thread {
 	/**
 	 * Reverser fo the flag (Start or Stop Thread)
 	 */
-	public void invertFlag() {
+	public static void invertFlag() {
 		runFlag = !runFlag;
 	}
 
@@ -46,11 +46,13 @@ public class AppTimer extends Thread {
 	 * @return The AppTimer.
 	 */
 	public static AppTimer getIstance() {
-		if (instance == null)
+		if (instance == null) {
 			synchronized (AppTimer.class) {
-				if (instance == null)
+				if (instance == null) {
 					instance = new AppTimer();
+				}
 			}
+		}
 		return instance;
 	}
 
@@ -58,35 +60,33 @@ public class AppTimer extends Thread {
 	 * Stop the Timer when it is running
 	 */
 	public void stopTimer() {
-		T.cancel();
+		runFlag = false;
+		ses.shutdown();
+		System.err.println("TIMER SHUTDOWN");
 		instance = null;
-		System.err.println("Timer Cancellato");
 	}
 
 	/**
 	 * Start Timer for "min" minutes
-	 * 
+	 *
 	 * @param min
 	 * @throws InterruptedException Generic Interrupted error
 	 */
-	public void startTimer(int min) throws InterruptedException {
+	public void startTimer(final int min) throws InterruptedException {
 		System.err.println("Inizio startTimer per = " + min);
-		int sec = 60;
-		T.schedule(new java.util.TimerTask() {
+		final int sec = min * 60;
+
+		ses.scheduleWithFixedDelay(new Runnable() {
 			@Override
 			public void run() {
-				Platform.runLater(() -> {
-					try {
-						if (runFlag) {
-							Notification.getIstance().show();
-							Notification.getIstance().toFront();
-						} else
-							System.err.println("Azione Timer Disattivata");
-					} catch (IOException e) {
-						// e.printStackTrace();
-					}
-				});
+				if (!runFlag) {
+					invertFlag();
+				} else {
+					System.out.println(new Date());
+					ses.shutdown();
+					System.out.println("TIMER SHUTDOWN");
+				}
 			}
-		}, min * sec * 1000);
+		}, 0, sec, TimeUnit.SECONDS);
 	}
 }
