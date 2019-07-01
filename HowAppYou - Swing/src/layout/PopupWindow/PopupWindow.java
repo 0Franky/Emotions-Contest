@@ -32,35 +32,26 @@ import javax.swing.JTextArea;
 import javax.swing.SwingConstants;
 import javax.swing.border.Border;
 
+import Title.Title;
+import classes.AppTimer;
 import classes.Synchronizer;
 import classes.TimeConverter;
 import classes.Tuple;
 import classes.database.SQLiteConnection;
+import layout.BubbleChart.BubbleChartWindow;
 
 public class PopupWindow implements WindowListener {
 
-	JFrame this_stage = new JFrame();
-	JButton done = new JButton("done");
-	JComboBox<String> lblActivity = new JComboBox<>();
-	JComboBox<String> lblProductivity = new JComboBox<>();
-
-	/**
-	 * Notification instance is useful to make Notification class "Singleton"
-	 */
-	private static PopupWindow instance = null;
-
-	/**
-	 * Variables used to manage the location of the window on screen
-	 */
-	private double X, Y;
-
-	/**
-	 * Boolean used set the possibility to close the window
-	 */
-	private boolean canClose = false;
+	private final JFrame this_stage = new JFrame();
+	private final JButton done = new JButton("done");
+	private final JComboBox<String> lblActivity = new JComboBox<>();
+	private final JComboBox<String> lblProductivity = new JComboBox<>();
+	private final JTextArea NotesTextArea = new JTextArea();
 	private final JLabel lblMyProductivityIs = new JLabel("My productivity is:");
 	private final JLabel lblNotesoptional = new JLabel("Notes (Optional)");
-
+	private String pleasantness = "";
+	private String excitement = "";
+	private String dominance = "";
 	/**
 	 * ALL RADIO BUTTON
 	 */
@@ -84,6 +75,21 @@ public class PopupWindow implements WindowListener {
 	private final JRadioButton rdbtn_V3 = new JRadioButton("3");
 	private final JRadioButton rdbtn_V4 = new JRadioButton("4");
 	private final JRadioButton rdbtn_V5 = new JRadioButton("5");
+
+	/**
+	 * Notification instance is useful to make Notification class "Singleton"
+	 */
+	private static PopupWindow instance = null;
+
+	/**
+	 * Variables used to manage the location of the window on screen
+	 */
+	private double X, Y;
+
+	/**
+	 * Boolean used set the possibility to close the window
+	 */
+	private boolean canClose = false;
 
 	public PopupWindow() throws IOException {
 
@@ -128,16 +134,21 @@ public class PopupWindow implements WindowListener {
 
 					// AZIONI DEL DONE //
 
-					System.out.println(getActivity() + " " + getSelected_RadioGroup(group_V) + " "
-							+ getSelected_RadioGroup(group_A) + " " + getSelected_RadioGroup(group_D) + " "
-							+ getProductivity());
+					pleasantness = getSelected_RadioGroup(group_V);
+					excitement = getSelected_RadioGroup(group_A);
+					dominance = getSelected_RadioGroup(group_D);
 
-					// Controlla Riempimento //
+					System.out.println(getActivity() + " " + pleasantness + " " + excitement + " " + dominance + " "
+							+ getProductivity() + " " + getNotes());
 
-					// Manda Messaggio di ERRORE specifico //
-
-					// if(OK)
-					PopupWindow.getIstance().close();
+					// Controlla Riempimento e stampa risultati//
+					try {
+						writeResultsInDir();
+					} catch (InvocationTargetException | InterruptedException e1) {
+						// TODO Auto-generated catch block
+						System.out.println("Not writeResultsInDir");
+						e1.printStackTrace();
+					}
 
 				} catch (final IOException e1) {
 					// TODO Auto-generated catch block
@@ -157,7 +168,6 @@ public class PopupWindow implements WindowListener {
 
 		panel.add(lblNotesoptional);
 
-		final JTextArea NotesTextArea = new JTextArea();
 		NotesTextArea.setBackground(Color.WHITE);
 		NotesTextArea.setForeground(Color.WHITE);
 		NotesTextArea.setBounds(50, 807, 900, 43);
@@ -578,6 +588,28 @@ public class PopupWindow implements WindowListener {
 	}
 
 	/**
+	 * Write results of the questionnaire on database, it also starts sync for
+	 * online Sheet and start Timer, then it close PopupWindow
+	 *
+	 * @throws IOException               Generic I/O error.
+	 * @throws InvocationTargetException Generic InvocationTarget error.
+	 * @throws InterruptedException      Generic Interruptederror.
+	 */
+	protected void writeResultsInDir() throws InvocationTargetException, InterruptedException, IOException {
+		if (checkCorrectionParam()) {
+			SQLiteConnection.addRow(getActivityToTuple().toArray()); // write on database //
+			SQLiteConnection.addRowToSync(getActivityToTuple().toArray());
+			Synchronizer.sync(); // Syncronize to write online //
+			AppTimer.getIstance().startTimer(60); // Start Timer at 60 minutes //
+			if (BubbleChartWindow.isIstanceNULL() == false) {
+				BubbleChartWindow.getIstance().updateChart(); // Refresh BubbleChartWindow when it is already opened //
+				System.out.println("Refresh BubbleChart");
+			}
+			PopupWindow.getIstance().close();
+		}
+	}
+
+	/**
 	 * Write open_popUp on database and start sync for online Sheet
 	 *
 	 * @throws InvocationTargetException, InterruptedException
@@ -596,6 +628,16 @@ public class PopupWindow implements WindowListener {
 	private Tuple getActivityOpenWindowToTuple() {
 		return new Tuple(Long.toString(TimeConverter.toUnixTime(System.currentTimeMillis())), "", "", "", "", "", "",
 				"POPUP_OPENED", "");
+	}
+
+	/**
+	 * Create a new Tuple for "POPUP_CLOSED" event
+	 *
+	 * @return Tuple
+	 */
+	private Tuple getActivityToTuple() {
+		return new Tuple(Long.toString(TimeConverter.toUnixTime(System.currentTimeMillis())), getActivity(),
+				pleasantness, excitement, dominance, getProductivity(), Title.USER_ID, "POPUP_CLOSED", getNotes());
 	}
 
 	/**
@@ -624,6 +666,14 @@ public class PopupWindow implements WindowListener {
 		return text;
 	}
 
+	private String getNotes() {
+		String text = "";
+		if (NotesTextArea.getText() != null) {
+			text = NotesTextArea.getText();
+		}
+		return text;
+	}
+
 	/**
 	 * get Selected button from group of RadioButton
 	 *
@@ -637,6 +687,42 @@ public class PopupWindow implements WindowListener {
 			}
 		}
 		return null;
+	}
+
+	/**
+	 * Verify if all PopupWindow's fields are completed
+	 *
+	 * @return Tuple
+	 */
+	private boolean checkCorrectionParam() {
+		boolean status = true;
+
+		if (getActivity() == "") {
+			status = false;
+			MessageBox("Activity not filled!");
+		}
+
+		if (pleasantness == "") {
+			status = false;
+			MessageBox("Pleasantness not checked!");
+		}
+
+		if (excitement == "") {
+			status = false;
+			MessageBox("Excitement not checked!");
+		}
+
+		if (dominance == "") {
+			status = false;
+			MessageBox("Dominance not checked!");
+		}
+
+		if (getProductivity() == "") {
+			status = false;
+			MessageBox("Productivity not filled!");
+		}
+
+		return status;
 	}
 
 	@Override
