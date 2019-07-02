@@ -66,6 +66,7 @@ public class ConfigurationWindow implements WindowListener {
 	private final JLabel lblSpidesSuncompany = new JLabel("SPID (es. SUN_COMPANY):");
 
 	private ConfigurationWindow() {
+		this_stage.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this_stage.setAlwaysOnTop(true);
 		this_stage.setIconImage(
 				Toolkit.getDefaultToolkit().getImage(ConfigurationWindow.class.getResource("/Assets/Icon.png")));
