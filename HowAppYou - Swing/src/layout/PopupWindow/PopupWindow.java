@@ -23,6 +23,7 @@ import javax.swing.AbstractButton;
 import javax.swing.BorderFactory;
 import javax.swing.ButtonGroup;
 import javax.swing.ImageIcon;
+import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -41,7 +42,7 @@ import classes.AppTimer;
 import classes.Synchronizer;
 import classes.TimeConverter;
 import classes.Tuple;
-import classes.JCustomController.TransparentButton;
+import classes.JCustomController.BackgroundPane;
 import classes.database.SQLiteConnection;
 import layout.BubbleChart.BubbleChartWindow;
 
@@ -57,7 +58,7 @@ public class PopupWindow implements WindowListener {
 	}
 
 	private final JFrame this_stage = new JFrame();
-	private final TransparentButton done = new TransparentButton("done");
+	private final JButton done = new JButton("done");
 	// private final JButton done = new JButton("done");
 	private final JComboBox<String> lblActivity = new JComboBox<>();
 	private final JComboBox<String> lblProductivity = new JComboBox<>();
@@ -147,9 +148,7 @@ public class PopupWindow implements WindowListener {
 
 		this_stage.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 
-		// ATTIVA setUndecorated se hai fatto il DRAG AND DROP //
-
-		// this_stage.setUndecorated(true);
+		this_stage.setUndecorated(true);
 
 		this_stage.setAlwaysOnTop(true);
 		this_stage.setResizable(false);
@@ -167,7 +166,11 @@ public class PopupWindow implements WindowListener {
 		this_stage
 				.setIconImage(Toolkit.getDefaultToolkit().getImage(PopupWindow.class.getResource("/Assets/Icon.png")));
 
-		final JPanel panel = new JPanel();
+		final BackgroundPane panel = new BackgroundPane();
+		// final JPanel panel = new JPanel();
+
+		panel.setBackground(ImageIO.read(PopupWindow.class.getResource("/Assets/Icon.png")), 0.15f);
+
 		this_stage.getContentPane().add(panel, BorderLayout.CENTER);
 		panel.setLayout(null);
 
@@ -498,7 +501,20 @@ public class PopupWindow implements WindowListener {
 
 		addAllImageAction();
 
+		// Drag and Drop Wrapper Panel //
+
+		final BackgroundPane panelx = new BackgroundPane(panel);
+		panel.addMouseListener(panelx);
+		panel.addMouseMotionListener(panelx);
+
+		// this_stage.pack();
+
+		this_stage.setVisible(true);
+		System.out.println("Amore");
+
 	}
+
+//////////////////////////////////////////////////////////		END GUI		/////////////////////////////////////////////////////////////////////////////
 
 	/**
 	 * Return the unique possible instance of the Notification
@@ -528,7 +544,13 @@ public class PopupWindow implements WindowListener {
 		final Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 		final int height = screenSize.height;
 		final int width = screenSize.width;
-		this_stage.setSize(1022, 936);
+
+		// Con la barra Windows //
+		// this_stage.setSize(1022, 936);
+
+		// Senza Barra Windows //
+		this_stage.setSize(1022, 900);
+
 		// center the jframe on screen
 		this_stage.setLocationRelativeTo(null);
 	}

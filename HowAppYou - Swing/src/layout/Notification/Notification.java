@@ -60,19 +60,20 @@ public class Notification implements WindowListener {
 
 	public Notification() throws IOException {
 
-		// this_stage.setUndecorated(true);
+		this_stage.setUndecorated(true);
 
 		this_stage.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
-		// ATTIVA setUndecorated se hai fatto il DRAG AND DROP //
-
-		// this_stage.setUndecorated(true);
 
 		this_stage
 				.setIconImage(Toolkit.getDefaultToolkit().getImage(Notification.class.getResource("/Assets/Icon.png")));
 		this_stage.setAlwaysOnTop(true);
 		this_stage.setTitle("HowAppYou Notification");
 
-		this_stage.setSize(435, 170);
+		// SENZA BARRA WINDOWS //
+		this_stage.setSize(435, 135);
+		// CON BARRA WINDOWS //
+		// this_stage.setSize(435, 170);
+
 		this_stage.addWindowListener(this);
 		this_stage.setResizable(false);
 
@@ -87,6 +88,7 @@ public class Notification implements WindowListener {
 		 */
 
 		final BackgroundPane panel = new BackgroundPane();
+
 		panel.setBounds(0, 0, 429, 512);
 		panel.setBackground(ImageIO.read(Notification.class.getResource("/Assets/Icon.png")), 0.15f);
 
@@ -177,10 +179,20 @@ public class Notification implements WindowListener {
 
 		centerStage();
 
+		System.out.println("CIAO");
+		// Drag and Drop Wrapper Panel //
+
+		final BackgroundPane panelx = new BackgroundPane(panel);
+		panel.addMouseListener(panelx);
+		panel.addMouseMotionListener(panelx);
+
+		// this_stage.pack();
+
 		this_stage.setVisible(true);
+		System.out.println("Amore");
 	}
 
-	// END GUI
+//////////////////////////////////////////////////////////		END GUI		/////////////////////////////////////////////////////////////////////////////
 
 	/**
 	 * Return the unique possible instance of the Notification
