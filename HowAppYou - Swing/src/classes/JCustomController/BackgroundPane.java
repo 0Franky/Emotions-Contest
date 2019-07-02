@@ -7,6 +7,7 @@ import java.awt.Dimension;
 import java.awt.EventQueue;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.Image;
 import java.awt.geom.AffineTransform;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
@@ -24,13 +25,7 @@ public class BackgroundPane extends JPanel {
 	private float alpha = 1;
 
 	public BackgroundPane(final BufferedImage img) {
-		try {
-			// frontImage =
-			// ImageIO.read(Notification.class.getResource("/Assets/Pleasantness/V2.png"));
-			frontImage = img;
-		} catch (final Exception e) {
-			System.out.println(e);
-		}
+		setBackground(img);
 	}
 
 	public BackgroundPane() {
@@ -46,6 +41,43 @@ public class BackgroundPane extends JPanel {
 		}
 	}
 
+	public void setBackground(final BufferedImage img, final float newAlpha, final boolean autosize) {
+		try {
+			// frontImage =
+			// ImageIO.read(Notification.class.getResource("/Assets/Pleasantness/V2.png"));
+			frontImage = img;
+
+			if (autosize) {
+				frontImage = resize(img, getWidth(), getHeight());
+			}
+			setAlpha(newAlpha);
+		} catch (final Exception e) {
+			System.out.println(e);
+		}
+	}
+
+	public void setBackground(final BufferedImage img, final float newAlpha, final int width, final int height) {
+		try {
+			// frontImage =
+			// ImageIO.read(Notification.class.getResource("/Assets/Pleasantness/V2.png"));
+			frontImage = resize(img, width, height);
+			setAlpha(newAlpha);
+		} catch (final Exception e) {
+			System.out.println(e);
+		}
+	}
+
+	public static BufferedImage resize(final BufferedImage img, final int newW, final int newH) {
+		final Image tmp = img.getScaledInstance(newW, newH, Image.SCALE_SMOOTH);
+		final BufferedImage dimg = new BufferedImage(newW, newH, BufferedImage.TYPE_INT_ARGB);
+
+		final Graphics2D g2d = dimg.createGraphics();
+		g2d.drawImage(tmp, 0, 0, null);
+		g2d.dispose();
+
+		return dimg;
+	}
+
 	public void setBackground(final BufferedImage img, final float newAlpha) {
 		try {
 			// frontImage =
@@ -59,11 +91,11 @@ public class BackgroundPane extends JPanel {
 
 	@Override
 	public Dimension getPreferredSize() {
-		try {
-			return new Dimension(frontImage.getWidth(), frontImage.getHeight());
-		} catch (final Exception e) {
-			return new Dimension(getWidth(), getHeight());
-		}
+		// try {
+		// return new Dimension(frontImage.getWidth(), frontImage.getHeight());
+		// } catch (final Exception e) {
+		return new Dimension(getWidth(), getHeight());
+		// }
 	}
 
 	public void setAlpha(final float alpha) {

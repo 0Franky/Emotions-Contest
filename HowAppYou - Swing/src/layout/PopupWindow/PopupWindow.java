@@ -41,9 +41,11 @@ import classes.AppTimer;
 import classes.Synchronizer;
 import classes.TimeConverter;
 import classes.Tuple;
+import classes.JCustomController.BackgroundPane;
 import classes.JCustomController.TransparentButton;
 import classes.database.SQLiteConnection;
 import layout.BubbleChart.BubbleChartWindow;
+import layout.Notification.Notification;
 
 public class PopupWindow implements WindowListener {
 
@@ -57,7 +59,7 @@ public class PopupWindow implements WindowListener {
 	}
 
 	private final JFrame this_stage = new JFrame();
-	private final TransparentButton done = new TransparentButton("done");
+	private final TransparentButton done;
 	// private final JButton done = new JButton("done");
 	private final JComboBox<String> lblActivity = new JComboBox<>();
 	private final JComboBox<String> lblProductivity = new JComboBox<>();
@@ -167,7 +169,11 @@ public class PopupWindow implements WindowListener {
 		this_stage
 				.setIconImage(Toolkit.getDefaultToolkit().getImage(PopupWindow.class.getResource("/Assets/Icon.png")));
 
-		final JPanel panel = new JPanel();
+		// final JPanel panel = new JPanel();
+		final BackgroundPane panel = new BackgroundPane();
+		panel.setBounds(-25, -25, this_stage.getWidth(), this_stage.getHeight());
+		panel.setBackground(ImageIO.read(Notification.class.getResource("/Assets/Icon.png")), 0.13f,
+				(int) (this_stage.getWidth() * 1.3), (int) (this_stage.getHeight() * 1.3));
 		this_stage.getContentPane().add(panel, BorderLayout.CENTER);
 		panel.setLayout(null);
 
@@ -179,6 +185,7 @@ public class PopupWindow implements WindowListener {
 		panel.add(lblWhitchActivity);
 		final Border border = BorderFactory.createLineBorder(Color.BLACK, 1);
 
+		done = new TransparentButton("done");
 		done.setFont(new Font("System", Font.BOLD, 17));
 		done.setBounds(441, 860, 104, 25);
 		done.addActionListener(new ActionListener() {
