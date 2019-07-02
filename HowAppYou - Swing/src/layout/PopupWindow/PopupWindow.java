@@ -179,7 +179,7 @@ public class PopupWindow implements WindowListener {
 		final Border border = BorderFactory.createLineBorder(Color.BLACK, 1);
 
 		done.setFont(new Font("System", Font.BOLD, 17));
-		done.setBounds(441, 855, 104, 25);
+		done.setBounds(441, 860, 104, 25);
 		done.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(final ActionEvent e) {
