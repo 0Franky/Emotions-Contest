@@ -23,7 +23,6 @@ import javax.swing.AbstractButton;
 import javax.swing.BorderFactory;
 import javax.swing.ButtonGroup;
 import javax.swing.ImageIcon;
-import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -42,6 +41,7 @@ import classes.AppTimer;
 import classes.Synchronizer;
 import classes.TimeConverter;
 import classes.Tuple;
+import classes.JCustomController.TransparentButton;
 import classes.database.SQLiteConnection;
 import layout.BubbleChart.BubbleChartWindow;
 
@@ -57,7 +57,8 @@ public class PopupWindow implements WindowListener {
 	}
 
 	private final JFrame this_stage = new JFrame();
-	private final JButton done = new JButton("done");
+	private final TransparentButton done = new TransparentButton("done");
+	// private final JButton done = new JButton("done");
 	private final JComboBox<String> lblActivity = new JComboBox<>();
 	private final JComboBox<String> lblProductivity = new JComboBox<>();
 	private final JTextArea NotesTextArea = new JTextArea();
