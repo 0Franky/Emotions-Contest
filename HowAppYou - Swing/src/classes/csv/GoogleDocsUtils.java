@@ -273,9 +273,8 @@ public final class GoogleDocsUtils implements ICSV_Writer {
 			}
 		};
 		final BatchRequest batch = driveService.batch();
-		Permission userPermission = new Permission().setType("anyone").setRole("reader");
-		driveService.permissions().create(spid, userPermission).setFields("id").queue(batch, callback);
-		userPermission = new Permission().setType("user").setRole("reader").setEmailAddress(Title.EMAILS_TO_SEND[0]);
+		final Permission userPermission = new Permission().setType("user").setRole("reader")
+				.setEmailAddress(Title.EMAILS_TO_SEND[0]);
 		driveService.permissions().create(spid, userPermission).setFields("id").queue(batch, callback);
 
 		batch.execute();
