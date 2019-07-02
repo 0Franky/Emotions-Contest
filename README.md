@@ -4,8 +4,7 @@
 
 1. [**What is HowAppYou?**](#what-is-howappyou)
 2. [**System Requirements**](#system-requirements)
-3. [**User Guide**](#user-guide)
-4. [**Credits**](#credits)
+3. [**Credits**](#credits)
 
 <ol>
 <li>
@@ -49,85 +48,13 @@ The main aim of the app is to gather enough data to use later to develop an AI.
 **Java Virtual Machine [Required]**
 Download JVM for your OS : [**JAVA JVM**](https://www.java.com/en/download/manual.jsp)
 
+JVM download help guide: [**JVM HELP**](https://www.java.com/en/download/help/download_options.xml)
 
-</li>
-<li>
+You need (JVM version >= v1.8) to use **“HowAppYou – Swing”** on Windows/Linux/Mac OS systems.
 
-## User Guide
-
-The HowAppYou software is based on the use of two main windows: the notification and the questionnaire window (HowAppYou Window).
-When the application starts by double-clicking the "HowAppYou.jar" file, the application notification appears on the screen;
-
-### - (Notification) -
-
-![](JAVA/src/Assets/Guide/Notifica.jpg)
-
-**From this notification it is possible:**
-
-1. To start the questionnaire window (HowAppYou Window) by clicking with the mouse on the "click here to open pop-up!"
-
-2. To close the notification definitively by clicking the "dismiss" button. Once this is done you will need to call back
-the questionnaire window (HowAppYou Window) using the specific command in the tray.
-
-3. To postpone the reopening of the notification by dragging the slider cursor to the value indicated in minutes and then press "postpone"
-
-### - (HowAppYou Window) -
-
-![](JAVA/src/Assets/Guide/Pop-Up.jpg)
-
-**From this window it is possible:**
-
-1. To select the activity, which involved you since the last notification, you can use the drop-down menu.<br>
-2. To select your current mood, you have to click one of the circles below the first sequence of men.<br>
-3. To select your state of excitement, you have to click on one of the circles below the second sequence of men.<br>
-4. To select your state of dominance, you have to click on one of the circles below the third sequence of men.<br>
-5. To select your current level of productivity from the drop-down menu.<br>
-6. To complete the area below with a comment of your experience (Optional).<br>
-
-Notes: you must complete all sections, 6. excluded, and then you can press “done” button.
-It is not possible to close the form in any other way.
+You need (v1.8 < JVM version < v1.10) to use **“HowAppYou – FX”** only on Windows systems. (v1.8 recommended)
 
 
-### - (HowAppYou Tray) -
-
-![](JAVA/src/Assets/Guide/Tray.jpg)
-
-When the application opens, an icon appears in the lower-right corner to confirm the opening of the application in the background.
-
-From it you can select one of these options using the right mouse button:
-
-- **Show retrospective:**
-From this option it is possible to show a window displaying a bubble chart representing the registered status
-during previous compilations of the Questionnaire, highlighting the intensity of them from the size of the bubble.
-
-- **Show HowAppYou:**
-It displays the program window on screen ready for a new compilation. This is useful after making a "dismiss"
-of the notification.
-
-- **Export to csv:**
-It saves the data collected in the previous questionnaires in a .csv file, which can be viewed later
-with any calculation tool (ES: Microsoft Excel).
-It is necessary to indicate the name of the file and the location where you want to save the file.
-
-- **Info & Credits:**
-It displays a window containing the main information of the application
-and references to the GitHub page of the app and its developers.
-
-- **Quit:**
-It closes the application permanently.
-
-</li>
-<li>
-
-### - (Bubble Chart) -
-
-![](JAVA/src/Assets/Guide/Bubble.jpg)
-
-With a click on “Show retrospective” this window will show up on screen.
-
-**From the slider on the bottom-right:**
-
-it is possible to update the chart representing the registered status during previous compilations of the Questionnaire, changing the range of days.
 
 </li>
 <li>

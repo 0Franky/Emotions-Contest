@@ -1,0 +1,148 @@
+Manifest-Version: 1.0
+Class-Path: .
+Main-Class: AppMain
+
+Name: javax/activation/SecuritySupport12$3.class
+SHA1-Digest: t17MgFzefsEODCAhdr0Sp9wz5/Q=
+
+Name: javax/activation/DataContentHandlerFactory.class
+SHA1-Digest: 7sK1N48hT5JuGK4CPHqlDB648/8=
+
+Name: javax/activation/ObjectDataContentHandler.class
+SHA1-Digest: MvBEMcpyrIFvj0WWesKTQ1Xof/Y=
+
+Name: com/google/api/gbase/client/
+Specification-Title: Google Base data API client
+Implementation-Title: Google Base GData client extensions for Java
+Implementation-Version: 1.2.1
+Specification-Version: 1.0
+Specification-Vendor: Google Inc.
+Implementation-Vendor: Google Inc.
+
+Name: javax/activation/DataContentHandler.class
+SHA1-Digest: 4ScrMQQptqNulV+va+UAbeyWgCY=
+
+Name: com/sun/activation/viewers/TextViewer.class
+SHA1-Digest: SDcybqXjPt6lB7MFTekaMQLo1XU=
+
+Name: com/sun/activation/registries/MimeTypeEntry.class
+SHA1-Digest: RjQc1npYLzmhAl8Tcm70Ge0QeqA=
+
+Name: javax/activation/CommandObject.class
+SHA1-Digest: qvYPNnH4j2UUfQ0BnRPxamLezf4=
+
+Name: com/sun/activation/viewers/TextEditor.class
+SHA1-Digest: v/CQ9F0afPiGfz3Q5QYgDH8KGVY=
+
+Name: jfx8.cssext
+SHA1-Digest: M/0RdFPXEb/1lRbbjfVIRe6FDIk=
+
+Name: com/sun/activation/viewers/ImageViewerCanvas.class
+SHA1-Digest: hYOFlCZpdmIyCgfulKuL+9YuYM0=
+
+Name: com/sun/activation/registries/MailcapFile.class
+SHA1-Digest: 7Ynl9y+DzEy1icHtnpCU/l5RuIc=
+
+Name: javax/activation/FileTypeMap.class
+SHA1-Digest: hD5elx7xhmbFWb68dgDXeMsz0A0=
+
+Name: javax/activation/CommandInfo.class
+SHA1-Digest: 1cKS/VKDQRQtAdvjQSJXZfjuKnM=
+
+Name: com/google/gdata/client/
+Specification-Title: Google Data Protocol
+Implementation-Title: GData client library for Java
+Implementation-Version: 1.47.1
+Specification-Version: 1.0
+Specification-Vendor: Google Inc.
+Implementation-Vendor: Google Inc.
+
+Name: com/sun/activation/registries/MailcapTokenizer.class
+SHA1-Digest: zSjxxhDskZteW4bJMALwI/gtMdU=
+
+Name: javax/activation/MailcapCommandMap.class
+SHA1-Digest: eYZxYHjNOLV8L2zhfHapZWuFuuo=
+
+Name: javax/activation/DataHandler$1.class
+SHA1-Digest: YgB/hf89aSawmFGr0mlwtjccfeI=
+
+Name: javax/activation/UnsupportedDataTypeException.class
+SHA1-Digest: G1LVjur46DQFrps5HysTEqRM/NA=
+
+Name: javax/activation/URLDataSource.class
+SHA1-Digest: /aYv/WOFrGRrW3CjsleMIIVgedY=
+
+Name: com/sun/activation/registries/LineTokenizer.class
+SHA1-Digest: 5S1ZtvDD0IoSHNKT8gZed6wXdVw=
+
+Name: javax/activation/SecuritySupport12$5.class
+SHA1-Digest: 9mZfG3X19Jtaf5ycmmfSMeknnkk=
+
+Name: javax/activation/SecuritySupport12.class
+SHA1-Digest: f51IilsGhzv/KqVP3eEGPT8KLLA=
+
+Name: javax/activation/MimeTypeParameterList.class
+SHA1-Digest: bCozM0t+J3YcJVez99Mw8jo4ES0=
+
+Name: about.html
+SHA1-Digest: sAXgWZYB7tT9O9w6pl6VraWFVhk=
+
+Name: javax/activation/DataSource.class
+SHA1-Digest: esP7C47kvDVsS/yoBAst31EiDhM=
+
+Name: javax/activation/SecuritySupport12$4.class
+SHA1-Digest: DLnWjma9u5+oqsMUEs6p3WN+ReQ=
+
+Name: javax/activation/DataHandlerDataSource.class
+SHA1-Digest: RdeKh/ecCa0+yJw3SYDaEfwXCo8=
+
+Name: javax/activation/CommandMap.class
+SHA1-Digest: shlnOhsM3rvKxwBNt5bBy6Z550c=
+
+Name: javax/activation/MimeTypeParseException.class
+SHA1-Digest: uxV3qLHRu5JTOFrHnJXm13AO+0M=
+
+Name: javax/activation/DataHandler.class
+SHA1-Digest: 9ueMkf2LOQO706JazRAeOZ+L2Eo=
+
+Name: javax/activation/SecuritySupport12$2.class
+SHA1-Digest: 7gljiWPdXVdl4MFwa7Y0QYy9sxM=
+
+Name: javax/activation/MimeType.class
+SHA1-Digest: JdIXzJFjK4hSwodWVaxE2CpK4Lk=
+
+Name: com/google/gdata/client/spreadsheet/
+Specification-Title: Google Spreadsheet Data API
+Implementation-Title: Spreadsheet GData client extensions for Java
+Implementation-Version: 3.1.0
+Specification-Version: 3.0
+Specification-Vendor: Google Inc.
+Implementation-Vendor: Google Inc.
+
+Name: javax/activation/FileDataSource.class
+SHA1-Digest: NinT1KJWqpl6RFJGz0QKyWTXxrc=
+
+Name: com/sun/activation/registries/MailcapParseException.class
+SHA1-Digest: je7BwM327P5pb4asLCB74OOm6h0=
+
+Name: javax/activation/ActivationDataFlavor.class
+SHA1-Digest: 2GgoZECWpZ79tTYE8AZYgzwMSTY=
+
+Name: javax/activation/MimetypesFileTypeMap.class
+SHA1-Digest: SBVy1zEsibhu302G2b8lgbNfg2k=
+
+Name: com/sun/activation/viewers/ImageViewer.class
+SHA1-Digest: gEg0GCvDjyJ0wogJ+Yqs5pkgMe8=
+
+Name: javax/activation/SecuritySupport.class
+SHA1-Digest: AyfISvmRrTO6f4dj59Snyelc6Ck=
+
+Name: javax/activation/DataSourceDataContentHandler.class
+SHA1-Digest: YioWWrfLNtVjS7sPDORm1VCljO8=
+
+Name: com/sun/activation/registries/MimeTypeFile.class
+SHA1-Digest: o3xR9NwzCphDNomc9i79cx/4rUo=
+
+Name: javax/activation/SecuritySupport12$1.class
+SHA1-Digest: LM3BWLOz1fNRnw2w8LxwA/Kijr4=
+
