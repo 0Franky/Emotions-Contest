@@ -1,5 +1,6 @@
 package layout.PopupWindow;
 
+import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.EventQueue;
 import java.awt.Font;
@@ -41,6 +42,7 @@ import classes.JCustomController.BackgroundPane;
 import classes.JCustomController.TransparentButton;
 import classes.database.SQLiteConnection;
 import layout.BubbleChart.BubbleChartWindow;
+import layout.Notification.Notification;
 
 public class PopupWindow implements WindowListener {
 
@@ -162,15 +164,14 @@ public class PopupWindow implements WindowListener {
 		this_stage
 				.setIconImage(Toolkit.getDefaultToolkit().getImage(PopupWindow.class.getResource("/Assets/Icon.png")));
 
-		final JPanel panel = new JPanel();
-		// final BackgroundPane panel = new BackgroundPane();
+		// final JPanel panel = new JPanel();
+		final BackgroundPane panel = new BackgroundPane();
 		panel.setBounds(-25, -25, this_stage.getWidth(), this_stage.getHeight());
-		/*
-		 * panel.setBackground(ImageIO.read(Notification.class.getResource(
-		 * "/Assets/Icon.png")), 0.13f, (int) (this_stage.getWidth() * 1.3), (int)
-		 * (this_stage.getHeight() * 1.3)); this_stage.getContentPane().add(panel,
-		 * BorderLayout.CENTER);
-		 */
+
+		panel.setBackground(ImageIO.read(Notification.class.getResource("/Assets/Icon.png")), 0.13f,
+				(int) (this_stage.getWidth() * 1.3), (int) (this_stage.getHeight() * 1.3));
+		this_stage.getContentPane().add(panel, BorderLayout.CENTER);
+
 		panel.setLayout(null);
 
 		final JLabel lblWhitchActivity = new JLabel(
