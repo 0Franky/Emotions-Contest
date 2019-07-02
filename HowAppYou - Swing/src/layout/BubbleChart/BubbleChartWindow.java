@@ -28,6 +28,7 @@ import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
 import org.jfree.chart.axis.NumberAxis;
 import org.jfree.chart.labels.BubbleXYItemLabelGenerator;
+import org.jfree.chart.plot.ValueMarker;
 import org.jfree.chart.plot.XYPlot;
 import org.jfree.chart.renderer.xy.XYBubbleRenderer;
 import org.jfree.data.xy.DefaultXYZDataset;
@@ -122,6 +123,14 @@ public class BubbleChartWindow implements WindowListener {
 		// Set range for Y-Axis
 		final NumberAxis range = (NumberAxis) plot.getRangeAxis();
 		range.setRange(0, 6);
+
+		final ValueMarker verticalLine = new ValueMarker((domain.getUpperBound() + domain.getLowerBound()) / 2);
+		verticalLine.setPaint(Color.black);
+		plot.addDomainMarker(verticalLine);
+
+		final ValueMarker horizontalLine = new ValueMarker((range.getUpperBound() + range.getLowerBound()) / 2);
+		horizontalLine.setPaint(Color.black);
+		plot.addRangeMarker(horizontalLine);
 
 		// Format label
 		final XYBubbleRenderer renderer = (XYBubbleRenderer) plot.getRenderer();
