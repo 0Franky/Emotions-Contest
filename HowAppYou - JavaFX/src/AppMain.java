@@ -1,5 +1,6 @@
 import java.io.IOException;
 
+import classes.database.SQLiteConnection;
 import javafx.application.Application;
 import javafx.stage.Stage;
 import layout.Configuration.ConfigurationWindow;
@@ -30,7 +31,7 @@ public class AppMain extends Application {
 		// TODO Auto-generated method stub
 
 		try {
-			if (args.length == 1 && args[0].equals("-conf")) {
+			if ((args.length == 1 && args[0].equals("-conf")) || (SQLiteConnection.getSpid().equals(""))) {
 				ConfigurationWindow.getIstance();
 			} else {
 				AppFX.getIstance();
