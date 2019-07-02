@@ -10,6 +10,8 @@ import java.awt.SystemColor;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
 import java.io.IOException;
@@ -87,6 +89,43 @@ public class PopupWindow implements WindowListener {
 	private final JRadioButton rdbtn_V3 = new JRadioButton("3");
 	private final JRadioButton rdbtn_V4 = new JRadioButton("4");
 	private final JRadioButton rdbtn_V5 = new JRadioButton("5");
+
+	// Images of Dominance //
+	private final JLabel D1 = new JLabel(
+			new ImageIcon(ImageIO.read(this.getClass().getResource("/Assets/Dominance/D1.png"))));
+	private final JLabel D2 = new JLabel(
+			new ImageIcon(ImageIO.read(this.getClass().getResource("/Assets/Dominance/D2.png"))));
+	private final JLabel D3 = new JLabel(
+			new ImageIcon(ImageIO.read(this.getClass().getResource("/Assets/Dominance/D3.png"))));
+	private final JLabel D4 = new JLabel(
+			new ImageIcon(ImageIO.read(this.getClass().getResource("/Assets/Dominance/D4.png"))));
+	private final JLabel D5 = new JLabel(
+			new ImageIcon(ImageIO.read(this.getClass().getResource("/Assets/Dominance/D5.png"))));
+
+	// Images of Excitement //
+	private final JLabel A1 = new JLabel(
+			new ImageIcon(ImageIO.read(this.getClass().getResource("/Assets/Excitement/A1.png"))));
+	private final JLabel A5 = new JLabel(
+			new ImageIcon(ImageIO.read(this.getClass().getResource("/Assets/Excitement/A2.png"))));
+	private final JLabel A4 = new JLabel(
+			new ImageIcon(ImageIO.read(this.getClass().getResource("/Assets/Excitement/A3.png"))));
+	private final JLabel A3 = new JLabel(
+			new ImageIcon(ImageIO.read(this.getClass().getResource("/Assets/Excitement/A4.png"))));
+	private final JLabel A2 = new JLabel(
+			new ImageIcon(ImageIO.read(this.getClass().getResource("/Assets/Excitement/A5.png"))));
+
+	// Images of Pleasentness //
+
+	private final JLabel V1 = new JLabel(
+			new ImageIcon(ImageIO.read(this.getClass().getResource("/Assets/Pleasantness/V1.png"))));
+	private final JLabel V2 = new JLabel(
+			new ImageIcon(ImageIO.read(this.getClass().getResource("/Assets/Pleasantness/V2.png"))));
+	private final JLabel V3 = new JLabel(
+			new ImageIcon(ImageIO.read(this.getClass().getResource("/Assets/Pleasantness/V3.png"))));
+	private final JLabel V4 = new JLabel(
+			new ImageIcon(ImageIO.read(this.getClass().getResource("/Assets/Pleasantness/V4.png"))));
+	private final JLabel V5 = new JLabel(
+			new ImageIcon(ImageIO.read(this.getClass().getResource("/Assets/Pleasantness/V5.png"))));
 
 	/**
 	 * Notification instance is useful to make Notification class "Singleton"
@@ -274,28 +313,14 @@ public class PopupWindow implements WindowListener {
 		Full_Dominance.add(DominancePanelImageContainer);
 		DominancePanelImageContainer.setLayout(new GridLayout(1, 5, 0, 0));
 
-		// IMAGE DOMINACE //
-		final JLabel D1 = new JLabel(
-				new ImageIcon(ImageIO.read(this.getClass().getResource("/Assets/Dominance/D1.png"))));
+		// IMAGES DOMINACE //
 		DominancePanelImageContainer.add(D1);
-
-		final JLabel D2 = new JLabel(
-				new ImageIcon(ImageIO.read(this.getClass().getResource("/Assets/Dominance/D2.png"))));
 		DominancePanelImageContainer.add(D2);
-
-		final JLabel D3 = new JLabel(
-				new ImageIcon(ImageIO.read(this.getClass().getResource("/Assets/Dominance/D3.png"))));
 		DominancePanelImageContainer.add(D3);
-
-		final JLabel D4 = new JLabel(
-				new ImageIcon(ImageIO.read(this.getClass().getResource("/Assets/Dominance/D4.png"))));
 		DominancePanelImageContainer.add(D4);
-
-		final JLabel D5 = new JLabel(
-				new ImageIcon(ImageIO.read(this.getClass().getResource("/Assets/Dominance/D5.png"))));
 		DominancePanelImageContainer.add(D5);
 
-		// LABEL IMAGES DOMINANCE
+		// LABELS IMAGES DOMINANCE
 		final JLabel Submition = new JLabel("Submition");
 		Submition.setFont(new Font("System", Font.BOLD, 13));
 		Submition.setHorizontalAlignment(SwingConstants.CENTER);
@@ -369,26 +394,12 @@ public class PopupWindow implements WindowListener {
 		ExcitedImagePanel.setBounds(40, 8, 820, 145);
 		Full_Excited.add(ExcitedImagePanel);
 
-		final JLabel A1 = new JLabel(
-				new ImageIcon(ImageIO.read(this.getClass().getResource("/Assets/Excitement/A1.png"))));
-
-		final JLabel A5 = new JLabel(
-				new ImageIcon(ImageIO.read(this.getClass().getResource("/Assets/Excitement/A5.png"))));
-
-		final JLabel A4 = new JLabel(
-				new ImageIcon(ImageIO.read(this.getClass().getResource("/Assets/Excitement/A4.png"))));
-
-		final JLabel A3 = new JLabel(
-				new ImageIcon(ImageIO.read(this.getClass().getResource("/Assets/Excitement/A3.png"))));
-
-		final JLabel A2 = new JLabel(
-				new ImageIcon(ImageIO.read(this.getClass().getResource("/Assets/Excitement/A2.png"))));
 		ExcitedImagePanel.setLayout(new GridLayout(1, 5, 0, 0));
 		ExcitedImagePanel.add(A1);
-		ExcitedImagePanel.add(A5);
-		ExcitedImagePanel.add(A4);
-		ExcitedImagePanel.add(A3);
 		ExcitedImagePanel.add(A2);
+		ExcitedImagePanel.add(A3);
+		ExcitedImagePanel.add(A4);
+		ExcitedImagePanel.add(A5);
 
 		final JLabel lblVeryCalm = new JLabel("Very calm");
 		lblVeryCalm.setBounds(50, 180, 69, 16);
@@ -460,24 +471,10 @@ public class PopupWindow implements WindowListener {
 		Full_Pleasant.add(PleasantImagePanel);
 		PleasantImagePanel.setLayout(new GridLayout(1, 5, 0, 0));
 
-		final JLabel V1 = new JLabel(
-				new ImageIcon(ImageIO.read(this.getClass().getResource("/Assets/Pleasantness/V1.png"))));
 		PleasantImagePanel.add(V1);
-
-		final JLabel V2 = new JLabel(
-				new ImageIcon(ImageIO.read(this.getClass().getResource("/Assets/Pleasantness/V2.png"))));
 		PleasantImagePanel.add(V2);
-
-		final JLabel V3 = new JLabel(
-				new ImageIcon(ImageIO.read(this.getClass().getResource("/Assets/Pleasantness/V3.png"))));
 		PleasantImagePanel.add(V3);
-
-		final JLabel V4 = new JLabel(
-				new ImageIcon(ImageIO.read(this.getClass().getResource("/Assets/Pleasantness/V4.png"))));
 		PleasantImagePanel.add(V4);
-
-		final JLabel V5 = new JLabel(
-				new ImageIcon(ImageIO.read(this.getClass().getResource("/Assets/Pleasantness/V5.png"))));
 		PleasantImagePanel.add(V5);
 
 		final JLabel lblVeryUnpleasant = new JLabel("Very unpleasant");
@@ -497,6 +494,8 @@ public class PopupWindow implements WindowListener {
 		label_15.setFont(new Font("System", Font.BOLD, 13));
 		label_15.setBounds(400, 180, 69, 16);
 		Full_Pleasant.add(label_15);
+
+		addAllImageAction();
 
 	}
 
@@ -737,6 +736,45 @@ public class PopupWindow implements WindowListener {
 		}
 
 		return status;
+	}
+
+	/**
+	 * Add actions to All images
+	 */
+	public void addAllImageAction() {
+		// ACTION FOR DOMINANCE IMAGES
+		addImageButtonAction(D1, rdbtn_D1);
+		addImageButtonAction(D2, rdbtn_D2);
+		addImageButtonAction(D3, rdbtn_D3);
+		addImageButtonAction(D4, rdbtn_D4);
+		addImageButtonAction(D5, rdbtn_D5);
+		// ACTION FOR EXCITEMENT IMAGES
+		addImageButtonAction(A1, rdbtn_A1);
+		addImageButtonAction(A2, rdbtn_A2);
+		addImageButtonAction(A3, rdbtn_A3);
+		addImageButtonAction(A4, rdbtn_A4);
+		addImageButtonAction(A5, rdbtn_A5);
+		// ACTION FOR PLEASENTNESS IMAGES
+		addImageButtonAction(V1, rdbtn_V1);
+		addImageButtonAction(V2, rdbtn_V2);
+		addImageButtonAction(V3, rdbtn_V3);
+		addImageButtonAction(V4, rdbtn_V4);
+		addImageButtonAction(V5, rdbtn_V5);
+	}
+
+	/**
+	 * Click on image to select radio button
+	 *
+	 * @param JL
+	 * @param JRB
+	 */
+	public static void addImageButtonAction(final JLabel JL, final JRadioButton JRB) {
+		JL.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(final MouseEvent e) {
+				JRB.setSelected(true);
+			}
+		});
 	}
 
 	@Override
