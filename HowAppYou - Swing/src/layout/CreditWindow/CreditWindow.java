@@ -84,10 +84,7 @@ public class CreditWindow implements WindowListener {
 		lblHowAppYou.setHorizontalAlignment(SwingConstants.CENTER);
 		lblHowAppYou.setFont(new Font("Harrington", Font.BOLD, 35));
 		lblHowAppYou.setBounds(180, 34, 227, 52);
-		final JLabel Franky = new JLabel("https://github.com/0Franky");
-		final JLabel EmotionsContest = new JLabel("https://github.com/0Franky/Emotions-Contest");
-		Franky.setFont(new Font("Harrington", Font.BOLD, 35));
-		EmotionsContest.setFont(new Font("Harrington", Font.BOLD, 35));
+		panel.add(lblHowAppYou);
 
 		final JScrollPane scrollPane = new JScrollPane();
 		scrollPane.setBounds(120, 285, 340, 207);
@@ -105,15 +102,19 @@ public class CreditWindow implements WindowListener {
 				+ "this software, if not go to the official GitHub page.");
 		scrollPane.setViewportView(TextArea);
 
-		panel.add(lblHowAppYou);
-		panel.add(Franky);
+		final JLabel Ester = new JLabel("");
+		Ester.setHorizontalAlignment(SwingConstants.CENTER);
+		Ester.setIcon(new ImageIcon(CreditWindow.class.getResource("/Assets/Icon_mini.png")));
+		Ester.setForeground(new Color(0, 0, 178));
+		Ester.setFont(new Font("Tahoma", Font.PLAIN, 17));
+		Ester.setBounds(561, 527, 16, 16);
+		panel.add(Ester);
 
 		final JLabel Authors = new JLabel("Authors:");
 		Authors.setHorizontalAlignment(SwingConstants.CENTER);
 		Authors.setFont(new Font("Yu Gothic", Font.BOLD, 23));
 		Authors.setBounds(28, 142, 95, 28);
 		panel.add(Authors);
-		panel.add(EmotionsContest);
 
 		final JLabel GH_Chrism1c = new JLabel("https://github.com/Chrism1c");
 		GH_Chrism1c.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
@@ -167,6 +168,7 @@ public class CreditWindow implements WindowListener {
 		addActionLinks(GH_Chrism1c, "https://github.com/Chrism1c");
 		addActionLinks(GH_0Franky, "https://github.com/0Franky");
 		addActionLinks(GH_Emotions, "https://github.com/0Franky/Emotions-Contest");
+		addActionLinks(Ester, "https://www.youtube.com/watch?reload=9&v=-i1esxAZqUc");
 
 		this_stage.setVisible(true);
 
