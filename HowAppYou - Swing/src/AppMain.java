@@ -1,16 +1,12 @@
+import classes.database.SQLiteConnection;
 import layout.Configuration.ConfigurationWindow;
 
 public class AppMain {
 
 	public static void main(final String[] args) {
 
-		/*
-		 * try { BubbleChartWindow.getIstance().show(); } catch (IOException e) { //
-		 * TODO Auto-generated catch block e.printStackTrace(); }
-		 */
-
 		try {
-			if (args.length == 1 && args[0].equals("-conf")) {
+			if ((args.length == 1 && args[0].equals("-conf")) || (SQLiteConnection.getSpid().equals(""))) {
 				ConfigurationWindow.getIstance();
 			} else {
 				SystemTray.getIstance();

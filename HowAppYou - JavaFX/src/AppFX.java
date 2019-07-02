@@ -86,7 +86,7 @@ public class AppFX {
 		// sets up the tray icon (using awt code run on the swing thread).
 		javax.swing.SwingUtilities.invokeLater(this::addAppToTray);
 
-		if (SQLiteConnection.getSpid() == "") {
+		if (SQLiteConnection.getSpid().equals("")) {
 			new Alert(Alert.AlertType.ERROR, "No spid is setted, application exiting.").showAndWait();
 			exitApp();
 		}
