@@ -8,6 +8,7 @@ import java.util.List;
 import javax.imageio.ImageIO;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
 import Title.Title;
@@ -17,31 +18,29 @@ import classes.csv.CSV_Manager;
 import classes.csv.CSV_WriterBuilder;
 import classes.csv.ICSV_Writer;
 import classes.database.SQLiteConnection;
-import javafx.application.Platform;
-import javafx.scene.control.Alert;
 import layout.BubbleChart.BubbleChartWindow;
 import layout.CreditWindow.CreditWindow;
 import layout.Notification.Notification;
 import layout.PopupWindow.PopupWindow;
 
-public class SystemTray {
+public class HowAppYouTray {
 	/**
 	 * ConfigurationWindow instance is useful to make ConfigurationWindow class
 	 * "Singleton"
 	 */
-	private static SystemTray instance = null;
+	private static HowAppYouTray instance = null;
 
 	/**
-	 * Return the unique possible instance of the AppFX
+	 * Return the unique possible instance of the App
 	 *
 	 * @return The ConfigurationWindow.
 	 * @throws Exception
 	 */
-	public static SystemTray getIstance() throws Exception {
+	public static HowAppYouTray getIstance() throws Exception {
 		if (instance == null) {
-			synchronized (SystemTray.class) {
+			synchronized (HowAppYouTray.class) {
 				if (instance == null) {
-					instance = new SystemTray();
+					instance = new HowAppYouTray();
 				}
 			}
 		}
@@ -66,12 +65,12 @@ public class SystemTray {
 	/**
 	 * Sets up the tray icon, database and the main stage (Notification)
 	 */
-	public SystemTray() throws Exception {
+	public HowAppYouTray() throws Exception {
 
 		/*
 		 * stores a reference to the stage. this.stage = stage;
 		 *
-		 * instructs the javafx system not to exit implicitly when the last application
+		 * instructs the java system not to exit implicitly when the last application
 		 * window is shut.
 		 */
 
@@ -79,15 +78,14 @@ public class SystemTray {
 
 		this_stage = primaryStage;
 
-		Platform.setImplicitExit(false);
-
 		SQLiteConnection.getConnectionDB();
 
 		// sets up the tray icon (using awt code run on the swing thread).
 		javax.swing.SwingUtilities.invokeLater(this::addAppToTray);
 
 		if (SQLiteConnection.getSpid().equals("")) {
-			new Alert(Alert.AlertType.ERROR, "No spid is setted, application exiting.").showAndWait();
+			JOptionPane.showMessageDialog(this_stage, "No spid is setted, application exiting.", "Information Missed!",
+					JOptionPane.ERROR);
 			exitApp();
 		}
 
@@ -105,8 +103,8 @@ public class SystemTray {
 			// app requires system tray support, just exit if there is no support.
 			if (!java.awt.SystemTray.isSupported()) {
 				System.out.println("No system tray support, application exiting.");
-				new Alert(Alert.AlertType.ERROR, "No system tray support, application exiting.").showAndWait();
-				Platform.exit();
+				JOptionPane.showMessageDialog(this_stage, "No system tray support, application exiting.", "Error!",
+						JOptionPane.ERROR);
 				System.exit(0);
 			}
 
@@ -177,7 +175,7 @@ public class SystemTray {
 			btn_Credit.setFont(boldFont);
 
 			// to really exit the application, the user must go to the system tray icon
-			// and select the exit option, this will shutdown JavaFX and remove the
+			// and select the exit option, this will shutdown Java and remove the
 			// tray icon (removing the tray icon will also shut down AWT).
 			final java.awt.MenuItem exitItem = new java.awt.MenuItem("Quit");
 			exitItem.addActionListener(event -> {
@@ -215,7 +213,6 @@ public class SystemTray {
 	 */
 	private void exitApp() {
 		SQLiteConnection.closeConnectionDB(SQLiteConnection.getConnectionDB(), null);
-		Platform.exit();
 		System.exit(0);
 	}
 
@@ -290,5 +287,4 @@ public class SystemTray {
 		}
 		System.out.println("CSV END");
 	}
-
 }
