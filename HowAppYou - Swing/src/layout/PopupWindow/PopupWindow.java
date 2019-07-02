@@ -149,9 +149,7 @@ public class PopupWindow implements WindowListener {
 
 		this_stage.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 
-		// ATTIVA setUndecorated se hai fatto il DRAG AND DROP //
-
-		// this_stage.setUndecorated(true);
+		this_stage.setUndecorated(true);
 
 		this_stage.setAlwaysOnTop(true);
 		this_stage.setResizable(false);
@@ -505,7 +503,20 @@ public class PopupWindow implements WindowListener {
 
 		addAllImageAction();
 
+		// Drag and Drop Wrapper Panel //
+
+		final BackgroundPane panelx = new BackgroundPane(panel);
+		panel.addMouseListener(panelx);
+		panel.addMouseMotionListener(panelx);
+
+		// this_stage.pack();
+
+		this_stage.setVisible(true);
+		System.out.println("Amore");
+
 	}
+
+//////////////////////////////////////////////////////////		END GUI		/////////////////////////////////////////////////////////////////////////////
 
 	/**
 	 * Return the unique possible instance of the Notification
@@ -535,7 +546,13 @@ public class PopupWindow implements WindowListener {
 		final Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 		final int height = screenSize.height;
 		final int width = screenSize.width;
-		this_stage.setSize(1022, 936);
+
+		// Con la barra Windows //
+		// this_stage.setSize(1022, 936);
+
+		// Senza Barra Windows //
+		this_stage.setSize(1022, 900);
+
 		// center the jframe on screen
 		this_stage.setLocationRelativeTo(null);
 	}
