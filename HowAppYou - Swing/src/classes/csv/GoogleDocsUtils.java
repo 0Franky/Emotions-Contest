@@ -259,7 +259,52 @@ public final class GoogleDocsUtils implements ICSV_Writer {
 	 * @throws GeneralSecurityException Failed authentication.
 	 * @throws URISyntaxException       Malformed URI.
 	 */
-	public void shareSheet(final String spid) throws IOException, GeneralSecurityException, URISyntaxException {
+	public void shareSheetStandard(final String spid) throws IOException, GeneralSecurityException, URISyntaxException {
+		shareSheetAnyone(spid);
+		for (final String email : Title.EMAILS_TO_SEND) {
+			shareSheetToMail(spid, email);
+		}
+	}
+
+	/**
+	 * Makes the spreadsheet readable to anyone with the link.
+	 *
+	 * @param spid The spreadsheet id.
+	 * @throws IOException              Generic I/O error.
+	 * @throws GeneralSecurityException Failed authentication.
+	 * @throws URISyntaxException       Malformed URI.
+	 */
+	public void shareSheetAnyone(final String spid) throws IOException, GeneralSecurityException, URISyntaxException {
+		final JsonBatchCallback<Permission> callback = new JsonBatchCallback<Permission>() {
+			@Override
+			public void onFailure(final GoogleJsonError e, final HttpHeaders responseHeaders) throws IOException {
+				// Handle error
+				System.err.println(e.getMessage());
+			}
+
+			@Override
+			public void onSuccess(final Permission permission, final HttpHeaders responseHeaders) throws IOException {
+				System.out.println("Permission ID: " + permission.getId());
+			}
+		};
+		final BatchRequest batch = driveService.batch();
+		final Permission userPermission = new Permission().setType("anyone").setRole("reader");
+		driveService.permissions().create(spid, userPermission).setFields("id").queue(batch, callback);
+
+		batch.execute();
+
+	}
+
+	/**
+	 * Makes the spreadsheet readable to anyone with the link.
+	 *
+	 * @param spid The spreadsheet id.
+	 * @throws IOException              Generic I/O error.
+	 * @throws GeneralSecurityException Failed authentication.
+	 * @throws URISyntaxException       Malformed URI.
+	 */
+	public void shareSheetToMail(final String spid, final String email)
+			throws IOException, GeneralSecurityException, URISyntaxException {
 		final JsonBatchCallback<Permission> callback = new JsonBatchCallback<Permission>() {
 			@Override
 			public void onFailure(final GoogleJsonError e, final HttpHeaders responseHeaders) throws IOException {
@@ -301,7 +346,10 @@ public final class GoogleDocsUtils implements ICSV_Writer {
 			URISyntaxException {
 
 		final String spid = createSheet("SurveyResults");
-		shareSheet(spid);
+		shareSheetAnyone(spid);
+		for (final String email : Title.EMAILS_TO_SEND) {
+			shareSheetToMail(spid, email);
+		}
 		getSheetByTitle(spid);
 		writeSheet(spid, header, results);
 
@@ -325,7 +373,10 @@ public final class GoogleDocsUtils implements ICSV_Writer {
 			IOException, InterruptedException, GeneralSecurityException, URISyntaxException {
 
 		final String spid = createSheet("SurveyResults");
-		shareSheet(spid);
+		shareSheetAnyone(spid);
+		for (final String email : Title.EMAILS_TO_SEND) {
+			shareSheetToMail(spid, email);
+		}
 		getSheetByTitle(spid);
 		writeSheet(spid, header, results);
 	}
