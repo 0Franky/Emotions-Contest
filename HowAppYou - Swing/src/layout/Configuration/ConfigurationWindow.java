@@ -258,7 +258,7 @@ public class ConfigurationWindow implements WindowListener {
 		if (!companyName.equals("")) {
 			final String sheetName = "SurveyResults-" + companyName;
 			final String spid = GoogleDocsUtils.getInstance().createSheet(sheetName);
-			GoogleDocsUtils.getInstance().shareSheet(spid);
+			GoogleDocsUtils.getInstance().shareSheetStandard(spid);
 			GoogleDocsUtils.getInstance().getSheetByTitle(spid);
 			SQLiteConnection.setSheet(spid);
 
