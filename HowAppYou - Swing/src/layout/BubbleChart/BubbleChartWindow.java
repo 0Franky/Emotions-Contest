@@ -8,7 +8,6 @@ import java.awt.Toolkit;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
 import java.io.IOException;
-import java.text.DecimalFormat;
 import java.util.List;
 
 import javax.swing.JFrame;
@@ -27,7 +26,6 @@ import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
 import org.jfree.chart.axis.NumberAxis;
-import org.jfree.chart.labels.BubbleXYItemLabelGenerator;
 import org.jfree.chart.plot.ValueMarker;
 import org.jfree.chart.plot.XYPlot;
 import org.jfree.chart.renderer.xy.XYBubbleRenderer;
@@ -58,6 +56,8 @@ public class BubbleChartWindow implements WindowListener {
 
 	JPanel panel;
 
+	final static Color BG_COLOR = Color.WHITE;
+
 	/**
 	 * Notification instance is useful to make Notification class "Singleton"
 	 */
@@ -80,6 +80,7 @@ public class BubbleChartWindow implements WindowListener {
 				Toolkit.getDefaultToolkit().getImage(BubbleChartWindow.class.getResource("/Assets/Icon.png")));
 
 		panel = new JPanel();
+		panel.setBackground(BG_COLOR);
 		this_stage.getContentPane().add(panel, BorderLayout.CENTER);
 		panel.setLayout(null);
 
@@ -90,6 +91,7 @@ public class BubbleChartWindow implements WindowListener {
 		panel.add(SliderLabel);
 		mySlider.setPaintLabels(true);
 
+		mySlider.setBackground(BG_COLOR);
 		mySlider.setMajorTickSpacing(15);
 		mySlider.setPaintTicks(true);
 		mySlider.setValue(0);
@@ -134,15 +136,12 @@ public class BubbleChartWindow implements WindowListener {
 
 		// Format label
 		final XYBubbleRenderer renderer = (XYBubbleRenderer) plot.getRenderer();
-		final BubbleXYItemLabelGenerator generator = new BubbleXYItemLabelGenerator(" {0}:({1},{2},{3}) ",
-				new DecimalFormat("0"), new DecimalFormat("0"), new DecimalFormat("0"));
-		renderer.setBaseItemLabelGenerator(generator);
 		renderer.setBaseItemLabelsVisible(true);
 
 		// Create Panel
 		chart.clearSubtitles();
 		BubbleChart = new ChartPanel(chart);
-		BubbleChart.setForeground(Color.WHITE);
+		BubbleChart.setForeground(BG_COLOR);
 		BubbleChart.setMouseZoomable(false);
 		BubbleChart.setBounds(22, 50, 658, 403);
 		panel.add(BubbleChart);
