@@ -2,7 +2,6 @@ package layout.PopupWindow;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.Dimension;
 import java.awt.EventQueue;
 import java.awt.Font;
 import java.awt.GridLayout;
@@ -20,7 +19,6 @@ import java.util.Enumeration;
 
 import javax.imageio.ImageIO;
 import javax.swing.AbstractButton;
-import javax.swing.BorderFactory;
 import javax.swing.ButtonGroup;
 import javax.swing.ImageIcon;
 import javax.swing.JComboBox;
@@ -34,7 +32,6 @@ import javax.swing.SwingConstants;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 import javax.swing.WindowConstants;
-import javax.swing.border.Border;
 
 import Title.Title;
 import classes.AppTimer;
@@ -59,7 +56,7 @@ public class PopupWindow implements WindowListener {
 	}
 
 	private final JFrame this_stage = new JFrame();
-	private final TransparentButton done;
+	// private final TransparentButton done;
 	// private final JButton done = new JButton("done");
 	private final JComboBox<String> lblActivity = new JComboBox<>();
 	private final JComboBox<String> lblProductivity = new JComboBox<>();
@@ -138,7 +135,7 @@ public class PopupWindow implements WindowListener {
 	/**
 	 * Variables used to manage the location of the window on screen
 	 */
-	private double X, Y;
+	// private double X, Y;
 
 	/**
 	 * Boolean used set the possibility to close the window
@@ -181,11 +178,14 @@ public class PopupWindow implements WindowListener {
 		lblWhitchActivity.setFont(new Font("System", Font.BOLD, 18));
 		lblWhitchActivity.setBounds(146, 13, 699, 22);
 		panel.add(lblWhitchActivity);
-		final Border border = BorderFactory.createLineBorder(Color.BLACK, 1);
+		// final Border border = BorderFactory.createLineBorder(Color.BLACK, 1);
 
-		done = new TransparentButton("done");
-		done.setFont(new Font("System", Font.BOLD, 17));
-		done.setBounds(441, 860, 104, 25);
+		final TransparentButton done = new TransparentButton("Done");
+		done.setFont(new Font("System", Font.BOLD, 12));
+		final int width_btn_done = 100;
+		final int height_btn_done = 26;
+		done.setBounds(((this_stage.getWidth() / 2) - (width_btn_done / 2)),
+				this_stage.getHeight() - height_btn_done - 10, width_btn_done, height_btn_done);
 		done.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(final ActionEvent e) {
@@ -543,15 +543,15 @@ public class PopupWindow implements WindowListener {
 	public static void centerFrame(final JFrame this_stage) {
 		this_stage.pack();
 		// make the frame half the height and width
-		final Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-		final int height = screenSize.height;
-		final int width = screenSize.width;
+		// final Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+		// final int height = screenSize.height;
+		// final int width = screenSize.width;
 
 		// Con la barra Windows //
 		// this_stage.setSize(1022, 936);
 
 		// Senza Barra Windows //
-		this_stage.setSize(1022, 900);
+		this_stage.setSize(1000, 900);
 
 		// center the jframe on screen
 		this_stage.setLocationRelativeTo(null);

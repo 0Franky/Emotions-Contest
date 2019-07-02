@@ -36,8 +36,8 @@ public class TransparentButton extends JButton {
 		setVerticalTextPosition(SwingConstants.CENTER);
 		setHorizontalAlignment(SwingConstants.CENTER);
 		setHorizontalTextPosition(SwingConstants.CENTER);
-		setBorder(BorderFactory.createEmptyBorder(2, 8, 2, 8));
-		setMargin(new Insets(2, 8, 2, 8));
+		setBorder(BorderFactory.createEmptyBorder(2, 2, 2, 2));
+		setMargin(new Insets(2, 2, 2, 2));
 		setContentAreaFilled(false);
 		setFocusPainted(false);
 		setOpaque(false);
@@ -55,13 +55,13 @@ public class TransparentButton extends JButton {
 			if (c instanceof AbstractButton) {
 				final AbstractButton b = (AbstractButton) c;
 				final Insets i = b.getMargin();
-				final int w = ((AbstractButton) c).getWidth();
-				final int h = ((AbstractButton) c).getHeight();
+				final int w = c.getWidth();
+				final int h = c.getHeight();
 				width = w - i.left - i.right;
 				height = h - i.top - i.bottom;
 				final Graphics2D g2 = (Graphics2D) g.create();
 				g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-				final Shape area = new RoundRectangle2D.Float(x - i.left, y - i.top, w - 1, h - 1, R, R);
+				final Shape area = new RoundRectangle2D.Float(x - i.left, y - i.top, w - i.right, h - i.bottom, R, R);
 				Color color = new Color(0.6f, 0.6f, 0.6f, .3f);
 				final ButtonModel m = b.getModel();
 				if (m.isPressed()) {
