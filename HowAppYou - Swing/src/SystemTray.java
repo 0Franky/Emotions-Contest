@@ -20,6 +20,7 @@ import classes.database.SQLiteConnection;
 import javafx.application.Platform;
 import javafx.scene.control.Alert;
 import layout.BubbleChart.BubbleChartWindow;
+import layout.CreditWindow.CreditWindow;
 import layout.Notification.Notification;
 import layout.PopupWindow.PopupWindow;
 
@@ -119,6 +120,7 @@ public class SystemTray {
 			// show the main app stage.
 			final java.awt.MenuItem btn_Restrospective = new java.awt.MenuItem("Show retrospective");
 			final java.awt.MenuItem btn_ShowPopUp = new java.awt.MenuItem("Show " + Title.APPLICATION_NAME);
+			final java.awt.MenuItem btn_Credit = new java.awt.MenuItem("Credit & info");
 			final java.awt.MenuItem btn_ExportCSV = new java.awt.MenuItem("Export to csv");
 			// java.awt.MenuItem btn_Credits = new java.awt.MenuItem("Info & Credits");
 
@@ -134,11 +136,17 @@ public class SystemTray {
 				}
 			});
 
-			/*
-			 * btn_Credits.addActionListener(event -> Platform.runLater(() -> { try {
-			 * showCreditWindow(); } catch (IOException e) { // TODO Auto-generated catch
-			 * block e.printStackTrace(); } }));
-			 */
+			btn_Credit.addActionListener(new ActionListener() {
+				@Override
+				public void actionPerformed(final ActionEvent e) {
+					try {
+						showCreditWindow();
+					} catch (final IOException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
+				}
+			});
 
 			btn_ExportCSV.addActionListener(new ActionListener() {
 				@Override
@@ -166,7 +174,7 @@ public class SystemTray {
 			btn_Restrospective.setFont(boldFont);
 			btn_ShowPopUp.setFont(boldFont);
 			btn_ExportCSV.setFont(boldFont);
-			// btn_Credits.setFont(boldFont);
+			btn_Credit.setFont(boldFont);
 
 			// to really exit the application, the user must go to the system tray icon
 			// and select the exit option, this will shutdown JavaFX and remove the
@@ -182,6 +190,8 @@ public class SystemTray {
 			popup.add(btn_Restrospective);
 			popup.addSeparator();
 			popup.add(btn_ShowPopUp);
+			popup.addSeparator();
+			popup.add(btn_Credit);
 			popup.addSeparator();
 			popup.add(btn_ExportCSV);
 			popup.addSeparator();
@@ -235,10 +245,11 @@ public class SystemTray {
 	 * the front of all stages.
 	 *
 	 * @throws IOException
-	 *//*
-		 * private void showCreditWindow() throws IOException {
-		 * CreditWindow.getIstance().show(); }
-		 */
+	 */
+	private void showCreditWindow() throws IOException {
+		CreditWindow.getIstance().show();
+	}
+
 	/**
 	 * Shows the BubbleChartWindow application stage and ensures that it is brought
 	 * out the front of all stages.
