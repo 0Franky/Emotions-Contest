@@ -255,49 +255,58 @@ public class ConfigurationWindow implements WindowListener {
 
 	protected void makeSheet() throws IOException, GeneralSecurityException, URISyntaxException {
 		final String companyName = txt_SheetName.getText();
-		final String sheetName = "SurveyResults-" + companyName;
-		final String spid = GoogleDocsUtils.getInstance().createSheet(sheetName);
-		GoogleDocsUtils.getInstance().shareSheet(spid);
-		GoogleDocsUtils.getInstance().getSheetByTitle(spid);
-		SQLiteConnection.setSheet(spid);
+		if (!companyName.equals("")) {
+			final String sheetName = "SurveyResults-" + companyName;
+			final String spid = GoogleDocsUtils.getInstance().createSheet(sheetName);
+			GoogleDocsUtils.getInstance().shareSheet(spid);
+			GoogleDocsUtils.getInstance().getSheetByTitle(spid);
+			SQLiteConnection.setSheet(spid);
 
-		final String mailBody = "<!DOCTYPE html>" + "<html style=\"height: 100%;\">" + "<head>" + "		<style>"
-				+ "			li { " + "				float:left; " + "				width:100%; "
-				+ "				overflow:hidden;  " + "				overflow:hidden;"
-				+ "				margin: 0 auto; " + "				position: absolute; " + "				left: 50%; "
-				+ "			}" + "			" + "			li:hover { " + "				height:auto; "
-				+ "			}" + "		</style>" + "	</head>" + "	<body  style=\"height: 100%;\">"
-				+ "		<div id=\"container\" style=\"width: 100%; height: 100%; position: relative;\">"
-				+ "			<div id=\"navi\" style=\"margin: 0 auto; position: absolute; top: 50%; left: 50%; margin-right: -50%; transform: translate(-50%, -50%)\">"
-				+ "				Sheet name: <b>" + sheetName + "</b><br>" + "				Maker: <b>" + Title.USER_ID
-				+ "</b><br>" + "				Spid: <b>" + spid + "</b><br>"
-				+ "				Sheet URL: <b><a target=\"_blank\" href=\"https://docs.google.com/spreadsheets/d/"
-				+ spid + "\">https://docs.google.com/spreadsheets/d/" + spid + "</a></b><br>" + "			</div>"
-				+ "<ul>"
-				+ "				<li><img src=\"http://icons.iconarchive.com/icons/dtafalonso/yosemite-flat/128/Game-Center-icon.png\"></li>"
-				+ "			</ul>" + "		</div>" + "	</body>" + "</html>";
+			final String mailBody = "<!DOCTYPE html>" + "<html style=\"height: 100%;\">" + "<head>" + "		<style>"
+					+ "			li { " + "				float:left; " + "				width:100%; "
+					+ "				overflow:hidden;  " + "				overflow:hidden;"
+					+ "				margin: 0 auto; " + "				position: absolute; "
+					+ "				left: 50%; " + "			}" + "			" + "			li:hover { "
+					+ "				height:auto; " + "			}" + "		</style>" + "	</head>"
+					+ "	<body  style=\"height: 100%;\">"
+					+ "		<div id=\"container\" style=\"width: 100%; height: 100%; position: relative;\">"
+					+ "			<div id=\"navi\" style=\"margin: 0 auto; position: absolute; top: 50%; left: 50%; margin-right: -50%; transform: translate(-50%, -50%)\">"
+					+ "				Sheet name: <b>" + sheetName + "</b><br>" + "				Maker: <b>"
+					+ Title.USER_ID + "</b><br>" + "				Spid: <b>" + spid + "</b><br>"
+					+ "				Sheet URL: <b><a target=\"_blank\" href=\"https://docs.google.com/spreadsheets/d/"
+					+ spid + "\">https://docs.google.com/spreadsheets/d/" + spid + "</a></b><br>" + "			</div>"
+					+ "<ul>"
+					+ "				<li><img src=\"http://icons.iconarchive.com/icons/dtafalonso/yosemite-flat/128/Game-Center-icon.png\"></li>"
+					+ "			</ul>" + "		</div>" + "	</body>" + "</html>";
 
-		for (final String email : Title.EMAILS_TO_SEND) {
-			MailSender.sendMail(Title.EMAILS_SENDER, Title.PASSWORD_EMAILS_SENDER, email, "SPID " + companyName,
-					mailBody);
+			for (final String email : Title.EMAILS_TO_SEND) {
+				MailSender.sendMail(Title.EMAILS_SENDER, Title.PASSWORD_EMAILS_SENDER, email, "SPID " + companyName,
+						mailBody);
+			}
+
+			final Map<String, String> json_param = new HashMap<>();
+
+			json_param.put("companyName", companyName);
+			json_param.put("spid", spid);
+
+			RW_JSON.writeJson(Title.APPLICATION_NAME + ".conf", json_param);
+
+			InfoAlert("Company spid: " + spid + "\nCompany sheet: https://docs.google.com/spreadsheets/d/" + spid
+					+ "\n\nEnd.");
+		} else {
+			WarningAlert("Name sheet not filled!");
 		}
-
-		final Map<String, String> json_param = new HashMap<>();
-
-		json_param.put("companyName", companyName);
-		json_param.put("spid", spid);
-
-		RW_JSON.writeJson(Title.APPLICATION_NAME + ".conf", json_param);
-
-		InfoAlert("Company spid: " + spid + "\nCompany sheet: https://docs.google.com/spreadsheets/d/" + spid
-				+ "\n\nEnd.");
 	}
 
 	protected void setSheet() {
 		final String spid = txt_Spid.getText();
-		SQLiteConnection.setSheet(spid);
+		if (!spid.equals("")) {
+			SQLiteConnection.setSheet(spid);
 
-		InfoAlert("Company spid: " + spid + "\n\nEnd.");
+			InfoAlert("Company spid: " + spid + "\n\nEnd.");
+		} else {
+			WarningAlert("Spid not filled!");
+		}
 	}
 
 	/**
@@ -308,6 +317,16 @@ public class ConfigurationWindow implements WindowListener {
 	protected void InfoAlert(final String text) {
 		JOptionPane.showConfirmDialog(this_stage, text, "Information", JOptionPane.OK_CANCEL_OPTION,
 				JOptionPane.INFORMATION_MESSAGE);
+	}
+
+	/**
+	 * Define Allerts of not completed field on PopupWindow
+	 *
+	 * @return Tuple
+	 */
+	protected void WarningAlert(final String text) {
+		JOptionPane.showConfirmDialog(this_stage, text, "Warning!", JOptionPane.OK_CANCEL_OPTION,
+				JOptionPane.WARNING_MESSAGE);
 	}
 
 	/**
