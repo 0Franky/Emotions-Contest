@@ -10,6 +10,7 @@ import java.awt.event.WindowListener;
 import java.io.IOException;
 import java.util.List;
 
+import javax.imageio.ImageIO;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -34,7 +35,9 @@ import org.jfree.data.xy.DefaultXYZDataset;
 import org.jfree.data.xy.XYZDataset;
 
 import classes.DataChart;
+import classes.JCustomController.BackgroundPane;
 import classes.database.SQLiteConnection;
+import layout.Notification.Notification;
 
 public class BubbleChartWindow implements WindowListener {
 
@@ -80,18 +83,26 @@ public class BubbleChartWindow implements WindowListener {
 		this_stage.setIconImage(
 				Toolkit.getDefaultToolkit().getImage(BubbleChartWindow.class.getResource("/Assets/Icon.png")));
 
-		panel = new JPanel();
-		panel.setBackground(BG_COLOR);
+		// final JPanel panel = new JPanel();
+		final BackgroundPane panel = new BackgroundPane();
+		panel.setBounds(-25, -25, this_stage.getWidth(), this_stage.getHeight());
+		panel.setBackground(ImageIO.read(Notification.class.getResource("/Assets/Icon.png")), 0.13f,
+				(int) (this_stage.getWidth() * 1.3), (int) (this_stage.getHeight() * 1.3));
 		this_stage.getContentPane().add(panel, BorderLayout.CENTER);
 		panel.setLayout(null);
 
+		/*
+		 * panel = new JPanel(); panel.setBackground(BG_COLOR);
+		 * this_stage.getContentPane().add(panel, BorderLayout.CENTER);
+		 * panel.setLayout(null);
+		 */
 		final JLabel SliderLabel = new JLabel("0");
 		SliderLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		SliderLabel.setFont(new Font("System", Font.BOLD, 15));
 		SliderLabel.setBounds(217, 475, 44, 26);
 		panel.add(SliderLabel);
 		mySlider.setPaintLabels(true);
-
+		mySlider.setOpaque(false);
 		mySlider.setBackground(BG_COLOR);
 		mySlider.setMajorTickSpacing(15);
 		mySlider.setPaintTicks(true);

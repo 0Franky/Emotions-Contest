@@ -15,6 +15,7 @@ import java.security.GeneralSecurityException;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.imageio.ImageIO;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -27,6 +28,7 @@ import javax.swing.UnsupportedLookAndFeelException;
 
 import Title.Title;
 import classes.MailSender;
+import classes.JCustomController.BackgroundPane;
 import classes.csv.GoogleDocsUtils;
 import classes.database.SQLiteConnection;
 import classes.json.RW_JSON;
@@ -65,7 +67,7 @@ public class ConfigurationWindow implements WindowListener {
 	private final JTextField txt_Spid = new JTextField();
 	private final JLabel lblSpidesSuncompany = new JLabel("SPID (es. SUN_COMPANY):");
 
-	private ConfigurationWindow() {
+	private ConfigurationWindow() throws IOException {
 		this_stage.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this_stage.setAlwaysOnTop(true);
 		this_stage.setIconImage(
@@ -76,7 +78,11 @@ public class ConfigurationWindow implements WindowListener {
 		this_stage.setSize(640, 250);
 		this_stage.addWindowListener(this);
 
-		final JPanel panel = new JPanel();
+		// final JPanel panel = new JPanel();
+		final BackgroundPane panel = new BackgroundPane();
+		panel.setBounds(-25, -25, this_stage.getWidth(), this_stage.getHeight());
+		panel.setBackground(ImageIO.read(ConfigurationWindow.class.getResource("/Assets/Icon.png")), 0.13f,
+				(int) (this_stage.getWidth() * 1.3), (int) (this_stage.getHeight() * 1.3));
 		this_stage.getContentPane().add(panel, BorderLayout.CENTER);
 		panel.setLayout(null);
 
