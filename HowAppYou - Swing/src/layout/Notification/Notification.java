@@ -13,11 +13,11 @@ import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
 import java.io.IOException;
 
+import javax.imageio.ImageIO;
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JPanel;
 import javax.swing.JSlider;
 import javax.swing.SwingConstants;
 import javax.swing.UIManager;
@@ -29,6 +29,7 @@ import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
 import classes.AppTimer;
+import classes.JCustomController.BackgroundPane;
 import layout.PopupWindow.PopupWindow;
 
 public class Notification implements WindowListener {
@@ -57,7 +58,8 @@ public class Notification implements WindowListener {
 	 */
 	private boolean canClose = false;
 
-	public Notification() {
+	public Notification() throws IOException {
+
 		// this_stage.setUndecorated(true);
 
 		this_stage.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
@@ -77,7 +79,18 @@ public class Notification implements WindowListener {
 		// BLOCCA LA CHIUSURA DALLA X //
 		// this_stage.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 
-		final JPanel panel = new JPanel();
+		/*
+		 * final BackgroundPane BG_Image = new BackgroundPane(); BG_Image.setBounds(0,
+		 * 0, 429, 512); panel.add(BG_Image);
+		 * BG_Image.setBackground(ImageIO.read(Notification.class.getResource(
+		 * "/Assets/Icon.png")), 0.1f);
+		 */
+
+		final BackgroundPane panel = new BackgroundPane();
+		panel.setBounds(0, 0, 429, 512);
+		panel.setBackground(ImageIO.read(Notification.class.getResource("/Assets/Icon.png")), 0.15f);
+
+		// final JPanel panel = new JPanel();
 		this_stage.getContentPane().add(panel, BorderLayout.CENTER);
 		panel.setLayout(null);
 
@@ -87,6 +100,8 @@ public class Notification implements WindowListener {
 		SliderLabel.setBounds(12, 76, 44, 26);
 		panel.add(SliderLabel);
 		mySlider.setPaintLabels(true);
+
+		mySlider.setOpaque(false);
 
 		mySlider.setMinorTickSpacing(60);
 		mySlider.setMajorTickSpacing(119);
