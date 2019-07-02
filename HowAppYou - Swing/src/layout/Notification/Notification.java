@@ -15,7 +15,6 @@ import java.io.IOException;
 
 import javax.imageio.ImageIO;
 import javax.swing.BorderFactory;
-import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JSlider;
@@ -30,6 +29,7 @@ import javax.swing.event.ChangeListener;
 
 import classes.AppTimer;
 import classes.JCustomController.BackgroundPane;
+import classes.JCustomController.TransparentButton;
 import layout.PopupWindow.PopupWindow;
 
 public class Notification implements WindowListener {
@@ -43,8 +43,8 @@ public class Notification implements WindowListener {
 		}
 	}
 
-	JButton dismiss = new JButton("dismiss");
-	JButton postpone = new JButton("postpone");
+	TransparentButton dismiss = new TransparentButton("dismiss");
+	TransparentButton postpone = new TransparentButton("postpone");
 	JFrame this_stage = new JFrame();
 	JSlider mySlider = new JSlider();
 
