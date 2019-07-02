@@ -1,6 +1,5 @@
 package layout.PopupWindow;
 
-import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.EventQueue;
 import java.awt.Font;
@@ -42,7 +41,6 @@ import classes.JCustomController.BackgroundPane;
 import classes.JCustomController.TransparentButton;
 import classes.database.SQLiteConnection;
 import layout.BubbleChart.BubbleChartWindow;
-import layout.Notification.Notification;
 
 public class PopupWindow implements WindowListener {
 
@@ -164,12 +162,15 @@ public class PopupWindow implements WindowListener {
 		this_stage
 				.setIconImage(Toolkit.getDefaultToolkit().getImage(PopupWindow.class.getResource("/Assets/Icon.png")));
 
-		// final JPanel panel = new JPanel();
-		final BackgroundPane panel = new BackgroundPane();
+		final JPanel panel = new JPanel();
+		// final BackgroundPane panel = new BackgroundPane();
 		panel.setBounds(-25, -25, this_stage.getWidth(), this_stage.getHeight());
-		panel.setBackground(ImageIO.read(Notification.class.getResource("/Assets/Icon.png")), 0.13f,
-				(int) (this_stage.getWidth() * 1.3), (int) (this_stage.getHeight() * 1.3));
-		this_stage.getContentPane().add(panel, BorderLayout.CENTER);
+		/*
+		 * panel.setBackground(ImageIO.read(Notification.class.getResource(
+		 * "/Assets/Icon.png")), 0.13f, (int) (this_stage.getWidth() * 1.3), (int)
+		 * (this_stage.getHeight() * 1.3)); this_stage.getContentPane().add(panel,
+		 * BorderLayout.CENTER);
+		 */
 		panel.setLayout(null);
 
 		final JLabel lblWhitchActivity = new JLabel(
@@ -330,7 +331,7 @@ public class PopupWindow implements WindowListener {
 		final JLabel Submition = new JLabel("Submition");
 		Submition.setFont(new Font("System", Font.BOLD, 13));
 		Submition.setHorizontalAlignment(SwingConstants.CENTER);
-		Submition.setBounds(50, 180, 69, 16);
+		Submition.setBounds(80, 180, 69, 16);
 		Full_Dominance.add(Submition);
 
 		final JLabel Dominant = new JLabel("Dominant");
@@ -342,7 +343,7 @@ public class PopupWindow implements WindowListener {
 		final JLabel D_Neutral = new JLabel("Neutral");
 		D_Neutral.setHorizontalAlignment(SwingConstants.CENTER);
 		D_Neutral.setFont(new Font("System", Font.BOLD, 13));
-		D_Neutral.setBounds(400, 180, 69, 16);
+		D_Neutral.setBounds(410, 180, 69, 16);
 		Full_Dominance.add(D_Neutral);
 
 		/**
@@ -408,7 +409,7 @@ public class PopupWindow implements WindowListener {
 		ExcitedImagePanel.add(A5);
 
 		final JLabel lblVeryCalm = new JLabel("Very calm");
-		lblVeryCalm.setBounds(50, 180, 69, 16);
+		lblVeryCalm.setBounds(80, 180, 69, 16);
 		Full_Excited.add(lblVeryCalm);
 		lblVeryCalm.setFont(new Font("System", Font.BOLD, 13));
 		lblVeryCalm.setHorizontalAlignment(SwingConstants.CENTER);
@@ -422,7 +423,7 @@ public class PopupWindow implements WindowListener {
 		final JLabel lblNeutral = new JLabel("Neutral");
 		lblNeutral.setHorizontalAlignment(SwingConstants.CENTER);
 		lblNeutral.setFont(new Font("System", Font.BOLD, 13));
-		lblNeutral.setBounds(400, 180, 69, 16);
+		lblNeutral.setBounds(410, 180, 69, 16);
 		Full_Excited.add(lblNeutral);
 
 		final JPanel Full_Pleasant = new JPanel();
@@ -498,7 +499,7 @@ public class PopupWindow implements WindowListener {
 		final JLabel label_15 = new JLabel("Neutral");
 		label_15.setHorizontalAlignment(SwingConstants.CENTER);
 		label_15.setFont(new Font("System", Font.BOLD, 13));
-		label_15.setBounds(400, 180, 69, 16);
+		label_15.setBounds(410, 180, 69, 16);
 		Full_Pleasant.add(label_15);
 
 		addAllImageAction();

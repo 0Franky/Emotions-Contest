@@ -104,6 +104,7 @@ public class CreditWindow implements WindowListener {
 
 		final JLabel Ester = new JLabel("");
 		Ester.setHorizontalAlignment(SwingConstants.CENTER);
+		Ester.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		Ester.setIcon(new ImageIcon(CreditWindow.class.getResource("/Assets/Icon_mini.png")));
 		Ester.setForeground(new Color(0, 0, 178));
 		Ester.setFont(new Font("Tahoma", Font.PLAIN, 17));
