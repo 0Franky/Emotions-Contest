@@ -2,9 +2,9 @@
 
 ## Configurazione Sheet
 
-**(0.0) ||Pre configurazione||** Spostare il file batch `HowAppYou [-conf].bat` nella stessa directory del file `HowAppYou.jar`
+**(0.0) ||Pre configurazione||** Spostare il file batch `HowAppYou[Run]` nella stessa directory del file `HowAppYou.jar`
 
-**(1.0) Per configurare l'applicazione:** Eseguire il file batch `HowAppYou [-conf].bat`. Esso avvierà il file `HowAppYou.jar`
+**(1.0) Per configurare l'applicazione:** Eseguire il file `HowAppYou[Run]` con estensione: .bat (Windows) / .sh (Linux) / .command (MacOS) . Esso avvierà il file `HowAppYou.jar`
 
 **(2.1) Per creare online un nuovo sheet:** Inserire nel campo _"Name Sheet"_ un nome identificativo per lo Sheet (ES: Azienda01) in seguito premere il tasto _"done"_<br>
 In seguito verrà visualizzata un finestra di conferma di corretta avvenuta dell'operazione desiderata, quindi chiudere la finestra di Configurazione.
@@ -15,7 +15,7 @@ In seguito verrà visualizzata un finestra di conferma di corretta avvenuta dell
 Per semplificare l'operazione di setting di uno sheet, è possibile inserire nella stessa directory del file `HowAppYou.jar` il file `HowAppYou.conf` generatosi automaticamente dopo la creazione dello sheet **"(2.1)"**.
 <br>Questa operazione permette alla finestra di configurazione di effettuare l'auto-compilazione del campo _"SPID"_  utilizzando quello già conservato nel `HowAppYou.conf`
 
-**(3.0) Per avviare l'applicazione:** Eseguire il file batch `HowAppYou [Run].bat`, quando necessario.
+**(3.0) Per avviare l'applicazione:** Eseguire il file batch `HowAppYou[Run]`, quando necessario.
 
 ## N.B.:
 - Il "making" **(2.1)** o il "setting" **(2.2)** di uno sheet per un'applicazione invierà in modo automatico una e-mail di conferma dell' operazione effettuata 
