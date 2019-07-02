@@ -326,8 +326,7 @@ public class ConfigurationWindow implements WindowListener {
 
 	@Override
 	public void windowClosing(final WindowEvent e) {
-		// TODO Auto-generated method stub
-
+		SQLiteConnection.closeConnectionDB(SQLiteConnection.getConnectionDB(), null);
 	}
 
 	@Override
