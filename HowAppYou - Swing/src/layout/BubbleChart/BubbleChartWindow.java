@@ -26,6 +26,7 @@ import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
 import org.jfree.chart.axis.NumberAxis;
+import org.jfree.chart.axis.NumberTickUnit;
 import org.jfree.chart.plot.ValueMarker;
 import org.jfree.chart.plot.XYPlot;
 import org.jfree.chart.renderer.xy.XYBubbleRenderer;
@@ -121,10 +122,12 @@ public class BubbleChartWindow implements WindowListener {
 		final XYPlot plot = chart.getXYPlot();
 		final NumberAxis domain = (NumberAxis) plot.getDomainAxis();
 		domain.setRange(0, 6);
+		domain.setTickUnit(new NumberTickUnit(1));
 
 		// Set range for Y-Axis
 		final NumberAxis range = (NumberAxis) plot.getRangeAxis();
 		range.setRange(0, 6);
+		range.setTickUnit(new NumberTickUnit(1));
 
 		final ValueMarker verticalLine = new ValueMarker((domain.getUpperBound() + domain.getLowerBound()) / 2);
 		verticalLine.setPaint(Color.black);
@@ -295,7 +298,7 @@ public class BubbleChartWindow implements WindowListener {
 
 		final List<DataChart> data = SQLiteConnection.getDataForChart(day);
 		for (final DataChart bubble : data) {
-			addBubble(bubble.getValence(), bubble.getArousal(), (float) bubble.getWeight() / 8);
+			addBubble(bubble.getValence(), bubble.getArousal(), (float) bubble.getWeight() / 5);
 		}
 
 		updateUI();
