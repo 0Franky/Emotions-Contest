@@ -30,6 +30,7 @@ generando dempre un nuovo Sheet per ogni macchina/azienda/gruppo lavorativo
 	2. Selezionare nella voce 'Esegui:' l'opzione: "Ridotta a icona"<br>
 	3. Fare click su "cambia icona..." > Sfoglia > Recarsi nella directory dove è stato posto il programma e selezionare `Icon.png` > Apri. <br>
 	4. OK > OK
+* Per l'avvio manuale del jar eseguire il seguente comando: ```java -jar HowAppYou.jar```
 	
 **Per rendere più semplice il controllo dll'applicazione:**<br>
 * E' possibile utilizzare il tool : [**Sqlite Browser**](https://sqlitebrowser.org/) per verificare il contenuto corrente del database in SQLite.
