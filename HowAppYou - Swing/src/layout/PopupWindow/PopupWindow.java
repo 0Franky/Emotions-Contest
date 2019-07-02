@@ -106,13 +106,13 @@ public class PopupWindow implements WindowListener {
 	private final JLabel A1 = new JLabel(
 			new ImageIcon(ImageIO.read(this.getClass().getResource("/Assets/Excitement/A1.png"))));
 	private final JLabel A5 = new JLabel(
-			new ImageIcon(ImageIO.read(this.getClass().getResource("/Assets/Excitement/A2.png"))));
-	private final JLabel A4 = new JLabel(
-			new ImageIcon(ImageIO.read(this.getClass().getResource("/Assets/Excitement/A3.png"))));
-	private final JLabel A3 = new JLabel(
-			new ImageIcon(ImageIO.read(this.getClass().getResource("/Assets/Excitement/A4.png"))));
-	private final JLabel A2 = new JLabel(
 			new ImageIcon(ImageIO.read(this.getClass().getResource("/Assets/Excitement/A5.png"))));
+	private final JLabel A4 = new JLabel(
+			new ImageIcon(ImageIO.read(this.getClass().getResource("/Assets/Excitement/A4.png"))));
+	private final JLabel A3 = new JLabel(
+			new ImageIcon(ImageIO.read(this.getClass().getResource("/Assets/Excitement/A3.png"))));
+	private final JLabel A2 = new JLabel(
+			new ImageIcon(ImageIO.read(this.getClass().getResource("/Assets/Excitement/A2.png"))));
 
 	// Images of Pleasentness //
 
