@@ -9,7 +9,7 @@ public class AppMain {
 			if ((args.length == 1 && args[0].equals("-conf")) || (SQLiteConnection.getSpid().equals(""))) {
 				ConfigurationWindow.getIstance();
 			} else {
-				SystemTray.getIstance();
+				HowAppYouTray.getIstance();
 				// Notification.getIstance();
 			}
 		} catch (final Exception e) {
